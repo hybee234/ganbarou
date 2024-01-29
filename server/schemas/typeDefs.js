@@ -66,6 +66,8 @@ scalar Date  #HL
 
 `;
 
+// Why does VS code think there is nothing to commit?
+
 // Custom Scalar to define Date
 // const dateScalar = new GraphQLScalarType({
 //     name: 'Date',
