@@ -25,12 +25,12 @@ module.exports = {
 
         
         if (!token) {
-            console.log (`\x1b[33m ┌────────────────┐ \x1b[0m\x1b[31m┌──────────────┐ \x1b[0m`);
-            console.log (`\x1b[33m │ authMiddleware │ \x1b[0m\x1b[31m│ Token Absent │ \x1b[0m`); 
-            console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[31m└──────────────┘ \x1b[0m`); 
+            // console.log (`\x1b[33m ┌────────────────┐ \x1b[0m\x1b[31m┌──────────────┐ \x1b[0m`);
+            // console.log (`\x1b[33m │ authMiddleware │ \x1b[0m\x1b[31m│ Token Absent │ \x1b[0m`); 
+            // console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[31m└──────────────┘ \x1b[0m`); 
 
-            console.log(i)
-            i++
+            // console.log(i)
+            // i++
             return req
         }
 
@@ -38,17 +38,16 @@ module.exports = {
         try {
             const { data } = jwt.verify(token, secret, { maxAge: expiration });
             req.user = data;            
-            console.log (`\x1b[33m ┌────────────────┐ \x1b[0m\x1b[32m┌────────────────┐ \x1b[0m`);
-            console.log (`\x1b[33m │ authMiddleware │ \x1b[0m\x1b[32m│ Token Verified │ \x1b[0m`); 
-            console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[32m└────────────────┘ \x1b[0m`); 
+            // console.log (`\x1b[33m ┌────────────────┐ \x1b[0m\x1b[32m┌────────────────┐ \x1b[0m`);
+            // console.log (`\x1b[33m │ authMiddleware │ \x1b[0m\x1b[32m│ Token Verified │ \x1b[0m`); 
+            // console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[32m└────────────────┘ \x1b[0m`); 
 
             // console.log ("server auth.js: data", data)
 
         } catch {
-            console.log('Invalid token');     
-            console.log (`\x1b[33m ┌────────────────┐ \x1b[0m\x1b[31m┌───────────────┐ \x1b[0m`);
-            console.log (`\x1b[33m │ authMiddleware │ \x1b[0m\x1b[31m│ Token Invalid │ \x1b[0m`); 
-            console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[31m└───────────────┘ \x1b[0m`); 
+            // console.log (`\x1b[33m ┌────────────────┐ \x1b[0m\x1b[31m┌───────────────┐ \x1b[0m`);
+            // console.log (`\x1b[33m │ authMiddleware │ \x1b[0m\x1b[31m│ Token Invalid │ \x1b[0m`); 
+            // console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[31m└───────────────┘ \x1b[0m`); 
         }
         // return the request object so it can be passed to the resolver as `context`
         return req;

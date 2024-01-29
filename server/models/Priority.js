@@ -3,7 +3,6 @@ const { Schema, Types } = require('mongoose');
 
 const prioritySchema = new Schema(
     {
-
         priorityId: {
             type: Schema.Types.ObjectId,
             default: () => new Types.ObjectId(),
@@ -14,21 +13,22 @@ const prioritySchema = new Schema(
         priority: {
             type: Boolean,
         },
-        statusMacro: {
+        category: {
+            type: Number,
+        },
+        importance: {
             type: String,
+        },
+        urgency: {
+            type: String,
+        },
+        effort: {
+            type: String,
+        },
+        comment: {
+            type: String
+        }
 
-        },
-        statusMicro: {
-            type: String,
-        },
-        createdAt: {     
-            type: Date,
-            default: Date.now,
-            get: function(value) {
-                return value.toLocaleString()
-            }
-        },
-    
     },    
     {
         toJSON: {       
