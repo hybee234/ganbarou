@@ -3,10 +3,6 @@ const { noteSchema } = require('./Note')
 const { prioritySchema } = require('./Priority')
 
 const taskSchema = new Schema({
-    taskId: {
-        type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId(),
-    },
     created_dt: {     
         type: Date,
         default: Date.now,
@@ -14,7 +10,7 @@ const taskSchema = new Schema({
             return value.toLocaleString()
         }
     },
-    description: {
+    title: {
         type: String,
         required: true,
     },    
@@ -45,9 +41,15 @@ const taskSchema = new Schema({
         type: String,
         //default "unassigned"
         required: true,
+    },            
+    statusMacro: {
+        type: String,
+    },
+    statusMicro: {
+        type: String,
     },
     note: [noteSchema],
-    priority: [prioritySchema]
+    priority: [prioritySchema],
 },
 {
     timestamps: true,

@@ -13,11 +13,11 @@ const noteSchema = new Schema(
             required: true,
             maxlength: 280,            
         },
-        username: {
+        author: {
             type: String,
             required: true,
         },
-        createdAt: {     
+        note_dt: {     
             type: Date,
             default: Date.now,
             get: function(value) {

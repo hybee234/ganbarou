@@ -3,17 +3,42 @@ const typeDefs = `
         _id: ID
         username: String
         email: String
-        bookCount: Int
-        savedBooks: [Book]
+        tasks: [Task]
+        taskCount: Int
     }
 
-    type Book {
-        authors: [String]
-        description: String
-        bookId: String
-        image: String        
-        link: String
+    type Task {
+        _id: ID
+        # created_dt: Date
         title: String
+        summary: String
+        complete_flag: Boolean
+        # complete_dt: Date
+        # remind_dt: Date
+        stakeholder: String
+        assigned: String
+        status_macro: String
+        status_micro: String
+        note: [Note]
+        priority: [Priority]        
+    }
+
+    type Note {
+        noteId: ID
+        note: String
+        author: String
+        # note_dt: Date
+    }
+
+    type Priority {
+        priorityId: ID
+        operational: Boolean
+        priority: Boolean
+        category: Int
+        importance: String
+        urgency: String
+        effort: String
+        comment: String
     }
 
     type Auth {
@@ -23,26 +48,16 @@ const typeDefs = `
 
     type Query {
         users: [User]
-        me: User
+    #    me: User
     }
 
-    input saveBookInput {
-        bookId: String!
-        authors: [String]
-        description: String
-        title: String
-        image: String
-        link: String
-    }
-
-
-    type Mutation {
-        createUser(username: String! email: String! password: String!): Auth
-        login(username: String email: String password: String!): Auth
-        saveBook(book:saveBookInput): User
-        deleteBook (bookId: String! ): User
-        deleteBookGraphQl (bookId: String! ): User
-    }
+    # type Mutation {
+    #     createUser(username: String! email: String! password: String!): Auth
+    #     login(username: String email: String password: String!): Auth
+    #     saveBook(book:saveBookInput): User
+    #     deleteBook (bookId: String! ): User
+    #     deleteBookGraphQl (bookId: String! ): User
+    # }
 
 
 `;
