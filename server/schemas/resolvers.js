@@ -46,17 +46,17 @@ const resolvers = {
     },
 
 
-    // Mutation: {
-    //     createUser : async (parent, args) => {
+    Mutation: {
+        addUser : async (parent, args) => {
 
-    //         console.log (`\x1b[33m ┌──────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-    //         console.log (`\x1b[33m │ Create User  │ \x1b[0m\x1b[32m  \x1b[0m`); 
-    //         console.log (`\x1b[33m └──────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m ┌──────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Create User  │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └──────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-    //         const user = await User.create(args)
-    //         const token = signToken(user)            
-    //         return { token, user }
-    //     },
+            const user = await User.create(args)
+            const token = signToken(user)            
+            return { token, user }
+        },
 
     //     login : async (parent, args) => {
             
@@ -124,7 +124,7 @@ const resolvers = {
     //         return deleteBook;
     //     },
 
-    // }
+    }
 };
 
 module.exports = resolvers;
