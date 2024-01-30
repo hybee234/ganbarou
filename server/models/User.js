@@ -29,7 +29,7 @@ const userSchema = new Schema(
     },
     // set this to use virtual below
     {
-        timestamp:true,
+        // timestamp:true,
         toJSON: {
             virtuals: true,
         },

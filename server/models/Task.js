@@ -3,7 +3,8 @@ const { noteSchema } = require('./Note')
 const { prioritySchema } = require('./Priority')
 
 const taskSchema = new Schema({
-    created_dt: {     
+    created_dt: {
+        //Stores date and time     
         type: Date,
         default: Date.now,
         get: function(value) {
@@ -22,12 +23,14 @@ const taskSchema = new Schema({
         type: Boolean,
     },
     complete_dt: {     
+        //Time defaults to 0000hrs
         type: Date,
         get: function(value) {
             return value.toLocaleString()
         }
     },
     remind_dt: {
+        //Time defaults to 0000hrs
         type: Date,
         get: function(value) {
             return value.toLocaleString()
@@ -42,10 +45,10 @@ const taskSchema = new Schema({
         //default "unassigned"
         required: true,
     },            
-    statusMacro: {
+    status_macro: {
         type: String,
     },
-    statusMicro: {
+    status_micro: {
         type: String,
     },
     note: [noteSchema],
