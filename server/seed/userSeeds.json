@@ -1,36 +1,37 @@
 [
-  {
-    "username": "Hy",
-    "email": "hy@email.com",
-    "password": "321321",
-    "security": "admin",
-    "tasks": {
-      "_id": "65b8dba1b768a37702f656b4"
+    {
+        "username": "Hy",
+        "email": "hy@email.com",
+        "password": "321321",
+        "security": "admin",
+        "tasks": [
+            {"_id": "65b8dba1b768a37702f656b4"},
+            {"_id": "65b8ec86f2d392716b0613b3"}
+        ]
+    },
+    {
+        "username": "Team Member A",
+        "email": "A@email.com",
+        "password": "321321",
+        "security": "user"    
+    },
+    {
+        "username": "Team Member B",
+        "email": "B@email.com",
+        "password": "321321",
+        "security": "user"
+    },
+    {
+        "username": "Team Member C",
+        "email": "C@email.com",
+        "password": "321321",
+        "security": "user"
+    },
+    {
+        "username": "Stakholder A",
+        "email": "s@email.com",
+        "password": "321321",
+        "security": "view"
     }
-  },
-  {
-    "username": "Team Member A",
-    "email": "A@email.com",
-    "password": "321321",
-    "security": "user"    
-  },
-  {
-    "username": "Team Member B",
-    "email": "B@email.com",
-    "password": "321321",
-    "security": "user"
-  },
-  {
-    "username": "Team Member C",
-    "email": "C@email.com",
-    "password": "321321",
-    "security": "user"
-  },
-  {
-    "username": "Stakholder A",
-    "email": "s@email.com",
-    "password": "321321",
-    "security": "view"
-  }
-  
+    
 ]
