@@ -4,13 +4,16 @@ const jwt = require('jsonwebtoken');
 const secret = 'mysecretssshhhhhhh';
 const expiration = '2h';
 
-let i = 0 //using this as a counter to reduce console.logging
+let i = 0 //using this as a counter to reduce console.logging of token status
 
 module.exports = {
     //Custom error message when authentication fails (resolvers)
     AuthenticationError: new GraphQLError('Could not authenticate user.', {
         extensions: {
             code: 'UNAUTHENTICATED',
+            http: {
+                status: 403,
+            }
         },
     }),
     //Server validation of token with requests from client
@@ -29,7 +32,7 @@ module.exports = {
         
         if (!token) {
             
-            if (i % 5 ===0) {
+            if (i % 10 === 0) {
                 console.log (`\x1b[33m ┌────────────────┐ \x1b[0m\x1b[31m┌──────────────┐ \x1b[0m`);
                 console.log (`\x1b[33m │ authMiddleware │ \x1b[0m\x1b[31m│ Token Absent │ \x1b[0m`); 
                 console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[31m└──────────────┘ \x1b[0m`); 
@@ -43,16 +46,16 @@ module.exports = {
             const { data } = jwt.verify(token, secret, { maxAge: expiration });
             req.user = data;   
             
-            if (i % 5 ===0) {
-            console.log (`\x1b[33m ┌────────────────┐ \x1b[0m\x1b[32m┌────────────────┐ \x1b[0m`);
-            console.log (`\x1b[33m │ authMiddleware │ \x1b[0m\x1b[32m│ Token Verified │ \x1b[0m`); 
-            console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[32m└────────────────┘ \x1b[0m`); 
+            if (i % 10 === 0) {
+                console.log (`\x1b[33m ┌────────────────┐ \x1b[0m\x1b[32m┌────────────────┐ \x1b[0m`);
+                console.log (`\x1b[33m │ authMiddleware │ \x1b[0m\x1b[32m│ Token Verified │ \x1b[0m`); 
+                console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[32m└────────────────┘ \x1b[0m`); 
             }
             // console.log ("server auth.js: data", data)
 
         } catch {
 
-            if (i % 5 ===0) {
+            if (i % 10 === 0) {
                 console.log (`\x1b[33m ┌────────────────┐ \x1b[0m\x1b[31m┌───────────────┐ \x1b[0m`);
                 console.log (`\x1b[33m │ authMiddleware │ \x1b[0m\x1b[31m│ Token Invalid │ \x1b[0m`); 
                 console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[31m└───────────────┘ \x1b[0m`); 

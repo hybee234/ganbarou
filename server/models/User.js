@@ -19,6 +19,11 @@ const userSchema = new Schema(
             type: String,
             required: true,
         },
+        security: {
+            type: String,
+            required: true,
+            default: "user",
+        },
         tasks: [
             {
                 type: Schema.Types.ObjectId,
