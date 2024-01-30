@@ -8,6 +8,7 @@ scalar Date  #HL
         _id: ID
         username: String
         email: String
+        security: String
         tasks: [Task]
         taskCount: Int
     }
@@ -25,7 +26,9 @@ scalar Date  #HL
         status_macro: String
         status_micro: String
         note: [Note]
-        priority: [Priority]        
+        priority: [Priority]
+        #updatedAt is one of the automatic columns added if model has timestamps: true
+        updatedAt: Date        
     }
 
     type Note {
@@ -54,12 +57,12 @@ scalar Date  #HL
     type Query {
         users: [User]
         tasks: [Task]
-    #    me: User
+        me: User
     }
 
     type Mutation {
         addUser(username: String! email: String! password: String!): Auth
-    #    login(username: String email: String password: String!): Auth
+        login(username: String email: String password: String!): Auth
     #    saveBook(book:saveBookInput): User
     #    deleteBook (bookId: String! ): User
     #    deleteBookGraphQl (bookId: String! ): User

@@ -1,7 +1,6 @@
 // Define the query and mutation functionality to work with the Mongoose models.
 const { User, Task } = require("../models");
-const { AuthenticationError } = require("apollo-server-express");
-const { signToken } = require("../utils/auth");
+const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
 
@@ -24,25 +23,23 @@ const resolvers = {
             return Task.find()
         },
 
-        // me: async (parent, args, context) => {
+        me: async (parent, args, context) => {
 
-        //     console.log (`\x1b[33m ┌──────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-        //     console.log (`\x1b[33m │ Find Me  │ \x1b[0m\x1b[32m  \x1b[0m`); 
-        //     console.log (`\x1b[33m └──────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m ┌──────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Find Me  │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └──────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-        //     console.log("context.user Find me", context.user)
-        //     console.log("user._id", context.user._id)
+            // console.log("context.user Find me", context.user)
+            // console.log("user._id", context.user._id)
 
-        //     if (context.user) {
-        //         const userData = await User.findOne({ _id: context.user._id })
-                
-        //         // console.log("userData - FindMe ", userData)
+            if (!context.user){
+                throw AuthenticationError;
+            }
 
-        //         return userData;
-        //     }
-            
-        //     throw new AuthenticationError("Not logged in");
-        // },
+            const userData = await User.findOne({ _id: context.user._id })
+                .populate({ path: 'tasks', select: '-__v' })            
+            return userData;            
+        },
     },
 
 
@@ -58,29 +55,31 @@ const resolvers = {
             return { token, user }
         },
 
-    //     login : async (parent, args) => {
+        login : async (parent, args) => {
             
-    //         console.log (`\x1b[33m ┌───────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-    //         console.log (`\x1b[33m │ Login │ \x1b[0m\x1b[32m  \x1b[0m`); 
-    //         console.log (`\x1b[33m └───────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
-    //         // Check User Exist
-    //         const user = await User.findOne({                
-    //             $or: [{ username: args.username }, { email: args.email }],                
-    //         });
+            console.log (`\x1b[33m ┌───────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Login │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └───────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-    //         if (!user) {
-    //             throw AuthenticationError;
-    //         }
-    //         // Check Password Correct
-    //         const correctPw = await user.isCorrectPassword(args.password);
-    //         if (!correctPw) {
-    //             throw AuthenticationError;
-    //         }
+            // Check User Exist
+            const user = await User.findOne({                
+                $or: [{ username: args.username }, { email: args.email }],                
+            });
 
-    //         //Create JWT Token
-    //         const token = signToken(user)            
-    //         return { token, user }
-    //     },
+            if (!user) {
+                throw AuthenticationError;
+            }
+
+            // Check Password Correct
+            const correctPw = await user.isCorrectPassword(args.password);
+            if (!correctPw) {
+                throw AuthenticationError;
+            }
+
+            //Create JWT Token
+            const token = signToken(user)            
+            return { token, user }
+        },
 
     //     saveBook: async (parent, args, context) => {
 
