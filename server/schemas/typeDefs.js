@@ -25,7 +25,9 @@ scalar Date  #HL
         status_macro: String
         status_micro: String
         note: [Note]
-        priority: [Priority]        
+        priority: [Priority]
+        #updatedAt is one of the automatic columns added if model has timestamps: true
+        updatedAt: Date        
     }
 
     type Note {
