@@ -53,6 +53,7 @@ scalar Date  #HL
 
     type Query {
         users: [User]
+        tasks: [Task]
     #    me: User
     }
 

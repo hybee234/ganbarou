@@ -1,5 +1,5 @@
 // Define the query and mutation functionality to work with the Mongoose models.
-const { User } = require("../models");
+const { User, Task } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
@@ -13,6 +13,15 @@ const resolvers = {
             console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
             return User.find()
+        },
+
+        tasks: async () => {
+
+            console.log (`\x1b[33m ┌────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Find all Tasks │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+
+            return Task.find()
         },
 
         // me: async (parent, args, context) => {
