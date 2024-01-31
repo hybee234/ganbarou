@@ -18,7 +18,7 @@ class AuthService {
   // check if token is expired
   isTokenExpired(token) {
     try {
-      const decoded = decode(token);
+      const decoded = decode(token); 
       if (decoded.exp < Date.now() / 1000) {
         return true;
       } else return false;
@@ -35,7 +35,7 @@ class AuthService {
   login(idToken) {
     // Saves user token to localStorage and loads the home page    
     localStorage.setItem('id_token', idToken);
-    window.location.assign('/');
+    // window.location.assign('/'); 
   }
 
   logout() {
