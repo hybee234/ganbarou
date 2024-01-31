@@ -1,11 +1,29 @@
 // import picture from '/assets/images/Profile.jpg'
 // import { Link } from 'react-router-dom';
 import WelcomeLogin from './../components/Welcome-Login'
+import { useTaskContext } from '../utils/GlobalState';
+
+
+
 
 
 export default function Welcome() {
+
+    //Hook to access state
+    const [state, dispatch] = useTaskContext();
+
+// [HL] Hy tracking global state
+const consoleLog = () => {
+    console.log("state", state)
+}
+
+
     return (
+
         <div className="page">
+            <button onClick={() => consoleLog()} >
+                Console.log
+            </button>
             <div className="page-header bg-filter">
                 <h1>Ganbarou!</h1>
             </div>
