@@ -1,13 +1,11 @@
 // import './App.css';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-
-import { TaskProvider } from './utils/GlobalState'
 import { Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Background from './components/Background';
 import Footer from './components/Footer';
-
+import { GlobalProvider } from './utils/GlobalState'
 
 
 // Construct our main GraphQL API endpoint
@@ -38,14 +36,14 @@ const client = new ApolloClient({
 function App() {
     return (
         <ApolloProvider client={client}>
-            <TaskProvider>
+            <GlobalProvider>
                 <Background />
                 <Navbar />
                 <main className="text-center">                                
                         <Outlet />
                     <Footer />
                 </main>
-            </TaskProvider>
+            </GlobalProvider>
         </ApolloProvider>
     );
 }

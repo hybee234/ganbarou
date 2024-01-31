@@ -1,10 +1,10 @@
 import { createContext, useContext, useReducer } from "react";
 import { reducer } from './reducers'
 
-const TaskContext = createContext();
-const { Provider } = TaskContext;
+const GlobalContext = createContext();
+const { Provider } = GlobalContext;
 
-const TaskProvider = ({ value = [], ...props }) => {
+const GlobalProvider = ({ value = [], ...props }) => {
 
     const initialstate = {
         login_email: '',
@@ -19,29 +19,9 @@ const TaskProvider = ({ value = [], ...props }) => {
     return <Provider value={[state, dispatch]} {...props} />;
 };
 
-const useTaskContext = () => {
-    return useContext(TaskContext);
+const useGlobalContext = () => {
+    return useContext(GlobalContext);
 };
 
-export { TaskProvider, useTaskContext };
+export { GlobalProvider, useGlobalContext };
 
-
-// import { createContext, useContext, useReducer } from "react";
-// import reducer from './reducers'
-
-
-// // Create TaskContext using createContext
-// export const TaskContext = createContext();
-
-// // Create custom hook that allows easy access to TaskContext Values
-// export const useTask = () => useContext(TaskContext)
-
-// //create Task provider. Accepts argument of "protps"
-
-// export default function TaskProvider(props) {
-//     const login = "test"
-//     //Set up useReducer hook. Accepts two arguments - reducer and initial state
-//     const initialState = { login }
-//     const [state, dispatch] = useReducer(reducer, initialState);
-//     return <TaskContext.Provider value={[state, dispatch]} {...props} />
-// }

@@ -257,8 +257,29 @@ header {
     margin-bottom: 15px;
 }
 
-.about-me-contact-me {
+.underline {
     text-decoration: underline;
+}
+
+/**************/
+/* Login body */
+/**************/
+
+.login-body {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+/**************/
+/* Sign up body */
+/**************/
+
+.sign-up-body {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /******************/

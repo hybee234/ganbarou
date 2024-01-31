@@ -1,13 +1,26 @@
 import { Link } from 'react-router-dom';
-
 import { FaGithub } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
 import { FaStackOverflow } from "react-icons/fa6";
+import { useGlobalContext } from '../utils/GlobalState';
 
 function Footer() {
+
+    //Hook to access state
+    const [state, dispatch] = useGlobalContext();
+
+    // [HL] Hy tracking global state
+    const consoleLog = () => {
+        console.log("state", state)
+    }
+
+
     return (
         <div className = "footer">
+            <button className="button-color" onClick={() => consoleLog()} >
+                Console.log
+            </button>
             <div className = "bg-filter" >                
                 <div className="flex justify-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                     <span>
