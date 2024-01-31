@@ -1,0 +1,692 @@
+/**************************/
+/* Tailwind CSS Framework */
+/**************************/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/********************/
+/* Z-Index Register */
+/********************/
+/*
+bg-image: -100
+side-menu: 15
+side-menu-active: 15
+hamburger: 100
+bar: 100
+.hamburger.active .bar:nth-child(2): 100
+.hamburger.active .bar:nth-child(1): 100
+.hamburger.active .bar:nth-child(3): 100
+
+*/
+
+:root {
+
+/*Colour Theme*/
+    --onyx: rgb(215, 215, 215);
+    --old-rose: rgba(170, 118, 124, 1);
+    --lightblue: rgb(138, 172, 250);    
+    --grey: rgb(59,59,59);
+    --lightgrey: rgb(75,75,75);
+    --redwarning: rgb(220, 38, 38);
+
+/*UI Objects*/
+    --text: var(--onyx);
+    --texthighlight: var(--lightblue);    
+    --linkactive: var(--lightblue);
+    --linkbackground: var(--grey);
+    --buttontext: var(--onyx);
+    /* --textwinein: rgb(22, 163, 74); */
+    --textwarning: var(--redwarning);
+    /* --deletebutton: rgb(223, 55, 55); */
+    /* --deletebuttonhover: rgb(185, 28, 28); */
+    --inputbackground: var(--lightgrey);
+
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    font-size: 16px;
+
+    color-scheme: light dark;
+    color: var(--text);
+    background-color: #242424;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Heading 1 */
+
+/* main {
+    background-color: purple;
+} */
+
+h1 {
+    font-size: 3.2rem;
+    line-height: 1.1;
+    padding: 10px;
+}
+
+h2 {
+    font-size: 2.5rem;
+    line-height: 1.1;
+    padding: 10px;
+}
+
+/********************/
+/* Background Image */
+/********************/
+
+.bg-image {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0) ), url("/assets/images/Graphite.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: scroll;
+    width: 100%;
+    min-height: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;
+    filter: blur(0px);
+    z-index: -100;  
+}
+
+/******************************************/
+/* Background of tables - layer of filter */
+/******************************************/
+
+.bg-filter {
+    background-color: rgba(0, 0, 0, 0.5); 
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    transition: ease-in-out .3s;
+}
+
+
+/**********/
+/* Header */
+/**********/
+
+/***********/
+/* Heading */
+/***********/
+header {
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.logo-container {
+    justify-content: left;
+    padding-left: 100px;
+    width: 40%;
+    transition: ease-in-out .3s;
+}
+
+/********/
+/* Logo */
+/********/
+
+.logo {
+    transition: ease-in-out .3s;
+}
+
+/******************/
+/* Hamburger Icon */
+/******************/
+
+/* Responsive Navigation Styles */
+.hamburger {
+    cursor: pointer;
+    display: block;
+    position: relative;
+    z-index: 100;
+}
+
+/* Hamburger bars */
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: var(--text);
+    transition: all 0.3s ease-in-out;
+    z-index:100;
+}
+
+/* Hamburger Icon Animation */
+.hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+    z-index: 100;
+    
+}
+.hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+    z-index: 100;
+}
+.hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+    z-index: 100;
+}
+
+
+/*************/
+/* Side Menu */
+/*************/
+
+
+/* Get rid of the bullet that appears in front of the element type*/
+li {    
+    list-style: none;
+}
+/* Mobile Menu */
+/* Move the menu offscreen to the left */
+.side-menu {
+    position: fixed;
+    left: -100%;
+    top: 0px;
+    /* width: 30%; */
+    width: 375px;
+    height: 100vh;
+    padding-top: 100px;
+    /* flex-direction: column; */
+    background-color: #27272a;
+    text-align: center;
+    transition: left 0.3s;
+    z-index: 0;
+    justify-content: center;
+    align-items: start;
+}
+
+.side-menu.active {
+    left: 0;
+    z-index: 0;
+    background-color: #27272a;
+}
+
+.side-menu-item {
+    color: var(--buttontext);
+    text-align: left;
+    display: block;
+    width: 100%;
+    padding-left: 3rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 1rem; /* 14px */
+    line-height: 1.25rem; /* 20px */
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);    
+}
+
+.side-menu-item:hover {
+    background-color: var(--linkbackground); 
+}
+
+.side-menu-heading {
+    color: var(--buttontext);
+    text-align: left;
+    font-weight: 600;
+    display: block;
+    width: 100%;
+    padding-left: 1.5rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 1rem; /* 14px */
+    line-height: 1.25rem; /* 20px */
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);         
+}
+
+.side-menu-admin {
+    /* background-color: rgb(157, 92, 92); */
+    color: var(--admintext);
+}
+
+
+.side-menu-admin:hover {
+    background-color: rgb(209, 157, 157);
+    color: rgb(100, 22, 22);
+}
+
+
+
+/**********/
+/* Footer */
+/**********/
+
+.footer {
+    max-width: 300px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-inline: auto;
+    text-align: center;         
+    font-size: 0.75rem;
+    justify-content: center;  
+    align-items: center;
+}
+
+/*********/
+/* Links */
+/*********/
+
+/* .link {
+    font-size: 1.5rem;
+} */
+
+.link:hover {
+    color: var(--linkactive);
+    text-decoration: underline;
+
+}
+
+.link-img {
+    border: 2px solid black;
+}
+
+.link-img:hover {
+    border: 2px solid var(--linkactive);
+}
+
+.no-link {
+    color: var(--old-rose)
+}
+
+/*********/
+/* Pages */
+/*********/
+
+.page {
+    width: 80%;
+    margin: auto;
+    transition: ease-in-out .3s; 
+}
+
+.page-header {
+    width: 50%;
+    margin: auto;
+}
+
+/*****************/
+/* About me page */
+/*****************/
+
+.about-me-page {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-me-profile-picture{
+    transition: ease-in-out .3s;
+}
+
+.about-me-text-container {
+    flex: 1 0 400px;
+    font-size: 1.5rem;
+}
+
+.about-me-text-container p{
+    margin-bottom: 15px;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+/**************/
+/* Login body */
+/**************/
+
+.login-body {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+/**************/
+/* Sign up body */
+/**************/
+
+.sign-up-body {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/******************/
+/* Portfolio page */
+/******************/
+
+.apps-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    margin-inline: auto;
+    width: 80%;
+}
+
+.apps-item {
+    flex: 1 0 cal(33% - 5rem);
+    min-width: 300px;
+    max-width: 600px;
+    padding: 10px;
+    margin: 10px;   
+}
+
+/****************/
+/* Contact Form */
+/****************/
+
+.contact-page {
+    max-width: 600px;
+}
+
+.input-field {
+    /* width: 90%; */
+    background-color: var(--inputbackground);
+    border: 2px solid rgb(229 231 235);
+    color: var(--text);
+    border-radius: 0.75rem;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 10px;
+}
+
+.input-field:hover {
+    /* background-color: rgb(206, 217, 240); */
+    border: 2px solid var(--texthighlight)
+}
+
+.input-field:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border: 2px solid var(--texthighlight);
+    /* background-color: rgb(206, 217, 240); */
+}
+
+.button-color {
+    background-color: var(--linkbackground);
+    color: var(--buttontext);
+    border-radius: 0.75rem;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button-color:hover {
+    background-color: rgba(50, 50, 50, 1);
+}
+
+
+.required {
+    visibility: hidden;
+    color: var(--textwarning)
+}
+
+.button-form-error {
+    background-color: var(--textwarning);
+    border-radius: 0.75rem;    
+}
+
+
+.modal-field {
+    background-color: rgb(229 231 235);
+    border: 1px solid rgb(229 231 235);
+    color: rgb(24 24 27 );
+    border-radius: 0.75rem;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-field:hover {
+    background-color: rgb(229 231 235);
+    border: 1px solid rgb(113 113 122)
+}
+
+.modal-field:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border: 1px solid rgb(113 113 122)
+}
+
+
+
+
+
+/***************/
+/* Resume Page */
+/***************/
+
+.skill-card{
+    padding: 20px;
+    transition: ease-in-out .3s;
+}
+
+.skill-bg {
+    background-color: white;
+}
+
+.skill-icon {
+    width: 100px;
+    height: 100px;
+    /* transition: ease-in-out .3s; */
+    padding:2px;
+    border-radius: 0.75rem;
+}
+
+.skill-icon:hover {
+    background-color: var(--linkbackground);
+    border: 2px solid var(--linkactive);
+    padding: 0px
+}
+
+/*******************************/
+/* Media Query LESS THAN 1280px /
+/*******************************/
+@media (max-width: 1280px) {
+    .navtab {
+        justify-content: center;
+        width: 100%;
+        padding-right: 0px;
+    }
+    .logo-container {
+        justify-content: center;
+        width: 100%;
+        padding-left: 0px;
+    }
+    .page {        
+        width: 85%;
+    }
+    .skill-card{
+        padding: 15px;
+    }
+    .skill-icon {
+        width: 90px;
+        height: 90px;
+    }
+    .skill-text {
+        width: 90px;
+    }
+    .profile-picture{
+        width: 400px;
+    }
+}
+
+
+
+/*****************************/
+/* Media Query LESS THAN 1024 /
+/*****************************/
+@media (max-width: 1024px) {
+    .page {        
+        width: 90%        
+    }
+    .skill-card{
+        padding: 10px;
+    }
+    .skill-icon {
+        width: 90px;
+        height: 90px;
+    }
+    .profile-picture{
+            width: 300px;
+    }
+}
+
+/******************************/
+/* Media Query LESS THAN 768 /
+/******************************/
+@media (max-width: 768px) {
+    .page {        
+        width: 95%;
+    }
+    .page-header {
+        width: 70%;
+    }
+    .skill-card{
+        padding: 5px;
+    }
+    .skill-icon {
+        width: 80px;
+        height: 80px;
+    }
+    h1 {
+        font-size: 2.6rem;
+    }
+    h2 {
+        font-size: 2.3rem;
+    }
+    .profile-picture{
+        width: 250px;
+    }
+}
+
+/******************************/
+/* Media Query LESS THAN 640 /
+/******************************/
+@media (max-width: 640px) {
+
+    header {
+        padding: 5px;
+    }
+    .bg-filter{
+        padding: 3px;
+    }
+    .navtab {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        padding-right: 0px;
+        /* min-width: 285px; */
+    }
+    .nav-item {
+        padding-top: 5px;
+        padding-right: 10px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        margin: 3px;
+        border-radius: 5px;
+    }
+    .nav-item p {
+        font-size: 1.00rem;
+    }
+    .page {        
+        width: 95%;
+    }
+    .logo {        
+        width: 80px;
+    }
+    .apps-container {
+        width: 90%;
+    }
+    .skill-icon {
+        width: 70px;
+        height: 70px;
+    }
+    h1 {
+        font-size: 2.2rem;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+    .profile-picture{
+        width: 200px;
+    }
+}
+
+/****************************/
+/* Media Query LESS THAN 400 /
+/****************************/
+@media (max-width: 400px) {
+    .nav-item {        
+        width: 45%;;
+    }
+}
+
+
+
+
+/*******************************//*******************************/
+/* Maybe can delete below here *//* Maybe can delete below here */
+/*******************************//*******************************/
+
+
+
+
+/**********/
+/* NavTab */
+/**********/
+
+.navtab {
+    display: flex;
+    justify-content: right;
+    padding-right: 100px;
+    width: 60%;
+    /* border: 2px solid green; */
+    margin-bottom: 5px;
+    margin-top: 5px;
+    transition: ease-in-out .3s;    
+}
+
+.nav-item {
+    padding-top: 3px;
+    padding-right: 1rem;
+    padding-bottom: 3px;
+    padding-left: 1rem;
+    margin: 1px;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    /* font-weight: 600; */
+    border-radius: 0.75rem;
+    text-align: center;
+    transition: ease-in-out .3s;    
+}
+
+.nav-item p {
+    font-size: 1.5rem;
+}
+
+.nav-item:hover {
+    background-color: var(--linkbackground); 
+    color: var(--buttontext);
+}
+
+.nav-active {
+    text-decoration: underline;
+    transform-origin: center;
+    transition-duration: 300ms;
+    background-color: var(--linkbackground); 
+    color: var(--buttontext);
+
+    display: inline-block;
+    vertical-align:bottom;
+    text-align: center;
+}

@@ -25,9 +25,9 @@ const resolvers = {
 
         me: async (parent, args, context) => {
 
-            console.log (`\x1b[33m ┌──────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-            console.log (`\x1b[33m │ Find Me  │ \x1b[0m\x1b[32m  \x1b[0m`); 
-            console.log (`\x1b[33m └──────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m ┌─────────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Find Me - Active Tasks  │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └─────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
             // console.log("context.user Find me", context.user)
             // console.log("user._id", context.user._id)
@@ -37,7 +37,11 @@ const resolvers = {
             }
 
             const userData = await User.findOne({ _id: context.user._id })
-                .populate({ path: 'tasks', select: '-__v' })            
+                .populate({
+                    path: 'tasks',
+                    match: { complete_flag: false }
+                }).exec()
+                
             return userData;            
         },
     },
