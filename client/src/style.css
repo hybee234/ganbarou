@@ -14,24 +14,25 @@ bg-image: -100
 
 :root {
 
-    /* SCSS RGB */
+/*Colour Theme*/
     --onyx: rgb(215, 215, 215);
-    /* --antiflash-white: rgba(231, 236, 239, 1); */
     --old-rose: rgba(170, 118, 124, 1);
+    --lightblue: rgb(138, 172, 250);    
+    --grey: rgb(59,59,59);
+    --lightgrey: rgb(75,75,75);
+    --redwarning: rgb(220, 38, 38);
 
-    /*variables*/   
-
+/*UI Objects*/
     --text: var(--onyx);
-    /* --modaltext: rgba(244, 244, 255, 1); */
-    /* --tableborder: rgb(223, 223, 223); */
-    --texthighlight: rgb(138, 172, 250);
-    --linkbackground: rgb(86, 86, 86);
-    --linkactive: var(--texthighlight);
-    --buttontext: rgb(244, 244, 255);    
+    --texthighlight: var(--lightblue);    
+    --linkactive: var(--lightblue);
+    --linkbackground: var(--grey);
+    --buttontext: var(--onyx);
     /* --textwinein: rgb(22, 163, 74); */
-    --textwarning: rgb(220, 38, 38);
+    --textwarning: var(--redwarning);
     /* --deletebutton: rgb(223, 55, 55); */
     /* --deletebuttonhover: rgb(185, 28, 28); */
+    --inputbackground: var(--lightgrey);
 
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
@@ -311,27 +312,27 @@ header {
     max-width: 600px;
 }
 
-.form-field {
-    width: 90%;
-    background-color: var(--onyx);
+.input-field {
+    /* width: 90%; */
+    background-color: var(--inputbackground);
     border: 2px solid rgb(229 231 235);
-    color: rgb(24 24 27 );
+    color: var(--text);
     border-radius: 0.75rem;
     transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     padding: 10px;
 }
 
-.form-field:hover {
-    background-color: rgb(206, 217, 240);
+.input-field:hover {
+    /* background-color: rgb(206, 217, 240); */
     border: 2px solid var(--texthighlight)
 }
 
-.form-field:focus {
+.input-field:focus {
     outline: 2px solid transparent;
     outline-offset: 2px;
     border: 2px solid var(--texthighlight);
-    background-color: rgb(206, 217, 240);
+    /* background-color: rgb(206, 217, 240); */
 }
 
 .button-color {
@@ -356,6 +357,31 @@ header {
     background-color: var(--textwarning);
     border-radius: 0.75rem;    
 }
+
+
+.modal-field {
+    background-color: rgb(229 231 235);
+    border: 1px solid rgb(229 231 235);
+    color: rgb(24 24 27 );
+    border-radius: 0.75rem;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-field:hover {
+    background-color: rgb(229 231 235);
+    border: 1px solid rgb(113 113 122)
+}
+
+.modal-field:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border: 1px solid rgb(113 113 122)
+}
+
+
+
+
 
 /***************/
 /* Resume Page */

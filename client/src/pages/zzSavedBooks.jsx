@@ -9,9 +9,9 @@ import {
 } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
-import { removeBookId } from '../utils/localStorage';
-import { GET_ME } from './../utils/queries'
-import { DELETE_BOOK } from './../utils/mutations'
+import { removeBookId } from '../utils/zzlocalStorage';
+import { GET_ME } from '../utils/queries'
+import { DELETE_BOOK } from '../utils/mutations'
 
 const SavedBooks = () => {
 

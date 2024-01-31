@@ -10,10 +10,10 @@ import {
 
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
-import { searchGoogleBooks } from '../utils/API';
-import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
+import { searchGoogleBooks } from '../utils/zzAPI';
+import { saveBookIds, getSavedBookIds } from '../utils/zzlocalStorage';
 import { useMutation } from '@apollo/client';
-import { SAVE_BOOK } from './../utils/mutations'
+import { SAVE_BOOK } from '../utils/mutations'
 
 const SearchBooks = () => {
     // create state for holding returned google api data

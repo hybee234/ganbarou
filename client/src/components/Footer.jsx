@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useGlobalContext } from '../utils/GlobalState';
+
 import { FaGithub } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
 import { FaStackOverflow } from "react-icons/fa6";
-import { useGlobalContext } from '../utils/GlobalState';
+
 
 function Footer() {
 
@@ -18,10 +20,11 @@ function Footer() {
 
     return (
         <div className = "footer">
-            <button className="button-color" onClick={() => consoleLog()} >
-                Console.log
-            </button>
-            <div className = "bg-filter" >                
+
+            <div className = "bg-filter" >       
+                <button className="button-color px-6 py-2 my-2 font-bold text-2xl" onClick={() => consoleLog()} >
+                    Console.log(state)
+                </button>         
                 <div className="flex justify-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                     <span>
                         <div className="p-3 link">
