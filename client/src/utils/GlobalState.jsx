@@ -11,9 +11,6 @@ const GlobalProvider = ({ value = [], ...props }) => {
         login_password: '',
         user_security: 'admin',
         sidemenu: '',
-        cartOpen: false,
-        categories: [],
-        currentCategory: '',
     }
 
     const [state, dispatch] = useReducer(reducer, initialstate );
