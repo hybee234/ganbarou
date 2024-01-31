@@ -23,21 +23,44 @@ export const CREATE_USER = gql`
 `;
 
 export const LOG_IN = gql`
-    mutation Login($password: String!, $username: String, $email: String) {
-        login(password: $password, username: $username, email: $email) {
+mutation Login($password: String!, $email: String) {
+        login(password: $password, email: $email) {
             token
             user {
                 _id
-                bookCount
-                email
                 username
-                savedBooks {
-                    authors
-                    bookId
-                    description
-                    image
-                    link
+                email
+                security
+                taskCount
+                tasks {
+                    _id
+                    created_dt
                     title
+                    summary
+                    complete_flag
+                    complete_dt
+                    remind_dt
+                    stakeholder
+                    assigned
+                    status_macro
+                    status_micro
+                note {
+                    noteId
+                    note
+                    author
+                    note_dt
+                }
+                priority {
+                    priorityId
+                    operational
+                    priority
+                    category
+                    importance
+                    urgency
+                    effort
+                    comment
+                }
+                updatedAt
                 }
             }
         }

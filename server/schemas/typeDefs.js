@@ -62,7 +62,7 @@ scalar Date  #HL
 
     type Mutation {
         addUser(username: String! email: String! password: String!): Auth
-        login(username: String email: String password: String!): Auth
+        login(email: String password: String!): Auth
     #    saveBook(book:saveBookInput): User
     #    deleteBook (bookId: String! ): User
     #    deleteBookGraphQl (bookId: String! ): User

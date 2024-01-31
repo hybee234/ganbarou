@@ -1,28 +1,102 @@
 import { PiSignInBold } from "react-icons/pi";
 import { Link } from 'react-router-dom';
+import Auth from '../utils/auth';
 
-// change modal-field styling - or keep it ...
+
 import { useGlobalContext } from '../utils/GlobalState';
 import {
     SET_LOGIN_EMAIL,
     SET_LOGIN_PASSWORD,
 } from '../utils/actions'
 
+import { useMutation } from '@apollo/client';
+import { LOG_IN } from './../utils/mutations'
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login () {
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
 
+    // useMutation
+    const [Login, { error }] = useMutation(LOG_IN);
+
+
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+
+    // check if form has everything (as per react-bootstrap docs)
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        //Call graphql
+        try {
+
+            const { data } = await Login({
+                variables: {
+                    email: state.login_email, 
+                    password: state.login_password,
+                }
+            })
+
+            // Store token in local storage - id_token (Auth.login already redirects use to home page)
+            Auth.login(data.login.token);
+
+            console.log(data)
+
+            toast.success(`Logged in Successfully, Hi ${data.login.user.username}!`)  
+            // Write some actions to update the state   
+            dispatch({ type: SET_LOGIN_PASSWORD, payload: ''})
+            dispatch({ type: SET_LOGIN_EMAIL, payload: ''})
+        } catch (err) {
+            toast.error("Log in Failed, Please Try Again") 
+            console.error(err);    
+        }
+
+        
+        // setUserFormData({
+        //     username: '',
+        //     email: '',
+        //     password: '',
+        // });
+
+        
+
+
+    };
+
+
+
     return (
 
         <div className="page">
+
+                <ToastContainer position="bottom-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                    type={error}
+                    transition: Bounce>
+                </ToastContainer>
+
             <div className="page-header bg-filter">
                 <h1>Login</h1>
             </div>
             <div className="login-body">        
                 <div className="justify-center text-center">
-                    <form id="login-form" className="m-auto my-5 bg-filter rounded-xl text-center border">                        
+                    <form id="login-form" className="m-auto my-5 bg-filter rounded-xl text-center border"
+                        onSubmit={handleFormSubmit}>                        
                         <div className="w-full px-1 mx-auto my-5 justify-center">
                             <label className="w-5/6 mx-auto text-left block mb-2 text-xs font-bold tracking-wide text-color uppercase"> Email: </label>
                             <input className="w-11/12 input-field" id="login-email" name="login-email" type="email" placeholder="Email..." required 
