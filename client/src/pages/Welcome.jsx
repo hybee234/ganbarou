@@ -11,20 +11,20 @@ export default function Welcome() {
     return (
         <div className="page">
             <div className="page-header bg-filter">
-                <h1>Welcome!</h1>
+                <h1>Welcome to Ganbarou!</h1>
             </div>
             
             <div className = "about-me-page bg-filter justify-center mt-10">
-                <h2 className="w-full"> A team task management solution </h2>                
+                {/* <h2 className="w-full"> A team task management solution </h2>                 */}
                 <div className ="flex flex-wrap justify-center">
                     <div className = "flex p-2 m-2 justify-start">
                         <img src={picture} width="500px" className="about-me-profile-picture m-auto"></img>                                 
                     </div>
-                        <div className = "about-me-text-container p-2 m-2 text-left">               
+                        <div className = "about-me-text-container p-2 m-2 text-center">               
                         <p> "Ganbarou" (頑張ろう) is a Japanese expression of encouragement and support in times of challenge. It means "Let's do our best together!" calling on the determination and grit of a team to persevere</p>                                                
                         <p> Ganbarou seeks to support the positive team spirit by providing a means to organise and plan team tasks. </p>  
-                        <div className="text-center">                            
-                            <Link to="/Login" className="link underline">Login </Link> or <Link to="/Signup" className="link underline"> Sign Up</Link>                            
+                        <div className="text-center pt-10">                            
+                            <Link to="/Login" className="link underline">Login</Link> or <Link to="/Signup" className="link underline"> Sign Up</Link>                            
                         </div>
                         <div className="text-center">
                             

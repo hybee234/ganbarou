@@ -2,7 +2,8 @@
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
+import SideMenu from './components/SideMenu';
 import Background from './components/Background';
 import Footer from './components/Footer';
 import { GlobalProvider } from './utils/GlobalState'
@@ -38,7 +39,7 @@ function App() {
         <ApolloProvider client={client}>
             <GlobalProvider>
                 <Background />
-                <Navbar />
+                <SideMenu />
                 <main className="text-center">                                
                         <Outlet />
                     <Footer />

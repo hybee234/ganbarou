@@ -1,6 +1,7 @@
 import {
     SET_LOGIN_EMAIL,
     SET_LOGIN_PASSWORD,
+    SIDE_MENU,
 } from './actions';
 
 export const reducer = (state, action) => {
@@ -19,6 +20,13 @@ export const reducer = (state, action) => {
                 ...state,
                 login_password: action.payload,
             };
+        }
+
+        case SIDE_MENU: {
+            return {
+                ...state,
+                sidemenu: action.payload,
+            }
         }
 
         // Default to returning the state as is in our switch statement

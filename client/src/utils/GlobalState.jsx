@@ -9,6 +9,8 @@ const GlobalProvider = ({ value = [], ...props }) => {
     const initialstate = {
         login_email: '',
         login_password: '',
+        user_security: 'admin',
+        sidemenu: '',
         cartOpen: false,
         categories: [],
         currentCategory: '',

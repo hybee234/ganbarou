@@ -10,6 +10,14 @@
 /********************/
 /*
 bg-image: -100
+side-menu: 15
+side-menu-active: 15
+hamburger: 100
+bar: 100
+.hamburger.active .bar:nth-child(2): 100
+.hamburger.active .bar:nth-child(1): 100
+.hamburger.active .bar:nth-child(3): 100
+
 */
 
 :root {
@@ -128,56 +136,126 @@ header {
     transition: ease-in-out .3s;
 }
 
+/******************/
+/* Hamburger Icon */
+/******************/
 
-/**********/
-/* NavTab */
-/**********/
-
-.navtab {
-    display: flex;
-    justify-content: right;
-    padding-right: 100px;
-    width: 60%;
-    /* border: 2px solid green; */
-    margin-bottom: 5px;
-    margin-top: 5px;
-    transition: ease-in-out .3s;    
+/* Responsive Navigation Styles */
+.hamburger {
+    cursor: pointer;
+    display: block;
+    position: relative;
+    z-index: 100;
 }
 
-.nav-item {
-    padding-top: 3px;
+/* Hamburger bars */
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: var(--text);
+    transition: all 0.3s ease-in-out;
+    z-index:100;
+}
+
+/* Hamburger Icon Animation */
+.hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+    z-index: 100;
+    
+}
+.hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+    z-index: 100;
+}
+.hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+    z-index: 100;
+}
+
+
+/*************/
+/* Side Menu */
+/*************/
+
+
+/* Get rid of the bullet that appears in front of the element type*/
+li {    
+    list-style: none;
+}
+/* Mobile Menu */
+/* Move the menu offscreen to the left */
+.side-menu {
+    position: fixed;
+    left: -100%;
+    top: 0px;
+    /* width: 30%; */
+    width: 375px;
+    height: 100vh;
+    padding-top: 100px;
+    /* flex-direction: column; */
+    background-color: #27272a;
+    text-align: center;
+    transition: left 0.3s;
+    z-index: 0;
+    justify-content: center;
+    align-items: start;
+}
+
+.side-menu.active {
+    left: 0;
+    z-index: 0;
+    background-color: #27272a;
+}
+
+.side-menu-item {
+    color: var(--buttontext);
+    text-align: left;
+    display: block;
+    width: 100%;
+    padding-left: 3rem;
     padding-right: 1rem;
-    padding-bottom: 3px;
-    padding-left: 1rem;
-    margin: 1px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 1rem; /* 14px */
+    line-height: 1.25rem; /* 20px */
     transition-duration: 300ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    /* font-weight: 600; */
-    border-radius: 0.75rem;
-    text-align: center;
-    transition: ease-in-out .3s;    
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);    
 }
 
-.nav-item p {
-    font-size: 1.5rem;
-}
-
-.nav-item:hover {
+.side-menu-item:hover {
     background-color: var(--linkbackground); 
-    color: var(--buttontext);
 }
 
-.nav-active {
-    text-decoration: underline;
-    transform-origin: center;
+.side-menu-heading {
+    color: var(--buttontext);
+    text-align: left;
+    font-weight: 600;
+    display: block;
+    width: 100%;
+    padding-left: 1.5rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 1rem; /* 14px */
+    line-height: 1.25rem; /* 20px */
     transition-duration: 300ms;
-    background-color: var(--linkbackground); 
-    color: var(--buttontext);
-
-    display: inline-block;
-    vertical-align:bottom;
-    text-align: center;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);         
 }
+
+.side-menu-admin {
+    /* background-color: rgb(157, 92, 92); */
+    color: var(--admintext);
+}
+
+
+.side-menu-admin:hover {
+    background-color: rgb(209, 157, 157);
+    color: rgb(100, 22, 22);
+}
+
+
 
 /**********/
 /* Footer */
@@ -551,4 +629,64 @@ header {
     .nav-item {        
         width: 45%;;
     }
+}
+
+
+
+
+/*******************************//*******************************/
+/* Maybe can delete below here *//* Maybe can delete below here */
+/*******************************//*******************************/
+
+
+
+
+/**********/
+/* NavTab */
+/**********/
+
+.navtab {
+    display: flex;
+    justify-content: right;
+    padding-right: 100px;
+    width: 60%;
+    /* border: 2px solid green; */
+    margin-bottom: 5px;
+    margin-top: 5px;
+    transition: ease-in-out .3s;    
+}
+
+.nav-item {
+    padding-top: 3px;
+    padding-right: 1rem;
+    padding-bottom: 3px;
+    padding-left: 1rem;
+    margin: 1px;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    /* font-weight: 600; */
+    border-radius: 0.75rem;
+    text-align: center;
+    transition: ease-in-out .3s;    
+}
+
+.nav-item p {
+    font-size: 1.5rem;
+}
+
+.nav-item:hover {
+    background-color: var(--linkbackground); 
+    color: var(--buttontext);
+}
+
+.nav-active {
+    text-decoration: underline;
+    transform-origin: center;
+    transition-duration: 300ms;
+    background-color: var(--linkbackground); 
+    color: var(--buttontext);
+
+    display: inline-block;
+    vertical-align:bottom;
+    text-align: center;
 }
