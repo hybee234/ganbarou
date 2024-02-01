@@ -3,7 +3,7 @@ const { Schema, Types } = require('mongoose');
 
 const prioritySchema = new Schema(
     {
-        priorityId: {
+        priority_id: {
             type: Schema.Types.ObjectId,
             default: () => new Types.ObjectId(),
         },

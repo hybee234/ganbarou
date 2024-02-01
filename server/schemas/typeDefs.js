@@ -22,7 +22,7 @@ scalar Date  #HL
         complete_dt: Date
         remind_dt: Date
         stakeholder: String
-        assigned: String
+        assigned_id: ID
         status_macro: String
         status_micro: String
         note: [Note]
@@ -32,14 +32,15 @@ scalar Date  #HL
     }
 
     type Note {
-        noteId: ID
-        note: String
-        author: String
+        note_id: ID
+        note_text: String
+        note_type: String
+        note_author: String
         note_dt: Date
     }
 
     type Priority {
-        priorityId: ID
+        priority_id: ID
         operational: Boolean
         priority: Boolean
         category: Int

@@ -5,20 +5,21 @@
         "title": "Write business case for electronic patient flow solution",
         "summary": "Business would like to invest in an eletroinc patient flow solution to optimise bed access and demand management",
         "complete_flag": false,
-        "complete_dt": "2024/03/08",
         "remind_dt": "2024/02/07",
         "stakeholder": "Operations - HC",
-        "assigned": "Hy",
+        "assigned_id": "65b8ed239359f0fca323570c",   
         "status_macro": "backlog",
-        "status_micro" : "design",
+        "status_micro" : "design",        
         "note" : [
             {
-            "note": "Note 1",
-            "author": "note author",
-            "note_dt": "2022/3/01"
+                "note_text": "Note 1",
+                "note_type": "Prioritisation",
+                "author": "note author",
+                "note_dt": "2022/3/01"
             },
             {
-                "note": "Note 2",
+                "note_text": "Note 2",
+                "note_type": "Progress",
                 "author": "note author",
                 "note_dt": "2022/3/02"
             }
@@ -42,17 +43,19 @@
         "complete_dt": "2024/03/08",
         "remind_dt": "2024/02/07",
         "stakeholder": "Operations - HC",
-        "assigned": "Hy",
+        "assigned": "65b8ed239359f0fca323570c",
         "status_macro": "backlog",
         "status_micro" : "design",
         "note" : [
             {
-            "note": "Note 1",
-            "author": "note author",
-            "note_dt": "2022/3/01"
+                "note_text": "Note 1",
+                "note_type": "Prioritisation",
+                "author": "note author",
+                "note_dt": "2022/3/01"
             },
             {
-                "note": "Note 2",
+                "note_text": "Note 2",
+                "note_type": "Progress",
                 "author": "note author",
                 "note_dt": "2022/3/02"
             }

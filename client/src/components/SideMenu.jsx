@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function SideMenu() {
 
-    console.log("SideMenu refreshed")
+    // console.log("SideMenu refreshed")
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
 
@@ -56,25 +56,25 @@ export default function SideMenu() {
     // }
 
     const handleLogout = () => {
-        console.log("handleLogut engaged")
+        // console.log("handleLogut engaged")
         // Log user out (remove 'id_token')
         Auth.logout()
         // Show toast
-        toast.success('Logged out Successfully')
+        toast.success('Logged out Successfully!')
         // Invoke reacter-route to move to home page
-        navigate('/')
+        navigate('/login')
         
     }
-    
+
     return (
         <header>
             <OutsideClickHandler onOutsideClick={sideMenuHide}>
-                <div className="mx-auto border-2">
+                <div className="mx-auto">
                     {/* <!-- Container for navbar content --> */}
-                    <div className="flex flex-wrap md:flex md:flex-wrap items-center border-2">
+                    <div className="flex flex-wrap md:flex md:flex-wrap items-center">
                         {/* {{! Hamburger Icon }} */}
                         
-                            <div className="w-1/5 border-2">
+                            <div className="w-1/5">
                             
                                 { Auth.loggedIn() ? (                        
                                     <button className="hamburger w-1/12 "
@@ -101,15 +101,20 @@ export default function SideMenu() {
                                 
                             </div>     
                         
-                        <div className="w-3/5 border-2">
+                        <div className="w-3/5">
                                 <div className="flex flex-wrap justify-center">
                                     <Link to='/'>
                                         <img src='/assets/images/ganbarou.jpeg' width="200px" className="font-semibold text-center text-color text-3xl sm:text-4xl lg:text-5xl m-auto "></img>  
                                     </Link>
                                 </div>
                         </div>                     
-                        <div className="w-1/5 border-2 text-right">
-                        
+                        <div className="w-1/5 text-right">                 
+                            { Auth.loggedIn() ? (                        
+                                <div>Logged in as {Auth.getProfile().data.username}</div>
+                            ) : (                        
+                                <div></div>
+                            )
+                            }
                         </div>                    
                     </div>
                 </div>
@@ -121,15 +126,18 @@ export default function SideMenu() {
                         <Link to="/" className="side-menu-item">Home</Link>
                         { 
                             Auth.loggedIn() ? (
+                            <div>
+                                <Link to="/mytasks" className="side-menu-item">My Tasks </Link>                  
                                 <button id="logout-button" className="side-menu-item"
                                 onClick={handleLogout}
                                 >
                                 Logout
                                 </button>
+                            </div>
                             ): (
                             <div>
-                                <Link to="/Login" className="side-menu-item">Login </Link>                  
-                                <Link to="/Signup" className="side-menu-item"> Sign Up</Link>
+                                <Link to="/login" className="side-menu-item">Login </Link>                  
+                                <Link to="/signup" className="side-menu-item"> Sign Up</Link>
                             </div>
                             )
                         }
