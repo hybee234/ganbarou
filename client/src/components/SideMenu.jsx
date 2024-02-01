@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function SideMenu() {
 
+    console.log("SideMenu refreshed")
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
 
@@ -47,21 +48,23 @@ export default function SideMenu() {
         })
     }
 
-    if (Auth.loggedIn()) {
-        const usenameJWT = Auth.getProfile().data.username
-        const emailJWT = Auth.getProfile().data.email
-        const _idJWT = Auth.getProfile().data._id
-        // console.log(usenameJWT)
-    }
+    // if (Auth.loggedIn()) {
+    //     const usenameJWT = Auth.getProfile().data.username
+    //     const emailJWT = Auth.getProfile().data.email
+    //     const _idJWT = Auth.getProfile().data._id
+    //     console.log("usernameJWT: ", usenameJWT, ". emailJWT: ", emailJWT, ". _idJWT: ", _idJWT)
+    // }
 
     const handleLogout = () => {
+        toast.info=('Testing')
         console.log("handleLogut engaged")
         // Log user out (remove 'id_token')
         Auth.logout()
-        // Invoke reacter-route to move to home page
-        navigate('/')
         // Show toast
         toast.success=('Logged out Successfully')
+        // Invoke reacter-route to move to home page
+        navigate('/')
+        
     }
 
 
@@ -136,15 +139,12 @@ export default function SideMenu() {
                             state.user.security === 'admin' ?
                             (
                             <div>
-                                <p>admin user!</p>
-                                <p>User security: {state.user.security}</p>
-                                <Link to="/Signup" className="side-menu-item"> User Management</Link>    
+                                <p className="side-menu-heading side-menu-admin">Admin Only</p>
+                                <p className="side-menu-item">User security: {state.user.security}</p>
+                                <Link to="/Signup" className="side-menu-item side-menu-admin"> User Management</Link>    
                             </div>
                             ) : (
                             <div>
-                                <p>not admin user!</p>
-                                <p>User security:  {state.user.security}</p>
-                                
                             </div>
                             )               
                         }
