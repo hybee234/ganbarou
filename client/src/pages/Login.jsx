@@ -1,7 +1,12 @@
-import { PiSignInBold } from "react-icons/pi";
+import { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { LOG_IN } from './../utils/mutations'
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import {useNavigate} from 'react-router-dom';
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { PiSignInBold } from "react-icons/pi";
 
 import { useGlobalContext } from '../utils/GlobalState';
 import {
@@ -9,12 +14,6 @@ import {
     SET_LOGIN_PASSWORD,
     USER
 } from '../utils/actions'
-
-import { useMutation } from '@apollo/client';
-import { LOG_IN } from './../utils/mutations'
-
-import {  toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login () {
     // // Hook to useNavigate

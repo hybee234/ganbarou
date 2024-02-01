@@ -4,10 +4,10 @@ import { ADD_USER } from './../utils/mutations'
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import {useNavigate} from 'react-router-dom';
-
-import { AiOutlineUserAdd } from "react-icons/ai";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AiOutlineUserAdd } from "react-icons/ai";
+
 
 // Constants to validate form fields
 let nameOK;
@@ -116,6 +116,7 @@ export default function SignUp () {
             }            
         }
     };
+
 
     // Call in useMutation Hook
     const [AddUser, { error }] = useMutation(ADD_USER);
