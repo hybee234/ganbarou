@@ -1,36 +1,41 @@
 [
     {
         "_id": "65b8dba1b768a37702f656b4",
-        "created_dt" : "2022/1/1",
+        "created_dt" : "2023/12/11",
         "title": "Write business case for electronic patient flow solution",
         "summary": "Business would like to invest in an eletroinc patient flow solution to optimise bed access and demand management",
         "complete_flag": false,
-        "remind_dt": "2024/02/07",
+        "complete_dt": "",
+        "review_dt": "2024/01/13",
         "stakeholder": "Operations - HC",
         "assigned_id": "65b8ed239359f0fca323570c",   
         "status_macro": "backlog",
         "status_micro" : "design",        
         "note" : [
             {
+
                 "note_text": "Note 1",
                 "note_type": "Prioritisation",
-                "author": "note author",
+                "note_author": "note author",
                 "note_dt": "2022/3/01"
             },
             {
+
                 "note_text": "Note 2",
                 "note_type": "Progress",
-                "author": "note author",
+                "note_author": "note author",
                 "note_dt": "2022/3/02"
             }
         ],
         "priority": {
-            "opertaional": "false",
-            "priority": "true",
+
+            "pipeline_number": null,
+            "business_driven": null,
+            "focus": null,
             "category": 1,
-            "importance": "high",
-            "urgency": "high",
-            "effort": "high",
+            "important": null,
+            "urgency": null,
+            "high_effort": null,
             "comment": "executive have determined to be key priority"
         }
     },
@@ -41,33 +46,78 @@
         "summary": "Business would like to invest in an eletroinc patient flow solution to optimise bed access and demand management",
         "complete_flag": true,
         "complete_dt": "2024/03/08",
-        "remind_dt": "2024/02/07",
+        "review_dt": "",
         "stakeholder": "Operations - HC",
         "assigned": "65b8ed239359f0fca323570c",
         "status_macro": "backlog",
         "status_micro" : "design",
         "note" : [
             {
+
                 "note_text": "Note 1",
                 "note_type": "Prioritisation",
-                "author": "note author",
+                "note_author": "note author",
                 "note_dt": "2022/3/01"
             },
             {
+
                 "note_text": "Note 2",
                 "note_type": "Progress",
-                "author": "note author",
+                "note_author": "note author",
                 "note_dt": "2022/3/02"
             }
         ],
         "priority": {
-            "opertaional": "false",
-            "priority": "true",
+
+            "pipeline_number": null,
+            "business_driven": null,
+            "focus": null,
             "category": 1,
-            "importance": "high",
-            "urgency": "high",
-            "effort": "high",
+            "important": null,
+            "urgency": null,
+            "high_effort": null,
             "comment": "executive have determined to be key priority"
-        }
+        },
+        "updatedAt": "2024-02-01T13:20:29.311Z"
+    },
+    {
+        "created_dt": "01/01/2022, 12:00:00 am",
+        "title": "Write business case for electronic patient flow solution",
+        "summary": "Business would like to invest in an eletroinc patient flow solution to optimise bed access and demand management",
+        "complete_flag": true,
+        "complete_dt": "08/03/2024, 12:00:00 am",
+        "review_dt": "null",
+        "stakeholder": "Operations - HC",
+        "assigned_id": null,
+        "status_macro": "backlog",
+        "status_micro": "design",
+        "note": [
+            {
+
+                "note_text": "Note 1",
+                "note_type": "Prioritisation",
+                "note_author": "note author",
+                "note_dt": "01/03/2022, 12:00:00 am"
+            },
+            {
+
+                "note_text": "Note 2",
+                "note_type": "Progress",
+                "note_author": "note author",
+                "note_dt": "02/03/2022, 12:00:00 am"
+            }
+        ],
+        "priority": {
+
+            "pipeline_number": null,
+            "business_driven": null,
+            "focus": null,
+            "category": 1,
+            "important": null,
+            "urgency": null,
+            "high_effort": null,
+            "comment": "executive have determined to be key priority"
+        },
+        "updatedAt": "2024-02-01T13:20:29.311Z"
     }
 ]

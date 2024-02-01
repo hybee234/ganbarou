@@ -8,7 +8,10 @@ const taskSchema = new Schema({
         type: Date,
         default: Date.now,
         get: function(value) {
-            return value.toLocaleString()
+            if (value) {
+                return value.toLocaleString()
+            } else
+                return "null"
         }
     },
     title: {
@@ -26,14 +29,20 @@ const taskSchema = new Schema({
         //Time defaults to 0000hrs
         type: Date,
         get: function(value) {
-            return value.toLocaleString()
+            if (value) {
+                return value.toLocaleString()
+            } else
+                return "null"
         }
     },
-    remind_dt: {
+    review_dt: {
         //Time defaults to 0000hrs
         type: Date,
         get: function(value) {
-            return value.toLocaleString()
+            if (value) {
+                return value.toLocaleString()
+            } else
+                return "null"
         }
     },
     stakeholder: {
@@ -51,7 +60,7 @@ const taskSchema = new Schema({
         type: String,
     },
     note: [noteSchema],
-    priority: [prioritySchema],
+    priority: prioritySchema,
 },
 {
     timestamps: true,

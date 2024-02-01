@@ -25,7 +25,10 @@ const noteSchema = new Schema(
             type: Date,
             default: Date.now,
             get: function(value) {
-                return value.toLocaleString()
+                if (value) {
+                    return value.toLocaleString()
+                } else
+                    return "null"
             }
         },
     

@@ -29,8 +29,8 @@ const resolvers = {
             console.log (`\x1b[33m │ Find Me - Active Tasks  │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └─────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            // console.log("context.user Find me", context.user)
-            // console.log("user._id", context.user._id)
+            console.log("context.user Find me", context.user)
+            console.log("user._id", context.user._id)
 
             if (!context.user){
                 throw AuthenticationError;
@@ -39,9 +39,10 @@ const resolvers = {
             const userData = await User.findOne({ _id: context.user._id })
                 .populate({
                     path: 'tasks',
-                    match: { complete_flag: false }
+                    // match: { complete_flag: false }
                 }).exec()
-                
+
+            // console.log(userData)
             return userData;            
         },
     },

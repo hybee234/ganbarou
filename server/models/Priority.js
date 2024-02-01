@@ -7,23 +7,26 @@ const prioritySchema = new Schema(
             type: Schema.Types.ObjectId,
             default: () => new Types.ObjectId(),
         },
-        operational: {
+        pipeline_number: {
+            type: Number,
+        },
+        business_driven: {
             type: Boolean,
         },
-        priority: {
+        focus: {
             type: Boolean,
         },
         category: {
             type: Number,
         },
-        importance: {
-            type: String,
+        important: {
+            type: Boolean,
         },
-        urgency: {
-            type: String,
+        urgent: {
+            type: Boolean,
         },
-        effort: {
-            type: String,
+        high_effort: {
+            type: Boolean,
         },
         comment: {
             type: String
