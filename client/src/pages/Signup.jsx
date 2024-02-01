@@ -3,9 +3,10 @@ import { useMutation } from '@apollo/client';
 import { ADD_USER } from './../utils/mutations'
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
+import {useNavigate} from 'react-router-dom';
 
 import { AiOutlineUserAdd } from "react-icons/ai";
-import { ToastContainer, toast, Slide } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Constants to validate form fields
@@ -16,6 +17,9 @@ let repeatOK
 const regex = new RegExp('^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\.([a-zA-Z0-9_.-]+)$')
 
 export default function SignUp () {
+
+    // Hook to useNavigate
+    const navigate = useNavigate();
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -137,7 +141,8 @@ export default function SignUp () {
 
                 toast.success(`Sign Up Successful! Welcome ${data.addUser.user.username}!`) 
 
-                // TO DO: Point user to their page
+                //Navigate to Home Page (Testing)
+                navigate('/');
 
                 // Clear form
                 setName('');
@@ -162,21 +167,6 @@ export default function SignUp () {
     return (
 
         <div className="page">
-
-                <ToastContainer
-                    position="bottom-right"
-                    autoClose={3000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="dark"
-                    transition={ Slide}>
-                </ToastContainer>
-
             <div className="page-header bg-filter">
                 <h1>Sign up</h1>
             </div>

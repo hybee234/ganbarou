@@ -2,13 +2,20 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../utils/GlobalState';
 import Auth from '../utils/auth';
+import {useNavigate} from 'react-router-dom';
 
 import { SIDE_MENU } from '../utils/actions';
+
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SideMenu() {
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
+
+    // Hook to useNavigate
+    const navigate = useNavigate();
 
     // console.log(state.user_security)
 
@@ -47,15 +54,33 @@ if (Auth.loggedIn()) {
     // console.log(usenameJWT)
 }
 
-// const hamburgerOnBlur = () => {
-//     dispatch ({
-//         type: SIDE_MENU,
-//         payload: "inactive"
-//     })
-// }
+const handleLogout = () => {
+    Auth.logout
+    navigate('/')
+    toast.success=('Logged out Successfully')
+
+}
+
 
     return (
-        <header>            
+        <header>
+
+        
+            <ToastContainer
+                position="bottom-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                transition={ Slide}>
+            </ToastContainer>
+
+
             <OutsideClickHandler onOutsideClick={sideMenuHide}>
                 <div className="mx-auto border-2">
                     {/* <!-- Container for navbar content --> */}
@@ -110,7 +135,7 @@ if (Auth.loggedIn()) {
                         { 
                             Auth.loggedIn() ? (
                                 <button id="logout-button" className="side-menu-item"
-                                onClick={Auth.logout}>Logout</button>
+                                onClick={handleLogout}>Logout</button>
                             ): (
                             <div>
                                 <Link to="/Login" className="side-menu-item">Login </Link>                  
