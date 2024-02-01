@@ -6,7 +6,7 @@ import {useNavigate} from 'react-router-dom';
 
 import { SIDE_MENU } from '../utils/actions';
 
-import { ToastContainer, toast, Slide } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function SideMenu() {
@@ -32,55 +32,41 @@ export default function SideMenu() {
     } 
     
 
-const sideMenuShow = () => {
-    dispatch ({
-        type: SIDE_MENU,
-        payload: "toggle"
-    })
-}
+    const sideMenuShow = () => {
+        dispatch ({
+            type: SIDE_MENU,
+            payload: "toggle"
+        })
+    }
 
-const sideMenuHide = () => {
-    // console.log ("clicked outside")
-    dispatch ({
-        type: SIDE_MENU,
-        payload: "hide"
-    })
-}
+    const sideMenuHide = () => {
+        // console.log ("clicked outside")
+        dispatch ({
+            type: SIDE_MENU,
+            payload: "hide"
+        })
+    }
 
-if (Auth.loggedIn()) {
-    const usenameJWT = Auth.getProfile().data.username
-    const emailJWT = Auth.getProfile().data.email
-    const _idJWT = Auth.getProfile().data._id
-    // console.log(usenameJWT)
-}
+    if (Auth.loggedIn()) {
+        const usenameJWT = Auth.getProfile().data.username
+        const emailJWT = Auth.getProfile().data.email
+        const _idJWT = Auth.getProfile().data._id
+        // console.log(usenameJWT)
+    }
 
-const handleLogout = () => {
-    Auth.logout
-    navigate('/')
-    toast.success=('Logged out Successfully')
-
-}
+    const handleLogout = () => {
+        console.log("handleLogut engaged")
+        // Log user out (remove 'id_token')
+        Auth.logout()
+        // Invoke reacter-route to move to home page
+        navigate('/')
+        // Show toast
+        toast.success=('Logged out Successfully')
+    }
 
 
     return (
         <header>
-
-        
-            <ToastContainer
-                position="bottom-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-                transition={ Slide}>
-            </ToastContainer>
-
-
             <OutsideClickHandler onOutsideClick={sideMenuHide}>
                 <div className="mx-auto border-2">
                     {/* <!-- Container for navbar content --> */}
@@ -135,7 +121,10 @@ const handleLogout = () => {
                         { 
                             Auth.loggedIn() ? (
                                 <button id="logout-button" className="side-menu-item"
-                                onClick={handleLogout}>Logout</button>
+                                onClick={handleLogout}
+                                >
+                                Logout
+                                </button>
                             ): (
                             <div>
                                 <Link to="/Login" className="side-menu-item">Login </Link>                  
@@ -166,10 +155,4 @@ const handleLogout = () => {
 
         
     )
-
-
-
-
-
-
 }
