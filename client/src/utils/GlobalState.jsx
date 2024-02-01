@@ -9,8 +9,8 @@ const GlobalProvider = ({ value = [], ...props }) => {
     const initialstate = {
         login_email: '',
         login_password: '',
-        user_security: 'admin',
         sidemenu: '',
+        user:[],
     }
 
     const [state, dispatch] = useReducer(reducer, initialstate );

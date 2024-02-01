@@ -2,6 +2,7 @@ import {
     SET_LOGIN_EMAIL,
     SET_LOGIN_PASSWORD,
     SIDE_MENU,
+    USER,
 } from './actions';
 
 export const reducer = (state, action) => {
@@ -22,6 +23,13 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 sidemenu: action.payload,
+            }
+        }
+        case USER: {
+            console.log("Reducer USER engaged")
+            return {
+                ...state,
+                user: action.payload,
             }
         }
 
