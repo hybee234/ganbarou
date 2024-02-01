@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from './../utils/mutations'
+import { Link } from 'react-router-dom';
+import Auth from '../utils/auth';
 
 import { AiOutlineUserAdd } from "react-icons/ai";
-
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -42,13 +45,13 @@ export default function SignUp () {
         if (name === "name") {
             // If name value is null - show message
             if (!value) {
-                console.log ("Name is required")
+                // console.log ("Name is required")
                 document.getElementById('name-warning').style.visibility = "visible";
                 nameOK = 0;
             }
             // If name value is OK - hide message
             if (value) {
-                console.log ("Name is OK")
+                // console.log ("Name is OK")
                 document.getElementById('name-warning').style.visibility = "hidden";
                 nameOK = 1;
             }
@@ -67,12 +70,12 @@ export default function SignUp () {
                 //Test value against regex
                 if (regex.test(value)) {
                     //Hide message if pass regex test
-                    // console.log ("regex test", regex.test(value))
+                    console.log ("regex test", regex.test(value))
                     document.getElementById('email-warning').style.visibility = "hidden";
                     emailOK = 1;
                 } else {
                     //Show message if fail regex text
-                    // console.log ("regex test", regex.test(value))
+                    console.log ("regex test", regex.test(value))
                     document.getElementById('email-warning').style.visibility = "visible";
                     emailOK = 0;
                 }
@@ -102,46 +105,55 @@ export default function SignUp () {
                 repeatOK = 0
             }          
             // If repeat password is OK - hide message
-            if (value.length >=8) {
+            if (password === repeat) {
                 // console.log ("Message is OK")
                 document.getElementById('repeat-warning').style.visibility = "hidden";
                 repeatOK = 1
             }            
         }
-
     };
 
-    const handleFormSubmit = (e) => {
+    // Call in useMutation Hook
+    const [AddUser, { error }] = useMutation(ADD_USER);
+
+    // Form Submit
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
 
         //Check if form is ready to submit
-        
-        // console.log("nameOK:", nameOK, ". emailOK: ", emailOK, ". passwordOK: ", passwordOK, ". repeatOK: ", repeatOK)
+        console.log("nameOK:", nameOK, ". emailOK: ", emailOK, ". passwordOK: ", passwordOK, ". repeatOK: ", repeatOK)
         if (nameOK === 1 && emailOK === 1 && passwordOK === 1 && repeatOK ===1) {
+            // Graph QL useMutation method
+            try {
+                const { data } = await AddUser({
+                    variables: {
+                        username: name,
+                        email: email,
+                        password: password,
+                    }
+                })
+                // Store token in local storage - id_token (Auth.login already redirects use to home page)                
+                Auth.login(data.addUser.token);
+
+                toast.success(`Sign Up Successful! Welcome ${data.addUser.user.username}!`) 
+
+                // TO DO: Point user to their page
+
+                // Clear form
+                setName('');
+                setEmail('');
+                setPassword('');
+                setRepeat('');
+
+            } catch (err) {
+                console.error(err);
+                toast.error("Oops! Something went wrong in the Sign up Process") 
+            }
+
             
-            // Fields are OK
-
-
-
-            //Insert submit actions here
-            alert(`Hello ${name}, your email is ${email} and your password is "${password}`);
-            setName('');
-            setEmail('');
-            setPassword('');
-            setRepeat('');
-
-
-
-
-
-
-
-            // toast.success(`Hi ${data.login.user.username}! Login Successful`) 
         } else {
             // Fields are not OK 
-
-            toast.error("Please review field values before submitting") 
-
+            toast.error("Please correct the errors on the form before attempting to sign up") 
         }
     };
 
@@ -176,7 +188,7 @@ export default function SignUp () {
                         onSubmit= {handleFormSubmit}
                         >
                         {/* <h2 className="w-11/12 mx-auto block uppercase text-lg font-semibold md:text-2xl modal-heading"> Sign Up </h2> */}
-                        <div className="w-full px-1 mx-auto my-5 justify-center">
+                        <div className="w-full px-1 mx-auto mt-5 justify-center">
                             <label className="w-5/6 mx-auto text-left block mb-2 text-xs font-bold tracking-wide text-color uppercase"> Name: </label>
                             <input
                                 className="w-11/12 input-field"
@@ -191,7 +203,7 @@ export default function SignUp () {
                             />            
                             <p id="name-warning" className="warningtext">A name is required</p>                
                         </div>    
-                        <div className="w-full px-1 mx-auto my-5 justify-center">
+                        <div className="w-full px-1 mx-auto justify-center">
                             <label className="w-5/6 mx-auto text-left block mb-2 text-xs font-bold tracking-wide text-color uppercase"> Email: </label>
                             <input
                                 className="w-11/12 input-field"
@@ -206,7 +218,7 @@ export default function SignUp () {
                             />
                             <p id="email-warning" className="warningtext">Please enter a valid email address</p>                            
                         </div>
-                        <div className="w-full px-1 mx-auto my-5">
+                        <div className="w-full px-1 mx-auto">
                             <label className="w-5/6 mx-auto text-left block mb-2 text-xs font-bold tracking-wide text-color uppercase"> Password </label>
                             <input
                                 className="w-11/12 input-field"
@@ -221,7 +233,7 @@ export default function SignUp () {
                             />
                             <p id="password-warning" className="warningtext">Password must be at least 8 characters</p>                            
                         </div>
-                        <div className="w-full px-1 mx-auto my-5">
+                        <div className="w-full px-1 mx-auto">
                             <label className="w-5/6 mx-auto text-left block mb-2 text-xs font-bold tracking-wide text-color uppercase"> Repeat Password </label>
                             <input
                                 className="w-11/12 input-field"
@@ -242,7 +254,12 @@ export default function SignUp () {
                                 <div> &nbsp; Sign Up</div>
                             </div>                            
                         </button>
+                        <div className="text-center mt-3">Already have an account?</div>                    
+                        <Link to="/Login" className="link underline">Log in here</Link>
                     </form>  
+
+
+
                 </div>
             </div>
         </div>

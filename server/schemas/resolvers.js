@@ -50,9 +50,9 @@ const resolvers = {
     Mutation: {
         addUser : async (parent, args) => {
 
-            console.log (`\x1b[33m ┌──────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-            console.log (`\x1b[33m │ Create User  │ \x1b[0m\x1b[32m  \x1b[0m`); 
-            console.log (`\x1b[33m └──────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m ┌───────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Add User  │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └───────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
             const user = await User.create(args)
             const token = signToken(user)            
@@ -67,7 +67,7 @@ const resolvers = {
 
             // Check User Exist
             const user = await User.findOne({                
-                $or: [{ username: args.username }, { email: args.email }],                
+                email: args.email,                
             });
 
             if (!user) {
