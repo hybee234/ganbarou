@@ -1,7 +1,7 @@
 
 import { useQuery } from '@apollo/client';
 import { GET_ME } from './../utils/queries'
-import MyTasksSummary from '../components/MyTasksSummary';
+import TasksSummary from '../components/TasksSummary';
 
 export default function MyTasks() {
 
@@ -35,7 +35,7 @@ export default function MyTasks() {
     return (
     <div>
         My current tasks!       
-        <MyTasksSummary myData={myData} />
+        <TasksSummary myData={myData} /> 
     <h2>
     {/* {
         myData.tasks.length ?

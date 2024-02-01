@@ -1,10 +1,18 @@
 import { format } from "date-fns";
 
-export default function MyTasksSummary(props) {
+/*
+This components job is to recieve a task array and produce a summary out of it
+Operational Tasks - Operational Tasks due for review
+Business Focus Initiatives - Business FOcus tasks due for review
+Business Opportunistic Initiatives
+*/
+
+
+export default function TasksSummary(props) {
 
     const {myData} = props
 
-    console.log("MyTasksSummary", myData)
+    console.log("TasksSummary", myData)
 // Summary view for the user
 //Operational Tickets (total), total due for attention
 //BUsiness driven tickets - priority total, total due for attention

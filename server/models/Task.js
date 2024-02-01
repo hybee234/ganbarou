@@ -20,7 +20,6 @@ const taskSchema = new Schema({
     },    
     summary: {
         type: String,
-        required: true,
     },
     complete_flag: {
         type: Boolean,
