@@ -26,21 +26,26 @@ bar: 100
     --onyx: rgb(215, 215, 215);
     --old-rose: rgba(170, 118, 124, 1);
     --lightblue: rgb(138, 172, 250);    
-    --grey: rgb(59,59,59);
-    --lightgrey: rgb(75,75,75);
+    --darkgrey: rgb(50,50,50);
+    --grey: rgb(100,100,100);
+    --lightgrey: rgb(175,175,175);
     --redwarning: rgb(220, 38, 38);
 
 /*UI Objects*/
     --text: var(--onyx);
     --texthighlight: var(--lightblue);    
-    --linkactive: var(--lightblue);
-    --linkbackground: var(--grey);
-    --buttontext: var(--onyx);
-    /* --textwinein: rgb(22, 163, 74); */
     --textwarning: var(--redwarning);
+    --linkhover: var(--lightblue);
+    --linkbackground: var(--darkgrey);
+    --inputbackground: var(--grey);
+    --inputborder: var(--onyx);
+    --buttontext: var(--onyx);
+    --buttonbackgroundhover: var(--grey);
+
+    /* --textwinein: rgb(22, 163, 74); */    
     /* --deletebutton: rgb(223, 55, 55); */
     /* --deletebuttonhover: rgb(185, 28, 28); */
-    --inputbackground: var(--lightgrey);
+    
 
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
@@ -81,7 +86,7 @@ h2 {
 /********************/
 
 .bg-image {
-    background-image: linear-gradient( rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0) ), url("/assets/images/Graphite.jpg");
+    background-image: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) ), url("/assets/images/Graphite.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -190,12 +195,10 @@ li {
     position: fixed;
     left: -100%;
     top: 0px;
-    /* width: 30%; */
     width: 250px;
     height: 100vh;
+    background-color: transparent;
     padding-top: 100px;
-    /* flex-direction: column; */
-    background-color: #27272a;
     text-align: center;
     transition: left 0.3s;
     z-index: 0;
@@ -206,7 +209,7 @@ li {
 .side-menu.active {
     left: 0;
     z-index: 0;
-    background-color: #27272a;
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 .side-menu-item {
@@ -281,7 +284,7 @@ li {
 } */
 
 .link:hover {
-    color: var(--linkactive);
+    color: var(--linkhover);
     text-decoration: underline;
 
 }
@@ -291,7 +294,7 @@ li {
 }
 
 .link-img:hover {
-    border: 2px solid var(--linkactive);
+    border: 2px solid var(--linkhover);
 }
 
 .no-link {
@@ -365,7 +368,7 @@ li {
 /* Portfolio page */
 /******************/
 
-.apps-container {
+/* .apps-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -380,7 +383,7 @@ li {
     max-width: 600px;
     padding: 10px;
     margin: 10px;   
-}
+} */
 
 /****************/
 /* Contact Form */
@@ -393,7 +396,7 @@ li {
 .input-field {
     /* width: 90%; */
     background-color: var(--inputbackground);
-    border: 2px solid rgb(229 231 235);
+    border: 2px solid var(--inputborder);
     color: var(--text);
     border-radius: 0.75rem;
     transition-duration: 200ms;
@@ -422,20 +425,14 @@ li {
 }
 
 .button-color:hover {
-    background-color: rgba(50, 50, 50, 1);
+    background-color: var(--buttonbackgroundhover)
 }
 
 
-.required {
+.warningtext {
     visibility: hidden;
     color: var(--textwarning)
 }
-
-.button-form-error {
-    background-color: var(--textwarning);
-    border-radius: 0.75rem;    
-}
-
 
 .modal-field {
     background-color: rgb(229 231 235);
@@ -484,7 +481,7 @@ li {
 
 .skill-icon:hover {
     background-color: var(--linkbackground);
-    border: 2px solid var(--linkactive);
+    border: 2px solid var(--linkhover);
     padding: 0px
 }
 

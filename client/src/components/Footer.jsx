@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../utils/GlobalState';
 
+import Auth from '../utils/auth';
+
 import { FaGithub } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
@@ -24,7 +26,22 @@ function Footer() {
             <div className = "bg-filter" >       
                 <button className="button-color px-6 py-2 my-2 font-bold text-2xl" onClick={() => consoleLog()} >
                     Console.log(state)
-                </button>         
+                </button>
+                 {/* Flag used for developing */}
+                 { 
+                            Auth.loggedIn() ? (
+                                <div className="text-green-400">
+                                    <div>Username: {Auth.getProfile().data.username}</div>
+                                    <div>Email: {Auth.getProfile().data.email}</div>
+                                    <div>_id: {Auth.getProfile().data._id}</div>
+                                </div>
+                                
+                            ): (
+                            <div>
+                                <span className="text-red-400"> Not Logged in </span>
+                            </div>
+                            )
+                        }         
                 <div className="flex justify-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                     <span>
                         <div className="p-3 link">

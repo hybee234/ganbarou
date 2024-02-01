@@ -7,12 +7,13 @@ import { useGlobalContext } from '../utils/GlobalState';
 import {
     SET_LOGIN_EMAIL,
     SET_LOGIN_PASSWORD,
+    USER
 } from '../utils/actions'
 
 import { useMutation } from '@apollo/client';
 import { LOG_IN } from './../utils/mutations'
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login () {
@@ -47,9 +48,9 @@ export default function Login () {
             // Store token in local storage - id_token (Auth.login already redirects use to home page)
             Auth.login(data.login.token);
 
-            console.log(data)
-
-            toast.success(`Logged in Successfully, Hi ${data.login.user.username}!`)  
+            console.log(data.login.user)
+            dispatch({ type: USER, payload: data.login.user} )
+            toast.success(`Hi ${data.login.user.username}! Login Successful`)  
             // Write some actions to update the state   
             dispatch({ type: SET_LOGIN_PASSWORD, payload: ''})
             dispatch({ type: SET_LOGIN_EMAIL, payload: ''})
@@ -57,7 +58,7 @@ export default function Login () {
             toast.error("Log in Failed, Please Try Again") 
             console.error(err);    
         }
-
+            
         
         // setUserFormData({
         //     username: '',
@@ -76,7 +77,8 @@ export default function Login () {
 
         <div className="page">
 
-                <ToastContainer position="bottom-right"
+                <ToastContainer
+                    position="bottom-right"
                     autoClose={3000}
                     hideProgressBar={false}
                     newestOnTop={false}
@@ -86,8 +88,7 @@ export default function Login () {
                     draggable
                     pauseOnHover
                     theme="dark"
-                    type={error}
-                    transition: Bounce>
+                    transition={ Slide}>
                 </ToastContainer>
 
             <div className="page-header bg-filter">
