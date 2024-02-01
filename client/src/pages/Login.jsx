@@ -53,7 +53,8 @@ export default function Login () {
 
             console.log(data.login.user)
             dispatch({ type: USER, payload: data.login.user} )
-            toast.success(`Hi ${data.login.user.username}! Login Successful`)  
+            
+            toast.success("Login Successful")  
 
             //Navigate to Home Page (Testing)
             navigate('/');

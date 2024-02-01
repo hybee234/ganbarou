@@ -1,15 +1,5 @@
 // use this to decode a token and get the user's information out of it
 import decode from 'jwt-decode';
-import { ToastContainer, toast, Slide } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import {useNavigate} from 'react-router-dom';
-
-
-// Hook to useNavigate
-const reactRouter = () => {
-    const navigate = useNavigate();
-}
-
 
 // create a new class to instantiate for a user
     
@@ -45,17 +35,16 @@ class AuthService {
 
 
     login(idToken) {
+        console.log("client auth.js login engaged")
         // Saves user token to localStorage 
         localStorage.setItem('id_token', idToken);
     }
 
     logout() {
         // Clear user token and profile data from localStorage
+        console.log("client auth.js logout engaged")
         localStorage.removeItem('id_token');
         // this will reload the page and reset the state of the application
-        toast.success(`Logout Successful`) 
-        window.location.assign('/Login');
-
     }
 }
 
