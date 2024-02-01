@@ -37,7 +37,7 @@ export default function SignUp () {
             setPassword(value)
         } else if (name === "repeat") {
             setRepeat(value)
-    }
+        }
     }
 
     // Blur event (lost focus)
@@ -163,10 +163,7 @@ export default function SignUp () {
         }
     };
 
-
-
     return (
-
         <div className="page">
             <div className="page-header bg-filter">
                 <h1>Sign up</h1>

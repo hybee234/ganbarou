@@ -56,18 +56,16 @@ export default function SideMenu() {
     // }
 
     const handleLogout = () => {
-        toast.info=('Testing')
         console.log("handleLogut engaged")
         // Log user out (remove 'id_token')
         Auth.logout()
         // Show toast
-        toast.success=('Logged out Successfully')
+        toast.success('Logged out Successfully')
         // Invoke reacter-route to move to home page
         navigate('/')
         
     }
-
-
+    
     return (
         <header>
             <OutsideClickHandler onOutsideClick={sideMenuHide}>
