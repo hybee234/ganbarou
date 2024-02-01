@@ -705,10 +705,6 @@ video {
   border-width: 1px;
 }
 
-.border-2 {
-  border-width: 2px;
-}
-
 .p-2 {
   padding: 0.5rem;
 }
@@ -782,6 +778,10 @@ video {
 
 .font-bold {
   font-weight: 700;
+}
+
+.font-normal {
+  font-weight: 400;
 }
 
 .font-semibold {
@@ -909,7 +909,7 @@ h2 {
 /********************/
 
 .bg-image {
-  background-image: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) ), url("/assets/images/Graphite.jpg");
+  background-image: linear-gradient( rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.0) ), url("/assets/images/Graphite.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1426,11 +1426,11 @@ li {
   }
 
   h1 {
-    font-size: 2.6rem;
+    font-size: 2.4rem;
   }
 
   h2 {
-    font-size: 2.3rem;
+    font-size: 2.2rem;
   }
 
   .profile-picture{

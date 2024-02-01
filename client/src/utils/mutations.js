@@ -14,46 +14,47 @@ export const ADD_USER = gql`
 `;
 
 export const LOG_IN = gql`
-    mutation Login($password: String!, $email: String) {
+mutation Login($password: String!, $email: String) {
         login(password: $password, email: $email) {
-            token
-            user {
-                _id
-                username
-                email
-                security
-                taskCount
-                tasks {
-                    _id
-                    created_dt
-                    title
-                    summary
-                    complete_flag
-                    complete_dt
-                    remind_dt
-                    stakeholder
-                    assigned
-                    status_macro
-                    status_micro
-                note {
-                    noteId
-                    note
-                    author
-                    note_dt
-                }
-                priority {
-                    priorityId
-                    operational
-                    priority
-                    category
-                    importance
-                    urgency
-                    effort
-                    comment
-                }
-                updatedAt
-                }
+        token
+        user {
+            _id
+            username
+            email
+            security
+            taskCount
+            tasks {
+            _id
+            created_dt
+            title
+            summary
+            complete_flag
+            complete_dt
+            remind_dt
+            stakeholder
+            assigned_id
+            status_macro
+            status_micro
+            note {
+                note_id
+                note_text
+                note_type
+                note_author
+                note_dt
             }
+            priority {
+                priority_id
+                operational
+                priority
+                category
+                importance
+                urgency
+                effort
+                comment
+            }
+            updatedAt
+            }
+        }
         }
     }
 `;

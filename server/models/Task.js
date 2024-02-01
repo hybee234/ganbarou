@@ -40,10 +40,9 @@ const taskSchema = new Schema({
         type: String,
 
     },
-    assigned: {
-        type: String,
-        //default "unassigned"
-        required: true,
+    assigned_id: {        
+        type: Schema.Types.ObjectId,
+        ref: 'user',        
     },            
     status_macro: {
         type: String,

@@ -14,7 +14,7 @@ let nameOK;
 let emailOK;
 let passwordOK;
 let repeatOK
-const regex = new RegExp('^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\.([a-zA-Z0-9_.-]+)$')
+const regex = new RegExp(/^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+)\.([a-zA-Z0-9_.-]+)$/)
 
 export default function SignUp () {
 
@@ -37,7 +37,7 @@ export default function SignUp () {
             setPassword(value)
         } else if (name === "repeat") {
             setRepeat(value)
-    }
+        }
     }
 
     // Blur event (lost focus)
@@ -122,11 +122,11 @@ export default function SignUp () {
     const [AddUser, { error }] = useMutation(ADD_USER);
 
     // Form Submit
-    const handleFormSubmit = async (e) => {
-        e.preventDefault();
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
 
         //Check if form is ready to submit
-        console.log("nameOK:", nameOK, ". emailOK: ", emailOK, ". passwordOK: ", passwordOK, ". repeatOK: ", repeatOK)
+        // console.log("nameOK:", nameOK, ". emailOK: ", emailOK, ". passwordOK: ", passwordOK, ". repeatOK: ", repeatOK)
         if (nameOK === 1 && emailOK === 1 && passwordOK === 1 && repeatOK ===1) {
             // Graph QL useMutation method
             try {
@@ -151,8 +151,8 @@ export default function SignUp () {
                 setPassword('');
                 setRepeat('');
 
-            } catch (err) {
-                console.error(err);
+            } catch (error) {
+                console.error(error);
                 toast.error("Oops! Something went wrong in the Sign up Process") 
             }
 
@@ -163,10 +163,7 @@ export default function SignUp () {
         }
     };
 
-
-
     return (
-
         <div className="page">
             <div className="page-header bg-filter">
                 <h1>Sign up</h1>

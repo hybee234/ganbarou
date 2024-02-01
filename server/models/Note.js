@@ -4,16 +4,20 @@ const { Schema, Types } = require('mongoose');
 const noteSchema = new Schema(
     {
 
-        noteId: {
+        note_id: {
             type: Schema.Types.ObjectId,
             default: () => new Types.ObjectId(),
         },
-        note: {
+        note_text: {
             type: String,
             required: true,
-            maxlength: 280,            
+            maxlength: 500,            
         },
-        author: {
+        note_type: {
+            type: String,
+            required: true,        
+        },
+        note_author: {
             type: String,
             required: true,
         },

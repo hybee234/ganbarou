@@ -7,6 +7,7 @@ import App from './App.jsx'
 import Welcome from './pages/Welcome'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import MyTasks from './pages/MyTasks'
 
 const router = createBrowserRouter([
   {
@@ -26,10 +27,10 @@ const router = createBrowserRouter([
         path: 'signup',
         element: <Signup />
       },
-      // {
-      //   path: '/search',
-      //   element: <SearchBooks />
-      // },
+      {
+        path: 'mytasks',
+        element: <MyTasks />
+      },
       // {
       //   path: '/saved',
       //   element: <SavedBooks />
