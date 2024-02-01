@@ -1,7 +1,7 @@
 import { PiSignInBold } from "react-icons/pi";
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
-
+import {useNavigate} from 'react-router-dom';
 
 import { useGlobalContext } from '../utils/GlobalState';
 import {
@@ -13,16 +13,19 @@ import {
 import { useMutation } from '@apollo/client';
 import { LOG_IN } from './../utils/mutations'
 
-import { ToastContainer, toast, Slide } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login () {
+    // // Hook to useNavigate
+    const navigate = useNavigate();
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
 
     // useMutation
     const [Login, { error }] = useMutation(LOG_IN);
+
 
 
     const handleFormSubmit = async (event) => {
@@ -51,6 +54,11 @@ export default function Login () {
             console.log(data.login.user)
             dispatch({ type: USER, payload: data.login.user} )
             toast.success(`Hi ${data.login.user.username}! Login Successful`)  
+
+            //Navigate to Home Page (Testing)
+            navigate('/');
+
+
             // Write some actions to update the state   
             dispatch({ type: SET_LOGIN_PASSWORD, payload: ''})
             dispatch({ type: SET_LOGIN_EMAIL, payload: ''})
@@ -73,21 +81,6 @@ export default function Login () {
     return (
 
         <div className="page">
-
-                <ToastContainer
-                    position="bottom-right"
-                    autoClose={3000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="dark"
-                    transition={ Slide}>
-                </ToastContainer>
-
             <div className="page-header bg-filter">
                 <h1>Login</h1>
             </div>
