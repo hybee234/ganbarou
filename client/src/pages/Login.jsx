@@ -66,9 +66,6 @@ export default function Login () {
         //     password: '',
         // });
 
-        
-
-
     };
 
 
@@ -118,12 +115,12 @@ export default function Login () {
                                 <div>&nbsp; Log in</div>
                             </div>
                         </button>
-                        <div className="text-center mt-10">Don't have an account?</div>
-                        {/* <div className="flex justify-center my-0 pb-5">          */}
-                            <Link to="/Signup" className="link underline">Sign up here</Link>
 
-                        {/* </div> */}
+                        <div className="text-center mt-3">Don't have an account?</div>
+                        <Link to="/Signup" className="link underline">Sign up here</Link>
+
                     </form>  
+
                 </div> 
             </div>
         </div>
