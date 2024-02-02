@@ -2,10 +2,10 @@
 import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from './../utils/queries'
-import { TASKS_BY_ID } from './../utils/queries'
+// import { TASKS_BY_ID } from './../utils/queries'
 
-import TasksSummary from '../components/TasksSummary';
-import TaskList from '../components/TasksList';
+import TasksSummary from '../components/TaskSummary';
+import TaskList from '../components/TaskList';
 
 export default function MyTasks() {
 

@@ -5,12 +5,12 @@ const User = require('./User')
 
 const taskSchema = new Schema({
     created_dt: {
-        //Stores date and time     
+        //Stores date    
         type: Date,
         default: Date.now,
         get: function(value) {
             if (value) {
-                return value.toLocaleString()
+                return value.toLocaleDateString()
             } else
                 return "null"
         }
@@ -30,7 +30,7 @@ const taskSchema = new Schema({
         type: Date,
         get: function(value) {
             if (value) {
-                return value.toLocaleString()
+                return value.toLocaleDateString()
             } else
                 return "null"
         }
@@ -40,7 +40,7 @@ const taskSchema = new Schema({
         type: Date,
         get: function(value) {
             if (value) {
-                return value.toLocaleString()
+                return value.toLocaleDateString()
             } else
                 return "null"
         }
