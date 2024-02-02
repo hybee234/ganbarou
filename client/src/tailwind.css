@@ -657,10 +657,6 @@ video {
   display: table;
 }
 
-.table-cell {
-  display: table-cell;
-}
-
 .grid {
   display: grid;
 }
@@ -1261,28 +1257,30 @@ li {
   margin-right: auto;
 }
 
-/******************/
+/*****************/
 
-/* Portfolio page */
+/* Table colours */
 
-/******************/
+/*****************/
 
-/* .apps-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
-    margin-inline: auto;
-    width: 80%;
+.table-heading {
+  /* border-top: 2px solid rgba(50,50,50,0.3); */
+  border-top: 2px solid rgba(223, 223, 223, 0.3);
+  /* border-bottom: 2px solid rgba(50,50,50,0.3); */
+  border-bottom: 2px solid rgba(223, 223, 223, 0.3);
 }
 
-.apps-item {
-    flex: 1 0 cal(33% - 5rem);
-    min-width: 300px;
-    max-width: 600px;
-    padding: 10px;
-    margin: 10px;   
-} */
+.table-rows {
+  /* border-bottom: 1px solid rgba(50,50,50,0.2); */
+  border-bottom: 1px solid rgba(223, 223, 223, 0.25);
+}
+
+.table-last-row {
+  /* border-top: 1px solid rgba(50,50,50,0.15);
+    border-bottom: 2px solid rgba(50,50,50,0.3); */
+  border-top: 1px solid rgba(223, 223, 223, 0.15);
+  border-bottom: 2px solid rgba(223, 223, 223, 0.3);
+}
 
 /****************/
 
@@ -1354,35 +1352,6 @@ li {
   border: 1px solid rgb(113 113 122)
 }
 
-/***************/
-
-/* Resume Page */
-
-/***************/
-
-.skill-card{
-  padding: 20px;
-  transition: ease-in-out .3s;
-}
-
-.skill-bg {
-  background-color: white;
-}
-
-.skill-icon {
-  width: 100px;
-  height: 100px;
-  /* transition: ease-in-out .3s; */
-  padding:2px;
-  border-radius: 0.75rem;
-}
-
-.skill-icon:hover {
-  background-color: var(--linkbackground);
-  border: 2px solid var(--linkhover);
-  padding: 0px
-}
-
 /*******************************/
 
 /* Media Query LESS THAN 1280px /
@@ -1405,19 +1374,6 @@ li {
     width: 85%;
   }
 
-  .skill-card{
-    padding: 15px;
-  }
-
-  .skill-icon {
-    width: 90px;
-    height: 90px;
-  }
-
-  .skill-text {
-    width: 90px;
-  }
-
   .profile-picture{
     width: 400px;
   }
@@ -1431,15 +1387,6 @@ li {
 @media (max-width: 1024px) {
   .page {
     width: 90%
-  }
-
-  .skill-card{
-    padding: 10px;
-  }
-
-  .skill-icon {
-    width: 90px;
-    height: 90px;
   }
 
   .profile-picture{
@@ -1459,15 +1406,6 @@ li {
 
   .page-header {
     width: 70%;
-  }
-
-  .skill-card{
-    padding: 5px;
-  }
-
-  .skill-icon {
-    width: 80px;
-    height: 80px;
   }
 
   h1 {
@@ -1526,15 +1464,6 @@ li {
     width: 80px;
   }
 
-  .apps-container {
-    width: 90%;
-  }
-
-  .skill-icon {
-    width: 70px;
-    height: 70px;
-  }
-
   h1 {
     font-size: 2.2rem;
   }
@@ -1543,8 +1472,8 @@ li {
     font-size: 2rem;
   }
 
-  .profile-picture{
-    width: 200px;
+  th, td {
+    font-size: 0.75rem;
   }
 }
 
@@ -1556,6 +1485,10 @@ li {
 @media (max-width: 400px) {
   .nav-item {
     width: 45%;
+  }
+
+  table {
+    font-size: 0.5rem;
   }
 }
 
@@ -1625,10 +1558,6 @@ li {
 @media (min-width: 640px) {
   .sm\:table-cell {
     display: table-cell;
-  }
-
-  .sm\:hidden {
-    display: none;
   }
 
   .sm\:text-3xl {

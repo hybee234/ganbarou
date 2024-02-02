@@ -24,6 +24,15 @@ export default function TaskList (props) {
 // Complete Date
 // Summary
 
+    const completeHandler = () => {
+        // I need to write an update record mutation ...
+
+        // Grab 
+
+
+    }
+
+
 
     return (
         <div>
@@ -59,7 +68,11 @@ export default function TaskList (props) {
                                 <td className="hidden sm:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm">{task.complete_flag}div</td>  
                                 {/* Show if less than 640 pixels */}
                                 <td>
-                                    <button data-transaction-id = "{{transaction_id}}" className="text-xs font-normal xl:text-base md:text-sm sm:text-xs link-text button-color">Complete</button>
+                                    <button 
+                                        className="text-xs font-normal md:text-sm sm:text-xs px-4 py-1 my-1 button-color"
+                                        onClick={completeHandler}
+                                        >Complete
+                                    </button>
                                 </td>
                                 {/* Show if greater than 1280 pixels */}
                                 <td className="hidden xl:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm">{task.updatedAt}</td> 
