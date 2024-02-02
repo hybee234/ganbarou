@@ -8,7 +8,7 @@ Business Opportunistic Initiatives
 */
 
 
-export default function TaskList(props) {
+export default function TasksSummary(props) {
 
     const {me} = props
 
@@ -19,39 +19,39 @@ export default function TaskList(props) {
 
     // GrandTotal - My Total Active Tasks
     const totalTasks = me.tasks.filter(task => !task.complete_flag).length
-    console.log("totalTasks: ", totalTasks)
+    // console.log("totalTasks: ", totalTasks)
 
     // Grandtotal - Active, future review
-    const totalFutureReview = me.tasks.filter(task => !task.complete_flag && task.review_dt > new Date().toLocaleString()).length;
-    console.log("totalFutureReview", totalFutureReview);
+    const totalReviewDue = me.tasks.filter(task => !task.complete_flag && task.review_dt < new Date().toLocaleString()).length;
+    // console.log("totalReviewDue", totalReviewDue);
 
     //Operational Tickets (total)
     const totalOperational = me.tasks.filter(task => !task.complete_flag && !task.priority.business_driven).length
-    console.log("totalOperational: ", totalOperational)
+    // console.log("totalOperational: ", totalOperational)
 
     //Operational Tickets (total), future review
-    const operationalFutureReview = me.tasks.filter(task => !task.complete_flag && !task.priority.business_driven && task.review_dt > new Date().toLocaleString()).length
-    console.log("operationalFutureReview: ", operationalFutureReview)
+    const operationalReviewDue = me.tasks.filter(task => !task.complete_flag && !task.priority.business_driven && task.review_dt < new Date().toLocaleString()).length
+    // console.log("operationalReviewDue: ", operationalReviewDue)
 
     //Business driven total 
     const totalBusiness = me.tasks.filter(task => !task.complete_flag && task.priority.business_driven).length
-    console.log("totalBusiness: ", totalBusiness)
+    // console.log("totalBusiness: ", totalBusiness)
 
     //Business driven Focus total
     const businessFocus = me.tasks.filter(task => !task.complete_flag && task.priority.business_driven && task.priority.focus).length
-    console.log("businessFocus: ", businessFocus)
+    // console.log("businessFocus: ", businessFocus)
 
     // Business driven Focus, future review
-    const businessFocusFutureReview = me.tasks.filter(task => !task.complete_flag && task.priority.business_driven && task.priority.focus && task.review_dt > new Date().toLocaleString()).length
-    console.log("businessFocusFutureReview: ", businessFocusFutureReview)
+    const businessFocusReviewDue = me.tasks.filter(task => !task.complete_flag && task.priority.business_driven && task.priority.focus && task.review_dt < new Date().toLocaleString()).length
+    // console.log("businessFocusReviewDue: ", businessFocusReviewDue)
 
     // Business driven opportunistic, total
     const businessOpportunistic = me.tasks.filter(task => !task.complete_flag && task.priority.business_driven && !task.priority.focus).length
-    console.log("businessOpportunistic: ", businessOpportunistic)
+    // console.log("businessOpportunistic: ", businessOpportunistic)
 
     // Business driven Focus, future review
-    const businessOpportunisticFutureReview = me.tasks.filter(task => !task.complete_flag && task.priority.business_driven && !task.priority.focus && task.review_dt > new Date().toLocaleString()).length
-    console.log("businessOpportunisticFutureReview: ", businessOpportunisticFutureReview)
+    const businessOpportunisticReviewDue = me.tasks.filter(task => !task.complete_flag && task.priority.business_driven && !task.priority.focus && task.review_dt < new Date().toLocaleString()).length
+    // console.log("businessOpportunisticReviewDue: ", businessOpportunisticReviewDue)
 
 // Closed this month
 
@@ -102,17 +102,17 @@ export default function TaskList(props) {
 
 return (
     <div className="bg-filter mt-10">
-        <p> My Tasks List!</p>
+        <p> My Tasks Summary!</p>
         <div className="flex flex-wrap justify-center">
             <div className = "border-2 p-2">
                 <p className="underline"> Total </p>
                 <div> Tasks: {totalTasks} </div>
-                <div> Tasks Sorted: {totalFutureReview} </div>                
+                <div> Review Due: {totalReviewDue} </div>                
             </div>
             <div className = "border-2 p-2">
                 <p className="underline"> Operational </p>
                 <div> Tasks: {totalOperational}</div>
-                <div> Tasks Sorted: {operationalFutureReview}</div>
+                <div> Review Due: {operationalReviewDue}</div>
             </div>
             <div className = "border-2 p-2">
                 {/* <div> Total Business Driven Initiatives: {totalBusiness}</div>         */}
@@ -121,12 +121,12 @@ return (
                     <div className = "border-2 p-2">
                         <p className="underline">Focus</p>
                         <div> Tasks: {businessFocus}</div>
-                        <div> Tasks Sorted: {businessFocusFutureReview}</div>
+                        <div> Review Due: {businessFocusReviewDue}</div>
                     </div>
                     <div className = "border-2 p-2">
                         <p className="underline">Opportunistic</p>
                         <div> Tasks: {businessOpportunistic}</div>
-                        <div> Tasks Sorted: {businessOpportunisticFutureReview}</div>
+                        <div> Review Due: {businessOpportunisticReviewDue}</div>f
                     </div>
                 </div>
             </div>
