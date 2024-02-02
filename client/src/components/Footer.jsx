@@ -17,6 +17,8 @@ function Footer() {
     // [HL] Hy tracking global state
     const consoleLog = () => {
         console.log("state", state)
+        const loggedIn = Auth.loggedIn()
+        console.log("Logged In?", loggedIn)
     }
 
 
