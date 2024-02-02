@@ -10,17 +10,29 @@ Business Opportunistic Initiatives
 
 export default function TasksSummary(props) {
 
-    const {myData} = props
+    const {tasks} = props
 
-    console.log("TasksSummary", myData)
+    // myData is passed through with all user and task data
+    console.log("tasks", tasks)
+
+    // Pull out the tasks from myData
+    // const myTasks = myData.tasks
+    // console.log("myTasks", myTasks)
+
 // Summary view for the user
+// My Total Active Tasks
+
+    const activeTasks = tasks.filter(task => (!task.complete_flag)).length
+    console.log("activeTasks: ", activeTasks)
+
+
 //Operational Tickets (total), total due for attention
 //BUsiness driven tickets - priority total, total due for attention
 // Business driven tickets - opportunistic, total
 
 // Closed this month
 // Gamify this screen
-console.log("Test", )
+
 
 // var testDate = format(myData.tasks[1].complete_dt, "dd/MM/yyyy")
 // console.log("testDate", testDate)
@@ -29,17 +41,21 @@ console.log("Test", )
 // var formattedDate = format(date, "MMMM do, yyyy H:mma");
 
 
-// Pull out the branch of interest to do analysis
-const myTasks = myData.tasks
-console.log("myTasks", myTasks)
+
+
 
 // Array of Tasks that are not complete that are due for review
-const reviewDue = myTasks.filter(d => (!d.complete_flag) && (d.review_dt < Date.now) );
+const reviewDue = tasks.filter(d => (!d.complete_flag) && (d.review_dt < Date.now) );
 console.log("Active - Due for review:", reviewDue);
 
 // Length of Array of Tasks that are not complete that are due for review
-const reviewDueCount = myTasks.filter(d => (!d.complete_flag) && (d.review_dt < Date.now)).length;
+const reviewDueCount = tasks.filter(d => (!d.complete_flag) && (d.review_dt < Date.now)).length;
 console.log("Active - Due for review:", reviewDueCount);
+
+
+
+
+
 
 
 

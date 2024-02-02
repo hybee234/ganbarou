@@ -22,7 +22,7 @@ scalar Date  #HL
         complete_dt: Date
         review_dt: Date
         stakeholder: String
-        assigned_id: ID
+        assigned: User
         status_macro: String
         status_micro: String
         note: [Note]
@@ -35,7 +35,7 @@ scalar Date  #HL
         note_id: ID
         note_text: String
         note_type: String
-        note_author: String
+        note_author: User
         note_dt: Date
     }
 
@@ -54,12 +54,13 @@ scalar Date  #HL
     type Auth {
         token: ID!
         user: User
-    }
+    } 
 
     type Query {
         users: [User]
         tasks: [Task]
         me: User
+        userTasks(assigned: ID!): [Task]
     }
 
     type Mutation {

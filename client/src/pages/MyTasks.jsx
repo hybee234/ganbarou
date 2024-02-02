@@ -1,6 +1,7 @@
 
 import { useQuery } from '@apollo/client';
 import { GET_ME } from './../utils/queries'
+import { USER_TASKS } from './../utils/queries'
 import TasksSummary from '../components/TasksSummary';
 
 export default function MyTasks() {
@@ -13,13 +14,23 @@ export default function MyTasks() {
     //Opportunistic
     //Detailed panel
 
-    // Retrived Logged in User records for rendering
-    const { loading, error, data } = useQuery(GET_ME);
-    // console.log ("data", data)
-    let myData = data?.me || {};
-    // console.log ("myData", myData)
+    //*********************//
+    //* CALL QUERIES *//
+    //*********************//
 
+    // Multiple queries (without defining loading, data, error)
+    const myData = useQuery(GET_ME);
+    const userTask = useQuery(USER_TASKS)
+    
+    const error = myData.error || userTask.error
+    const loading = myData.loading || userTask.loading
+    //myData contains User and Task data
+    // let myData = data?.me || {};
 
+    console.log("myData", myData.data)
+    console.log ("userTask", userTask.data)
+    //myTasks = task data only - to look at removing task data fromm this - changing data structure
+    // let myTasks = myData.tasks 
 
     if (loading) {
         return ( 
@@ -32,10 +43,12 @@ export default function MyTasks() {
 
     if (error) {return `Error! ${error.message}`;}
 
+
+    
     return (
     <div>
         My current tasks!       
-        <TasksSummary myData={myData} /> 
+        {/* <TasksSummary tasks={myTasks} />  */}
     <h2>
     {/* {
         myData.tasks.length ?

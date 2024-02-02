@@ -50,7 +50,7 @@ export default function Login () {
 
             // Store token in local storage - id_token (Auth.login already redirects use to home page)
             Auth.login(data.login.token);    
-            console.log(data.login.user.username)
+            // console.log(data.login.user.username)
             setEmail('');
             setPassword('');
             // dispatch({ type: USER, payload: data.login.user} )            

@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const { noteSchema } = require('./Note')
 const { prioritySchema } = require('./Priority')
+const User = require('./User')
 
 const taskSchema = new Schema({
     created_dt: {
@@ -46,12 +47,11 @@ const taskSchema = new Schema({
     },
     stakeholder: {
         type: String,
-
     },
-    assigned_id: {        
-        type: Schema.Types.ObjectId,
-        ref: 'user',        
-    },            
+    assigned: {        
+            type: Schema.Types.ObjectId,
+            ref: 'User',        
+    },
     status_macro: {
         type: String,
     },
@@ -62,12 +62,14 @@ const taskSchema = new Schema({
     priority: prioritySchema,
 },
 {
-    timestamps: true,
-
+    // timestamps: true,
+    toJSON: {
+        virtuals: true,
+    },
 }
 );
 
 module.exports = taskSchema;
 
-const Task = model('task', taskSchema);
+const Task = model('Task', taskSchema);
 module.exports = Task;
