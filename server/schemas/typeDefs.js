@@ -20,13 +20,13 @@ scalar Date  #HL
         summary: String
         complete_flag: Boolean
         complete_dt: Date
-        remind_dt: Date
+        review_dt: Date
         stakeholder: String
-        assigned_id: ID
+        assigned: User
         status_macro: String
         status_micro: String
         note: [Note]
-        priority: [Priority]
+        priority: Priority
         #updatedAt is one of the automatic columns added if model has timestamps: true
         updatedAt: Date        
     }
@@ -35,30 +35,32 @@ scalar Date  #HL
         note_id: ID
         note_text: String
         note_type: String
-        note_author: String
+        note_author: User
         note_dt: Date
     }
 
     type Priority {
         priority_id: ID
-        operational: Boolean
-        priority: Boolean
+        pipeline_number: Int
+        business_driven: Boolean
+        focus: Boolean
         category: Int
-        importance: String
-        urgency: String
-        effort: String
+        important: Boolean
+        urgency: Boolean
+        high_effort: Boolean
         comment: String
     }
 
     type Auth {
         token: ID!
         user: User
-    }
+    } 
 
     type Query {
         users: [User]
         tasks: [Task]
         me: User
+        userTasks(assigned: ID!): [Task]
     }
 
     type Mutation {

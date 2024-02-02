@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const { noteSchema } = require('./Note')
 const { prioritySchema } = require('./Priority')
+const User = require('./User')
 
 const taskSchema = new Schema({
     created_dt: {
@@ -8,7 +9,10 @@ const taskSchema = new Schema({
         type: Date,
         default: Date.now,
         get: function(value) {
-            return value.toLocaleString()
+            if (value) {
+                return value.toLocaleString()
+            } else
+                return "null"
         }
     },
     title: {
@@ -17,7 +21,6 @@ const taskSchema = new Schema({
     },    
     summary: {
         type: String,
-        required: true,
     },
     complete_flag: {
         type: Boolean,
@@ -26,24 +29,29 @@ const taskSchema = new Schema({
         //Time defaults to 0000hrs
         type: Date,
         get: function(value) {
-            return value.toLocaleString()
+            if (value) {
+                return value.toLocaleString()
+            } else
+                return "null"
         }
     },
-    remind_dt: {
+    review_dt: {
         //Time defaults to 0000hrs
         type: Date,
         get: function(value) {
-            return value.toLocaleString()
+            if (value) {
+                return value.toLocaleString()
+            } else
+                return "null"
         }
     },
     stakeholder: {
         type: String,
-
     },
-    assigned_id: {        
-        type: Schema.Types.ObjectId,
-        ref: 'user',        
-    },            
+    assigned: {        
+            type: Schema.Types.ObjectId,
+            ref: 'User',        
+    },
     status_macro: {
         type: String,
     },
@@ -51,15 +59,17 @@ const taskSchema = new Schema({
         type: String,
     },
     note: [noteSchema],
-    priority: [prioritySchema],
+    priority: prioritySchema,
 },
 {
-    timestamps: true,
-
+    // timestamps: true,
+    toJSON: {
+        virtuals: true,
+    },
 }
 );
 
 module.exports = taskSchema;
 
-const Task = model('task', taskSchema);
+const Task = model('Task', taskSchema);
 module.exports = Task;

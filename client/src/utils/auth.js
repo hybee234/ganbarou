@@ -18,7 +18,7 @@ class AuthService {
 
     // check if token is expired
     isTokenExpired(token) {
-        try {
+        try { 
             const decoded = decode(token); 
             if (decoded.exp < Date.now() / 1000) {
                 return true;
@@ -35,14 +35,14 @@ class AuthService {
 
 
     login(idToken) {
-        console.log("client auth.js login engaged")
+        // console.log("client auth.js login engaged")
         // Saves user token to localStorage 
         localStorage.setItem('id_token', idToken);
     }
 
     logout() {
         // Clear user token and profile data from localStorage
-        console.log("client auth.js logout engaged")
+        // console.log("client auth.js logout engaged")
         localStorage.removeItem('id_token');
         // this will reload the page and reset the state of the application
     }

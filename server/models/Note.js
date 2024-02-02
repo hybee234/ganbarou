@@ -18,14 +18,17 @@ const noteSchema = new Schema(
             required: true,        
         },
         note_author: {
-            type: String,
-            required: true,
-        },
+            type: Schema.Types.ObjectId,
+            ref: 'User',        
+    },
         note_dt: {     
             type: Date,
             default: Date.now,
             get: function(value) {
-                return value.toLocaleString()
+                if (value) {
+                    return value.toLocaleString()
+                } else
+                    return "null"
             }
         },
     

@@ -49,16 +49,15 @@ export default function Login () {
             })
 
             // Store token in local storage - id_token (Auth.login already redirects use to home page)
-            Auth.login(data.login.token);
-            console.log(data.login.token)            
-            console.log(data.login.user.username)
+            Auth.login(data.login.token);    
+            // console.log(data.login.user.username)
             setEmail('');
             setPassword('');
             // dispatch({ type: USER, payload: data.login.user} )            
             toast.success(`Login Successful`)  
 
             //Navigate to Home Page (Navigate doesn't trigger page refresh and retains toast notification)
-            navigate('/');
+            navigate('/MyTasks');
 
         } catch (error) {
             toast.error("Log in Failed, Please Try Again") 

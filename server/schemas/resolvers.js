@@ -21,6 +21,9 @@ const resolvers = {
             console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
             return Task.find()
+                .populate({ path: 'assigned' })
+                .populate({ path: 'note.note_author' })
+                .exec()
         },
 
         me: async (parent, args, context) => {
@@ -29,21 +32,40 @@ const resolvers = {
             console.log (`\x1b[33m │ Find Me - Active Tasks  │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └─────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            // console.log("context.user Find me", context.user)
-            // console.log("user._id", context.user._id)
+            console.log("context.user Find me", context.user)
+            console.log("user._id", context.user._id)
 
             if (!context.user){
                 throw AuthenticationError;
             }
 
-            const userData = await User.findOne({ _id: context.user._id })
+            const myData = await User.findOne({ _id: context.user._id })
                 .populate({
                     path: 'tasks',
-                    match: { complete_flag: false }
+                    // match: { complete_flag: false }
                 }).exec()
-                
-            return userData;            
+
+            console.log(myData)
+            return myData;            
         },
+
+        userTasks: async (parent,args) => {
+
+            console.log (`\x1b[33m ┌─────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Find user Tasks │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └─────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+
+            console.log("assigned:", args.assigned)
+
+            const userTasks = await Task.find({ assigned: args.assigned})
+                .populate({ path: 'assigned' })
+                .populate({ path: 'note.note_author' })
+                .exec()
+
+            return userTasks
+        },
+
+
     },
 
 

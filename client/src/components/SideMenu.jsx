@@ -122,7 +122,7 @@ export default function SideMenu() {
             {/* <!-- Side Menu --> */}            
                 <div className="side-menu flex items-center justify-center bg-filter">
                     <li className="relative w-full">
-                        <p className="side-menu-heading">Welcome, </p>
+                        <p className="side-menu-heading">Menu</p>
                         <Link to="/" className="side-menu-item">Home</Link>
                         { 
                             Auth.loggedIn() ? (

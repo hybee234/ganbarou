@@ -7,8 +7,42 @@
         "password": "321321321",
         "security": "admin",
         "tasks": [
-            {"_id": "65b8dba1b768a37702f656b4"},
-            {"_id": "65b8ec86f2d392716b0613b3"}
+            {
+            "_id": "65b8dba1b768a37702f656b4"
+            },
+            {
+            "_id": "65bbbd2f65776db3b4a909f9"
+            },
+            {
+            "_id": "65b8ec86f2d392716b0613b3"
+            },
+            {
+            "_id": "65bbbd2f65776db3b4a90a03"
+            },
+            {
+            "_id": "65bbbd2f65776db3b4a909ff"
+            },
+            {
+            "_id": "65bbbd2f65776db3b4a90a07"
+            },
+            {
+            "_id": "65bbbd2f65776db3b4a90a0b"
+            },
+            {
+            "_id": "65bbbd2f65776db3b4a90a0f"
+            },
+            {
+            "_id": "65bbbd2f65776db3b4a90a13"
+            },
+            {
+            "_id": "65bbbd2f65776db3b4a90a17"
+            },
+            {
+            "_id": "65bbbd2f65776db3b4a90a19"
+            },
+            {
+                "_id": "65bbbd2f65776db3b4a90a20"
+            }
         ]
     },
     {
