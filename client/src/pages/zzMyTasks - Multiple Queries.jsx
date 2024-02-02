@@ -1,19 +1,37 @@
 
 import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
-import { GET_ME } from './../utils/queries'
-import { TASKS_BY_ID } from './../utils/queries'
+import { GET_ME } from '../utils/queries'
+import { TASKS_BY_ID } from '../utils/queries'
 
 import TasksSummary from '../components/TasksSummary';
 
 export default function MyTasks() {
 
 //Summary Pages
-
+    //Tasks
+    //Operational
+    //Business Driven
+    //Priority
+    //Opportunistic
     //Detailed panel
 
-    // Pull my data
-    const {loading, error, data } = useQuery(GET_ME);    
+    //*********************//
+    //* CALL QUERIES *//
+    //*********************//
+
+    // Multiple queries (without defining loading, data, error)
+
+    // Get user data of logged in person
+    const myData = useQuery(GET_ME);    
+    // Get tasks using ID of logged in user
+    const taskById = useQuery(TASKS_BY_ID, {
+        variables: { assigned: Auth.getProfile().data._id }
+    })
+    
+    //Handle error and loading together
+    const error = myData.error || taskById.error
+    const loading = myData.loading || taskById.loading
 
     if (loading) {
         return ( 
@@ -33,14 +51,22 @@ export default function MyTasks() {
     );}
 
     // Array of me
-    const me = data.me
-    // console.log("me", me)        
-    // const tasks = data.me.tasks
-    // console.log ("tasks", tasks)
+    const me = myData.data.me
+    console.log("me", me)
+    
+    // Array of tasks assigned to userID
+    const tasks = taskById.data.tasksById
+    console.log ("tasks", tasks)
+    
+    const meTasks = myData.data.me.tasks
+    console.log ("meTasks", meTasks)
+
+
     
     return (
-    <div>    
-        <TasksSummary me={me} /> 
+    <div>
+        My current tasks!       
+        {/* <TasksSummary tasks={myTasks} />  */}
     <h2>
     {/* {
         myData.tasks.length ?

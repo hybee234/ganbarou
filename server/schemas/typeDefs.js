@@ -60,7 +60,7 @@ scalar Date  #HL
         users: [User]
         tasks: [Task]
         me: User
-        userTasks(assigned: ID!): [Task]
+        tasksById(assigned: ID!): [Task]
     }
 
     type Mutation {

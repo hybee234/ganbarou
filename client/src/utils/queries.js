@@ -16,15 +16,21 @@ export const GET_ME = gql`
                 complete_dt
                 review_dt
                 stakeholder
-                assigned_id
+                assigned {
+                    _id
+                    username
+                }
                 status_macro
                 status_micro
                 note {
                     note_id
+                    note_author {
+                        _id
+                        username
+                    }
+                    note_dt
                     note_text
                     note_type
-                    note_author
-                    note_dt
                 }
                 priority {
                     priority_id
@@ -37,7 +43,7 @@ export const GET_ME = gql`
                     high_effort
                     comment
                 }
-            updatedAt
+                updatedAt
             }
         taskCount
         }
@@ -45,9 +51,9 @@ export const GET_ME = gql`
 `;
 
 
-export const USER_TASKS = gql`
-    query UserTasks($assignedId: ID!) {
-        userTasks(assigned_id: $assignedId) {
+export const TASKS_BY_ID = gql`
+    query TasksById($assigned: ID!) {
+        tasksById(assigned: $assigned) {
             _id
             created_dt
             title
@@ -56,15 +62,21 @@ export const USER_TASKS = gql`
             complete_dt
             review_dt
             stakeholder
-            assigned_id
+            assigned {
+                _id
+                username
+            }
             status_macro
             status_micro
             note {
                 note_id
+                note_author {
+                    _id
+                    username
+                }
+                note_dt
                 note_text
                 note_type
-                note_author
-                note_dt
             }
             priority {
                 priority_id
@@ -77,7 +89,7 @@ export const USER_TASKS = gql`
                 high_effort
                 comment
             }
-        updatedAt
+            updatedAt
         }
     }
 `

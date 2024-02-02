@@ -45,15 +45,15 @@ const resolvers = {
                     // match: { complete_flag: false }
                 }).exec()
 
-            console.log(myData)
+            // console.log(myData)
             return myData;            
         },
 
-        userTasks: async (parent,args) => {
+        tasksById: async (parent,args) => {
 
-            console.log (`\x1b[33m ┌─────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-            console.log (`\x1b[33m │ Find user Tasks │ \x1b[0m\x1b[32m  \x1b[0m`); 
-            console.log (`\x1b[33m └─────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m ┌──────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Find all Tasks by ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └──────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
             console.log("assigned:", args.assigned)
 
