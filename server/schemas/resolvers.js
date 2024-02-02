@@ -113,25 +113,21 @@ const resolvers = {
             console.log (`\x1b[33m │ Complete Task │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └───────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            console.log(args._id)
+            console.log(args.id)
             // Check User Exist
             const task = await Task.findOneAndUpdate( 
-                {_id: args._id},        //filter
+                {_id: args.id},        //filter
                 {complete_flag: true, complete_dt: Date.now()},  //update
                 { new: true }           // return doc                
             );
 
-            // const user = await User.find(
-            //     {  },
-            //     {$pull: {tasks: {_id: args.id}}},
-            //     {multi:true, new: true}
-            // )
+            const user = await User.updateMany(
+                {  },
+                { $pull: { tasks: args.id }},
+                { new: true}
+            )
 
-            // const user = await User.updateMany(
-            //     { },
-            //     { $pull: { tasks: { _id: "65b8dba1b768a37702f656b4" }}},
-            //     {new: true}
-            // )
+            return user
             
 
             // console.log (user)
@@ -145,27 +141,24 @@ const resolvers = {
             console.log (`\x1b[33m │ Remove Task From User │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └───────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            console.log(args._id)
+            console.log(args.id)
 
-            const mongoose = require('mongoose');
-            console.log(mongoose.Types.ObjectId.isValid('65b8ed239359f0fca323570c'));
-            // true
-            console.log(mongoose.Types.ObjectId.isValid('65b8dba1b768a37702f656b5'));
+            // const mongoose = require('mongoose');
+            // console.log(mongoose.Types.ObjectId.isValid('65b8ed239359f0fca323570c'));
+            // // true
+            // console.log(mongoose.Types.ObjectId.isValid('65b8dba1b768a37702f656b5'));
             // false
 
-            try{
-                const user = await User.findOneAndUpdate(
-                    { _id: "65b8ed239359f0fca323570c" },
-                    // { $pull: { tasks: { id: args._id }}},
-                    { $addTOSet: { tasks: { _id: "65b8dba1b768a37702f656b7" }}},
-                    { new: true}
-                ).exec()
-                console.log (user)
-                return user               
 
-            } catch (err) {
-                // console.log(err)
-            }
+                const user = await User.updateMany(
+                    //{ _id: "65b8ed239359f0fca323570c" },
+                    {  },
+                    { $pull: { tasks: args.id }},
+                    // { $addTOSet: { tasks: { _id: "65b8dba1b768a37702f656b7" }}},  // { id: args._id }
+                    { new: true}
+                )
+                console.log(user)
+                return user
         },
 
 // Unauthorised - Missing context.user means failed authMiddelware
