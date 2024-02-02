@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../utils/GlobalState';
+import Auth from '../utils/auth';
 
 import picture from '/assets/images/Ganbarou Team3.jpeg'
 
@@ -23,16 +24,23 @@ export default function Welcome() {
                         <div className = "about-me-text-container p-2 m-2 text-center">               
                         <p> "Ganbarou" (頑張ろう) is a Japanese expression of encouragement and support in times of challenge. It means "Let's do our best together!", calling on the teams determination, perseverence, and collaboration. </p>       
                         <p> Ganbarou seeks to support the positive team spirit by providing a means to organise and plan team tasks. </p>  
-                        <div className="text-center pt-10">                            
-                            <Link to="/Login" className="button-color w-28 px-6 py-2 text-2xl">Login</Link>&nbsp; or &nbsp;
-                            <Link to="/Signup" className="button-color w-28 px-6 py-2 text-2xl">Sign Up</Link>                            
-                        </div>
+                        {
+                            Auth.loggedIn() ?
+                            (
+                                <div className="text-center pt-10">                            
+                                    <Link to="/MyTasks" className="button-color w-28 px-6 py-2 text-2xl">View My Tasks</Link>                      
+                                </div>
+                            ) : (                              
+                                <div className="text-center pt-10">                            
+                                    <Link to="/Login" className="button-color w-28 px-6 py-2 text-2xl">Login</Link>&nbsp; or &nbsp;
+                                    <Link to="/Signup" className="button-color w-28 px-6 py-2 text-2xl">Sign Up</Link>                            
+                                </div>
+                            )
+                        }
                         <div className="text-center">
                             
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>

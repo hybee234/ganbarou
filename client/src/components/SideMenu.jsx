@@ -18,8 +18,6 @@ export default function SideMenu() {
     // Hook to useNavigate
     const navigate = useNavigate();
 
-    // console.log(state.user_security)
-
     if (state.sidemenu === "toggle") {
         document.querySelector(".hamburger").classList.toggle("active");
         document.querySelector(".side-menu").classList.toggle("active"); 
@@ -32,7 +30,7 @@ export default function SideMenu() {
         // console.log(state.sidemenu)
     } 
     
-
+    //Dispatch action to show side menu
     const sideMenuShow = () => {
         dispatch ({
             type: SIDE_MENU,
@@ -40,20 +38,13 @@ export default function SideMenu() {
         })
     }
 
+    //Dispatch action to hide side menu
     const sideMenuHide = () => {
-        // console.log ("clicked outside")
         dispatch ({
             type: SIDE_MENU,
             payload: "hide"
         })
     }
-
-    // if (Auth.loggedIn()) {
-    //     const usenameJWT = Auth.getProfile().data.username
-    //     const emailJWT = Auth.getProfile().data.email
-    //     const _idJWT = Auth.getProfile().data._id
-    //     console.log("usernameJWT: ", usenameJWT, ". emailJWT: ", emailJWT, ". _idJWT: ", _idJWT)
-    // }
 
     const handleLogout = () => {
         // console.log("handleLogut engaged")
@@ -62,96 +53,95 @@ export default function SideMenu() {
         // Show toast
         toast.success('Logged out Successfully!')
         // Invoke reacter-route to move to home page
-        navigate('/login')
-        
+        navigate('/login')        
     }
 
     return (
         <header>
             <OutsideClickHandler onOutsideClick={sideMenuHide}>
-                <div className="mx-auto">
-                    {/* <!-- Container for navbar content --> */}
+                {/* Navbar */}
+                <div className="mx-auto">                    
                     <div className="flex flex-wrap md:flex md:flex-wrap items-center">
-                        {/* {{! Hamburger Icon }} */}
-                        
-                            <div className="w-1/5">
-                            
-                                { Auth.loggedIn() ? (                        
-                                    <button className="hamburger w-1/12 "
-                                        onClick={sideMenuShow}                        
-                                        >                                
-                                        <span className="bar"></span>
-                                        <span className="bar"></span>
-                                        <span className="bar"></span>
-                                    </button>
-                                    ) : (                        
-                                    // <div className="hamburger hidden"></div>
-                                    
-                                    <div className="hamburger w-1/12 "
-                                        onClick={sideMenuShow}
-                                        
-                                        >
-                                        <span className="bar"></span>
-                                        <span className="bar"></span>
-                                        <span className="bar"></span>
-                                    </div>
-
-                                    )
-                                }
-                                
-                            </div>     
-                        
-                        <div className="w-3/5">
-                                <div className="flex flex-wrap justify-center">
-                                    <Link to='/'>
-                                        <img src='/assets/images/ganbarou.jpeg' width="200px" className="font-semibold text-center text-color text-3xl sm:text-4xl lg:text-5xl m-auto "></img>  
-                                    </Link>
-                                </div>
-                        </div>                     
-                        <div className="w-1/5 text-right">                 
+                        {/* Hamburger */}                        
+                        <div className="w-1/5">                            
                             { Auth.loggedIn() ? (                        
-                                <div>Logged in as {Auth.getProfile().data.username}</div>
-                            ) : (                        
-                                <div></div>
-                            )
+                                <button className="hamburger w-1/12 "
+                                    onClick={sideMenuShow}                        
+                                    >                                
+                                    <span className="bar"></span>
+                                    <span className="bar"></span>
+                                    <span className="bar"></span>
+                                </button>
+                                ) : (                        
+                                // <div className="hamburger hidden"></div>
+                                
+                                <div className="hamburger w-1/12 "
+                                    onClick={sideMenuShow}
+                                    
+                                    >
+                                    <span className="bar"></span>
+                                    <span className="bar"></span>
+                                    <span className="bar"></span>
+                                </div>
+                                )
+                            }                                
+                        </div>
+                        {/* Logo */}                               
+                        <div className="w-3/5">
+                            <div className="flex flex-wrap justify-center">
+                                <Link to='/'>
+                                    <img src='/assets/images/ganbarou.jpeg' width="200px" className="font-semibold text-center text-color text-3xl sm:text-4xl lg:text-5xl m-auto "></img>  
+                                </Link>
+                            </div>
+                        </div>
+                        {/* User */}                       
+                        <div className="w-1/5 text-right">                 
+                            {
+                                Auth.loggedIn() ? (                        
+                                    <div>Logged in as {Auth.getProfile().data.username}</div>
+                                ) : (                        
+                                    <div></div>
+                                )
                             }
                         </div>                    
                     </div>
                 </div>
 
-            {/* <!-- Side Menu --> */}            
+
+                {/* Side Menu */}            
                 <div className="side-menu flex items-center justify-center bg-filter">
                     <li className="relative w-full">
                         <p className="side-menu-heading">Menu</p>
                         <Link to="/" className="side-menu-item">Home</Link>
                         { 
-                            Auth.loggedIn() ? (
-                            <div>
-                                <Link to="/mytasks" className="side-menu-item">My Tasks </Link>                  
-                                <button id="logout-button" className="side-menu-item"
-                                onClick={handleLogout}
-                                >
-                                Logout
-                                </button>
-                            </div>
+                            Auth.loggedIn() ? 
+                            (
+                                <div>
+                                    <Link to="/mytasks" className="side-menu-item">My Tasks </Link>                  
+                                    <button id="logout-button" className="side-menu-item"
+                                    onClick={handleLogout}
+                                    >
+                                    Logout
+                                    </button>
+                                </div>
                             ): (
-                            <div>
-                                <Link to="/login" className="side-menu-item">Login </Link>                  
-                                <Link to="/signup" className="side-menu-item"> Sign Up</Link>
-                            </div>
+                                <div>
+                                    <Link to="/login" className="side-menu-item">Login </Link>                  
+                                    <Link to="/signup" className="side-menu-item"> Sign Up</Link>
+                                </div>
                             )
                         }
                         {
                             state.user.security === 'admin' ?
                             (
-                            <div>
-                                <p className="side-menu-heading side-menu-admin">Admin Only</p>
-                                <p className="side-menu-item">User security: {state.user.security}</p>
-                                <Link to="/Signup" className="side-menu-item side-menu-admin"> User Management</Link>    
-                            </div>
+                                <div>
+                                    <p className="side-menu-heading side-menu-admin">Admin Only</p>
+                                    <p className="side-menu-item">User security: {state.user.security}</p>
+                                    <Link to="/Signup" className="side-menu-item side-menu-admin"> User Management</Link>    
+                                </div>
                             ) : (
-                            <div>
-                            </div>
+                                <div>
+                                </div>
                             )               
                         }
                     </li>

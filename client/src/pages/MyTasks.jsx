@@ -5,6 +5,7 @@ import { GET_ME } from './../utils/queries'
 import { TASKS_BY_ID } from './../utils/queries'
 
 import TasksSummary from '../components/TasksSummary';
+import TaskList from '../components/TasksList';
 
 export default function MyTasks() {
 
@@ -41,6 +42,7 @@ export default function MyTasks() {
     return (
     <div>    
         <TasksSummary me={me} /> 
+        <TaskList me={me}/>
     <h2>
     {/* {
         myData.tasks.length ?

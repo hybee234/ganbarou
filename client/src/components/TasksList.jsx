@@ -8,7 +8,7 @@ Business Opportunistic Initiatives
 */
 
 
-export default function TasksSummary(props) {
+export default function TaskList(props) {
 
     const {me} = props
 
@@ -102,7 +102,7 @@ export default function TasksSummary(props) {
 
 return (
     <div className="bg-filter mt-10">
-        <p> My Tasks Summary!</p>
+        <p> My Tasks List!</p>
         <div className="flex flex-wrap justify-center">
             <div className = "border-2 p-2">
                 <p className="underline"> Total </p>
