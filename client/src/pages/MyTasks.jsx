@@ -41,7 +41,16 @@ export default function MyTasks() {
         )
     }   
 
-    if (error) {return `Error! ${error.message}`;}
+    if (error) {return (
+
+    <div id="loading-screen"> Error! 
+        <div>${error.message}</div>
+        <div>Allow this Chiikawa character to lighten the mood</div>
+        <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading.gif" /></div>        
+    </div>
+    
+    
+    );}
 
 
     
