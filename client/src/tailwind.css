@@ -705,6 +705,10 @@ video {
   border-width: 1px;
 }
 
+.border-2 {
+  border-width: 2px;
+}
+
 .p-2 {
   padding: 0.5rem;
 }
@@ -909,7 +913,7 @@ h2 {
 /********************/
 
 .bg-image {
-  background-image: linear-gradient( rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.0) ), url("/assets/images/Graphite.jpg");
+  background-image: linear-gradient( rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0) ), url("/assets/images/Graphite.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
