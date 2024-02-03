@@ -1292,15 +1292,11 @@ li {
   border-bottom: 2px solid rgba(223, 223, 223, 0.3);
 }
 
-/****************/
+/*****************/
 
-/* Contact Form */
+/* Login/Sign Up */
 
-/****************/
-
-.contact-page {
-  max-width: 600px;
-}
+/*****************/
 
 .input-field {
   /* width: 90%; */
@@ -1360,6 +1356,10 @@ li {
   outline: 2px solid transparent;
   outline-offset: 2px;
   border: 1px solid rgb(113 113 122)
+}
+
+.table-input {
+  background: red
 }
 
 /*******************************/
@@ -1612,6 +1612,10 @@ li {
 }
 
 @media (min-width: 1024px) {
+  .lg\:table-cell {
+    display: table-cell;
+  }
+
   .lg\:text-5xl {
     font-size: 3rem;
     line-height: 1;

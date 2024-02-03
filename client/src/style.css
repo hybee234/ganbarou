@@ -388,13 +388,9 @@ li {
     border-bottom: 2px solid rgba(223, 223, 223, 0.3);
 }
 
-/****************/
-/* Contact Form */
-/****************/
-
-.contact-page {
-    max-width: 600px;
-}
+/*****************/
+/* Login/Sign Up */
+/*****************/
 
 .input-field {
     /* width: 90%; */
@@ -457,6 +453,9 @@ li {
     border: 1px solid rgb(113 113 122)
 }
 
+.table-input {
+    background: red
+}
 
 /*******************************/
 /* Media Query LESS THAN 1280px /
