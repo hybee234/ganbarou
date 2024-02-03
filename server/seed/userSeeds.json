@@ -1,5 +1,11 @@
 [
     {
+        "username": "Unassigned",
+        "email": "unassigned@email.com",
+        "password": "321321321",
+        "security": "user"    
+    },
+    {
         
         "_id": "65b8ed239359f0fca323570c",
         "username": "Hy",

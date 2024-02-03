@@ -122,8 +122,11 @@ const resolvers = {
                     complete_flag: true,
                     complete_dt: Date.now(),
                     // summary: "test change",
-                    // $set: { assigned: [] },   // Remove User from assigned - not working ... 
-                },  
+                    // $set: { assigned: ["65bcf3966dc8d7dc861b5403"] },   // Remove User from assigned - not working ... 
+                    // $pullAll: { assigned: }
+                    // $set: {assigned: []}
+                    // $pull: {assigned}, 
+                },
                 { new: true }           // return doc                
             );
 

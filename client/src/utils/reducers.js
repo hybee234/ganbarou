@@ -3,6 +3,7 @@ import {
     SET_LOGIN_PASSWORD,
     SIDE_MENU,
     USER,
+    USER_TASKS
 } from './actions';
 
 export const reducer = (state, action) => {
@@ -30,6 +31,13 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 user: action.payload,
+            }
+        }
+        case USER_TASKS: {
+            console.log("Reducer USER_TASKS engaged")
+            return {
+                ...state,
+                tasks: action.payload,
             }
         }
 
