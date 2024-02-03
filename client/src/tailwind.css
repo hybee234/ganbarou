@@ -918,10 +918,13 @@ bar: 100
   --inputborder: var(--onyx);
   --buttontext: var(--onyx);
   --buttonbackgroundhover: var(--grey);
-  /* --textwinein: rgb(22, 163, 74); */
-  /* --deletebutton: rgb(223, 55, 55); */
-  /* --deletebuttonhover: rgb(185, 28, 28); */
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --tablereviewdue: (var(--old-rose))
+    /* --textwinein: rgb(22, 163, 74); */    
+    /* --deletebutton: rgb(223, 55, 55); */
+    /* --deletebuttonhover: rgb(185, 28, 28); */
+    
+
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   font-size: 16px;
@@ -1292,15 +1295,37 @@ li {
   border-bottom: 2px solid rgba(223, 223, 223, 0.3);
 }
 
-/****************/
-
-/* Contact Form */
-
-/****************/
-
-.contact-page {
-  max-width: 600px;
+.table-inputdf {
+  border: 2px inset var(--inputborder);
+  /* background-color: var(--inputbackground); */
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 1px;
+  border-radius: 5px;
+  text-align: justify;
 }
+
+.table-input::-moz-placeholder {
+  color: var(--admintext)
+}
+
+.table-input::placeholder {
+  color: var(--admintext)
+}
+
+.table-input:hover {
+  background-color: var(--inputbackgroundhover);
+}
+
+.review-due {
+  background-color: rgba(150, 57, 67, 0.5);
+}
+
+/*****************/
+
+/* Login/Sign Up */
+
+/*****************/
 
 .input-field {
   /* width: 90%; */
@@ -1612,6 +1637,10 @@ li {
 }
 
 @media (min-width: 1024px) {
+  .lg\:table-cell {
+    display: table-cell;
+  }
+
   .lg\:text-5xl {
     font-size: 3rem;
     line-height: 1;
@@ -1619,10 +1648,6 @@ li {
 }
 
 @media (min-width: 1280px) {
-  .xl\:table-cell {
-    display: table-cell;
-  }
-
   .xl\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;

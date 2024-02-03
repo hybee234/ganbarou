@@ -6,4 +6,6 @@ export const SIDE_MENU = 'SIDE_MENU'
 
 export const USER = 'USER'
 
-export const USER_TASKS = 'USER_TASKS'
+// export const USER_TASKS = 'USER_TASKS'
+
+export const TODAY = 'TODAY'

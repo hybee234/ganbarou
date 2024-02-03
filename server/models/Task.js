@@ -10,7 +10,7 @@ const taskSchema = new Schema({
         default: Date.now,
         get: function(value) {
             if (value) {
-                return value.toLocaleDateString()
+                return value.toLocaleDateString('en-AU')
             } else
                 return "null"
         }
@@ -30,7 +30,7 @@ const taskSchema = new Schema({
         type: Date,
         get: function(value) {
             if (value) {
-                return value.toLocaleDateString()
+                return value.toLocaleDateString('en-AU')
             } else
                 return "null"
         }
@@ -40,7 +40,7 @@ const taskSchema = new Schema({
         type: Date,
         get: function(value) {
             if (value) {
-                return value.toLocaleDateString()
+                return value.toLocaleDateString('en-AU')
             } else
                 return "null"
         }
