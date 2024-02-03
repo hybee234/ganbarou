@@ -66,6 +66,24 @@ const resolvers = {
             return userTasks
         },
 
+        taskByTaskId: async (parent,args) => {
+
+            console.log (`\x1b[33m ┌───────────────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Find all Tasks by Assigned ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └───────────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+
+            console.log("taskId:", args._id)
+
+            // Find all tasks by assigned user ID
+            const task = await Task.findOne({ _id: args._id})
+                .populate({ path: 'assigned' })
+                .populate({ path: 'note.note_author' })
+                .populate({ path: 'priority'})
+                .exec()
+
+            return task
+        },
+
 
     },
 

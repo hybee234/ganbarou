@@ -1,13 +1,28 @@
-// import dateFormat, { masks } from "dateformat";
+import { Link } from 'react-router-dom';
 import {useState, useEffect} from 'react'
 import { useMutation, useQuery } from '@apollo/client';
 import { COMPLETE_TASK } from './../utils/mutations'
-
 import { FiEdit } from "react-icons/fi";
+import { useGlobalContext } from '../utils/GlobalState';
+import { DETAIL_VIEW_ID } from "./../utils/actions"
+import {useNavigate} from 'react-router-dom';
+
+export default function TaskList (props) {
+    // Hook to useNavigate
+    const navigate = useNavigate();
+
+    //Hook to access state
+    const [state, dispatch] = useGlobalContext();  
+
+    console.log ("TaskList Rendering")
+    const user = props.user
+    const setTaskDetailId = props.setTaskDetailId
+
+    console.log("user", user)
+    console.log("user task", user.tasks)
 
 
-
-export default function TaskList ({user}) {
+    const tasksRaw = user.tasks
 
     //----------------------------------------//
     //- Create and Store Date/Time constants -//
@@ -24,22 +39,16 @@ export default function TaskList ({user}) {
     const today = (new Date()).toLocaleDateString('en-AU')
 
     //Index for Rows
-    const [rowIndex, setRowIndex] = useState("");
+    const [rowIndex, setRowIndex] = useState('');
 
     //----------------------------------------//
     //- User Tasks - Filter for Active Tasks -//
     //----------------------------------------//
 
-    // Extract user tasks
-    const tasksRaw = user.tasks
-
-    // Filter for active tasks only (also refreshes the component)
     const tasks = tasksRaw.filter(task => !task.complete_flag)
 
     //useState for Task Count
     const [taskCount, useTaskCount] = useState(tasks.length)
-
-
 
     //----------------------------//
     //- MUTATION - Complete Task -//
@@ -81,20 +90,34 @@ export default function TaskList ({user}) {
         }
     }
 
-
-    // Creating the edit button and screen
+    //--------------------//
+    // View Task details -//
+    //--------------------//
     const viewTask = (taskId) => {
-        
-        // console.log("test function engaged", taskId)
-        // const testTask = tasks.filter(task => task._id === taskId)
-        // console.log("testTask", testTask)
+    
+        // setTaskDetailId(taskId)
 
-        console.log(document.getElementById(`created-dt-${taskId}`).textContent)
+        dispatch ({ type: DETAIL_VIEW_ID, payload: taskId})
+
+
+
+        //put the ID in localStorage ....
+        localStorage.setItem('detail_view_id', taskId);
+
+            
+        navigate('/TaskDetail');
+
+        // viewTaskDetail = { task_id: "1234"}
+        // console.log("viewTaskDetail:", viewTaskDetail)
+        // document.getElementById('task-detail-form-js').style.display = 'block'
+        
+
+        // console.log(document.getElementById(`created-dt-${taskId}`).textContent)
 
         //Navigatge to task Detail
     }
 
-    console.log("rowIndex", rowIndex)
+    // console.log("rowIndex", rowIndex)
 
     //--------------------------------------//
     //- Populate table with current values -//
@@ -107,6 +130,7 @@ export default function TaskList ({user}) {
 
     //review date
 
+
     //------------------------------------------------//
     //- Conditionally Formatting Overdue Review Date -//
     //------------------------------------------------//
@@ -114,12 +138,12 @@ export default function TaskList ({user}) {
     const highlightReview = () => {
         document.querySelectorAll('.review-date-js').forEach(element => {
             if (element.dataset.reviewDt < today) {
-                console.log ("OVERDUE for review", element.dataset.reviewDt)
+                // console.log ("OVERDUE for review", element.dataset.reviewDt)
 
-                console.log (today)
+                // console.log (today)
                 element.parentNode.classList.add('review-due')
             } else {
-                console.log ("not due for review", element.dataset.reviewDt)
+                // console.log ("not due for review", element.dataset.reviewDt)
             }
         })
     }
@@ -128,20 +152,15 @@ export default function TaskList ({user}) {
     //- Submit Update Mutation Per Row -//
     //----------------------------------//
 
-    const submitRow = (taskId) => {
-        //submit update to database
-        //Write update mutation
-        console.log("submitRow - Surprise!", taskId)
-    }
+    // const submitRow = (taskId) => {
+    //     //submit update to database
+    //     //Write update mutation
+    //     console.log("submitRow - Surprise!", taskId)
+    // }
 
     //-----------------------//
     //- Sort by Review Date -//
     //-----------------------//
-
-
-
-    
-
 
     return (
         <div>
@@ -213,21 +232,27 @@ export default function TaskList ({user}) {
                                     {/* Show if greater than 1280 pixels */}                                
                                     <td id={`updated-at-${task._id}`} className="hidden lg:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm">{task.updatedAt}</td> 
                                     <td id={`category-${task._id}`} className="hidden lg:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm" data-category={task.priority.category}>{task.priority.category}</td> 
-                                    <td className="hidden lg:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm border-2">
-                                        <button id={`edit-button-${task._id}`} value={`${task._id}`}>
-                                            <FiEdit 
-                                                value = {{color: 'red', size: '50'}}
-                                                className="m-auto"
-                                                onClick={()=> {viewTask(task._id)}}
-                                                > Test
-                                            </FiEdit>
+                                    <td className="hidden lg:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm">
+                                        
+                                        <button
+                                            id={`edit-button-${task._id}`}
+                                            value={`${task._id}`}
+                                            className='button-color px-4 py-1 my-1'
+                                            onClick={()=> {viewTask(task._id)}}
+                                            >
+                                                <FiEdit className="m-auto"/>                                                
                                         </button>
+                                        {/* <div className="p-3 link">
+                                            <Link to={{ pathname: '/taskdetail', state: {taskID: task._id } }}>
+                                                <FiEdit className="m-auto"/>    
+                                            </Link>
+                                        </div> */}
                                     </td>                                     
                                 </tr>
                             )                            
                         })                         
                     }
-                    <tr class="table-last-row">
+                    <tr className="table-last-row">
                         <th></th>
                         <th></th>
                         <th></th>                        
@@ -235,9 +260,9 @@ export default function TaskList ({user}) {
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th></th>
-                        <th></th>
                         <th>Total Tasks: {taskCount}</th>
+                        <th></th>
+                        <th></th>
                         <th></th>
                     </tr> 
                 </tbody>
