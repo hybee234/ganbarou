@@ -1,17 +1,28 @@
-// import dateFormat, { masks } from "dateformat";
 import { Link } from 'react-router-dom';
 import {useState, useEffect} from 'react'
 import { useMutation, useQuery } from '@apollo/client';
 import { COMPLETE_TASK } from './../utils/mutations'
-
 import { FiEdit } from "react-icons/fi";
-import TaskDetail from '../pages/TaskDetail';
+import { useGlobalContext } from '../utils/GlobalState';
+import { DETAIL_VIEW_ID } from "./../utils/actions"
+import {useNavigate} from 'react-router-dom';
+
+export default function TaskList (props) {
+    // Hook to useNavigate
+    const navigate = useNavigate();
+
+    //Hook to access state
+    const [state, dispatch] = useGlobalContext();  
+
+    console.log ("TaskList Rendering")
+    const user = props.user
+    const setTaskDetailId = props.setTaskDetailId
+
+    console.log("user", user)
+    console.log("user task", user.tasks)
 
 
-
-export default function TaskList ({user}) {
-
-let viewTaskDetail;
+    const tasksRaw = user.tasks
 
     //----------------------------------------//
     //- Create and Store Date/Time constants -//
@@ -34,16 +45,10 @@ let viewTaskDetail;
     //- User Tasks - Filter for Active Tasks -//
     //----------------------------------------//
 
-    // Extract user tasks
-    const tasksRaw = user.tasks
-
-    // Filter for active tasks only (also refreshes the component)
     const tasks = tasksRaw.filter(task => !task.complete_flag)
 
     //useState for Task Count
     const [taskCount, useTaskCount] = useState(tasks.length)
-
-
 
     //----------------------------//
     //- MUTATION - Complete Task -//
@@ -90,8 +95,20 @@ let viewTaskDetail;
     //--------------------//
     const viewTask = (taskId) => {
     
-        viewTaskDetail = taskId
-        console.log("viewTaskDetail:", viewTaskDetail)
+        // setTaskDetailId(taskId)
+
+        dispatch ({ type: DETAIL_VIEW_ID, payload: taskId})
+
+
+
+        //put the ID in localStorage ....
+        localStorage.setItem('detail_view_id', taskId);
+
+            
+        navigate('/TaskDetail');
+
+        // viewTaskDetail = { task_id: "1234"}
+        // console.log("viewTaskDetail:", viewTaskDetail)
         // document.getElementById('task-detail-form-js').style.display = 'block'
         
 
@@ -135,11 +152,11 @@ let viewTaskDetail;
     //- Submit Update Mutation Per Row -//
     //----------------------------------//
 
-    const submitRow = (taskId) => {
-        //submit update to database
-        //Write update mutation
-        console.log("submitRow - Surprise!", taskId)
-    }
+    // const submitRow = (taskId) => {
+    //     //submit update to database
+    //     //Write update mutation
+    //     console.log("submitRow - Surprise!", taskId)
+    // }
 
     //-----------------------//
     //- Sort by Review Date -//
@@ -217,19 +234,19 @@ let viewTaskDetail;
                                     <td id={`category-${task._id}`} className="hidden lg:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm" data-category={task.priority.category}>{task.priority.category}</td> 
                                     <td className="hidden lg:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm">
                                         
-                                        {/* <button
+                                        <button
                                             id={`edit-button-${task._id}`}
                                             value={`${task._id}`}
                                             className='button-color px-4 py-1 my-1'
                                             onClick={()=> {viewTask(task._id)}}
                                             >
                                                 <FiEdit className="m-auto"/>                                                
-                                        </button> */}
-                                        <div className="p-3 link">
-                                            <Link to={{ pathname: '/taskdetail', state: task._id}}>
+                                        </button>
+                                        {/* <div className="p-3 link">
+                                            <Link to={{ pathname: '/taskdetail', state: {taskID: task._id } }}>
                                                 <FiEdit className="m-auto"/>    
                                             </Link>
-                                        </div>
+                                        </div> */}
                                     </td>                                     
                                 </tr>
                             )                            

@@ -43,14 +43,10 @@ const router = createBrowserRouter([
             path: 'taskdetail',
             element: <TaskDetail />
         },
-        // {
-        //   path: '/saved',
-        //   element: <SavedBooks />
-        // }
         ]
     }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
+    <RouterProvider router={router} />
 )

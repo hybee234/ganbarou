@@ -142,7 +142,7 @@ export default function SignUp () {
 
                 toast.success(`Sign Up Successful! Welcome ${data.addUser.user.username}!`) 
 
-                //Navigate to Home Page (Testing)
+                //Navigate to MyTasks)
                 navigate('/MyTasks');
 
                 // Clear form

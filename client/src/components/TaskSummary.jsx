@@ -20,7 +20,7 @@ export default function TasksSummary(props) {
     now = `${now.toLocaleDateString('en-AU')} ${now.toLocaleTimeString('en-AU')}`;
 
     // myData is passed through with all user and task data
-    console.log("tasks", user.tasks)
+    console.log("My Summary: Tasks:", user.tasks)
 
     // GrandTotal - My Total Active Tasks
     const totalTasks = user.tasks.filter(task => !task.complete_flag).length

@@ -8,4 +8,4 @@ export const USER = 'USER'
 
 // export const USER_TASKS = 'USER_TASKS'
 
-export const TODAY = 'TODAY'
+export const DETAIL_VIEW_ID = 'DETAIL_VIEW_ID'

@@ -1,13 +1,18 @@
+// import {useState} from 'react'
 import { useQuery } from '@apollo/client';
-
 import { GET_ME } from './../utils/queries'
 
 import TasksSummary from '../components/TaskSummary';
 import TaskList from '../components/TaskList';
+import TaskDetail from '../components/TaskList';
 // import { useGlobalContext } from '../utils/GlobalState';
 // import { USER } from '../utils/actions'
 
 export default function MyTasks() {
+    
+    // Used to pass TaskDetailID from TaskList to TaskDetail
+    // const [taskDetailId, setTaskDetailId] = useState('')
+
     // const [state, dispatch] = useGlobalContext();
     // Pull logged in usser data with Tasks attached
     const {loading, error, data } = useQuery(GET_ME);    
@@ -35,13 +40,17 @@ export default function MyTasks() {
 
     // dispatch({ type: USER, payload: data.user} )    
 
-
+    console.log("MyTask Re-rendering")
+    // console.log('taskDetailId', taskDetailId)
 
 
     return (
     <div>    
         <TasksSummary user={userData} />
-        <TaskList user={userData}/>
+        <TaskList user={userData}
+        // setTaskDetailId={setTaskDetailId}
+        />
+
     <h2>
     {/* {
         myData.tasks.length ?

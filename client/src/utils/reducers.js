@@ -3,7 +3,7 @@ import {
     SET_LOGIN_PASSWORD,
     SIDE_MENU,
     USER,
-    TODAY
+    DETAIL_VIEW_ID
 } from './actions';
 
 export const reducer = (state, action) => {
@@ -40,13 +40,15 @@ export const reducer = (state, action) => {
         //         tasks: action.payload,
         //     }
         // }
-        case TODAY: {
-            console.log("Reducer TODAY engaged")
+        case DETAIL_VIEW_ID: {
+            console.log("Detail View ID engaged")
             return {
                 ...state,
-                today: action.payload,
+                detailViewId: action.payload,
             }
         }
+
+
         // Default to returning the state as is in our switch statement
         default:
             return state;
