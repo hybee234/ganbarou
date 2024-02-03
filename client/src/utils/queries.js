@@ -51,9 +51,9 @@ export const GET_ME = gql`
 `;
 
 
-export const TASKS_BY_ID = gql`
-    query TasksById($assigned: ID!) {
-        tasksById(assigned: $assigned) {
+export const TASKS_BY_ASSIGNED_ID = gql`
+    query TasksByAssignedId($assigned: ID!) {
+        tasksByAssignedId(assigned: $assigned) {
             _id
             created_dt
             title

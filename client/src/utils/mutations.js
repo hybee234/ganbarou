@@ -27,3 +27,21 @@ export const LOG_IN = gql`
         }
     }
 `;
+
+export const COMPLETE_TASK = gql`
+    mutation CompleteTask($id: ID!) {
+        completeTask(id: $id) {
+            _id
+            created_dt
+            title
+            summary
+            complete_flag
+            complete_dt
+            assigned {
+                _id
+                username
+            }
+            updatedAt
+        }
+    }
+`
