@@ -41,7 +41,7 @@ bar: 100
     --inputborder: var(--onyx);
     --buttontext: var(--onyx);
     --buttonbackgroundhover: var(--grey);
-
+    --tablereviewdue: (var(--old-rose))
     /* --textwinein: rgb(22, 163, 74); */    
     /* --deletebutton: rgb(223, 55, 55); */
     /* --deletebuttonhover: rgb(185, 28, 28); */
@@ -388,6 +388,31 @@ li {
     border-bottom: 2px solid rgba(223, 223, 223, 0.3);
 }
 
+.table-inputdf {
+    border: 2px inset var(--inputborder);
+    /* background-color: var(--inputbackground); */
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 1px;
+    border-radius: 5px;
+    text-align: justify;
+
+    
+}
+
+.table-input::placeholder {
+    color: var(--admintext)
+}
+
+.table-input:hover {
+    background-color: var(--inputbackgroundhover);
+}
+
+.review-due {
+    background-color: rgba(150, 57, 67, 0.5);
+
+}
+
 /*****************/
 /* Login/Sign Up */
 /*****************/
@@ -453,9 +478,8 @@ li {
     border: 1px solid rgb(113 113 122)
 }
 
-.table-input {
-    background: red
-}
+
+
 
 /*******************************/
 /* Media Query LESS THAN 1280px /

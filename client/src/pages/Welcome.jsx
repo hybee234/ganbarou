@@ -1,13 +1,19 @@
 import { Link } from 'react-router-dom';
-import { useGlobalContext } from '../utils/GlobalState';
+// import { useGlobalContext } from '../utils/GlobalState';
 import Auth from '../utils/auth';
 
 import picture from '/assets/images/Ganbarou Team3.jpeg'
+// import { TODAY } from '../utils/actions'
 
 export default function Welcome() {
 
     //Hook to access state
-    const [state, dispatch] = useGlobalContext();
+    // const [state, dispatch] = useGlobalContext();
+
+    //Create today
+    
+    // // Discharge today to global state
+    // dispatch({ type: TODAY , payload: today})
 
     return (
         <div className="page">

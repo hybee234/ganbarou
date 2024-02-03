@@ -3,7 +3,7 @@ import {
     SET_LOGIN_PASSWORD,
     SIDE_MENU,
     USER,
-    USER_TASKS
+    TODAY
 } from './actions';
 
 export const reducer = (state, action) => {
@@ -33,14 +33,20 @@ export const reducer = (state, action) => {
                 user: action.payload,
             }
         }
-        case USER_TASKS: {
-            console.log("Reducer USER_TASKS engaged")
+        // case USER_TASKS: {
+        //     console.log("Reducer USER_TASKS engaged")
+        //     return {
+        //         ...state,
+        //         tasks: action.payload,
+        //     }
+        // }
+        case TODAY: {
+            console.log("Reducer TODAY engaged")
             return {
                 ...state,
-                tasks: action.payload,
+                today: action.payload,
             }
         }
-
         // Default to returning the state as is in our switch statement
         default:
             return state;
