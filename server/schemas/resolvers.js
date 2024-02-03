@@ -49,14 +49,15 @@ const resolvers = {
             return myData;            
         },
 
-        tasksById: async (parent,args) => {
+        tasksByAssignedId: async (parent,args) => {
 
-            console.log (`\x1b[33m ┌──────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-            console.log (`\x1b[33m │ Find all Tasks by ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
-            console.log (`\x1b[33m └──────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m ┌───────────────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Find all Tasks by Assigned ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └───────────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
             console.log("assigned:", args.assigned)
 
+            // Find all tasks by assigned user ID
             const userTasks = await Task.find({ assigned: args.assigned})
                 .populate({ path: 'assigned' })
                 .populate({ path: 'note.note_author' })
@@ -113,23 +114,27 @@ const resolvers = {
             console.log (`\x1b[33m │ Complete Task │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └───────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            console.log(args.id)
-            // Check User Exist
+            console.log("taskId", args.id)
+            // Complete Task document (updates complete date to now)
             const task = await Task.findOneAndUpdate( 
-                {_id: args.id},        //filter
-                {complete_flag: true, complete_dt: Date.now()},  //update
+                { _id: args.id },        //filter
+                {   //update
+                    complete_flag: true,
+                    complete_dt: Date.now(),
+                    // summary: "test change",
+                    // $set: { assigned: [] },   // Remove User from assigned - not working ... 
+                },  
                 { new: true }           // return doc                
             );
 
+            // Remove Task ID from all User documents
             const user = await User.updateMany(
                 {  },
                 { $pull: { tasks: args.id }},
                 { new: true}
             )
 
-            return user
-            
-
+            // return user
             // console.log (user)
 
             return task   
@@ -143,13 +148,7 @@ const resolvers = {
 
             console.log(args.id)
 
-            // const mongoose = require('mongoose');
-            // console.log(mongoose.Types.ObjectId.isValid('65b8ed239359f0fca323570c'));
-            // // true
-            // console.log(mongoose.Types.ObjectId.isValid('65b8dba1b768a37702f656b5'));
-            // false
-
-
+                // Remove Task ID from all User Documents
                 const user = await User.updateMany(
                     //{ _id: "65b8ed239359f0fca323570c" },
                     {  },

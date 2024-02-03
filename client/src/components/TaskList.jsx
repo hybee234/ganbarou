@@ -1,38 +1,37 @@
 
+import { useMutation, useQuery } from '@apollo/client';
+import { COMPLETE_TASK } from './../utils/mutations'
+
 export default function TaskList (props) {
 
     const me = props
     console.log ("me", me)
 
     const tasks = me.me.tasks
-
     console.log("tasks", tasks)
 
-
-            // row.original.note.map( (note) => {
-            //     return (
-            //         <div className="flexwrap p-5 m-1 input-field" key={note.note_id}>
-            //             <div className= "w-full flex justify-between">
-            //                 <div>Type: {note.note_type} </div> 
-            //                 <div>{note.note_author.username}, {note.note_dt}</div>                            
-            //             </div>
-            //             <div className="w-full pt-5">{note.note_text}</div>
-            //         </div>
-            //     )
-            // })
+    // Complete Task useMutation Hook
+    const [CompleteTask, { error }] = useMutation(COMPLETE_TASK);
 
 // Complete Date
 // Summary
 
-    const completeHandler = () => {
+    const completeHandler = async (taskId) => {
         // I need to write an update record mutation ...
-
-        // Grab 
-
-
+        try {
+            console.log(taskId)
+            const {data} = await CompleteTask({
+                variables: {
+                    id: taskId
+                }
+            })
+            console.log("data", data)     
+        } catch (error) {
+            console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
+        }
     }
 
-
+        console.log ("mutationError", error)
 
     return (
         <div>
@@ -65,12 +64,20 @@ export default function TaskList (props) {
                                 
                                 <td className="hidden sm:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm">{task.status_macro}</td>  
                                 <td className="hidden sm:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm">{task.status_micro}</td>                
-                                <td className="hidden sm:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm">{task.complete_flag}div</td>  
+                                <td className="hidden sm:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm">
+                                    {
+                                    task.complete_flag ? (
+                                            <p>True</p>
+                                        ) : (
+                                            <p>False</p>
+                                        )
+                                    }                                    
+                                    </td>  
                                 {/* Show if less than 640 pixels */}
                                 <td>
                                     <button 
                                         className="text-xs font-normal md:text-sm sm:text-xs px-4 py-1 my-1 button-color"
-                                        onClick={completeHandler}
+                                        onClick={ ()=> completeHandler(task._id) }
                                         >Complete
                                     </button>
                                 </td>
