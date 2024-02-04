@@ -1,10 +1,7 @@
 
 import { useGlobalContext } from '../utils/GlobalState';
-
 import { useQuery } from '@apollo/client';
 import { TASK_BY_TASK_ID } from './../utils/queries'
-
-
 
 export default function TaskDetail() {
 //Hook to access state
@@ -21,7 +18,7 @@ export default function TaskDetail() {
     if (loading) {
         return ( 
         <div id="loading-screen">
-            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading.gif" /></div>
+            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading 2.gif" /></div>
             <div className = "text-center py-2 text-lg font-normal md:text-2xl text-color">Loading ...</div>
         </div>
         )
@@ -31,7 +28,7 @@ export default function TaskDetail() {
         <div id="loading-screen"> Error! 
             <div>${error.message}</div>
             <div>Allow this Chiikawa character to lighten the mood</div>
-            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading.gif" /></div>        
+            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading 2.gif" /></div>        
         </div>    
     );}
 

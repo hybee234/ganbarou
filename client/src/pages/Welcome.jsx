@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 // import { useGlobalContext } from '../utils/GlobalState';
 import Auth from '../utils/auth';
 
-import picture from '/assets/images/Ganbarou Team3.jpeg'
+import picture from '/assets/images/Ganbarou Team 3.jpeg'
 // import { TODAY } from '../utils/actions'
 
 export default function Welcome() {

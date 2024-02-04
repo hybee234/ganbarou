@@ -22,7 +22,7 @@ export default function MyTasks() {
     if (loading) {
         return ( 
         <div id="loading-screen">
-            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading.gif" /></div>
+            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading 1.gif" /></div>
             <div className = "text-center py-2 text-lg font-normal md:text-2xl text-color">Loading ...</div>
         </div>
         )
@@ -33,7 +33,7 @@ export default function MyTasks() {
         <div id="loading-screen"> Error! 
             <div>${error.message}</div>
             <div>Allow this Chiikawa character to lighten the mood</div>
-            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading.gif" /></div>        
+            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading 1.gif" /></div>        
         </div>    
     );}
 
@@ -47,24 +47,7 @@ export default function MyTasks() {
     return (
     <div>    
         <TasksSummary user={userData} />
-        <TaskList user={userData}
-        // setTaskDetailId={setTaskDetailId}
-        />
-
-    <h2>
-    {/* {
-        myData.tasks.length ?
-            `You have ${myData.tasks.length} active
-                ${
-                    myData.tasks.length === 1 ?
-                        'task'
-                        :
-                        'tasks'
-                }`
-            : 
-            'You have no active tasks!'
-    } */}
-    </h2>
+        <TaskList user={userData} />
     </div>
 
 

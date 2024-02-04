@@ -87,8 +87,8 @@ export default function SideMenu() {
                             }                                
                         </div>
                         {/* Logo */}                               
-                        <div className="w-3/5">
-                            <div className="flex flex-wrap justify-center">
+                        <div className="w-3/5 logo-container">
+                            <div className="flex flex-wrap justify-center logo">
                                 <Link to='/'>
                                     <img src='/assets/images/ganbarou.jpeg' width="200px" className="font-semibold text-center text-color text-3xl sm:text-4xl lg:text-5xl m-auto "></img>  
                                 </Link>
@@ -96,13 +96,13 @@ export default function SideMenu() {
                         </div>
                         {/* User */}                       
                         <div className="w-1/5 text-right">                 
-                            {
+                            {/* {
                                 Auth.loggedIn() ? (                        
                                     <div>Logged in as {Auth.getProfile().data.username}</div>
                                 ) : (                        
                                     <div></div>
                                 )
-                            }
+                            } */}
                         </div>                    
                     </div>
                 </div>
