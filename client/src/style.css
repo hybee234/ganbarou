@@ -70,13 +70,13 @@ bar: 100
 } */
 
 h1 {
-    font-size: 3.2rem;
+    font-size: 2.8rem;
     line-height: 1.1;
     padding: 10px;
 }
 
 h2 {
-    font-size: 2.5rem;
+    font-size: 2.6rem;
     line-height: 1.1;
     padding: 10px;
 }
@@ -123,23 +123,21 @@ h2 {
 header {
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    margin: 10px;
 }
 
-.logo-container {
+.brand-container {   
     justify-content: center;
-    /* padding-left: 100px; */
-    /* width: 40%; */
     transition: ease-in-out .3s;
+    /* padding: 5px; */
 }
 
-/********/
-/* Logo */
-/********/
-
-.logo {
-    transition: ease-in-out .3s;
+.brand {
+    font-family: 'Cherry Bomb One', system-ui;
+    /* font-size: 3rem; */
+    transition: ease-in-out .1s;
 }
+
 
 /******************/
 /* Hamburger Icon */
@@ -149,8 +147,9 @@ header {
 .hamburger {
     cursor: pointer;
     display: block;
-    position: absolute;
+    position: relative;
     z-index: 100;
+
 }
 
 /* Hamburger bars */
@@ -301,6 +300,10 @@ li {
     color: var(--old-rose)
 }
 
+.underline {
+    text-decoration: underline;
+}
+
 /*********/
 /* Pages */
 /*********/
@@ -316,31 +319,28 @@ li {
     margin: auto;
 }
 
+/*****************/
+/* Welcome page */
+/*****************/
 
-
-.underline {
-    text-decoration: underline;
-}
-
-/**************/
-/* Login body */
-/**************/
-
-.login-body {
-    max-width: 800px;
+.welcome-page {
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-
+    margin: 10px;
 }
 
-/**************/
-/* Sign up body */
-/**************/
+.welcome-picture{
+    transition: ease-in-out .3s;
+}
 
-.sign-up-body {
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+.welcome-text-container {
+    flex: 1 0 350px;
+    font-size: 1.5rem;
+}
+
+.welcome-text-container p{
+    margin-bottom: 15px;
 }
 
 /*****************/
@@ -390,6 +390,27 @@ li {
 .review-due {
     background-color: rgba(150, 57, 67, 0.5);
 
+}
+
+/**************/
+/* Login body */
+/**************/
+
+.login-body {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+/**************/
+/* Sign up body */
+/**************/
+
+.sign-up-body {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*****************/
@@ -469,16 +490,20 @@ li {
         width: 100%;
         padding-right: 0px;
     }
-    .logo-container {
-        justify-content: center;
-        width: 100%;
-        padding-left: 0px;
+    h1 {
+        font-size: 2.3rem;
+    }
+    h2 {
+        font-size: 2.1rem;
     }
     .page {        
         width: 85%;
     }
-    .profile-picture{
+    .welcome-picture{
         width: 400px;
+    }
+    .welcome-text-container {
+        font-size: 1.25rem;
     }
 }
 
@@ -490,8 +515,17 @@ li {
     .page {        
         width: 90%        
     }
-    .profile-picture{
-            width: 300px;
+    h1 {
+        font-size: 1.8rem;
+    }
+    h2 {
+        font-size: 1.6rem;
+    }
+    .welcome-picture{
+            width: 350px;
+    }
+    .welcome-text-container {        
+        font-size: 1rem;
     }
 }
 
@@ -506,13 +540,13 @@ li {
         width: 70%;
     }
     h1 {
-        font-size: 2.4rem;
+        font-size: 1.8rem;
     }
     h2 {
-        font-size: 2.2rem;
+        font-size: 1.6rem;
     }
-    .profile-picture{
-        width: 250px;
+    .welcome-picture{
+        width: 300px;
     }
 }
 
@@ -521,8 +555,8 @@ li {
 /******************************/
 @media (max-width: 640px) {
 
-    header {
-        padding: 5px;
+    .welcome-text-container {
+        font-size: 0.75rem;
     }
     .bg-filter{
         padding: 3px;
@@ -549,10 +583,10 @@ li {
         width: 95%;
     }
     h1 {
-        font-size: 2.2rem;
+        font-size: 1.2rem;
     }
     h2 {
-        font-size: 2rem;
+        font-size: 1.3rem;
     }
     th, td {
         font-size: 0.75rem; 
@@ -566,6 +600,11 @@ li {
     .nav-item {        
         width: 45%;        
     }
+    .welcome-text-container {
+        flex: 1 0 200px;
+        font-size: 0.75rem;
+    }
+
     table {
         font-size: 0.5rem; 
     }
@@ -630,25 +669,3 @@ li {
     text-align: center;
 } */
 
-/*****************/
-/* About me page */
-/*****************/
-
-/* .about-me-page {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.about-me-profile-picture{
-    transition: ease-in-out .3s;
-}
-
-.about-me-text-container {
-    flex: 1 0 400px;
-    font-size: 1.5rem;
-}
-
-.about-me-text-container p{
-    margin-bottom: 15px;
-} */
