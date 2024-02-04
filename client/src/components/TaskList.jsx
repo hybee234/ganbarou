@@ -41,6 +41,13 @@ export default function TaskList (props) {
     now = `${now.toLocaleDateString('en-AU')} ${now.toLocaleTimeString('en-AU')}`;
     const today = (new Date()).toLocaleDateString('en-AU')
 
+
+    // const date = new Date()
+    // const formatter = new Intl.DateFormat('en-AU', { day: '2-digit', month: '2-digit', year: '2-digit' });
+    // const formattedDate = formatter.format("4/2/24");
+    // console.log(formattedDate);
+                                                    
+
     //Index for Rows
     const [rowIndex, setRowIndex] = useState('');
 
@@ -265,8 +272,8 @@ export default function TaskList (props) {
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th></th>
                         <th>Total Tasks: {taskCount}</th>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
