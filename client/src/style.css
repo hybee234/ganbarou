@@ -17,7 +17,8 @@ bar: 100
 .hamburger.active .bar:nth-child(2): 100
 .hamburger.active .bar:nth-child(1): 100
 .hamburger.active .bar:nth-child(3): 100
-
+modal-window: 100
+modal-content: 150
 */
 
 :root {
@@ -44,6 +45,7 @@ bar: 100
     --buttonbackgroundhover: var(--grey);
     --tablereviewdue: (var(--old-rose))
     --tableborders: (var(--tablegrey))
+    --modaltext: rgba(244, 244, 255, 1);
     /* --textwinein: rgb(22, 163, 74); */    
     /* --deletebutton: rgb(223, 55, 55); */
     /* --deletebuttonhover: rgb(185, 28, 28); */
@@ -453,6 +455,55 @@ li {
     color: var(--textwarning)
 }
 
+/**********************/
+/* Modal Fields/Forms */
+/**********************/
+
+/****************/
+/* Modal Styles */
+/****************/
+.modal {
+    /* display: none;     */
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8); 
+}
+
+.modal-content {
+    background-color: rgba(35, 35, 35, .9); /* Background of modal-content */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 150;
+    max-height: calc(100vh - 40px); /* Limit height of modal window */
+    overflow-y: auto; /* Add scrollbar if screen is too small for modal window */
+    border-radius: 0.75rem;
+    width: 80%;
+    max-width: 700px;
+}
+
+.modal-heading {
+    margin-top: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    color: var(--modaltext);
+    font-weight: 600;
+}
+
+.modal-text-color {
+    color: var(--modaltext)
+}
+
+
 .modal-field {
     background-color: rgb(229 231 235);
     border: 1px solid rgb(229 231 235);
@@ -472,6 +523,34 @@ li {
     outline-offset: 2px;
     border: 1px solid rgb(113 113 122)
 }
+
+.modal-label {
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-weight: 700;
+    font-size: 0.75rem/* 12px */;
+    line-height: 1rem/* 16px */;
+}
+    
+
+/******************************/
+/* Modal - Close/Cross button */
+/******************************/
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: black;
+    cursor: pointer;
+}
+
+
 
 /****************/
 /* Task Summary */
@@ -494,11 +573,22 @@ li {
     transition: ease-in-out 0.2s;
 }
 
+/**********************************/
+/* Media Query GREATER THAN 1280px /
+/**********************************/
+@media (min-width: 1280px) {
+    .modal-content {
+        width: 50%;
+    }
+}
 
 /*******************************/
 /* Media Query LESS THAN 1280px /
 /*******************************/
 @media (max-width: 1280px) {
+    .modal-content {
+        width: 50%;
+    }
     .navtab {
         justify-content: center;
         width: 100%;
@@ -526,6 +616,9 @@ li {
 /* Media Query LESS THAN 1024 /
 /*****************************/
 @media (max-width: 1024px) {
+    .modal-content {
+        width: 75%;
+    }
     .page {        
         width: 90%        
     }
@@ -586,7 +679,9 @@ li {
 /* Media Query LESS THAN 640 /
 /******************************/
 @media (max-width: 640px) {
-
+    .modal-content {
+        width: 85%; 
+    }
     .welcome-text-container {
         font-size: 0.75rem;
     }
@@ -637,6 +732,10 @@ li {
 /* Media Query LESS THAN 400 /
 /****************************/
 @media (max-width: 400px) {
+    .modal-content {
+        width: 95%;
+        /* margin-top: 10%; */
+    }
     .nav-item {        
         width: 45%;        
     }
@@ -650,6 +749,16 @@ li {
     }
 }
 
+
+/*************************************/
+/* Media Query HEIGHT LESS THAN 640px /
+/*************************************/
+
+@media (max-height: 375px) {
+    .modal-content {
+        height: 95vh;
+    }
+}
 
 
 

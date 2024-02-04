@@ -8,7 +8,7 @@ import Welcome from './pages/Welcome'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import MyTasks from './pages/MyTasks'
-import TaskDetail from './pages/TaskDetail'
+import TaskDetailPage from './pages/TaskDetailPage'
 
 const router = createBrowserRouter([
     {
@@ -40,8 +40,8 @@ const router = createBrowserRouter([
             element: <MyTasks />
         },
         {
-            path: 'taskdetail',
-            element: <TaskDetail />
+            path: 'taskdetailpage',
+            element: <TaskDetailPage />
         },
         ]
     }

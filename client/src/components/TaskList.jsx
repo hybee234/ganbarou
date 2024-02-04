@@ -117,7 +117,7 @@ export default function TaskList (props) {
         localStorage.setItem('detail_view_id', taskId);
 
             
-        navigate('/TaskDetail');
+        navigate('/TaskDetailPage');
 
         // viewTaskDetail = { task_id: "1234"}
         // console.log("viewTaskDetail:", viewTaskDetail)
@@ -261,6 +261,7 @@ export default function TaskList (props) {
                     </tr> 
                 </tbody>
             </table>
+            
         </div>
     )
 

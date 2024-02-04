@@ -4,7 +4,7 @@ import { GET_ME } from './../utils/queries'
 
 import TasksSummary from '../components/TaskSummary';
 import TaskList from '../components/TaskList';
-import TaskDetail from '../components/TaskList';
+import TaskDetailModal from '../components/TaskDetailModal';
 // import { useGlobalContext } from '../utils/GlobalState';
 // import { USER } from '../utils/actions'
 
@@ -48,6 +48,10 @@ export default function MyTasks() {
     <div>    
         <TasksSummary user={userData} />
         <TaskList user={userData} />
+        {/* Hide the modals when you're done configuring them */}
+        <div className= "">
+            <TaskDetailModal user={userData} />
+        </div>
     </div>
 
 
