@@ -138,7 +138,7 @@ export default function TasksSummary(props) {
 
 return (
     <div className="flex">
-        <div className="mx-auto bg-filter my-2 w-11/12">
+        <div className="mx-auto bg-filter my-2">
             <div className="flex flex-wrap justify-center task-summary-container">
                 {/* <div className = "">
                     <p className="underline"> Total </p>

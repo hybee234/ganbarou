@@ -176,7 +176,7 @@ export default function TaskList (props) {
 
     return (
         <div>
-            <table id="transaction-table-container" className="w-11/12 m-auto table-auto mb-20 bg-filter">
+            <table id="task-table-container" className="w-11/12 m-auto table-auto mb-20 bg-filter">
                 <thead>
                     <tr className="text-16 table-heading">
                         <th className="px-4 py-2 text-xs font-medium ">Created</th>
