@@ -112,7 +112,6 @@ h2 {
     transition: ease-in-out .3s;
 }
 
-
 /**********/
 /* Header */
 /**********/
@@ -251,13 +250,10 @@ li {
     color: var(--admintext);
 }
 
-
 .side-menu-admin:hover {
     background-color: rgb(209, 157, 157);
     color: rgb(100, 22, 22);
 }
-
-
 
 /**********/
 /* Footer */
@@ -392,32 +388,21 @@ li {
 
 }
 
-
-/**************/
-/* Login body */
-/**************/
+/*****************/
+/* Login/Sign Up */
+/*****************/
 
 .login-body {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-
 }
-
-/**************/
-/* Sign up body */
-/**************/
 
 .sign-up-body {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
 }
-
-/*****************/
-/* Login/Sign Up */
-/*****************/
-
 .input-field {
     /* width: 90%; */
     background-color: var(--inputbackground);
@@ -479,7 +464,26 @@ li {
     border: 1px solid rgb(113 113 122)
 }
 
+/****************/
+/* Task Summary */
+/****************/
 
+.task-icon {
+    font-size: 1.5rem;
+    padding: 1px;
+    transition: ease-in-out 0.2s;
+}
+
+.task-icon-opp {
+    font-size: 1.5rem;
+    padding: 1px;
+    transition: ease-in-out 0.2s;
+} 
+
+.task-summary-container {
+    font-size: 0.75rem;
+    transition: ease-in-out 0.2s;
+}
 
 
 /*******************************/
@@ -528,6 +532,15 @@ li {
     .welcome-text-container {        
         font-size: 1rem;
     }
+    .task-icon {
+        font-size: 1.25rem;        
+    }    
+    .task-icon-opp {
+        font-size: 1.25rem;        
+    } 
+    .task-summary-container {
+        font-size: 0.7rem;
+    }
 }
 
 /******************************/
@@ -548,6 +561,15 @@ li {
     }
     .welcome-picture{
         width: 300px;
+    }
+    .task-icon {
+        font-size: 1rem;        
+    }    
+    .task-icon-opp {
+        font-size: 1rem;        
+    } 
+    .task-summary-container {
+        font-size: 0.65rem;
     }
 }
 
@@ -589,8 +611,16 @@ li {
     h2 {
         font-size: 1.3rem;
     }
-    th, td {
-        font-size: 0.75rem; 
+    .task-icon {
+        font-size: .75rem;
+        padding: 0px;
+    }    
+    .task-icon-opp {
+        font-size: .75rem;
+        padding: 0px;
+    }
+    .task-summary-container {
+        font-size: 0.60rem;
     }
 }
 
