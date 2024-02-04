@@ -14,42 +14,158 @@
         "security": "admin",
         "tasks": [
             {
-            "_id": "65b8dba1b768a37702f656b4"
+              "_id": "65b8dba1b768a37702f656b4",
+              "complete_dt": "null"
             },
             {
-            "_id": "65bbbd2f65776db3b4a909f9"
+              "_id": "65bbbd2f65776db3b4a90a29",
+              "complete_dt": "20/01/2024"
             },
             {
-            "_id": "65b8ec86f2d392716b0613b3"
+              "_id": "65bbbd2f65776db3b4a909ff",
+              "complete_dt": "null"
             },
             {
-            "_id": "65bbbd2f65776db3b4a90a03"
+              "_id": "65b8ec86f2d392716b0613b3",
+              "complete_dt": "null"
             },
             {
-            "_id": "65bbbd2f65776db3b4a909ff"
+              "_id": "65bbbd2f65776db3b4a90a43",
+              "complete_dt": "null"
             },
             {
-            "_id": "65bbbd2f65776db3b4a90a07"
+              "_id": "65bbbd2f65776db3b4a90a49",
+              "complete_dt": "null"
             },
             {
-            "_id": "65bbbd2f65776db3b4a90a0b"
+              "_id": "65bbbd2f65776db3b4a909f9",
+              "complete_dt": "null"
             },
             {
-            "_id": "65bbbd2f65776db3b4a90a0f"
+              "_id": "65bbbd2f65776db3b4a90a54",
+              "complete_dt": "null"
             },
             {
-            "_id": "65bbbd2f65776db3b4a90a13"
+              "_id": "65bbbd2f65776db3b4a90a03",
+              "complete_dt": "null"
             },
             {
-            "_id": "65bbbd2f65776db3b4a90a17"
+              "_id": "65bbbd2f65776db3b4a90a0b",
+              "complete_dt": "null"
             },
             {
-            "_id": "65bbbd2f65776db3b4a90a19"
+              "_id": "65bbbd2f65776db3b4a90a0f",
+              "complete_dt": "null"
             },
             {
-                "_id": "65bbbd2f65776db3b4a90a20"
+              "_id": "65bbbd2f65776db3b4a90a13",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a17",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a19",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a20",
+              "complete_dt": "20/01/2024"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a21",
+              "complete_dt": "20/01/2024"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a23",
+              "complete_dt": "20/01/2024"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a24",
+              "complete_dt": "20/01/2024"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a25",
+              "complete_dt": "20/01/2024"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a26",
+              "complete_dt": "20/01/2024"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a27",
+              "complete_dt": "20/01/2024"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a28",
+              "complete_dt": "20/01/2024"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a40",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a41",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a42",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a45",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a46",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a47",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a48",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a51",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a52",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a53",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a55",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a30",
+              "complete_dt": "20/01/2024"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a31",
+              "complete_dt": "20/01/2024"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a44",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a50",
+              "complete_dt": "null"
+            },
+            {
+              "_id": "65bbbd2f65776db3b4a90a07",
+              "complete_dt": "null"
             }
-        ]
+          ]
     },
     {
         "username": "Team Member A",

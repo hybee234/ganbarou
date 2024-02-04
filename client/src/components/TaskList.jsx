@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { FiEdit } from "react-icons/fi";
 import { TiTick } from "react-icons/ti";
-
+import { ImCross } from "react-icons/im";
 
 export default function TaskList (props) {
     // Hook to useNavigate
@@ -223,9 +223,9 @@ export default function TaskList (props) {
                                     <td>
                                         <button
                                             id={`complete-button-${task._id}`}
-                                            className="text-xs md:text-sm sm:text-xs px-4 py-1 my-1 button-color"
+                                            className="text-xs md:text-sm sm:text-xs px-4 py-1 my-1 button-color "
                                             onClick={ ()=> completeHandler(task._id) }
-                                            ><TiTick className="m-auto"/> 
+                                            ><ImCross className="m-auto text-red-600"/> 
                                         </button>
                                     </td>
                                     {/* Show if greater than 1280 pixels */}                                

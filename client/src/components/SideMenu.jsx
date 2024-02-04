@@ -92,7 +92,7 @@ export default function SideMenu() {
                                 <Link className="link" to='/'>
                                     {/* <img src='/assets/images/Ganbarou Logo 2.png' width="300px" className="font-semibold text-center text-color text-3xl sm:text-4xl lg:text-5xl m-auto "></img>   */}
                                     <div className="brand text-2xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Ganbarou!</div>
-                                    <div className="hidden lg:block text-md xl:text-lg">頑張ろう</div>
+                                    <div className="hidden sm:block text-md xl:text-lg">頑張ろう</div>
                                 </Link>
                             </div>
                         </div>
