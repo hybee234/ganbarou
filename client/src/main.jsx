@@ -18,7 +18,7 @@ const router = createBrowserRouter([
             <div className = "justify-center, text-center">
                 <h1 className='display-2'>We have encountered an error!</h1>
                 <div>Allow this Chiikawa character to keep you company while you solve the issue</div>
-                <div className = "text-center py-2"><img className = "m-auto py-2" width="500px" src="../assets/images/chiikawa loading.gif" /></div>        
+                <div className = "text-center py-2"><img className = "m-auto py-2" width="500px" src="../assets/images/chiikawa loading 1.gif" /></div>        
             </div>   
         )
         ,

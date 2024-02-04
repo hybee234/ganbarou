@@ -7,6 +7,9 @@ import { useGlobalContext } from '../utils/GlobalState';
 import { DETAIL_VIEW_ID } from "./../utils/actions"
 import {useNavigate} from 'react-router-dom';
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function TaskList (props) {
     // Hook to useNavigate
     const navigate = useNavigate();
@@ -59,7 +62,7 @@ export default function TaskList (props) {
     if (CompleteTask.loading) {
         return ( 
         <div id="loading-screen">
-            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading.gif" /></div>
+            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading 3.gif" /></div>
             <div className = "text-center py-2 text-lg font-normal md:text-2xl text-color">Loading ...</div>
         </div>
         )
@@ -70,7 +73,7 @@ export default function TaskList (props) {
         <div id="loading-screen"> Error! 
             <div>${error.message}</div>
             <div>Allow this Chiikawa character to lighten the mood</div>
-            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading.gif" /></div>        
+            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading 3.gif" /></div>        
         </div>    
     );}
 
@@ -84,6 +87,7 @@ export default function TaskList (props) {
                 }
             })
             console.log("data", data)
+            toast.success(`Task Completed! Great Work!`) 
             useTaskCount(taskCount - 1)      
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
@@ -137,7 +141,7 @@ export default function TaskList (props) {
 
     const highlightReview = () => {
         document.querySelectorAll('.review-date-js').forEach(element => {
-            if (element.dataset.reviewDt < today) {
+            if (element.dataset.reviewDt < now) {
                 // console.log ("OVERDUE for review", element.dataset.reviewDt)
 
                 // console.log (today)
@@ -179,6 +183,7 @@ export default function TaskList (props) {
                         <th className="hidden lg:table-cell px-4 py-2 text-xs font-medium ">Last Updated</th>
                         <th className="hidden lg:table-cell px-4 py-2 text-xs font-medium ">Category</th>
                         <th className="hidden lg:table-cell px-4 py-2 text-xs font-medium ">Edit</th>
+                        <th className="hidden lg:table-cell px-4 py-2 text-xs font-medium ">task_id</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -247,7 +252,8 @@ export default function TaskList (props) {
                                                 <FiEdit className="m-auto"/>    
                                             </Link>
                                         </div> */}
-                                    </td>                                     
+                                    </td>
+                                    <td id={`${task._id}`} className="hidden lg:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm">{task._id}</td>                                      
                                 </tr>
                             )                            
                         })                         
