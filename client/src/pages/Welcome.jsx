@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 // import { useGlobalContext } from '../utils/GlobalState';
 import Auth from '../utils/auth';
 
-import picture from '/assets/images/Ganbarou Team 3.jpeg'
 // import { TODAY } from '../utils/actions'
 
 export default function Welcome() {
@@ -15,6 +14,16 @@ export default function Welcome() {
     // // Discharge today to global state
     // dispatch({ type: TODAY , payload: today})
 
+    //-------------------------------------------//
+    //- Randomly picks for 3 welcome page photos-//
+    //-------------------------------------------//
+    function randomInt123(min, max) { // min and max included 
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+    const rndInt = randomInt123(1, 3)
+    // console.log(rndInt)
+    let picture = `./assets/images/Ganbarou Team ${rndInt}.jpeg`
+
     return (
         <div className="page">
             <div className="page-header bg-filter">
@@ -22,10 +31,10 @@ export default function Welcome() {
             </div>
             
             <div className = "welcome-page bg-filter justify-center">
-                {/* <h2 className="w-full"> A team task management solution </h2>                 */}
+                {/* <h2 className="w-full"> A team task management solution </h2> */}
                 <div className ="flex flex-wrap justify-center">
                     <div className = "flex p-2 m-2 justify-start">
-                        <img src='./assets/images/Ganbarou Team 3.jpeg' width="500px" className="welcome-picture m-auto"></img>                                 
+                        <img src={picture} width="500px" className="welcome-picture m-auto"></img>                                 
                     </div>
                         <div className = "welcome-text-container p-2 m-2 text-center">               
                         <p> "Ganbarou!" is a Japanese expression of encouragement and support in times of challenge.</p>

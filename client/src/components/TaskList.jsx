@@ -1,14 +1,15 @@
-import { Link } from 'react-router-dom';
-import {useState, useEffect} from 'react'
+import { useGlobalContext } from '../utils/GlobalState';
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 import { COMPLETE_TASK } from './../utils/mutations'
-import { FiEdit } from "react-icons/fi";
-import { useGlobalContext } from '../utils/GlobalState';
 import { DETAIL_VIEW_ID } from "./../utils/actions"
-import {useNavigate} from 'react-router-dom';
-
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { FiEdit } from "react-icons/fi";
+import { TiTick } from "react-icons/ti";
+
 
 export default function TaskList (props) {
     // Hook to useNavigate
@@ -70,7 +71,7 @@ export default function TaskList (props) {
         return ( 
         <div id="loading-screen">
             <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading 3.gif" /></div>
-            <div className = "text-center py-2 text-lg font-normal md:text-2xl text-color">Loading ...</div>
+            <div className = "text-center py-2 text-lg md:text-2xl text-color">Loading ...</div>
         </div>
         )
     }   
@@ -200,29 +201,15 @@ export default function TaskList (props) {
                             return(
                                 // <tr id={`table-row-${task._id}`} className="table-rows text-center" key={task._id}  style={{ backgroundColor: reviewDue(task.review_dt)}}  onClick= { ()=> setRowIndex(index)}>
                                 <tr id={`table-row-${task._id}`} className="table-rows text-center" key={task._id} onClick= { ()=> setRowIndex(index)}>
-                                    <td id={`created-dt-${task._id}`} className="font-normal xl:text-base text-xs sm:text-xs md:text-sm" data-created-dt={task.created_dt}> {task.created_dt}                                    
-                                        {/* <input className="input-field" type="date" placeholder="MM/DD/YYYY">
-                                        </input> */}
-                                    </td>                                
-                                    <td id={`title-${task._id}`} className="font-normal xl:text-base text-xs sm:text-xs md:text-sm" > 
-                                        {/* <textarea
-                                            className="title-input-js table-input border-2"
-                                            type="text"
-                                            // cols="50"
-                                            data-title={task.title}
-                                            onBlur={() => submitRow( task._id )}
-                                            >                                        
-                                        </textarea>  */}
-                                        {task.title}
-                                    </td>
+                                    <td id={`created-dt-${task._id}`} className=" xl:text-base text-xs sm:text-xs md:text-sm" data-created-dt={task.created_dt}> {task.created_dt}</td>                                
+                                    <td id={`title-${task._id}`} className="xl:text-base text-xs sm:text-xs md:text-sm"> {task.title}</td>
                                     {/* Hide if less than 640 pixels */}
-                                    <td id={`review-dt-${task._id}`} className="review-date-js hidden sm:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm" data-review-dt={task.review_dt}>{task.review_dt}</td>
-                                    <td id={`stakeholder-${task._id}`}className="hidden sm:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm" data-stakeholder={task.stakeholder}>{task.stakeholder}</td>                                    
-                                    
-                                    <td id={`status-macro-${task._id}`}className="hidden sm:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm" data-status-macro={task.status_macro}>{task.status_macro}</td>  
-                                    <td id={`status-micro-${task._id}`}className="hidden sm:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm" data-status-micro={task.micro}>{task.status_micro}</td>
+                                    <td id={`review-dt-${task._id}`} className="review-date-js hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-review-dt={task.review_dt}>{task.review_dt}</td>
+                                    <td id={`stakeholder-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-stakeholder={task.stakeholder}>{task.stakeholder}</td>                                    
+                                    <td id={`status-macro-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-status-macro={task.status_macro}>{task.status_macro}</td>  
+                                    <td id={`status-micro-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-status-micro={task.micro}>{task.status_micro}</td>
                                                     
-                                    {/* <td id={`complete-flag-${task._id}`}className="hidden sm:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm" data-complete-flag={task.complete_flag}>
+                                    {/* <td id={`complete-flag-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-complete-flag={task.complete_flag}>
                                         {
                                             task.complete_flag ? (
                                                 "True"
@@ -232,20 +219,19 @@ export default function TaskList (props) {
                                         }                                    
                                         </td>   */}
                                     {/* Show if less than 640 pixels */}
-                                    <td id={`assigned-${task._id}`}className="hidden sm:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm" data-status-assigned-username={task.assigned.username}>{task.assigned.username}</td> 
+                                    <td id={`assigned-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-status-assigned-username={task.assigned.username}>{task.assigned.username}</td> 
                                     <td>
                                         <button
                                             id={`complete-button-${task._id}`}
-                                            className="text-xs font-normal md:text-sm sm:text-xs px-4 py-1 my-1 button-color"
+                                            className="text-xs md:text-sm sm:text-xs px-4 py-1 my-1 button-color"
                                             onClick={ ()=> completeHandler(task._id) }
-                                            >Complete
+                                            ><TiTick className="m-auto"/> 
                                         </button>
                                     </td>
                                     {/* Show if greater than 1280 pixels */}                                
-                                    <td id={`updated-at-${task._id}`} className="hidden lg:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm">{task.updatedAt}</td> 
-                                    <td id={`category-${task._id}`} className="hidden lg:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm" data-category={task.priority.category}>{task.priority.category}</td> 
-                                    <td className="hidden lg:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm">
-                                        
+                                    <td id={`updated-at-${task._id}`} className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm">{task.updatedAt}</td> 
+                                    <td id={`category-${task._id}`} className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-category={task.priority.category}>{task.priority.category}</td> 
+                                    <td className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm">                                        
                                         <button
                                             id={`edit-button-${task._id}`}
                                             value={`${task._id}`}
@@ -254,13 +240,8 @@ export default function TaskList (props) {
                                             >
                                                 <FiEdit className="m-auto"/>                                                
                                         </button>
-                                        {/* <div className="p-3 link">
-                                            <Link to={{ pathname: '/taskdetail', state: {taskID: task._id } }}>
-                                                <FiEdit className="m-auto"/>    
-                                            </Link>
-                                        </div> */}
                                     </td>
-                                    <td id={`${task._id}`} className="hidden lg:table-cell font-normal xl:text-base text-xs sm:text-xs md:text-sm">{task._id}</td>                                      
+                                    <td id={`${task._id}`} className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm">{task._id}</td>                                      
                                 </tr>
                             )                            
                         })                         
