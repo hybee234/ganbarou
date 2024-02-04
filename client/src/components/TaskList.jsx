@@ -249,11 +249,11 @@ export default function TaskList (props) {
                     <tr className="table-last-row">
                         <th></th>
                         <th></th>
-                        <th></th>                        
+                        <th>Total Tasks: {taskCount}</th>                        
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th>Total Tasks: {taskCount}</th>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
