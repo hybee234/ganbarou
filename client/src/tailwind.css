@@ -859,6 +859,7 @@ bar: 100
   --grey: rgb(100,100,100);
   --lightgrey: rgb(175,175,175);
   --redwarning: rgb(220, 38, 38);
+  --tablegrey: rgba(88, 88, 88, 0.3);
   /*UI Objects*/
   --text: var(--onyx);
   --texthighlight: var(--lightblue);
@@ -870,6 +871,7 @@ bar: 100
   --buttontext: var(--onyx);
   --buttonbackgroundhover: var(--grey);
   --tablereviewdue: (var(--old-rose))
+    --tableborders: (var(--tablegrey))
     /* --textwinein: rgb(22, 163, 74); */    
     /* --deletebutton: rgb(223, 55, 55); */
     /* --deletebuttonhover: rgb(185, 28, 28); */
@@ -1199,46 +1201,52 @@ li {
 
 /*****************/
 
+#task-table-container {
+  border: 2px solid var(--tablegrey);
+}
+
 .table-heading {
   /* border-top: 2px solid rgba(50,50,50,0.3); */
-  border-top: 2px solid rgba(223, 223, 223, 0.3);
+  /* border-top: 2px solid rgba(223, 223, 223, 0.3); */
+  border-top: 2px solid var(--tablegrey);
   /* border-bottom: 2px solid rgba(50,50,50,0.3); */
-  border-bottom: 2px solid rgba(223, 223, 223, 0.3);
+  /* border-bottom: 2px solid rgba(223, 223, 223, 0.3); */
+  border-bottom: 2px solid var(--tablegrey);
 }
 
 .table-rows {
   /* border-bottom: 1px solid rgba(50,50,50,0.2); */
-  border-bottom: 1px solid rgba(223, 223, 223, 0.25);
+  /* border-bottom: 1px solid rgba(223, 223, 223, 0.25); */
+  border-bottom: 2px solid var(--tablegrey);
 }
 
 .table-last-row {
   /* border-top: 1px solid rgba(50,50,50,0.15);
     border-bottom: 2px solid rgba(50,50,50,0.3); */
-  border-top: 1px solid rgba(223, 223, 223, 0.15);
-  border-bottom: 2px solid rgba(223, 223, 223, 0.3);
+  /* border-top: 1px solid rgba(223, 223, 223, 0.15);
+    border-bottom: 2px solid rgba(223, 223, 223, 0.3); */
+  border-top: 2px solid var(--tablegrey);
+  border-bottom: 2px solid var(--tablegrey);
 }
 
-.table-inputdf {
-  border: 2px inset var(--inputborder);
-  /* background-color: var(--inputbackground); */
-  transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  padding: 1px;
-  border-radius: 5px;
-  text-align: justify;
-}
+/* .table-input {
+    border: 2px inset var(--inputborder);
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 1px;
+    border-radius: 5px;
+    text-align: justify;
 
-.table-input::-moz-placeholder {
-  color: var(--admintext)
+    
 }
 
 .table-input::placeholder {
-  color: var(--admintext)
+    color: var(--admintext)
 }
 
 .table-input:hover {
-  background-color: var(--inputbackgroundhover);
-}
+    background-color: var(--inputbackgroundhover);
+} */
 
 .review-due {
   background-color: rgba(150, 57, 67, 0.5);
