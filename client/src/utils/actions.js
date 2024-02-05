@@ -8,4 +8,9 @@ export const USER = 'USER'
 
 // export const USER_TASKS = 'USER_TASKS'
 
-export const DETAIL_VIEW_ID = 'DETAIL_VIEW_ID'
+export const TASK_DETAIL_ID = 'TASK_DETAIL_ID'
+
+// Task Detail Actions
+export const TASK_DETAIL = 'TASK_DETAIL'
+export const TASK_DETAIL_CREATED_DT = 'TASK_DETAIL_CREATED_DT'
+export const TASK_DETAIL_TITLE = 'TASK_DETAIL_TITLE'

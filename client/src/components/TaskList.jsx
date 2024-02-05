@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 import { COMPLETE_TASK } from './../utils/mutations'
-import { DETAIL_VIEW_ID } from "./../utils/actions"
+import { TASK_DETAIL } from "./../utils/actions"
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -25,8 +25,8 @@ export default function TaskList (props) {
     console.log("user", user)
     console.log("user task", user.tasks)
 
-
-    const tasksRaw = user.tasks
+    //List of tasks for user
+    const userTasks = user.tasks
 
     //----------------------------------------//
     //- Create and Store Date/Time constants -//
@@ -56,7 +56,7 @@ export default function TaskList (props) {
     //- User Tasks - Filter for Active Tasks -//
     //----------------------------------------//
 
-    const tasks = tasksRaw.filter(task => !task.complete_flag)
+    const tasks = userTasks.filter(task => !task.complete_flag)
 
     //useState for Task Count
     const [taskCount, useTaskCount] = useState(tasks.length)
@@ -106,18 +106,26 @@ export default function TaskList (props) {
     // View Task details -//
     //--------------------//
     const viewTask = (taskId) => {
-    
-        // setTaskDetailId(taskId)
 
-        dispatch ({ type: DETAIL_VIEW_ID, payload: taskId})
+        // Filter userTasks for task details of interest
+        const taskDetailArray = userTasks.filter(task => task._id === taskId)
+        const taskDetail = taskDetailArray[0]
+        
+        //
+        dispatch ({ type: TASK_DETAIL, payload: taskDetail})
 
+        // Alternative approach - filter userTask array for the task of interest store local storage
+        localStorage.setItem('detail_view', taskDetail);
 
-
-        //put the ID in localStorage ....
+        //put the ID in localStorage .... (need to stringify it to use this)
+        // explore using global state instead for now ...
         localStorage.setItem('detail_view_id', taskId);
 
+        document.getElementById('view-details-modal').style.display = 'block'
+
+        // console.log("taskDetail", taskDetail)
             
-        navigate('/TaskDetailPage');
+        // navigate('/TaskDetailPage');
 
         // viewTaskDetail = { task_id: "1234"}
         // console.log("viewTaskDetail:", viewTaskDetail)

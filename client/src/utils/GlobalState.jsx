@@ -11,7 +11,9 @@ const GlobalProvider = ({ value = [], ...props }) => {
         // login_password: '',
         sidemenu: '',
         user:[],
-        detailViewId:'',        
+        taskDetailId:'',
+        taskDetail:'',
+        showHideDetailView:'hide',       
     }
 
     const [state, dispatch] = useReducer(reducer, initialstate );

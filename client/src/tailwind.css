@@ -725,6 +725,10 @@ video {
   border-width: 1px;
 }
 
+.border-2 {
+  border-width: 2px;
+}
+
 .p-1 {
   padding: 0.25rem;
 }
@@ -1010,6 +1014,7 @@ header {
 }
 
 .brand-container {
+  margin: auto;
   justify-content: center;
   transition: ease-in-out .3s;
   /* padding: 5px; */
@@ -1032,7 +1037,7 @@ header {
 .hamburger {
   cursor: pointer;
   display: block;
-  position: relative;
+  position: absolute;
   z-index: 100;
 }
 
@@ -1082,10 +1087,11 @@ li {
 /* Move the menu offscreen to the left */
 
 .side-menu {
+  border: 2 solid white;
   position: fixed;
   left: -100%;
   top: 0px;
-  width: 250px;
+  width: 175px;
   height: 100vh;
   background-color: transparent;
   padding-top: 100px;
@@ -1367,7 +1373,7 @@ li {
 /****************/
 
 .modal {
-  /* display: none;     */
+  display: none;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -1431,8 +1437,8 @@ li {
 }
 
 .modal-label {
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
+  /* text-transform: uppercase; */
+  /* letter-spacing: 0.25em; */
   font-weight: 700;
   font-size: 0.75rem/* 12px */;
   line-height: 1rem/* 16px */;
@@ -1625,30 +1631,27 @@ li {
     font-size: 0.75rem;
   }
 
-  .bg-filter{
-    padding: 3px;
-  }
+  /* .bg-filter{
+        padding: 3px;
+    } */
 
-  .navtab {
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    padding-right: 0px;
-    /* min-width: 285px; */
-  }
-
-  .nav-item {
-    padding-top: 5px;
-    padding-right: 10px;
-    padding-bottom: 5px;
-    padding-left: 10px;
-    margin: 3px;
-    border-radius: 5px;
-  }
-
-  .nav-item p {
-    font-size: 1.00rem;
-  }
+  /* .navtab {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        padding-right: 0px;
+    }
+    .nav-item {
+        padding-top: 5px;
+        padding-right: 10px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        margin: 3px;
+        border-radius: 5px;
+    }
+    .nav-item p {
+        font-size: 1.00rem; 
+    }*/
 
   .page {
     width: 95%;

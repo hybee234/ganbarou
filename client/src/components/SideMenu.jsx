@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import OutsideClickHandler from 'react-outside-click-handler';
 import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../utils/GlobalState';
@@ -15,16 +16,19 @@ export default function SideMenu() {
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
 
+    // const [outsideClick, setOutSideClick] = useState(false)
+
     // Hook to useNavigate
     const navigate = useNavigate();
 
-    if (state.sidemenu === "toggle") {
+    if (state.sidemenu === true) {
         document.querySelector(".hamburger").classList.toggle("active");
         document.querySelector(".side-menu").classList.toggle("active"); 
+
         // console.log(state.sidemenu)
     } 
 
-    if (state.sidemenu === "hide") {
+    if (state.sidemenu === false) {
         document.querySelector(".hamburger").classList.remove("active");
         document.querySelector(".side-menu").classList.remove("active"); 
         // console.log(state.sidemenu)
@@ -34,7 +38,7 @@ export default function SideMenu() {
     const sideMenuShow = () => {
         dispatch ({
             type: SIDE_MENU,
-            payload: "toggle"
+            payload: true
         })
     }
 
@@ -42,7 +46,7 @@ export default function SideMenu() {
     const sideMenuHide = () => {
         dispatch ({
             type: SIDE_MENU,
-            payload: "hide"
+            payload: false
         })
     }
 
@@ -58,14 +62,22 @@ export default function SideMenu() {
 
     return (
         <header >
+            {/* {
+                if(state.sidemenu === toggle) {
+                return (
+                    )
+            }
+                
+            
+            
+            } */}
             <OutsideClickHandler onOutsideClick={sideMenuHide}>
                 {/* Navbar */}
-                <div className="mx-auto">                    
-                    <div className="flex flex-wrap md:flex md:flex-wrap items-center">
-                        {/* Hamburger */}                        
-                        <div className="w-1/5">                            
+
+                {/* Hamburger */}                        
+                <div className="w-1/5">                            
                             { Auth.loggedIn() ? (                        
-                                <button className="hamburger w-1/12 "
+                                <button className="hamburger"
                                     onClick={sideMenuShow}                        
                                     >                                
                                     <span className="bar"></span>
@@ -74,7 +86,7 @@ export default function SideMenu() {
                                 </button>
                                 ) : (                        
                                 // <div className="hamburger hidden"></div>
-                                
+                                // Hide this when done coding ....
                                 <div className="hamburger w-1/12 "
                                     onClick={sideMenuShow}
                                     
@@ -86,29 +98,6 @@ export default function SideMenu() {
                                 )
                             }                                
                         </div>
-                        {/* Logo */}                               
-                        <div className="w-3/5 brand-container">
-                            <div className="flex flex-wrap justify-center text-center">                                
-                                <Link className="link" to='/'>
-                                    {/* <img src='/assets/images/Ganbarou Logo 2.png' width="300px" className="font-semibold text-center text-color text-3xl sm:text-4xl lg:text-5xl m-auto "></img>   */}
-                                    <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Ganbarou!</div>
-                                    <div className="hidden sm:block text-md xl:text-lg">頑張ろう</div>
-                                </Link>
-                            </div>
-                        </div>
-                        {/* User */}                       
-                        <div className="w-1/5 text-right">                 
-                            {/* {
-                                Auth.loggedIn() ? (                        
-                                    <div>Logged in as {Auth.getProfile().data.username}</div>
-                                ) : (                        
-                                    <div></div>
-                                )
-                            } */}
-                        </div>                    
-                    </div>
-                </div>
-
 
                 {/* Side Menu */}            
                 <div className="side-menu flex items-center justify-center bg-filter">
@@ -133,6 +122,7 @@ export default function SideMenu() {
                                 </div>
                             )
                         }
+                        {/* To come back to fix */}
                         {
                             state.user.security === 'admin' ?
                             (
@@ -148,7 +138,35 @@ export default function SideMenu() {
                         }
                     </li>
                 </div>
-            </OutsideClickHandler>
+                </OutsideClickHandler>
+
+                <div className="mx-auto">                    
+                    <div className="flex flex-wrap md:flex md:flex-wrap items-center mx-auto"> 
+                        {/* Logo/Heading */}                               
+                        <div className="w-3/5 brand-container border-2">
+                            <div className="flex flex-wrap justify-center text-center">                                
+                                <Link className="link" to='/'>
+                                    {/* <img src='/assets/images/Ganbarou Logo 2.png' width="300px" className="font-semibold text-center text-color text-3xl sm:text-4xl lg:text-5xl m-auto "></img>   */}
+                                    <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Ganbarou!</div>
+                                    <div className="hidden sm:block text-md xl:text-lg">頑張ろう</div>
+                                </Link>
+                            </div>
+                        </div>
+                        {/* User */}  
+
+                        {/* <div className="w-1/5 text-right">                 
+                            {
+                                Auth.loggedIn() ? (                        
+                                    <div>Logged in as {Auth.getProfile().data.username}</div>
+                                ) : (                        
+                                    <div></div>
+                                )
+                            } 
+                        </div>  */}                  
+
+                        </div>
+                </div>
+    
         </header>
 
         
