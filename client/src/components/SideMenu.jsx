@@ -25,6 +25,7 @@ export default function SideMenu() {
         if (state.sidemenu === true) {
             document.querySelector(".hamburger").classList.add("active");
             document.querySelector(".side-menu").classList.add("active"); 
+            console.log("Active Added")
             dispatch ({
                 type: SIDE_MENU,
                 payload: false
@@ -32,6 +33,7 @@ export default function SideMenu() {
         } else {
             document.querySelector(".hamburger").classList.remove("active");
             document.querySelector(".side-menu").classList.remove("active"); 
+            console.log("Active removed")
             dispatch ({
                 type: SIDE_MENU,
                 payload: true
@@ -49,6 +51,18 @@ export default function SideMenu() {
         toggleSideMenu()
         navigate('/login')        
     }
+
+    //-----------------------------------------------//
+    //- Randomly picks between 3 gifs for side menu -//
+    //-----------------------------------------------//
+    function randomInt123(min, max) { // min and max included 
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+    const rndInt = randomInt123(1, 3)
+    let gif = `../assets/images/chiikawa loading ${rndInt}.gif`
+
+
+
 
     return (
         <header >
@@ -116,6 +130,9 @@ export default function SideMenu() {
                             )               
                         }
                     </li>
+                    <div id="side-menu-chiikawa">
+                        <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src={gif}/></div>                        
+                    </div>
                 </div>
             {/* </OutsideClickHandler> */}
 

@@ -1,18 +1,8 @@
 import { Link } from 'react-router-dom';
-// import { useGlobalContext } from '../utils/GlobalState';
+
 import Auth from '../utils/auth';
 
-// import { TODAY } from '../utils/actions'
-
 export default function Welcome() {
-
-    //Hook to access state
-    // const [state, dispatch] = useGlobalContext();
-
-    //Create today
-    
-    // // Discharge today to global state
-    // dispatch({ type: TODAY , payload: today})
 
     //-------------------------------------------//
     //- Randomly picks for 3 welcome page photos-//
