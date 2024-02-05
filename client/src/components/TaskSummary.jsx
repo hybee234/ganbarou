@@ -1,9 +1,3 @@
-import { RiCheckboxBlankFill } from "react-icons/ri"
-import { SiTarget } from "react-icons/si";
-import { BsFillBalloonFill } from "react-icons/bs";
-import { FaTools } from "react-icons/fa";
-import { FaClock } from "react-icons/fa6";
-
 /*
 This components job is to recieve a task array and produce a summary out of it
 Operational Tasks - Operational Tasks due for review
@@ -11,9 +5,17 @@ Business Focus Initiatives - Business FOcus tasks due for review
 Business Opportunistic Initiatives
 */
 
+import { SiTarget } from "react-icons/si";
+import { FaTools } from "react-icons/fa";
+import { FaClock } from "react-icons/fa6";
+// import { RiCheckboxBlankFill } from "react-icons/ri"
+// import { BsFillBalloonFill } from "react-icons/bs";
 
 export default function TasksSummary(props) {
 
+    
+    console.log("TaskSummary Rendering")
+    
     const {user} = props
 
     //----------------------------------------//
@@ -25,7 +27,7 @@ export default function TasksSummary(props) {
     now = `${now.toLocaleDateString('en-AU')} ${now.toLocaleTimeString('en-AU')}`;
 
     // myData is passed through with all user and task data
-    console.log("My Summary: Tasks:", user.tasks)
+    // console.log("My Summary: Tasks:", user.tasks)
 
     // GrandTotal - My Total Active Tasks
     const totalTasks = user.tasks.filter(task => !task.complete_flag).length
@@ -62,8 +64,6 @@ export default function TasksSummary(props) {
     // Business driven Focus, future review
     const businessOpportunisticReviewDue = user.tasks.filter(task => !task.complete_flag && task.priority.business_driven && !task.priority.focus && task.review_dt <= now).length
     // console.log("businessOpportunisticReviewDue: ", businessOpportunisticReviewDue)
-
-// Closed this month
 
 //----------------//
 //- Render Icons -//
@@ -132,9 +132,6 @@ export default function TasksSummary(props) {
             </div>
         )
     }
-
-//FaClock
-//RiCheckboxBlankFill
 
 return (
     <div className="flex">

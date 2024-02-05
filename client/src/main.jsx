@@ -8,7 +8,6 @@ import Welcome from './pages/Welcome'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import MyTasks from './pages/MyTasks'
-import TaskDetail from './pages/TaskDetail'
 
 const router = createBrowserRouter([
     {
@@ -16,9 +15,9 @@ const router = createBrowserRouter([
         element: <App />,
         errorElement: ( 
             <div className = "justify-center, text-center">
-                <h1 className='display-2'>We have encountered an error!</h1>
+                <h1 className='display-2'>We have encountered an error! (Main.jsx)</h1>
                 <div>Allow this Chiikawa character to keep you company while you solve the issue</div>
-                <div className = "text-center py-2"><img className = "m-auto py-2" width="500px" src="../assets/images/chiikawa loading 1.gif" /></div>        
+                <div className = "text-center py-2"><img className = "m-auto py-2" width="200px" src="../assets/images/chiikawa loading 1.gif" /></div>        
             </div>   
         )
         ,
@@ -38,10 +37,6 @@ const router = createBrowserRouter([
         {
             path: 'mytasks',
             element: <MyTasks />
-        },
-        {
-            path: 'taskdetail',
-            element: <TaskDetail />
         },
         ]
     }

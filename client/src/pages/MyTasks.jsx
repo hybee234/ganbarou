@@ -1,20 +1,16 @@
-// import {useState} from 'react'
+
 import { useQuery } from '@apollo/client';
 import { GET_ME } from './../utils/queries'
-
 import TasksSummary from '../components/TaskSummary';
 import TaskList from '../components/TaskList';
-import TaskDetail from '../components/TaskList';
-// import { useGlobalContext } from '../utils/GlobalState';
-// import { USER } from '../utils/actions'
+import TaskDetailModal from '../components/TaskDetailModal';
 
 export default function MyTasks() {
-    
-    // Used to pass TaskDetailID from TaskList to TaskDetail
-    // const [taskDetailId, setTaskDetailId] = useState('')
+    console.log("MyTask Rendering")
 
-    // const [state, dispatch] = useGlobalContext();
-    // Pull logged in usser data with Tasks attached
+    //-------------//
+    //- Use Query -//
+    //-------------//
     const {loading, error, data } = useQuery(GET_ME);    
     const userData = data?.me || {}
 
@@ -30,28 +26,22 @@ export default function MyTasks() {
 
     //Show error screen if error
     if (error) {return (
-        <div id="loading-screen"> Error! 
-            <div>${error.message}</div>
-            <div>Allow this Chiikawa character to lighten the mood</div>
+        <div id="loading-screen"> MyTask Page - Error! 
+            <div> ${error.message}</div>
+            <div> Allow this Chiikawa character to lighten the mood</div>
+            <div> Has the user session expired? Perhaps this should point to the login screen</div>
             <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading 1.gif" /></div>        
         </div>    
     );}
-
-
-    // dispatch({ type: USER, payload: data.user} )    
-
-    console.log("MyTask Re-rendering")
-    // console.log('taskDetailId', taskDetailId)
-
 
     return (
     <div>    
         <TasksSummary user={userData} />
         <TaskList user={userData} />
+        {/* Hide the modals when you're done configuring them */}
+        <div className= "">
+            <TaskDetailModal user={userData} />
+        </div>
     </div>
-
-
-
-
     )
 }

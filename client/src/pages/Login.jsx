@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOG_IN } from './../utils/mutations'
@@ -12,6 +13,7 @@ export default function Login () {
     // // Hook to useNavigate
     const navigate = useNavigate();
 
+    //Hooks for useState
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     
@@ -31,7 +33,7 @@ export default function Login () {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
-    // check if form has everything
+        // check if form has everything
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -40,7 +42,6 @@ export default function Login () {
 
         //Call graphql - Login Mutation
         try {
-
             const { data } = await Login({
                 variables: {
                     email: email,
@@ -52,8 +53,7 @@ export default function Login () {
             Auth.login(data.login.token);    
             // console.log(data.login.user.username)
             setEmail('');
-            setPassword('');
-            // dispatch({ type: USER, payload: data.login.user} )            
+            setPassword('');          
             toast.success(`Login Successful`)  
 
             //Navigate to Home Page (Navigate doesn't trigger page refresh and retains toast notification)

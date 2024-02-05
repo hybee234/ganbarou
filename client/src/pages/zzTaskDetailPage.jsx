@@ -1,9 +1,9 @@
 
 import { useGlobalContext } from '../utils/GlobalState';
 import { useQuery } from '@apollo/client';
-import { TASK_BY_TASK_ID } from './../utils/queries'
+import { TASK_BY_TASK_ID } from '../utils/queries'
 
-export default function TaskDetail() {
+export default function TaskDetailPage() {
 //Hook to access state
     const [state, dispatch] = useGlobalContext();  
     console.log(state.detailViewId)
