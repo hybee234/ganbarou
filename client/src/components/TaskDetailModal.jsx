@@ -31,8 +31,6 @@ export default function TaskDetailModal() {
     // const [created_dt, setCreated_dt] = useState(state.taskDetail.created_dt);
     // const [title, setTitle] = useState(state.taskDetail.title);
 
-    
-
     //Pull task data
         // const {loading, error, data } = useQuery(TASK_BY_TASK_ID, {
         //     variables: { id: taskId },
@@ -73,7 +71,25 @@ export default function TaskDetailModal() {
         //     </div>    
         // );}
 
+    console.log("state.taskDetail.created_dt", state.taskDetail.created_dt)
 
+    // let today = new Date();
+    // today = `${today.toLocaleDateString('en-AU')}`;
+
+    const test = Date.parse("2024-01-26")
+    console.log ("test", test)
+    
+    //HTML5 requires yyyy/mm/dd with no time details attached
+    // Humans like to read dd/mm/yyyy
+
+    //Challenge is now to convert MongoDB () (YYYY-MM-DDT00:00:000Z)
+
+
+
+
+    //--------------------//
+    //- Close Modal Form -//
+    //--------------------//
 
     const closeDetailForm = () => {
         console.log("closeDetailForm triggered")
@@ -109,12 +125,27 @@ export default function TaskDetailModal() {
                                 className="w-full px-3 py-2 modal-field"
                                 type="date"
                                 placeholder="MM/DD/YYYY"
-                                value={state.taskDetail.created_dt}
+                                value={new Date(state.taskDetail.created_dt).toLocaleDateString('en-CA')}
                                 onChange= {(e) =>
                                     dispatch({ type: TASK_DETAIL_CREATED_DT, payload: e.target.value})}
                                 required
                                 >
                             </input>
+                        </div>
+                        <div className="w-1/2 px-1">
+                            <label className="block mt-2  text-color modal-label">Stakeholder</label>
+                            <textarea
+                                className="w-full px-3 py-2 modal-field"
+                                type="text"
+                                placeholder="Title"
+                                rows="1"
+                                cols="30"
+                                value={state.taskDetail.stakeholder}
+                                // onChange= {(e) =>
+                                //     dispatch({ type: TASK_DETAIL_TITLE, payload: e.target.value})}
+                                required
+                                >
+                            </textarea>
                         </div>
                         <div className="w-1/2 px-1 sm:w-2/6">
                             <label className="block my-2 text-color modal-label"> Unit Cost ($) </label>
@@ -149,21 +180,18 @@ export default function TaskDetailModal() {
                         <p> Global State Title: {state.taskDetail.title} </p>
                     </div>
                     <div className="flex flex-wrap mx-1 mb-4">
-                        <div className="w-full px-1">
-                            <label className="block mb-1 mt-2  text-color modal-label">Tasting Notes</label>
-                            <textarea className="w-full px-3 py-2 modal-field"  type="text" placeholder="Tastings Notes ..." rows="2" cols="30"></textarea>
-                        </div>
+                        
+                            
+                        
                     </div>
 
-                    <button id="update-transaction-submit-button" className="w-28 px-6 py-2 mt-4 font-bold button-color" type="submit" value="submit"> Save </button>
-                    <button id="update-transaction-cancel-button" className="w-28 px-6 py-2 mt-2 font-bold button-color" type="button" value="cancel"> Cancel </button>
+                    <button className="w-28 px-6 py-2 mt-4 font-bold button-color" type="submit" value="submit"> Save </button>
+                    <button className="w-28 px-6 py-2 mt-2 font-bold button-color" type="button" value="cancel" onClick={(() => closeDetailForm())}> Cancel </button>
 
                     <div className="w-1/4 m-auto">
                         <label className="block mt-8 my-2 text-color modal-label"> Vintage_ID </label>
                         <input className="w-full px-3 py-2 modal-field" type="number" required></input>
                     </div>   
-
-                    <button id="update-transaction-delete-button" className="px-4 py-2 m-2 font-bold delete-color" type="button" value="button"> Delete Transaction </button>
                 </form>
             </div>   
 
