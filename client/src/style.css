@@ -38,7 +38,7 @@ modal-content: 150
     --texthighlight: var(--lightblue);    
     --textwarning: var(--redwarning);
     --linkhover: var(--lightblue);
-    --linkbackground: var(--darkgrey);
+    --linkbackground: var(--grey);
     --inputbackground: var(--grey);
     --inputborder: var(--onyx);
     --buttontext: var(--onyx);
@@ -55,6 +55,8 @@ modal-content: 150
     line-height: 1.5;
     font-weight: 400;
     font-size: 16px;
+    margin: 0;
+    padding: 0;
 
     color-scheme: light dark;
     color: var(--text);
@@ -65,18 +67,20 @@ modal-content: 150
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
+
+    
 }
 
-/* Heading 1 */
-
-/* main {
-    background-color: purple;
-} */
+/* Removes browser implemented padding/margins*/
+* {
+    padding: 0;
+    margin: 0;
+}
 
 h1 {
-    font-size: 2.8rem;
+    font-size: 2.4rem;
     line-height: 1.1;
-    padding: 10px;
+
 }
 
 h2 {
@@ -112,7 +116,7 @@ h2 {
     background-color: rgba(0, 0, 0, 0.5); 
     border: 2px solid black;
     border-radius: 10px;
-    padding: 10px;
+    padding: 5px;
     transition: ease-in-out .3s;
 }
 
@@ -260,6 +264,16 @@ li {
     color: rgb(100, 22, 22);
 }
 
+#side-menu-chiikawa {
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    left: 30x;
+    bottom: 10px;
+    z-index: 100;
+
+}
+
 /**********/
 /* Footer */
 /**********/
@@ -294,15 +308,21 @@ li {
     color: var(--buttontext);
 } */
 
-/* .link {
-    font-size: 1.5rem;
-} */
+.link-color {
+    color: var(--texthighlight);
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    border-radius: 0.75rem;
+}
 
-.link:hover {
-    color: var(--linkhover);
-    text-decoration: underline;
-    cursor: pointer;
-
+.link-color:hover {
+    background-color: var(--linkbackground); 
+    color: var(--buttontext);
 }
 
 .link-img {
@@ -311,10 +331,6 @@ li {
 
 .link-img:hover {
     border: 2px solid var(--linkhover);
-}
-
-.no-link {
-    color: var(--old-rose)
 }
 
 .underline {
@@ -397,7 +413,8 @@ li {
 .table-row-cell {
     font-weight: 400;
     font-size: 0.75rem;
-    padding: 5px;
+    margin: 2px;
+    /* border: 1px solid white; */
 }
 
 /* .table-row-persist {
@@ -586,7 +603,6 @@ li {
 /****************/
 /* Task Summary */
 /****************/
-
 .task-icon {
     font-size: 1.5rem;
     padding: 1px;
@@ -626,7 +642,7 @@ li {
         padding-right: 0px;
     }
     h1 {
-        font-size: 2.3rem;
+        font-size: 2.1rem;
     }
     h2 {
         font-size: 2.1rem;
@@ -671,7 +687,7 @@ li {
     .task-icon-opp {
         font-size: 1.25rem;        
     } 
-    .task-summary-container {
+    .task-summary-container, .table-heading-cell, .table-row-cell {
         font-size: 0.7rem;
     }
 }
@@ -687,7 +703,7 @@ li {
         width: 70%;
     }
     h1 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
     }
     h2 {
         font-size: 1.6rem;
@@ -701,7 +717,7 @@ li {
     .task-icon-opp {
         font-size: 1rem;        
     } 
-    .task-summary-container {
+    .task-summary-container, .table-heading-cell, .table-row-cell {
         font-size: 0.65rem;
     }
 }
@@ -743,7 +759,7 @@ li {
         font-size: 1.2rem;
     }
     h2 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
     .task-icon {
         font-size: .75rem;
@@ -753,7 +769,7 @@ li {
         font-size: .75rem;
         padding: 0px;
     }
-    .task-summary-container {
+    .task-summary-container, .table-heading-cell, .table-row-cell {
         font-size: 0.60rem;
     }
 }
@@ -772,10 +788,6 @@ li {
     .welcome-text-container {
         flex: 1 0 200px;
         font-size: 0.75rem;
-    }
-
-    table {
-        font-size: 0.5rem; 
     }
 }
 

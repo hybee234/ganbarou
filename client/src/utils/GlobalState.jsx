@@ -9,7 +9,7 @@ const GlobalProvider = ({ value = [], ...props }) => {
     const initialstate = {
         // login_email: '',
         // login_password: '',
-        sidemenu: 'false',
+        sidemenu: true,
         user:[],
         taskDetailId:'',
         taskDetail:'',

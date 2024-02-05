@@ -5,6 +5,7 @@ Business Focus Initiatives - Business FOcus tasks due for review
 Business Opportunistic Initiatives
 */
 
+import dayjs from 'dayjs';
 import { SiTarget } from "react-icons/si";
 import { FaTools } from "react-icons/fa";
 import { FaClock } from "react-icons/fa6";
@@ -34,7 +35,7 @@ export default function TasksSummary(props) {
     // console.log("totalTasks: ", totalTasks)
 
     // Grandtotal - Active, future review
-    const totalReviewDue = user.tasks.filter(task => !task.complete_flag && task.review_dt <= now).length;
+    const totalReviewDue = user.tasks.filter(task => !task.complete_flag && dayjs(task.review_dt).format('DD/MM/YYYY') <=  dayjs(now).format('DD/MM/YYYY')).length;
     // console.log("totalReviewDue", totalReviewDue);
 
     //Operational Tickets (total)
@@ -42,8 +43,8 @@ export default function TasksSummary(props) {
     // console.log("totalOperational: ", totalOperational)
 
     //Operational Tickets (total), future review
-    const operationalReviewDue = user.tasks.filter(task => !task.complete_flag && !task.priority.business_driven && task.review_dt <= now).length
-    // console.log("operationalReviewDue: ", operationalReviewDue)
+    const operationalReviewDue = user.tasks.filter(task => !task.complete_flag && !task.priority.business_driven && dayjs(task.review_dt).format('DD/MM/YYYY') <=  dayjs(now).format('DD/MM/YYYY')).length
+    console.log("operationalReviewDue: ", operationalReviewDue)
 
     //Business driven total 
     const totalBusiness = user.tasks.filter(task => !task.complete_flag && task.priority.business_driven).length
@@ -54,15 +55,15 @@ export default function TasksSummary(props) {
     // console.log("businessFocus: ", businessFocus)
 
     // Business driven Focus, future review
-    const businessFocusReviewDue = user.tasks.filter(task => !task.complete_flag && task.priority.business_driven && task.priority.focus && task.review_dt <= now).length
-    // console.log("businessFocusReviewDue: ", businessFocusReviewDue)
+    const businessFocusReviewDue = user.tasks.filter(task => !task.complete_flag && task.priority.business_driven && task.priority.focus && dayjs(task.review_dt).format('DD/MM/YYYY') <=  dayjs(now).format('DD/MM/YYYY')).length
+    console.log("businessFocusReviewDue: ", businessFocusReviewDue)
 
     // Business driven opportunistic, total
     const businessOpportunistic = user.tasks.filter(task => !task.complete_flag && task.priority.business_driven && !task.priority.focus).length
     // console.log("businessOpportunistic: ", businessOpportunistic)
 
     // Business driven Focus, future review
-    const businessOpportunisticReviewDue = user.tasks.filter(task => !task.complete_flag && task.priority.business_driven && !task.priority.focus && task.review_dt <= now).length
+    const businessOpportunisticReviewDue = user.tasks.filter(task => !task.complete_flag && task.priority.business_driven && !task.priority.focus && dayjs(task.review_dt).format('DD/MM/YYYY') <=  dayjs(now).format('DD/MM/YYYY')).length
     // console.log("businessOpportunisticReviewDue: ", businessOpportunisticReviewDue)
 
 //----------------//

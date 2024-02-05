@@ -21,34 +21,25 @@ export default function SideMenu() {
     // Hook to useNavigate
     const navigate = useNavigate();
 
-    if (state.sidemenu === true) {
-        document.querySelector(".hamburger").classList.toggle("active");
-        document.querySelector(".side-menu").classList.toggle("active"); 
-
-        // console.log(state.sidemenu)
-    } 
-
-    if (state.sidemenu === false) {
-        document.querySelector(".hamburger").classList.remove("active");
-        document.querySelector(".side-menu").classList.remove("active"); 
-        // console.log(state.sidemenu)
-    } 
-    
-    //Dispatch action to show side menu
-    const sideMenuShow = () => {
-        dispatch ({
-            type: SIDE_MENU,
-            payload: true
-        })
+    const toggleSideMenu = () => {
+        if (state.sidemenu === true) {
+            document.querySelector(".hamburger").classList.add("active");
+            document.querySelector(".side-menu").classList.add("active"); 
+            console.log("Active Added")
+            dispatch ({
+                type: SIDE_MENU,
+                payload: false
+            })
+        } else {
+            document.querySelector(".hamburger").classList.remove("active");
+            document.querySelector(".side-menu").classList.remove("active"); 
+            console.log("Active removed")
+            dispatch ({
+                type: SIDE_MENU,
+                payload: true
+            })
+        }
     }
-
-    //Dispatch action to hide side menu
-    // const sideMenuHide = () => {
-    //     dispatch ({
-    //         type: SIDE_MENU,
-    //         payload: false
-    //     })
-    // }
 
     const handleLogout = () => {
         // console.log("handleLogut engaged")
@@ -57,8 +48,21 @@ export default function SideMenu() {
         // Show toast
         toast.success('Logged out Successfully!')
         // Invoke reacter-route to move to home page
+        toggleSideMenu()
         navigate('/login')        
     }
+
+    //-----------------------------------------------//
+    //- Randomly picks between 3 gifs for side menu -//
+    //-----------------------------------------------//
+    function randomInt123(min, max) { // min and max included 
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+    const rndInt = randomInt123(1, 3)
+    let gif = `../assets/images/chiikawa loading ${rndInt}.gif`
+
+
+
 
     return (
         <header >
@@ -67,7 +71,7 @@ export default function SideMenu() {
                 <div className="w-1/5">                            
                     { Auth.loggedIn() ? (                        
                         <button className="hamburger"
-                            onClick={sideMenuShow}                        
+                            onClick={toggleSideMenu}                        
                             >                                
                             <span className="bar"></span>
                             <span className="bar"></span>
@@ -77,7 +81,7 @@ export default function SideMenu() {
                         // <div className="hamburger hidden"></div>
                         // Hide this when done coding ....
                         <div className="hamburger"
-                            onClick={sideMenuShow}
+                            onClick={toggleSideMenu}
                             
                             >
                             <span className="bar"></span>
@@ -126,6 +130,9 @@ export default function SideMenu() {
                             )               
                         }
                     </li>
+                    <div id="side-menu-chiikawa">
+                        <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src={gif}/></div>                        
+                    </div>
                 </div>
             {/* </OutsideClickHandler> */}
 
