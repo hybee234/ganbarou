@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { useGlobalContext } from '../utils/GlobalState';
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
@@ -88,7 +89,7 @@ export default function TaskList (props) {
     //Todo - to review if this should be in a useEffect or not
     useEffect(() => {
             document.querySelectorAll('.review-date-js').forEach(element => {
-                if (element.dataset.reviewDt < now) {
+                if (dayjs(element.dataset.reviewDt).format('DD/MM/YYYY') < dayjs(now).format('DD/MM/YYYY')) {
                     // console.log ("OVERDUE for review", element.dataset.reviewDt)
                     element.parentNode.classList.add('review-due')
                 } else {
@@ -139,12 +140,15 @@ export default function TaskList (props) {
             useTaskCount(taskCount - 1)
             }      
             if (table === "operational") {
+                // console.log("Operational Task Completed")
                 useOperationalTaskCount(operationalTaskCount - 1)
             }
             if (table === "focus") {
+                // console.log("Focus Task Completed")
                 useFocusTaskCount(focusTaskCount -1)
             }
-            if (table === "operational") {
+            if (table === "opportunistic") {
+                // console.log("Opportunistic Task Completed")
                 useOpportunisticTaskCount(opportunisticTaskCount - 1)
             }
         } catch (error) {
@@ -204,14 +208,14 @@ export default function TaskList (props) {
     //- Sort by Review Date -//
     //-----------------------//
 
-    const formatDate = (date) => {
-        if(date) {
-            console.log ("test date", date.toLocaleDateString('en-AU'))
-            return <p>"test"+ date.toLocaleDateString('en-AU')</p>
-        } else {
-            return <p>"no date"</p>
-        }      
-    }
+    // const formatDate = (date) => {
+    //     if(date) {
+    //         console.log ("test date", date.toLocaleDateString('en-AU'))
+    //         return <p>"test"+ date.toLocaleDateString('en-AU')</p>
+    //     } else {
+    //         return <p>"no date"</p>
+    //     }      
+    // }
 
     return (
 
@@ -331,13 +335,13 @@ export default function TaskList (props) {
                             taskArray.operational.map( (task, index) => {   
                                 return(                                    
                                     <tr id={`table-row-${task._id}`} className="table-row text-center" key={task._id} onClick= { ()=> setRowIndex(index)}>
-                                        <td id={`created-dt-${task._id}`} className=" xl:text-base text-xs sm:text-xs md:text-sm table-row-cell" data-created-dt={task.created_dt}> {task.created_dt}</td>                                
+                                        <td id={`created-dt-${task._id}`} className=" xl:text-base text-xs sm:text-xs md:text-sm table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
                                         <td id={`title-${task._id}`}
                                             className="xl:text-base text-xs sm:text-xs md:text-sm table-row-cell link"
                                             onClick={()=> {viewTask(task._id)}}
                                             >
                                             {task.title}</td>
-                                        <td id={`review-dt-${task._id}`} className="review-date-js hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm table-row-cell" data-review-dt={task.review_dt}>{task.review_dt}</td>
+                                        <td id={`review-dt-${task._id}`} className="review-date-js hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm table-row-cell" data-review-dt={task.review_dt}> {dayjs(task.review).format('DD/MM/YY')}</td>
                                         <td id={`assigned-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm table-row-cell" data-status-assigned-username={task.assigned.username}>{task.assigned.username}</td> 
                                         <td>
                                             <button
@@ -384,7 +388,7 @@ export default function TaskList (props) {
             {/**************/}
             {/* Focus Table*/}
             {/**************/}
-            <h1> Focus </h1>
+            <h1> Focus  </h1>
             <table className="w-11/12 table-auto bg-filter table-container">
                 <thead>
                     <tr className="text-16 table-heading-cell">
@@ -413,7 +417,7 @@ export default function TaskList (props) {
                                     <td id={`created-dt-${task._id}`} className=" xl:text-base text-xs sm:text-xs md:text-sm" data-created-dt={task.created_dt}> {task.created_dt}</td>                                
                                     <td id={`title-${task._id}`} className="xl:text-base text-xs sm:text-xs md:text-sm"> {task.title}</td>
                                     {/* Hide if less than 640 pixels */}
-                                    <td id={`review-dt-${task._id}`} className="review-date-js hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-review-dt={task.review_dt}>{task.review_dt}</td>
+                                    <td id={`review-dt-${task._id}`} className="review-date-js hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-review-dt={task.review_dt}>{dayjs(task.review_dt).format('DD/MM/YY')}</td>
                                     <td id={`stakeholder-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-stakeholder={task.stakeholder}>{task.stakeholder}</td>                                    
                                     <td id={`status-macro-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-status-macro={task.status_macro}>{task.status_macro}</td>  
                                     <td id={`status-micro-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-status-micro={task.micro}>{task.status_micro}</td>
@@ -433,7 +437,7 @@ export default function TaskList (props) {
                                         <button
                                             id={`complete-button-${task._id}`}
                                             className="text-xs md:text-sm sm:text-xs px-4 py-1 my-1 button-color "
-                                            onClick={ ()=> completeHandler(task._id, "operational") }
+                                            onClick={ ()=> completeHandler(task._id, "focus") }
                                             ><ImCross className="m-auto text-red-600"/> 
                                         </button>
                                     </td>
@@ -523,7 +527,7 @@ export default function TaskList (props) {
                                         <button
                                             id={`complete-button-${task._id}`}
                                             className="text-xs md:text-sm sm:text-xs px-4 py-1 my-1 button-color "
-                                            onClick={ ()=> completeHandler(task._id, "operational") }
+                                            onClick={ ()=> completeHandler(task._id, "opportunistic") }
                                             ><ImCross className="m-auto text-red-600"/> 
                                         </button>
                                     </td>

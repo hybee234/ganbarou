@@ -8,12 +8,12 @@ const taskSchema = new Schema({
         //Stores date    
         type: Date,
         default: Date.now,
-        get: function(value) {
-            if (value) {
-                return value.toLocaleDateString('en-AU')
-            } else
-                return "null"
-        }
+        // get: function(value) {
+        //     if (value) {
+        //         return value.toLocaleDateString('en-AU')
+        //     } else
+        //         return "null"
+        // }
     },
     title: {
         type: String,
@@ -28,22 +28,22 @@ const taskSchema = new Schema({
     complete_dt: {     
         //Time defaults to 0000hrs
         type: Date,
-        get: function(value) {
-            if (value) {
-                return value.toLocaleDateString('en-AU')
-            } else
-                return "null"
-        }
+        // get: function(value) {
+        //     if (value) {
+        //         return value.toLocaleDateString('en-AU')
+        //     } else
+        //         return "null"
+        // }
     },
     review_dt: {
         //Time defaults to 0000hrs
         type: Date,
-        get: function(value) {
-            if (value) {
-                return value.toLocaleDateString('en-AU')
-            } else
-                return "null"
-        }
+        // get: function(value) {
+        //     if (value) {
+        //         return value.toLocaleDateString('en-AU')
+        //     } else
+        //         return "null"
+        // }
     },
     stakeholder: {
         type: String,
