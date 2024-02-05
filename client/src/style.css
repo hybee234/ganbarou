@@ -17,8 +17,8 @@ bar: 100
 .hamburger.active .bar:nth-child(2): 100
 .hamburger.active .bar:nth-child(1): 100
 .hamburger.active .bar:nth-child(3): 100
-modal-window: 100
-modal-content: 150
+modal-background: 100
+modal-form: 150
 */
 
 :root {
@@ -42,7 +42,7 @@ modal-content: 150
     --inputbackground: var(--grey);
     --inputborder: var(--onyx);
     --buttontext: var(--onyx);
-    --buttonbackgroundhover: var(--grey);
+    --buttonbackgroundhover: var(--darkgrey);
     --tablereviewdue: (var(--old-rose))
     --tableborders: (var(--tablegrey))
     --modaltext: rgba(244, 244, 255, 1);
@@ -467,7 +467,7 @@ li {
     background-color: var(--inputbackground);
     border: 2px solid var(--inputborder);
     color: var(--text);
-    border-radius: 0.75rem;
+    border-radius: 8px;
     transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     padding: 10px;
@@ -510,7 +510,8 @@ li {
 /****************/
 /* Modal Styles */
 /****************/
-.modal {
+.modal-background {
+
     display: none;    
     position: fixed; 
     top: 50%;
@@ -519,32 +520,44 @@ li {
     z-index: 100;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8); 
+    background-color: rgba(0, 0, 0, 0.8);
+    
 }
 
-.modal-content {
-    background-color: rgba(35, 35, 35, .9); /* Background of modal-content */
+.modal-form {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3) ), url("/assets/images/Graphite.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+    display: none;
+    /* background-color: rgba(35, 35, 35, .7);  */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 150;
-    max-height: calc(100vh - 40px); /* Limit height of modal window */
+    /* max-height: calc(100vh - 40px); Limit height of modal window - Original */
+    max-height: calc(100vh - 40px); /* Limit height of modal window - Original */
     overflow-y: auto; /* Add scrollbar if screen is too small for modal window */
     border-radius: 0.75rem;
-    width: 80%;
-    max-width: 700px;
+    width: 95%;
+    transition: ease-in-out 0.2s;
+    border: 2px solid red;    
 }
 
 .modal-heading {
-    margin-top: 2rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-    border-radius: 0.75rem;
+    /* margin-top: 0.25rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    margin-bottom: 0.25rem; */
+    /* padding: 0.5rem; */
+    border-radius: 6px;
     color: var(--modaltext);
     font-weight: 600;
+
+    background-color: var(--grey);
 }
 
 .modal-text-color {
@@ -553,23 +566,23 @@ li {
 
 
 .modal-field {
-    background-color: rgb(229 231 235);
-    border: 1px solid rgb(229 231 235);
-    color: rgb(24 24 27 );
-    border-radius: 0.75rem;
+    background-color: var(--inputbackground);
+    border: 2px solid var(--inputborder);
+    color: var(--text);
+    border-radius: 8px;    
     transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 4px;
 }
 
 .modal-field:hover {
-    background-color: rgb(229 231 235);
-    border: 1px solid rgb(113 113 122)
+    border: 2px solid var(--texthighlight)
 }
 
 .modal-field:focus {
     outline: 2px solid transparent;
     outline-offset: 2px;
-    border: 1px solid rgb(113 113 122)
+    border: 2px solid var(--texthighlight);
 }
 
 .modal-label {
@@ -624,23 +637,18 @@ li {
 /* Media Query GREATER THAN 1280px /
 /**********************************/
 @media (min-width: 1280px) {
-    .modal-content {
-        width: 50%;
-    }
+
 }
 
 /*******************************/
 /* Media Query LESS THAN 1280px /
 /*******************************/
 @media (max-width: 1280px) {
-    .modal-content {
-        width: 50%;
-    }
-    .navtab {
+    /* .navtab {
         justify-content: center;
         width: 100%;
         padding-right: 0px;
-    }
+    } */
     h1 {
         font-size: 2.1rem;
     }
@@ -648,7 +656,7 @@ li {
         font-size: 2.1rem;
     }
     .page {        
-        width: 85%;
+        width: 80%;
     }
     .welcome-picture{
         width: 400px;
@@ -663,9 +671,6 @@ li {
 /* Media Query LESS THAN 1024 /
 /*****************************/
 @media (max-width: 1024px) {
-    .modal-content {
-        width: 75%;
-    }
     .page {        
         width: 90%        
     }
@@ -726,9 +731,6 @@ li {
 /* Media Query LESS THAN 640 /
 /******************************/
 @media (max-width: 640px) {
-    .modal-content {
-        width: 85%; 
-    }
     .welcome-text-container {
         font-size: 0.75rem;
     }
@@ -778,13 +780,9 @@ li {
 /* Media Query LESS THAN 400 /
 /****************************/
 @media (max-width: 400px) {
-    .modal-content {
-        width: 95%;
-        /* margin-top: 10%; */
-    }
-    .nav-item {        
+    /* .nav-item {        
         width: 45%;        
-    }
+    } */
     .welcome-text-container {
         flex: 1 0 200px;
         font-size: 0.75rem;
@@ -797,7 +795,7 @@ li {
 /*************************************/
 
 @media (max-height: 375px) {
-    .modal-content {
+    .modal-form {
         height: 95vh;
     }
 }

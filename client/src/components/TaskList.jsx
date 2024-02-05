@@ -195,7 +195,8 @@ export default function TaskList (props) {
         
 
 
-        document.getElementById('view-details-modal').style.display = 'block'
+        document.getElementById('view-details-modal-background').style.display = 'block'
+        document.getElementById('view-details-modal-form').style.display = 'block'
 
 
 

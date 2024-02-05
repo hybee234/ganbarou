@@ -1615,5 +1615,131 @@
             "comment": "unanimous decision by executive"
         },
         "updatedAt": "2024/02/10T13:20:29.311Z"
+    },
+    {
+        "_id": "65bbbd2f65776db3b4a90a56",
+        "created_dt": "2023-12-14",
+        "title": "Overhaul of COVID screening form. ED/Surgery/Outpatients/Women's Health aligning to one version. ER543215. Need Business Lead to drive.",
+        "summary": "ED have rolled out new ED risks assessment forms, have request electronic versions are created",
+        "complete_flag": false,
+        "complete_dt": "",
+        "review_dt": "2024-03-14",
+        "stakeholder": "ED",
+        "assigned": "65b8ed239359f0fca323570c",
+        "status_macro": "Developing",
+        "status_micro": "Design",
+        "note": [
+            {
+
+                "note_text": "Ranked as urgent/important by executive team, to pick this up and drop works with mental health team.",
+                "note_type": "Prioritisation",
+                "note_author": "65b8ed239359f0fca323570c",
+                "note_dt": "2024-01-25"
+            },
+            {
+
+                "note_text": "Met with ED to discuss requirements, ED have some decisions to make before coming back, meeting scheduled for 28/2/2024 to discuss outcome",
+                "note_type": "Progress",
+                "note_author": "65b8ed239359f0fca323570c",
+                "note_dt": "2024-01-28"
+            }
+        ],
+        
+        "priority": {
+
+            "pipeline_number": 2,
+            "business_driven": false,
+            "focus": true,
+            "category": 2,
+            "important": true,
+            "urgency": true,
+            "high_effort": true,
+            "comment": "unanimous decision by executive"
+        },
+        "updatedAt": "2024/02/10T13:20:29.311Z"
+    },
+    {
+        "_id": "65bbbd2f65776db3b4a90a57",
+        "created_dt": "2023-12-14",
+        "title": "State requirement for health services to adopt HPI-I and HPI-O identifiers across systems by July 2024. VicDoH has obtained exemption for several years, no further extensions will be granted by ADHA",
+        "summary": "ED have rolled out new ED risks assessment forms, have request electronic versions are created",
+        "complete_flag": false,
+        "complete_dt": "",
+        "review_dt": "2024-03-14",
+        "stakeholder": "ED",
+        "assigned": "65b8ed239359f0fca323570c",
+        "status_macro": "Developing",
+        "status_micro": "Design",
+        "note": [
+            {
+
+                "note_text": "Ranked as urgent/important by executive team, to pick this up and drop works with mental health team.",
+                "note_type": "Prioritisation",
+                "note_author": "65b8ed239359f0fca323570c",
+                "note_dt": "2024-01-25"
+            },
+            {
+
+                "note_text": "Met with ED to discuss requirements, ED have some decisions to make before coming back, meeting scheduled for 28/2/2024 to discuss outcome",
+                "note_type": "Progress",
+                "note_author": "65b8ed239359f0fca323570c",
+                "note_dt": "2024-01-28"
+            }
+        ],
+        
+        "priority": {
+
+            "pipeline_number": 2,
+            "business_driven": false,
+            "focus": true,
+            "category": 2,
+            "important": true,
+            "urgency": true,
+            "high_effort": true,
+            "comment": "unanimous decision by executive"
+        },
+        "updatedAt": "2024/02/10T13:20:29.311Z"
+    },
+    {
+        "_id": "65bbbd2f65776db3b4a90a58",
+        "created_dt": "2023-12-14",
+        "title": "Department of Health are moving iPM systems from archaic intergration models to RESTful APIs. This will require extensive testing by agencies to ensure integratoins anre not lost in the process",
+        "summary": "ED have rolled out new ED risks assessment forms, have request electronic versions are created",
+        "complete_flag": false,
+        "complete_dt": "",
+        "review_dt": "2024-03-14",
+        "stakeholder": "ED",
+        "assigned": "65b8ed239359f0fca323570c",
+        "status_macro": "Developing",
+        "status_micro": "Design",
+        "note": [
+            {
+
+                "note_text": "Ranked as urgent/important by executive team, to pick this up and drop works with mental health team.",
+                "note_type": "Prioritisation",
+                "note_author": "65b8ed239359f0fca323570c",
+                "note_dt": "2024-01-25"
+            },
+            {
+
+                "note_text": "Met with ED to discuss requirements, ED have some decisions to make before coming back, meeting scheduled for 28/2/2024 to discuss outcome",
+                "note_type": "Progress",
+                "note_author": "65b8ed239359f0fca323570c",
+                "note_dt": "2024-01-28"
+            }
+        ],
+        
+        "priority": {
+
+            "pipeline_number": 2,
+            "business_driven": false,
+            "focus": true,
+            "category": 2,
+            "important": true,
+            "urgency": true,
+            "high_effort": true,
+            "comment": "unanimous decision by executive"
+        },
+        "updatedAt": "2024/02/10T13:20:29.311Z"
     }
 ]
