@@ -64,11 +64,36 @@ scalar Date  #HL
         taskByTaskId (_id: ID!): Task
     }
 
+input updateTaskInput {
+    _id: ID!
+    created_dt: Date
+    review_dt: Date
+    title: String
+    summary: String
+    stakeholder: String
+    assigned: assignedUserInput
+
+}
+
+input assignedUserInput {
+    _id: ID
+}
+
+
     type Mutation {
         addUser(username: String! email: String! password: String!): Auth
         login(email: String password: String!): Auth
         completeTask( id: ID!): Task
         removeTaskFromUsers ( id:ID!): User
+        updateTaskByTaskId (
+            _id: ID!
+            created_dt: Date
+            review_dt: Date
+            title: String
+            summary: String
+            stakeholder: String
+            assigned: assignedUserInput
+        ): Task
     }
 `;
 

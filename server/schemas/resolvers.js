@@ -23,6 +23,7 @@ const resolvers = {
             return Task.find()
                 .populate({ path: 'assigned' })
                 .populate({ path: 'note.note_author' })
+                .populate({ path: 'priority'})
                 .exec()
         },
 
@@ -61,6 +62,7 @@ const resolvers = {
             const userTasks = await Task.find({ assigned: args.assigned})
                 .populate({ path: 'assigned' })
                 .populate({ path: 'note.note_author' })
+                .populate({ path: 'priority'})
                 .exec()
 
             return userTasks
@@ -196,47 +198,45 @@ const resolvers = {
     //         return deleteBook;
     //     },
 
-    //     saveBook: async (parent, args, context) => {
 
-    //         console.log (`\x1b[33m ┌────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-    //         console.log (`\x1b[33m │ Save Book  │ \x1b[0m\x1b[32m  \x1b[0m`); 
-    //         console.log (`\x1b[33m └────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+        updateTaskByTaskId: async (parent, args) => {
+                
+            console.log (`\x1b[33m ┌────────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Update Task by Task ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-    //         // Unauthorised - Missing context.user means failed authMiddelware
-    //         if (!context.user) {
-    //             throw AuthenticationError("Unauthorised to Save");
-    //         }
+            console.log("args", args)
 
-    //         // Add book as subdocument to User
-    //         const saveBook = await User.findOneAndUpdate(
-    //             { _id: context.user._id },
-    //             { $addToSet: { savedBooks: args.book } },
-    //             { new: true, runValidators: true }
-    //         );
 
-    //         return saveBook
-    //     },
+                const updateTask = await Task.findByIdAndUpdate(
+                    { _id: args._id },
+                    { 
+                        created_dt: args.created_dt, 
+                        review_dt: args.review_dt,
+                        title: args.title,
+                        summary: args.summary,
+                        stakeholder: args.stakeholder,
+                        // $set: {assigned: {
+                        //     _id: args.assigned._id,
+                        // }}
+                    },
+                    { new: true, runValidators: true})
+                    .populate({ path: 'assigned' })
+                    .populate({ path: 'note.note_author' })
+                    .populate({ path: 'priority'})
+                    .exec()
+                
+                
+                console.log(updateTask)
+                return updateTask
 
-    //     deleteBook: async (parent, args, context) => {
-            
-    //         console.log (`\x1b[33m ┌──────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-    //         console.log (`\x1b[33m │ Delete Book  │ \x1b[0m\x1b[32m  \x1b[0m`); 
-    //         console.log (`\x1b[33m └──────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+                //const user = original (remove from original)
+                                    // { $addTOSet: { tasks: { _id: "65b8dba1b768a37702f656b7" }}},  // { id: args._id }
+                //const user = new (add to new)
 
-    //         // Unauthorised - Missing context.user means failed authMiddelware
-    //         if (!context.user) {
-    //             throw AuthenticationError("Unauthorised to Delete");
-    //         }     
 
-    //         // Delete book subdocument from User
-    //         const deleteBook = await User.findOneAndUpdate(
-    //             { _id: context.user._id },
-    //             { $pull: { savedBooks: { bookId: args.bookId } } },
-    //             { new: true }
-    //         )
+        },
 
-    //         return deleteBook;
-    //     },
 
     }
 };

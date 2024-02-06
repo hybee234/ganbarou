@@ -1,7 +1,7 @@
 
 import { useEffect } from 'react'
 import { useQuery } from '@apollo/client';
-import { GET_ME, USER_LIST } from './../utils/queries'
+import { GET_ME, USER_LIST, ALL_TASKS } from './../utils/queries'
 import TasksSummary from '../components/TaskSummary';
 import TaskList from '../components/TaskList';
 import TaskDetailModal from '../components/TaskDetailModal';

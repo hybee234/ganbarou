@@ -4,9 +4,10 @@ The only way to show this is to click on a task that will pass task details to t
 */
 import Auth from '../utils/auth';
 import dayjs from 'dayjs'
-import { format } from 'date-fns'
 import { useState } from 'react'
 import { useGlobalContext } from '../utils/GlobalState';
+import { useMutation } from '@apollo/client';
+import { UPDATE_TASK_BY_TASK_ID } from './../utils/mutations';
 
 import {
     TASK_DETAIL_CREATED_DT,
@@ -32,13 +33,11 @@ export default function TaskDetailModal(props) {
     //---------------------//
     const {userSelect} = props
     console.log("TaskDetailModal Component: userSelect:", userSelect)
-    
-    
+        
 
     //-------------------------//
     //- Date Formatter Helper -//
-    //-------------------------//
-    
+    //-------------------------//    
     // Converts date format to be accetpable by HTML date field
     const dateHelper = (date)=> {
         if (date) {
@@ -61,40 +60,71 @@ export default function TaskDetailModal(props) {
         document.getElementById('view-details-modal-form').style.display = 'none'
     }
 
-    // console.log("State Assigned", state.taskDetail.assigned.username)
-    // console.log("State Assigned", state.taskDetail.assigned._id)
-
     //-----------------------//
     //- Log state to Console -//
     //-----------------------//
-
+    // TROUBLESHOOTING ONLY
     const consoleLog = () => {
         console.log("state", state)
         const loggedIn = Auth.loggedIn()
         console.log("Logged In?", loggedIn)
     }
+
     //------------------------//
     //- Handle Assign Update -//
     //------------------------//
-
+    // Receives new assign._id from form, filters userList for username and id, dispatches action to state.
     const handleAssignUpdate = (e)=> {
-
-        console.log("HandleAssignUpdate, etarget,value", e.target.value)
+        // console.log("HandleAssignUpdate, etarget,value", e.target.value)
         const assigned = userSelect.filter( (a) => a._id === e.target.value)
-        console.log("Assigned", assigned[0])
+        // console.log("Assigned", assigned[0])
         dispatch({
             type: TASK_DETAIL_ASSIGNED,
             payload: assigned[0]
         })
     }
     
+    //----------------------//
+    //- Handle form submit -//
+    //----------------------//
+    //useMutation hook
+    const [UpdateTaskByTaskId, { error }] = useMutation(UPDATE_TASK_BY_TASK_ID);
 
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+        const taskDetail = state.taskDetail
+        console.log("taskDetail:", taskDetail)
+        
+        try {    
+
+            const { data } = await UpdateTaskByTaskId({
+                variables: {
+                    id: state.taskDetail._id,
+                    createdDt: state.taskDetail.created_dt,
+                    reviewDt: state.taskDetail.review_dt,
+                    title: state.taskDetail.title,
+                    summary: state.taskDetail.summary,
+                    stakeholder: state.taskDetail.stakeholder,
+                    assigned: {
+                        _id: state.taskDetail.assigned._id,
+                    }
+                
+                },
+            });
+
+            console.log("UpdateTaskByTaskId", data)
+            closeDetailForm()
+        } catch (error) {
+            console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
+        }
+    }
+        
 
 
     return (
-        <div >Hello world
+        <div >
             <div id="view-details-modal-background" className="modal-background"></div>     
-            <form id="view-details-modal-form" className="modal-form">                    
+            <form id="view-details-modal-form" className="modal-form" onSubmit={()=> handleFormSubmit(event)}>                    
                 <span className="close" onClick={(() => closeDetailForm())}>&times;</span>
                 <h2 className="block modal-heading"> Task Details</h2>
                 {/* Task Details */}
@@ -121,7 +151,7 @@ export default function TaskDetailModal(props) {
                                     className="modal-field"
                                     name="stakeholder"
                                     type="text"
-                                    placeholder="Title"
+                                    placeholder="Stakeholder"
                                     rows="1"
                                     cols="30"
                                     value={state.taskDetail.stakeholder}
@@ -153,7 +183,6 @@ export default function TaskDetailModal(props) {
                                     type="text"
                                     value={state.taskDetail.assigned._id}
                                     onChange= {(e) => handleAssignUpdate(e)}
-                                        // dispatch({ type: TASK_DETAIL_ASSIGNED, payload: e.target.value})}
                                     required
                                     >
                                     {
