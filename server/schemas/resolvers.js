@@ -20,11 +20,13 @@ const resolvers = {
             console.log (`\x1b[33m │ Find all Tasks │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            return Task.find()
+            const allTasks = await Task.find()
                 .populate({ path: 'assigned' })
                 .populate({ path: 'note.note_author' })
                 .populate({ path: 'priority'})
                 .exec()
+
+            return allTasks
         },
 
         me: async (parent, args, context) => {
@@ -42,7 +44,7 @@ const resolvers = {
 
             const myData = await User.findOne({ _id: context.user._id })
                 .populate({
-                    path: 'tasks',
+                    // path: 'tasks',
                     // match: { complete_flag: false }
                 }).exec()
 
@@ -56,7 +58,7 @@ const resolvers = {
             console.log (`\x1b[33m │ Find all Tasks by Assigned ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └───────────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            console.log("assigned:", args.assigned)
+            // console.log("assigned:", args.assigned)
 
             // Find all tasks by assigned user ID
             const userTasks = await Task.find({ assigned: args.assigned})
@@ -74,7 +76,7 @@ const resolvers = {
             console.log (`\x1b[33m │ Find all Tasks by Assigned ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └───────────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            console.log("taskId:", args._id)
+            // console.log("taskId:", args._id)
 
             // Find all tasks by assigned user ID
             const task = await Task.findOne({ _id: args._id})
@@ -141,47 +143,33 @@ const resolvers = {
                 {   //update
                     complete_flag: true,
                     complete_dt: Date.now(),
-                    // summary: "test change",
-                    // $set: { assigned: ["65bcf3966dc8d7dc861b5403"] },   // Remove User from assigned - not working ... 
-                    // $pullAll: { assigned: }
-                    // $set: {assigned: []}
-                    // $pull: {assigned}, 
                 },
-                { new: true }           // return doc                
-            );
-
-            // Remove Task ID from all User documents
-            const user = await User.updateMany(
-                {  },
-                { $pull: { tasks: args.id }},
-                { new: true}
-            )
-
-            // return user
-            // console.log (user)
-
+                { new: true, runValidators: true})          // return doc                
+                .populate({ path: 'assigned' })
+                .populate({ path: 'note.note_author' })
+                .populate({ path: 'priority'})
             return task   
         },
 
-        removeTaskFromUsers: async (parent, args) => {
+        // removeTaskFromUsers: async (parent, args) => {
             
-            console.log (`\x1b[33m ┌───────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-            console.log (`\x1b[33m │ Remove Task From User │ \x1b[0m\x1b[32m  \x1b[0m`); 
-            console.log (`\x1b[33m └───────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+        //     console.log (`\x1b[33m ┌───────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+        //     console.log (`\x1b[33m │ Remove Task From User │ \x1b[0m\x1b[32m  \x1b[0m`); 
+        //     console.log (`\x1b[33m └───────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            console.log(args.id)
+        //     console.log(args.id)
 
-                // Remove Task ID from all User Documents
-                const user = await User.updateMany(
-                    //{ _id: "65b8ed239359f0fca323570c" },
-                    {  },
-                    { $pull: { tasks: args.id }},
-                    // { $addTOSet: { tasks: { _id: "65b8dba1b768a37702f656b7" }}},  // { id: args._id }
-                    { new: true}
-                )
-                console.log(user)
-                return user
-        },
+        //         // Remove Task ID from all User Documents
+        //         const user = await User.updateMany(
+        //             //{ _id: "65b8ed239359f0fca323570c" },
+        //             {  },
+        //             { $pull: { tasks: args.id }},
+        //             // { $addTOSet: { tasks: { _id: "65b8dba1b768a37702f656b7" }}},  // { id: args._id }
+        //             { new: true}
+        //         )
+        //         console.log(user)
+        //         return user
+        // },
 
 // Unauthorised - Missing context.user means failed authMiddelware
     //         if (!context.user) {
@@ -216,18 +204,17 @@ const resolvers = {
                         title: args.title,
                         summary: args.summary,
                         stakeholder: args.stakeholder,
-                        // $set: {assigned: {
-                        //     _id: args.assigned._id,
-                        // }}
+                        $set: {assigned: {
+                            _id: args.assigned._id,
+                        }}
                     },
                     { new: true, runValidators: true})
                     .populate({ path: 'assigned' })
                     .populate({ path: 'note.note_author' })
                     .populate({ path: 'priority'})
                     .exec()
-                
-                
-                console.log(updateTask)
+                                
+                // console.log(updateTask)
                 return updateTask
 
                 //const user = original (remove from original)

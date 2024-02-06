@@ -24,12 +24,6 @@ const noteSchema = new Schema(
         note_dt: {     
             type: Date,
             default: Date.now,
-            // get: function(value) {
-            //     if (value) {
-            //         return value.toLocaleString()
-            //     } else
-            //         return "null"
-            // }
         },
     
     },    

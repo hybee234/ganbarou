@@ -8,6 +8,7 @@ export const ADD_USER = gql`
                 _id
                 username
                 email
+                security
             }
         }
     }
@@ -22,7 +23,6 @@ export const LOG_IN = gql`
                 username
                 email
                 security
-                taskCount
             }
         }
     }
@@ -41,7 +41,6 @@ export const COMPLETE_TASK = gql`
                 _id
                 username
             }
-            updatedAt
         }
     }
 `
@@ -63,7 +62,6 @@ mutation Mutation($id: ID!, $createdDt: Date, $reviewDt: Date, $title: String, $
         }
         status_macro
         status_micro
-        updatedAt
         }
 }
 `

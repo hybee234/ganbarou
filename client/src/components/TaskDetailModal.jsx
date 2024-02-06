@@ -32,7 +32,7 @@ export default function TaskDetailModal(props) {
     //- Data Manipulation -//
     //---------------------//
     const {userSelect} = props
-    console.log("TaskDetailModal Component: userSelect:", userSelect)
+    // console.log("TaskDetailModal Component: userSelect:", userSelect)
         
 
     //-------------------------//
@@ -128,13 +128,15 @@ export default function TaskDetailModal(props) {
                 <span className="close" onClick={(() => closeDetailForm())}>&times;</span>
                 <h2 className="block modal-heading"> Task Details</h2>
                 {/* Task Details */}
-                <div className="bg-filter modal-section">
-                        <label className="text-color modal-label w-full text-right"> Task Section </label>     
-                        <div className="modal-section-divider">
+                <div className="bg-filter modal-section p-5">
+                        <label className="modal-label w-full"> </label>     
+                        <div className="modal-section-divider w-1/3">
                             <div className="modal-field-container">
-                                <label className="modal-label"> Created Date </label>
+                                <div>
+                                    <label className="modal-label w-1/2"> Created Date </label>
+                                </div>
                                 <input
-                                    className="modal-field"
+                                    className="modal-field w-1/2"
                                     name="created-dt"
                                     type="date"
                                     placeholder="MM/DD/YYYY"
@@ -146,9 +148,11 @@ export default function TaskDetailModal(props) {
                                 </input>                                
                             </div>
                             <div className="modal-field-container">
-                                <label className="modal-label">Stakeholder</label>
+                                <div>
+                                    <label className="modal-label">Stakeholder</label>
+                                </div>
                                 <input
-                                    className="modal-field"
+                                    className="modal-field w-1/2"
                                     name="stakeholder"
                                     type="text"
                                     placeholder="Stakeholder"
@@ -162,9 +166,11 @@ export default function TaskDetailModal(props) {
                                 </input>
                             </div>
                             <div className="modal-field-container justify-left items-start align-top">
-                                <label className="modal-label"> Review Date </label>
+                                <div>
+                                    <label className="modal-label">Review Date</label>
+                                </div>
                                 <input
-                                    className="modal-field"
+                                    className="modal-field w-1/2"
                                     name="review-dt"
                                     type="date"
                                     placeholder="MM/DD/YYYY"
@@ -176,9 +182,11 @@ export default function TaskDetailModal(props) {
                                 </input>                                
                             </div>
                             <div className="modal-field-container">
-                                <label className="modal-label"> Assigned </label>
+                            <div>
+                                    <label className="modal-label">Assigned</label>
+                                </div>
                                 <select
-                                    className="modal-select"
+                                    className="modal-select w-1/2"
                                     name="assigned"
                                     type="text"
                                     value={state.taskDetail.assigned._id}
@@ -195,9 +203,11 @@ export default function TaskDetailModal(props) {
                                 </select>                                
                             </div>
                             <div className="modal-field-container">
-                                <label className="modal-label"> Status (Macro)</label>
+                                <div>
+                                    <label className="modal-label">Stage</label>
+                                </div>
                                 <select
-                                    className="modal-field"
+                                    className="modal-select w-1/2"
                                     name="status-macro"
                                     type="text"
                                     value={state.taskDetail.status_macro}
@@ -206,30 +216,37 @@ export default function TaskDetailModal(props) {
                                     >
                                 </select>                                
                             </div>
-                            <div className="modal-field-container">
-                                <label className="modal-label"> Status(Minor)</label>
+                            <div className="modal-field-container flex">
+                                <div className = "w-1/3 text-center">
+                                    <label className="modal-label">Status</label>
+                                </div>
                                 <select
-                                    className="modal-field"
+                                    className="modal-select w-2/3"
                                     name="status-micro"
                                     type="text"
                                     value={state.taskDetail.status_micro}
                                     onChange= {(e) =>
                                         dispatch({ type: TASK_DETAIL_STATUS_MICRO, payload: e.target.value})}
                                     >
-                                </select>                                
+                                    <option> </option>
+                                    <option>Design</option>
+                                    <option>Testing</option>
+                                    <option>Training</option>
+                                    <option>Deployment</option>
+                                </select> 
                             </div>
                         </div>
-                        <div className="modal-section-divider">
+                        <div className="modal-section-divider w-2/3">
                             <div className="modal-field-container">                                    
-                                <label className="modal-label">Title</label>
+                                <label className="modal-label w-1/3">Title</label>
                                 
                                 <textarea
                                     className="w-full modal-field"
                                     name="title"
                                     type="text"
                                     placeholder="Title"
-                                    rows="1"
-                                    cols="30"
+                                    rows="2"
+                                    cols="50"
                                     value={state.taskDetail.title}
                                     onChange= {(e) =>
                                         dispatch({ type: TASK_DETAIL_TITLE, payload: e.target.value})}
@@ -240,13 +257,13 @@ export default function TaskDetailModal(props) {
                             {/* <p> Global State Title: {state.taskDetail.title} </p> */}
                             
                             <div className="w-full modal-field-container">
-                                <label className="modal-label">Summary</label>
+                                <label className="modal-label w-1/3">Summary</label>
                                 <textarea
                                     className="w-full modal-field"
                                     name="status-summary"
                                     type="text"
                                     placeholder="Summary"
-                                    rows="3"
+                                    rows="4"
                                     cols="30"
                                     value={state.taskDetail.summary}
                                     onChange= {(e) =>
@@ -261,12 +278,12 @@ export default function TaskDetailModal(props) {
 
                 {/* Notes */}
                 <div className="bg-filter modal-section">
-                    <label className="w-full modal-label text-right"> Notes Section</label>     
+                    <label className="w-full modal-label w-1/3 text-right"> Notes Section</label>     
                 </div>
 
                 {/* Prioritisation Section*/}
                 <div className="bg-filter modal-section">
-                    <label className="w-full modal-label text-right"> Prioritisation Section </label>
+                    <label className="w-full modal-label w-1/3 text-right"> Prioritisation Section </label>
 
                     <label className="switch"></label>
                     <input type="checkbox">                            
@@ -285,22 +302,22 @@ export default function TaskDetailModal(props) {
 
                 {/* Modal Form Element Graveyard */}
                 <div className="bg-filter modal-section">                    
-                    <label className="w-full modal-label text-right"> Modal Form Field Graveyard </label>
+                    <label className="w-full modal-label w-1/3 text-right"> Modal Form Field Graveyard </label>
                     <div className="modal-field-container">
-                        <label className="modal-label"> Unit Cost ($) </label>
+                        <label className="modal-label w-1/3"> Unit Cost ($) </label>
                         <input className="w-full modal-field"  type="number" placeholder="00.00" step="0.01"></input>
                         {/* <p className="mt-1 mb-2 text-xs text-red-500 uppercase">Numbers only</p> */}
                     </div>
                     <div className="modal-field-container">
-                        <label className="modal-label"> Qty In</label>
+                        <label className="modal-label w-1/3"> Qty In</label>
                         <input className="w-full modal-field" type="text"></input>
                     </div>
                     <div className="modal-field-container">
-                        <label className="modal-label"> Qty Out</label>
+                        <label className="modal-label w-1/3"> Qty Out</label>
                         <input className="w-full modal-field" type="text"></input>
                     </div>
                     <div className="modal-field-container">
-                        <label className="modal-label"> Vintage_ID </label>
+                        <label className="modal-label w-1/3"> Vintage_ID </label>
                         <input className="w-full modal-field" type="number"></input>
                     </div>  
                 </div>
@@ -309,7 +326,7 @@ export default function TaskDetailModal(props) {
                 <p className="button-color px-6 py-2 my-2 font-bold text-2xl" onClick={() => consoleLog()} >
                     Console.log(state)
                 </p>
-                <p className="block modal-label mt-10"> Task ID: {state.taskDetail._id}</p> 
+                <p className="block modal-label w-1/3 mt-10"> Task ID: {state.taskDetail._id}</p> 
             </form>
         </div>
     )

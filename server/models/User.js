@@ -25,12 +25,12 @@ const userSchema = new Schema(
             required: true,
             default: "user",
         },
-        tasks: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Task',
-            },
-        ],
+        // tasks: [
+        //     {
+        //         type: Schema.Types.ObjectId,
+        //         ref: 'Task',
+        //     },
+        // ],
         
     },
     // set this to use virtual below
@@ -56,10 +56,9 @@ userSchema.methods.isCorrectPassword = async function (password) {
     return bcrypt.compare(password, this.password);
 };
 
-// when we query a user, we'll also get another field called `taskCount` with the number of saved books we have
-userSchema.virtual('taskCount').get(function () {
-    return this.tasks.length;
-});
+// userSchema.virtual('taskCount').get(function () {
+//     return this.tasks.length;
+// });
 
 const User = model('User', userSchema);
 module.exports = User;

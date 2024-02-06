@@ -1,7 +1,8 @@
 
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client';
-import { GET_ME, USER_LIST, ALL_TASKS } from './../utils/queries'
+import { USER_LIST, ALL_TASKS } from './../utils/queries'
+import Auth from '../utils/auth';
 import TasksSummary from '../components/TaskSummary';
 import TaskList from '../components/TaskList';
 import TaskDetailModal from '../components/TaskDetailModal';
@@ -18,11 +19,12 @@ export default function MyTasks() {
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
+    const [userId, useUserId] = useState(Auth.getProfile().data._id)
 
     //-------------//
     //- Use Query -//
     //-------------//
-    const userData = useQuery(GET_ME);    
+    const allTaskData = useQuery(ALL_TASKS);    
     const userSelect = useQuery(USER_LIST);   
 
     //Initialise the data
@@ -30,8 +32,8 @@ export default function MyTasks() {
     // const userList = userListQuery.data?.users || {}
 
     //Handle error and loading together
-    const error = userData.error|| userSelect.error
-    const loading = userData.loading || userSelect.loading
+    const error = allTaskData.error|| userSelect.error
+    const loading = allTaskData.loading || userSelect.loading
 
     //Show Loading screen if loading
     if (loading) {
@@ -53,9 +55,14 @@ export default function MyTasks() {
         </div>    
     );}
 
-    // clean list of tasks
-    console.log("MyTasks Page, Tasks:", userData.data.me.tasks)
-    console.log("MyTasks Page, UserList", userSelect.data.users )
+    //---------------------//
+    //- Data Manipulation -//
+    //--------------------//
+
+    // Filter array for provided UserID (default is the logged in user)
+    // console.log("UserID:", userId) 
+    const tasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === userId)
+    console.log("tasks", tasks)
 
     // WARNING ... Dispatch causes infinite re-render loop ...
     //
@@ -70,13 +77,10 @@ export default function MyTasks() {
     //         payload: userSelect.data.users
     //     })
     // },[userData.data.me.tasks,userSelect.data.users])
-
-
     return (
     <div>    
-        <TasksSummary tasks={userData.data.me.tasks}  />
-        <TaskList tasks={userData.data.me.tasks} userSelect={userSelect.data.users} />
-        {/* Hide the modals when you're done configuring them */}
+        <TasksSummary tasks={tasks}  />
+        <TaskList tasks={tasks} userSelect={userSelect.data.users} />        
         <div className= "">
             <TaskDetailModal userSelect={userSelect.data.users} />
         </div>
