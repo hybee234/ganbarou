@@ -51,7 +51,7 @@ export default function TaskList (props) {
     taskArray.focus.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
     taskArray.opportunistic.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
 
-    console.log("taskArray", taskArray)
+    console.log("TaskList Component: taskArray", taskArray)
 
 
     // console.log("user", user)               
@@ -91,20 +91,22 @@ export default function TaskList (props) {
 
     
     //------------------------------------------------//
-    //- Conditionally Formatting Overdue Review Date -//
+    //- Format Overdue Review Date -//
     //------------------------------------------------//
 
     //Todo - to review if this should be in a useEffect or not
     useEffect(() => {
             document.querySelectorAll('.review-date-js').forEach(element => {
                 if (dayjs(element.dataset.reviewDt).format('DD/MM/YYYY') < dayjs(now).format('DD/MM/YYYY')) {
-                    // console.log ("OVERDUE for review", element.dataset.reviewDt)
+                    
+                    
+                    console.log ("OVERDUE for review", dayjs(element.dataset.reviewDt).format('DD MMM YYYY') + "(DD/MM/YYYY) (" + dayjs(new Date).format('DD/MMM/YYYY'))
                     element.parentNode.classList.add('review-due')
                 } else {
-                    // console.log ("not due for review", element.dataset.reviewDt)
+                    console.log ("not due for review", dayjs(element.dataset.reviewDt).format('DD MMM YYYY') + "(DD/MM/YYYY)" + dayjs(new Date).format('DD/MMM/YYYY'))
                 }
             })
-    },[])
+    },[tasks])
 
     //----------------------------//
     //- MUTATION - Complete Task -//
@@ -167,38 +169,15 @@ export default function TaskList (props) {
     //--------------------//
     // View Task Modal -//
     //--------------------//
-    const viewTask = (taskId) => {
-        
+    const viewTask = (taskId) => {        
         // Filter userTasks for Task of interest
         let taskDetailArray = tasks.filter(task => task._id === taskId)
         let taskDetail = taskDetailArray[0]
-        // console.log("taskDetail", taskDetail)
-        // let created_dtArray = taskDetail.created_dt.split("/")
-        // let updated_dt = `${created_dtArray[2]}-${created_dtArray[1]}-${created_dtArray[0]}`
-        // console.log(updated_dt)
-        // taskDetail.created_dt = updated_dt
-        // Add to state
         
         dispatch ({ type: TASK_DETAIL, payload: taskDetail})
 
-        // Alternative approach - filter userTask array for the task of interest store local storage
-        // gotta handle stringiufy etc - try global state for now
-        // localStorage.setItem('detail_view', taskDetail);
-
-        // explore using global state instead for now ...
-        // localStorage.setItem('detail_view_id', taskId);
-
-        // console.log(state.taskDetail.created_dt)
-        // const createdDtArray = state.taskDetail.created_dt.split("/")
-        // console.log (createdDtArray)
-        
-
-
         document.getElementById('view-details-modal-background').style.display = 'block'
         document.getElementById('view-details-modal-form').style.display = 'block'
-
-
-
     }
 
     // console.log("rowIndex", rowIndex)
@@ -211,19 +190,6 @@ export default function TaskList (props) {
     //     //submit update to database
     //     //Write update mutation
     //     console.log("submitRow - Surprise!", taskId)
-    // }
-
-    //-----------------------//
-    //- Sort by Review Date -//
-    //-----------------------//
-
-    // const formatDate = (date) => {
-    //     if(date) {
-    //         console.log ("test date", date.toLocaleDateString('en-AU'))
-    //         return <p>"test"+ date.toLocaleDateString('en-AU')</p>
-    //     } else {
-    //         return <p>"no date"</p>
-    //     }      
     // }
 
     return (
