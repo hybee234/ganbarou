@@ -8,6 +8,7 @@ export const ADD_USER = gql`
                 _id
                 username
                 email
+                security
             }
         }
     }
@@ -22,7 +23,6 @@ export const LOG_IN = gql`
                 username
                 email
                 security
-                taskCount
             }
         }
     }
@@ -41,29 +41,33 @@ export const COMPLETE_TASK = gql`
                 _id
                 username
             }
-            updatedAt
         }
     }
 `
 
 export const UPDATE_TASK_BY_TASK_ID = gql`
-mutation Mutation($id: ID!, $createdDt: Date, $reviewDt: Date, $title: String, $summary: String, $stakeholder: String, $assigned: assignedUserInput) {
-    updateTaskByTaskId(_id: $id, created_dt: $createdDt, review_dt: $reviewDt, title: $title, summary: $summary, stakeholder: $stakeholder, assigned: $assigned) {
+mutation Mutation($id: ID!, $createdDt: Date, $reviewDt: Date, $title: String, $summary: String, $stakeholder: String, $assigned: assignedUserInput, $priority: priorityUserInput) {
+    updateTaskByTaskId(_id: $id, created_dt: $createdDt, review_dt: $reviewDt, title: $title, summary: $summary, stakeholder: $stakeholder, assigned: $assigned, priority: $priority) {
+      _id
+      created_dt
+      title
+      summary
+      complete_flag
+      complete_dt
+      review_dt
+      stakeholder
+      assigned {
         _id
-        created_dt
-        title
-        summary
-        complete_flag
-        complete_dt
-        review_dt
-        stakeholder
-        assigned {
-            _id
-            username
-        }
-        status_macro
-        status_micro
-        updatedAt
-        }
-}
+        username
+      }
+      status_macro
+      status_micro
+      priority {
+        business_driven
+        focus
+        important
+        urgent
+      }
+    }
+  }
 `

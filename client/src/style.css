@@ -32,6 +32,7 @@ modal-form: 150
     --lightgrey: rgb(175,175,175);
     --redwarning: rgb(220, 38, 38);
     --tablegrey: rgba(88, 88, 88, 0.3);
+    --black: rgba(0, 0, 0, 1);
 
 /*UI Objects*/
     --text: var(--onyx);
@@ -40,7 +41,7 @@ modal-form: 150
     --linkhover: var(--lightblue);
     --linkbackground: var(--grey);
     --inputbackground: var(--grey);
-    --inputborder: var(--onyx);
+    --inputborder: var(--black);
     --buttontext: var(--onyx);
     --buttonbackgroundhover: var(--darkgrey);
     --tablereviewdue: (var(--old-rose))
@@ -51,7 +52,7 @@ modal-form: 150
     /* --deletebuttonhover: rgb(185, 28, 28); */
     
 
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: Inter, Helvetica, system-ui, Avenir,  Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
     font-size: 16px;
@@ -60,7 +61,7 @@ modal-form: 150
 
     color-scheme: light dark;
     color: var(--text);
-    background-color: #242424;
+    /* background-color: #242424; */
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -388,34 +389,34 @@ li {
     margin-right: auto;
 }
 
-.table-heading {
-    border-bottom: 2px solid var(--tablegrey);
-}
-
-.table-row {
-    border-bottom: 2px solid var(--tablegrey);
-}
-
-.table-last-row {
-    border-top: 2px solid var(--tablegrey);
+.table-heading-row {
     border-bottom: 2px solid var(--tablegrey);
 }
 
 .table-heading-cell {
-    font-weight: 600;
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-weight: 500;
+    /* font-size: 0.75rem; */
+    /* line-height: 1rem; */
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 5px;
     padding-right: 5px
 }
 
+.table-row {
+    border-bottom: 2px solid var(--tablegrey);
+}
+
 .table-row-cell {
     font-weight: 400;
-    font-size: 0.75rem;
+    /* font-size: 0.75rem; */
     margin: 2px;
     /* border: 1px solid white; */
+}
+
+.table-last-row {
+    border-top: 2px solid var(--tablegrey);
+    border-bottom: 2px solid var(--tablegrey);
 }
 
 /* .table-row-persist {
@@ -445,7 +446,6 @@ li {
 
 .review-due {
     background-color: rgba(109, 46, 52, 0.5);
-
 }
 
 /*****************/
@@ -512,7 +512,6 @@ li {
 /* Modal Styles */
 /****************/
 .modal-background {
-
     display: none;    
     position: fixed; 
     top: 50%;
@@ -521,7 +520,7 @@ li {
     z-index: 100;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: rgba(0, 0, 0, 0.85);
     
 }
 
@@ -532,7 +531,6 @@ li {
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-
     display: none;
     /* background-color: rgba(35, 35, 35, .7);  */
     position: absolute;
@@ -540,11 +538,10 @@ li {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 150;
-    /* max-height: calc(100vh - 40px); Limit height of modal window - Original */
     max-height: calc(100vh - 40px); /* Limit height of modal window - Original */
     overflow-y: auto; /* Add scrollbar if screen is too small for modal window */
     border-radius: 0.75rem;
-    width: 95%;
+    width: 70%;
     transition: ease-in-out 0.2s;  
 }
 
@@ -558,7 +555,7 @@ li {
     color: var(--modaltext);
     font-weight: 600;
 
-    background-color: rgba(128, 128, 128, 0.2);
+    /* background-color: rgba(128, 128, 128, 0.2); */
 }
 
 .modal-text-color {
@@ -566,40 +563,45 @@ li {
 }
 
 .modal-label {
-    /* text-transform: uppercase; */
-    /* letter-spacing: 0.25em; */
     font-weight: 500;
     font-size: 0.75rem/* 12px */;
     line-height: 1rem/* 16px */;
-    border: 2px solid green;
-    background-color: rgba(0, 128, 0, 0.2);
+    /* border: 2px solid green; */
+    /* background-color: rgba(0, 128, 0, 0.2); */
+    width:100%;
+    text-transform: capitalize;
+    padding-left: 10px;
+    
 }
 
 .modal-select {
     border: 1px solid var(--inputborder);
-    font-size: 0.75rem;
+    font-size: 1rem;
     color: var(--text);
     border-radius: 8px;    
     transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: rgba(0, 0, 128, 0.2); 
+    background-color: rgba(150, 150, 150, 0.25); 
 }
 
 .modal-select option {
     background-color: var(--darkgrey);
     color: var(--modaltext);
-    padding: 12px 16px;
+    /* padding: 12px 16px; */
+
     text-decoration: none;
     display: block;
+    text-align: center;
 }
 .modal-field {
     /* background-color: var(--inputbackground); */
     border: 1px solid var(--inputborder);
-    font-size: 0.75rem;
+
+    font-size: 1rem;
     color: var(--text);
     border-radius: 8px;    
     transition-duration: 200ms;
@@ -608,7 +610,7 @@ li {
     padding-bottom: 2px;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: rgba(0, 0, 128, 0.2); 
+    background-color: rgba(150, 150, 150, 0.25);
 }
 
 .modal-field:hover {
@@ -624,13 +626,16 @@ li {
 
     
 .modal-field-container {
-    border: 2px solid yellow;
-    background-color: rgba(255, 255, 0, 0.2);
+    /* border: 2px solid yellow; */
+    /* background-color: rgba(255, 255, 0, 0.2); */
+    text-align: left;
+    
 }
 
 .modal-section-divider {
-    border: 2px solid magenta;
-    background-color: rgba(255, 0, 255, 0.2);
+    /* border: 2px solid magenta; */
+    /* background-color: rgba(255, 0, 255, 0.2); */
+    padding: 5px
 }
 
 .modal-section {
@@ -682,18 +687,18 @@ li {
 /* Media Query GREATER THAN 1280px /
 /**********************************/
 @media (min-width: 1280px) {
-
+    .task-summary-container {
+        font-size: 1rem;
+    }
 }
 
 /*******************************/
 /* Media Query LESS THAN 1280px /
 /*******************************/
 @media (max-width: 1280px) {
-    /* .navtab {
-        justify-content: center;
-        width: 100%;
-        padding-right: 0px;
-    } */
+    .modal-form {
+        width: 90%;
+    }
     h1 {
         font-size: 2.1rem;
     }
@@ -709,6 +714,9 @@ li {
     .welcome-text-container {
         font-size: 1.25rem;
     }
+    .task-summary-container  {
+        font-size: 1rem;
+    }
 }
 
 
@@ -716,6 +724,9 @@ li {
 /* Media Query LESS THAN 1024 /
 /*****************************/
 @media (max-width: 1024px) {
+    .modal-form {
+        width: 95%;
+    }
     .page {        
         width: 90%        
     }
@@ -737,8 +748,8 @@ li {
     .task-icon-opp {
         font-size: 1.25rem;        
     } 
-    .task-summary-container, .table-heading-cell, .table-row-cell {
-        font-size: 0.7rem;
+    .task-summary-container {
+        font-size: 1.0rem;
     }
 }
 
@@ -767,8 +778,8 @@ li {
     .task-icon-opp {
         font-size: 1rem;        
     } 
-    .task-summary-container, .table-heading-cell, .table-row-cell {
-        font-size: 0.65rem;
+    .task-summary-container {
+        font-size: 1rem;
     }
 }
 
@@ -779,26 +790,6 @@ li {
     .welcome-text-container {
         font-size: 0.75rem;
     }
-    /* .bg-filter{
-        padding: 3px;
-    } */
-    /* .navtab {
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-        padding-right: 0px;
-    }
-    .nav-item {
-        padding-top: 5px;
-        padding-right: 10px;
-        padding-bottom: 5px;
-        padding-left: 10px;
-        margin: 3px;
-        border-radius: 5px;
-    }
-    .nav-item p {
-        font-size: 1.00rem; 
-    }*/
     .page {        
         width: 95%;
     }
@@ -816,7 +807,7 @@ li {
         font-size: .75rem;
         padding: 0px;
     }
-    .task-summary-container, .table-heading-cell, .table-row-cell {
+    .task-summary-container {
         font-size: 0.85rem;
     }
 }
@@ -825,23 +816,20 @@ li {
 /* Media Query LESS THAN 400 /
 /****************************/
 @media (max-width: 400px) {
-    /* .nav-item {        
-        width: 45%;        
-    } */
     .welcome-text-container {
         flex: 1 0 200px;
-        font-size: 0.75rem;
+        font-size: 1rem;
     }
 }
 
 
 /*************************************/
-/* Media Query HEIGHT LESS THAN 640px /
+/* Media Query HEIGHT LESS THAN 375px /
 /*************************************/
 
 @media (max-height: 375px) {
     .modal-form {
-        height: 95vh;
+        height: 80vh;
     }
 }
 

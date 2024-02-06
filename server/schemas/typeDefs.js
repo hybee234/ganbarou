@@ -2,15 +2,13 @@ const { GraphQLScalarType, Kind } = require("graphql");
 //import dateScalar from './scalers/date'
 
 const typeDefs = `
-scalar Date  #HL
+    scalar Date  
 
     type User {
         _id: ID
         username: String
         email: String
         security: String
-        tasks: [Task]
-        taskCount: Int
     }
 
     type Task {
@@ -26,9 +24,7 @@ scalar Date  #HL
         status_macro: String
         status_micro: String
         note: [Note]
-        priority: Priority
-        #updatedAt is one of the automatic columns added if model has timestamps: true
-        updatedAt: Date        
+        priority: Priority   
     }
 
     type Note {
@@ -46,7 +42,7 @@ scalar Date  #HL
         focus: Boolean
         category: Int
         important: Boolean
-        urgency: Boolean
+        urgent: Boolean
         high_effort: Boolean
         comment: String
     }
@@ -64,21 +60,22 @@ scalar Date  #HL
         taskByTaskId (_id: ID!): Task
     }
 
-input updateTaskInput {
-    _id: ID!
-    created_dt: Date
-    review_dt: Date
-    title: String
-    summary: String
-    stakeholder: String
-    assigned: assignedUserInput
+    input assignedUserInput {
+        _id: ID
+        username: String
+    }
 
-}
 
-input assignedUserInput {
-    _id: ID
-}
-
+    input priorityUserInput {
+        pipeline_number: Int
+        business_driven: Boolean
+        focus: Boolean
+        category: Int
+        important: Boolean
+        urgent: Boolean
+        high_effort: Boolean
+        comment: String
+    }
 
     type Mutation {
         addUser(username: String! email: String! password: String!): Auth
@@ -92,10 +89,12 @@ input assignedUserInput {
             title: String
             summary: String
             stakeholder: String
+            status_macro: String
+            status_micro: String
             assigned: assignedUserInput
+            priority: priorityUserInput
         ): Task
     }
 `;
-
 
 module.exports = typeDefs;

@@ -13,6 +13,13 @@ import {
     TASK_DETAIL_SUMMARY,
     TASK_DETAIL_STATUS_MACRO,
     TASK_DETAIL_STATUS_MICRO,
+    TASK_DETAIL_BUSINESS_DRIVEN,
+    TASK_DETAIL_FOCUS,
+    // TASK_DETAIL_IMPORTANT,
+    // TASK_DETAIL_URGENT,
+    // TASK_DETAIL_EFFORT,
+    // TASK_DETAIL_COMMENT,
+    // TASK_DETAIL_PIPELINE,
 } from './actions';
 
 export const reducer = (state, action) => {
@@ -156,6 +163,42 @@ export const reducer = (state, action) => {
                 }
             }
         }
+        case TASK_DETAIL_BUSINESS_DRIVEN: {
+            console.log("TASK_DETAIL_BUSINESS_DRIVEN reducer engaged")
+
+            return {
+                ...state,
+                taskDetail: {
+                    ...state.taskDetail,
+                    priority: {
+                        ...state.taskDetail.priority,
+                        business_driven: action.payload}
+                    }
+                }
+        }
+        case TASK_DETAIL_FOCUS: {
+            console.log("TASK_DETAIL_FOCUS reducer engaged")
+
+            return {
+                ...state,
+                taskDetail: {
+                    ...state.taskDetail,
+                    priority: {
+                        ...state.taskDetail.priority,
+                        focus: action.payload}
+                    }
+                }
+        }
+
+        // TASK_DETAIL_IMPORTANT,
+        // TASK_DETAIL_URGENT,
+        // TASK_DETAIL_EFFORT,
+        // TASK_DETAIL_COMMENT,
+        // TASK_DETAIL_PIPELINE,
+
+
+
+
         // Default to returning the state as is in our switch statement
         default:
             return state;

@@ -77,33 +77,26 @@ export default function TaskList (props) {
     //----------------------------------------//
     //- Create and Store Date/Time constants -//
     //----------------------------------------//
-    
+    // Do not convert to Australian format (.toLocaleDateString(['en-AU']) or all your calculations will be wrong)
     let now = new Date();
-    now = `${now.toLocaleDateString('en-AU')} ${now.toLocaleTimeString('en-AU')}`;
-    const today = (new Date()).toLocaleDateString('en-AU')
-    
-    // HTML wants date to be YYYY/MM/DD
-
-    // const date = new Date()
-    // const formatter = new Intl.DateFormat('en-AU', { day: '2-digit', month: '2-digit', year: '2-digit' });
-    // const formattedDate = formatter.format("4/2/24");
-    // console.log(formattedDate);
-
-    
-    //------------------------------------------------//
+        
+    //------------------------------//
     //- Format Overdue Review Date -//
-    //------------------------------------------------//
+    //------------------------------//
 
     //Todo - to review if this should be in a useEffect or not
-    useEffect(() => {
+    useEffect(() => { 
             document.querySelectorAll('.review-date-js').forEach(element => {
-                if (dayjs(element.dataset.reviewDt).format('DD/MM/YYYY') < dayjs(now).format('DD/MM/YYYY')) {
-                    
-                    
-                    console.log ("OVERDUE for review", dayjs(element.dataset.reviewDt).format('DD MMM YYYY') + "(DD/MM/YYYY) (" + dayjs(new Date).format('DD/MMM/YYYY'))
-                    element.parentNode.classList.add('review-due')
+                if (dayjs(element.dataset.reviewDt).isAfter(dayjs(now))) {                
+                    element.parentNode.classList.remove('review-due')
+                    // console.log ("not due for review", dayjs(element.dataset.reviewDt).format('DD MMM YYYY') + "(DD/MM/YYYY)" + dayjs(new Date).format('DD/MMM/YYYY'))
                 } else {
-                    console.log ("not due for review", dayjs(element.dataset.reviewDt).format('DD MMM YYYY') + "(DD/MM/YYYY)" + dayjs(new Date).format('DD/MMM/YYYY'))
+                    element.parentNode.classList.add('review-due')
+                    // console.log ("BEFORE TRUE")
+                    // console.log ("Review DT", dayjs(element.dataset.reviewDt))
+                    // console.log ("Review DT", dayjs(element.dataset.reviewDt).format('DD/MMM/YYYY'))
+                    // console.log ("Now", dayjs(now))
+                    // console.log ("Now", dayjs(now).format('DD/MMM/YYYY'))
                 }
             })
     },[tasks])
@@ -145,10 +138,7 @@ export default function TaskList (props) {
 
             console.log("table", table)
             toast.success(`Task Completed! Great Work!`) 
-
-            if (table === "original") {
-            useTaskCount(taskCount - 1)
-            }      
+ 
             if (table === "operational") {
                 // console.log("Operational Task Completed")
                 useOperationalTaskCount(operationalTaskCount - 1)
@@ -161,6 +151,9 @@ export default function TaskList (props) {
                 // console.log("Opportunistic Task Completed")
                 useOpportunisticTaskCount(opportunisticTaskCount - 1)
             }
+
+            console.log("Complete Task Returned Data:", data)
+
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
         }
@@ -194,113 +187,21 @@ export default function TaskList (props) {
 
     return (
 
-        
-        // Original
-        // <div>
-        //     <table id="task-table-container" className="w-11/12 m-auto table-auto mb-20 bg-filter">
-        //         <thead>
-        //             <tr className="text-16 table-heading-cell">
-        //                 <th className="table-heading-cell ">Created</th>
-        //                 <th className="table-heading-cell ">Title</th>
-        //                 <th className="hidden sm:table-cell table-heading-cell ">Review Date</th>
-        //                 <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
-        //                 <th className="hidden sm:table-cell table-heading-cell ">Status (Macro)</th>
-        //                 <th className="hidden sm:table-cell table-heading-cell ">Status (Micro)</th>
-        //                 {/* <th className="hidden sm:table-cell table-heading-cell ">Complete Flag</th> */}
-        //                 <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
-        //                 <th className="table-heading-cell ">Complete</th>
-        //                 <th className="hidden lg:table-cell table-heading-cell ">Last Updated</th>
-        //                 <th className="hidden lg:table-cell table-heading-cell ">Category</th>
-        //                 <th className="hidden lg:table-cell table-heading-cell ">Edit</th>
-        //                 <th className="hidden lg:table-cell table-heading-cell ">task_id</th>
-        //             </tr>
-        //         </thead>
-        //         <tbody>
-        //             {
-        //                 // {/* Index in array to add rowIndex to table */}
-        //                 allActiveTasks.map( (task, index) => {   
-        //                     return(
-        //                         // <tr id={`table-row-${task._id}`} className="table-row text-center" key={task._id}  style={{ backgroundColor: reviewDue(task.review_dt)}}  onClick= { ()=> setRowIndex(index)}>
-        //                         <tr id={`table-row-${task._id}`} className="table-row text-center" key={task._id} onClick= { ()=> setRowIndex(index)}>
-        //                             <td id={`created-dt-${task._id}`} className=" xl:text-base text-xs sm:text-xs md:text-sm" data-created-dt={task.created_dt}> {task.created_dt}</td>                                
-        //                             <td id={`title-${task._id}`} className="xl:text-base text-xs sm:text-xs md:text-sm"> {task.title}</td>
-        //                             {/* Hide if less than 640 pixels */}
-        //                             <td id={`review-dt-${task._id}`} className="review-date-js hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-review-dt={task.review_dt}>{task.review_dt}</td>
-        //                             <td id={`stakeholder-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-stakeholder={task.stakeholder}>{task.stakeholder}</td>                                    
-        //                             <td id={`status-macro-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-status-macro={task.status_macro}>{task.status_macro}</td>  
-        //                             <td id={`status-micro-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-status-micro={task.micro}>{task.status_micro}</td>
-                                                    
-        //                             {/* <td id={`complete-flag-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-complete-flag={task.complete_flag}>
-        //                                 {
-        //                                     task.complete_flag ? (
-        //                                         "True"
-        //                                     ) : (
-        //                                         "False"
-        //                                     )
-        //                                 }                                    
-        //                                 </td>   */}
-        //                             {/* Show if less than 640 pixels */}
-        //                             <td id={`assigned-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-status-assigned-username={task.assigned.username}>{task.assigned.username}</td> 
-        //                             <td>
-        //                                 <button
-        //                                     id={`complete-button-${task._id}`}
-        //                                     className="text-xs md:text-sm sm:text-xs px-4 py-1 my-1 button-color "
-        //                                     onClick={ ()=> completeHandler(task._id, "original") }
-        //                                     ><ImCross className="m-auto text-red-600"/> 
-        //                                 </button>
-        //                             </td>
-        //                             {/* Show if greater than 1280 pixels */}                                
-        //                             <td id={`updated-at-${task._id}`} className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm">{task.updatedAt}</td> 
-        //                             <td id={`category-${task._id}`} className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-category={task.priority.category}>{task.priority.category}</td> 
-        //                             <td className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm">                                        
-        //                                 <button
-        //                                     id={`edit-button-${task._id}`}
-        //                                     value={`${task._id}`}
-        //                                     className='button-color px-4 py-1 my-1'
-        //                                     onClick={()=> {viewTask(task._id)}}
-        //                                     >
-        //                                         <FiEdit className="m-auto"/>                                                
-        //                                 </button>
-        //                             </td>
-        //                             <td id={`${task._id}`} className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm">{task._id}</td>                                      
-        //                         </tr>
-        //                     )                            
-        //                 })                         
-        //             }
-        //             <tr className="table-last-row">
-        //                 <th></th>
-        //                 <th></th>
-        //                 <th>Total Tasks: {taskCount}</th>                        
-        //                 <th></th>
-        //                 <th></th>
-        //                 <th></th>
-        //                 <th></th>
-        //                 <th></th>
-        //                 <th></th>
-        //                 <th></th>
-        //                 <th></th>
-        //             </tr> 
-        //         </tbody>
-        //     </table>
-
-
-
         <div>
             {/********************/}
             {/* Operational Table*/}
             {/********************/}
-            <div className ="w-full m-auto">Operational
+            <div className ="w-full m-auto text-center">Operational
                 <table className="table-auto table-container bg-filter">
                     <thead>
-                        <tr className="table-heading-cell">
-                            <th className="table-heading-cell ">Created</th>
-                            <th className="table-heading-cell ">Title</th>
+                        <tr className="table-heading-row text-xs sm:text-xs md:text-sm xl:text-base">
+                            <th className="table-heading-cell">Created</th>
+                            <th className="text-xs sm:text-xs md:text-sm xl:text-basetable-heading-cell ">Title</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Review</th>                            
                             <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
                             <th className="sm:hidden table-cell table-heading-cell"></th>
                             <th className="table-heading-cell ">Done</th>
-                            <th className="hidden sm:table-cell table-heading-cell ">Last Updated</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -308,31 +209,31 @@ export default function TaskList (props) {
                             // {/* Index in array to add rowIndex to table */}
                             taskArray.operational.map( (task, index) => {   
                                 return(                                    
-                                    <tr id={`table-row-${task._id}`} className="table-row p-4 text-center" key={task._id} onClick= { ()=> setRowIndex(index)}>
-                                        <td className="text-xs sm:text-xs md:text-sm xl:text-base table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
+                                    <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
+                                        <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
                                         <td>
                                             <p
-                                                className="text-xs sm:text-xs md:text-sm xl:text-base table-row-cell link-color "
+                                                className=" table-row-cell link-color "
                                                 onClick={()=> {viewTask(task._id)}}>
                                                     {task.title}
                                             </p>
                                         </td>
-                                        <td className="hidden sm:table-cell text-xs sm:text-xs md:text-sm xl:text-base table-row-cell review-date-js " data-review-dt={task.review_dt}> {dayjs(task.review_dt).format('DD/MM/YY')}</td>
-                                        <td className="hidden sm:table-cell text-xs sm:text-xs md:text-sm xl:text-base table-row-cell">{task.assigned.username}</td> 
-                                        <td className="hidden sm:table-cell text-xs sm:text-xs md:text-sm xl:text-base table-row-cell">{task.stakeholder}</td> 
-                                        <td className="min-w-20 sm:hidden table-cell text-xs sm:text-xs md:text-sm xl:text-base table-row-cell">
+                                        <td className="hidden sm:table-cell  table-row-cell review-date-js " data-review-dt={task.review_dt}> {dayjs(task.review_dt).format('DD/MM/YY')}</td>
+                                        <td className="hidden sm:table-cell  table-row-cell">{task.assigned.username}</td> 
+                                        <td className="hidden sm:table-cell  table-row-cell">{task.stakeholder}</td> 
+                                        <td className="min-w-20 sm:hidden table-cell  table-row-cell">
 
-                                            <div className="flex justify-left items-center pt-1">
+                                            <div className="flex justify-left items-center">
                                                 <BsFillCalendar2WeekFill/>
                                                 <span>&nbsp; {dayjs(task.review_dt).format('D MMM')}</span>
                                             </div>
 
-                                            <div className="flex justify-left items-center py-1">
+                                            <div className="flex justify-left items-center ">
                                                 <FaUserNinja/>
                                                 <span>&nbsp; {task.assigned.username}</span>
                                             </div>
 
-                                            <div className="flex justify-left items-center pb-1">
+                                            <div className="flex justify-left items-center">
                                                 <FaUserTie/>
                                                 <span>&nbsp; {task.stakeholder}</span>
                                             </div>
@@ -340,22 +241,20 @@ export default function TaskList (props) {
                                         </td> 
                                         <td>
                                             <button                                                
-                                                className="text-xs sm:text-xs md:text-sm xl:text-base table-row-cell link-color"
+                                                className=" table-row-cell link-color"
                                                 onClick={ ()=> completeHandler(task._id, "operational") }
                                                 >                                              
                                                     <Icon icon="subway:tick" width="15" height="15" strokeWidth={3} color="green"/>  
                                             </button>
                                         </td>
-                                        {/* Show if greater than 1280 pixels */}                                
-                                        <td id={`updated-at-${task._id}`} className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm table-row-cell">{task.updatedAt}</td>
                                     </tr>
                                 )                            
                             })                         
                         }
                         <tr className="table-last-row">
                             <th></th>
-                            <th></th>
                             <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Total :</span>&nbsp;{operationalTaskCount}</th>                        
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
