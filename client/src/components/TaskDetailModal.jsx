@@ -2,6 +2,7 @@
 Receives task ID of interest from parent and renders it
 The only way to show this is to click on a task that will pass task details to this component
 */
+import * as React from 'react';
 import Auth from '../utils/auth';
 import dayjs from 'dayjs'
 import { useState } from 'react'
@@ -18,7 +19,11 @@ import {
     TASK_DETAIL_SUMMARY,
     TASK_DETAIL_STATUS_MACRO,
     TASK_DETAIL_STATUS_MICRO,
+    TASK_DETAIL_BUSINESS_DRIVEN,
+    TASK_DETAIL_FOCUS
 } from '../utils/actions'
+
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 
 export default function TaskDetailModal(props) {
@@ -94,6 +99,7 @@ export default function TaskDetailModal(props) {
         event.preventDefault();
         const taskDetail = state.taskDetail
         console.log("taskDetail:", taskDetail)
+        console.log("taskDetail:", taskDetail.priority.business_driven)
         
         try {    
 
@@ -107,6 +113,12 @@ export default function TaskDetailModal(props) {
                     stakeholder: state.taskDetail.stakeholder,
                     assigned: {
                         _id: state.taskDetail.assigned._id,
+                    },
+                    status_macro: state.taskDetail.status_macro,
+                    status_micro: state.taskDetail.status_micro,
+                    priority: {
+                        business_driven: state.taskDetail.priority.business_driven,
+                        focus: state.taskDetail.priority.focus,
                     }
                 
                 },
@@ -119,7 +131,17 @@ export default function TaskDetailModal(props) {
         }
     }
         
-
+    //---------------------//
+    //- Expand Text Area  -//
+    //---------------------//
+    const expandArea = (e) => {
+        //Expands TextArea on input to a maximum of 200px height
+        // console.log(e.target)
+        var textarea = e.target
+        var heightLimit = 200; /* Maximum height: 200px */
+        textarea.style.height = ""; /* Reset the height*/
+        textarea.style.height = Math.min(textarea.scrollHeight, heightLimit) + "px";
+        };
 
     return (
         <div >
@@ -130,13 +152,13 @@ export default function TaskDetailModal(props) {
                 {/* Task Details */}
                 <div className="bg-filter modal-section p-5">
                         <label className="modal-label w-full"> </label>     
-                        <div className="modal-section-divider w-1/3">
-                            <div className="modal-field-container">
+                        <div className="flex flex-wrap modal-section-divider w-full sm:w-1/4">
+                            <div className="modal-field-container w-1/2 sm:w-full">
                                 <div>
-                                    <label className="modal-label w-1/2"> Created Date </label>
+                                    <label className="modal-label"> Created Date* </label>
                                 </div>
                                 <input
-                                    className="modal-field w-1/2"
+                                    className="modal-field w-full text-center"
                                     name="created-dt"
                                     type="date"
                                     placeholder="MM/DD/YYYY"
@@ -146,31 +168,13 @@ export default function TaskDetailModal(props) {
                                     required
                                     >
                                 </input>                                
-                            </div>
-                            <div className="modal-field-container">
+                            </div>                           
+                            <div className="modal-field-container w-1/2 sm:w-full">
                                 <div>
-                                    <label className="modal-label">Stakeholder</label>
+                                    <label className="modal-label">Review Date*</label>
                                 </div>
                                 <input
-                                    className="modal-field w-1/2"
-                                    name="stakeholder"
-                                    type="text"
-                                    placeholder="Stakeholder"
-                                    rows="1"
-                                    cols="30"
-                                    value={state.taskDetail.stakeholder}
-                                    onChange= {(e) =>
-                                        dispatch({ type: TASK_DETAIL_STAKEHOLDER, payload: e.target.value})}
-                                    required
-                                    >
-                                </input>
-                            </div>
-                            <div className="modal-field-container justify-left items-start align-top">
-                                <div>
-                                    <label className="modal-label">Review Date</label>
-                                </div>
-                                <input
-                                    className="modal-field w-1/2"
+                                    className="modal-field w-full text-center"
                                     name="review-dt"
                                     type="date"
                                     placeholder="MM/DD/YYYY"
@@ -181,12 +185,12 @@ export default function TaskDetailModal(props) {
                                     >
                                 </input>                                
                             </div>
-                            <div className="modal-field-container">
+                            <div className="modal-field-container w-1/2 sm:w-full">
                             <div>
-                                    <label className="modal-label">Assigned</label>
+                                    <label className="modal-label">Assigned*</label>
                                 </div>
                                 <select
-                                    className="modal-select w-1/2"
+                                    className="modal-select w-full text-center"
                                     name="assigned"
                                     type="text"
                                     value={state.taskDetail.assigned._id}
@@ -202,33 +206,54 @@ export default function TaskDetailModal(props) {
                                     }
                                 </select>                                
                             </div>
-                            <div className="modal-field-container">
+                            <div className="modal-field-container w-1/2 sm:w-full">
+                                <div>
+                                    <label className="modal-label">Stakeholder*</label>
+                                </div>
+                                <input
+                                    className="modal-field w-full text-center"
+                                    name="stakeholder"
+                                    type="text"
+                                    placeholder="Stakeholder"
+                                    rows="1"
+                                    cols="30"
+                                    value={state.taskDetail.stakeholder}
+                                    onChange= {(e) =>
+                                        dispatch({ type: TASK_DETAIL_STAKEHOLDER, payload: e.target.value})}
+                                    required
+                                    >
+                                </input>
+                            </div>
+                            <div className="modal-field-container w-1/2 sm:w-full">
                                 <div>
                                     <label className="modal-label">Stage</label>
                                 </div>
                                 <select
-                                    className="modal-select w-1/2"
+                                    className="modal-select w-full"
                                     name="status-macro"
                                     type="text"
                                     value={state.taskDetail.status_macro}
                                     onChange= {(e) =>
                                         dispatch({ type: TASK_DETAIL_STATUS_MACRO, payload: e.target.value})}
                                     >
+                                    <option>New</option>
+                                    <option>Design</option>
+                                    <option>Testing</option>
+                                    <option>Training</option>
+                                    <option>Deployment</option>
                                 </select>                                
                             </div>
-                            <div className="modal-field-container flex">
-                                <div className = "w-1/3 text-center">
-                                    <label className="modal-label">Status</label>
-                                </div>
+                            <div className="modal-field-container w-1/2 sm:w-full">
+                                <label className="modal-label">Status</label>
                                 <select
-                                    className="modal-select w-2/3"
+                                    className="modal-select w-full"
                                     name="status-micro"
                                     type="text"
                                     value={state.taskDetail.status_micro}
                                     onChange= {(e) =>
                                         dispatch({ type: TASK_DETAIL_STATUS_MICRO, payload: e.target.value})}
                                     >
-                                    <option> </option>
+                                    <option>On Hold</option>
                                     <option>Design</option>
                                     <option>Testing</option>
                                     <option>Training</option>
@@ -236,9 +261,9 @@ export default function TaskDetailModal(props) {
                                 </select> 
                             </div>
                         </div>
-                        <div className="modal-section-divider w-2/3">
+                        <div className="modal-section-divider w-full sm:w-3/4">
                             <div className="modal-field-container">                                    
-                                <label className="modal-label w-1/3">Title</label>
+                                <label className="modal-label">Title*</label>
                                 
                                 <textarea
                                     className="w-full modal-field"
@@ -248,14 +273,13 @@ export default function TaskDetailModal(props) {
                                     rows="2"
                                     cols="50"
                                     value={state.taskDetail.title}
+                                    onInput={(e) => expandArea(e)}
                                     onChange= {(e) =>
                                         dispatch({ type: TASK_DETAIL_TITLE, payload: e.target.value})}
                                     required
                                     >
                                 </textarea>
-                            </div>
-                            {/* <p> Global State Title: {state.taskDetail.title} </p> */}
-                            
+                            </div>                            
                             <div className="w-full modal-field-container">
                                 <label className="modal-label w-1/3">Summary</label>
                                 <textarea
@@ -266,32 +290,71 @@ export default function TaskDetailModal(props) {
                                     rows="4"
                                     cols="30"
                                     value={state.taskDetail.summary}
+                                    onInput={(e) => expandArea(e)}
                                     onChange= {(e) =>
                                         dispatch({ type: TASK_DETAIL_SUMMARY, payload: e.target.value})}
                                     >
                                 </textarea>
-                            </div>
-                            {/* <p> Global State Title: {state.taskDetail.title} </p> */}
+                            </div>                 
                         </div>
                 </div>
-
+                {/* Prioritisation Section*/}
+                <div className="modal-section bg-filter">
+                    <label className="w-full modal-label text-right"> Prioritisation Section </label>
+                
+                    <div>
+                        <p>Business Driven?</p>
+                        <input
+                            type="radio"
+                            name="business_driven"
+                            value="true"
+                            onClick={ (e) => {
+                                dispatch({ type: TASK_DETAIL_BUSINESS_DRIVEN, payload: true})
+                            }}
+                            >
+                        </input>
+                        <label>True</label>                    
+                        <input
+                            type="radio"
+                            name="business_driven"
+                            value="false"
+                            onClick={ (e) => {
+                                dispatch({ type: TASK_DETAIL_BUSINESS_DRIVEN, payload: false})
+                            }}
+                            >
+                        </input>
+                        <label>False</label>
+                    </div>
+                    <div>
+                        <p>Focus?</p>
+                        <input
+                            type="radio"
+                            name="focus"
+                            value="true"
+                            onClick={ (e) => {
+                                dispatch({ type: TASK_DETAIL_FOCUS, payload: true})
+                            }}
+                            >
+                        </input>
+                        <label>True</label>                    
+                        <input
+                            type="radio"
+                            name="focus"
+                            value="false"
+                            onClick={ (e) => {
+                                dispatch({ type: TASK_DETAIL_FOCUS, payload: false})
+                            }}
+                            >
+                        </input>
+                        <label>False</label>
+                    </div>
+                </div>
 
                 {/* Notes */}
                 <div className="bg-filter modal-section">
                     <label className="w-full modal-label w-1/3 text-right"> Notes Section</label>     
                 </div>
 
-                {/* Prioritisation Section*/}
-                <div className="bg-filter modal-section">
-                    <label className="w-full modal-label w-1/3 text-right"> Prioritisation Section </label>
-
-                    <label className="switch"></label>
-                    <input type="checkbox">                            
-                        </input><span className="slider round"></span>
-                        {/* {state.taskDetail.priority.category} */}
-
-
-                </div>
 
 
                 {/* Sign off section */}                    
@@ -301,26 +364,6 @@ export default function TaskDetailModal(props) {
                 </div>
 
                 {/* Modal Form Element Graveyard */}
-                <div className="bg-filter modal-section">                    
-                    <label className="w-full modal-label w-1/3 text-right"> Modal Form Field Graveyard </label>
-                    <div className="modal-field-container">
-                        <label className="modal-label w-1/3"> Unit Cost ($) </label>
-                        <input className="w-full modal-field"  type="number" placeholder="00.00" step="0.01"></input>
-                        {/* <p className="mt-1 mb-2 text-xs text-red-500 uppercase">Numbers only</p> */}
-                    </div>
-                    <div className="modal-field-container">
-                        <label className="modal-label w-1/3"> Qty In</label>
-                        <input className="w-full modal-field" type="text"></input>
-                    </div>
-                    <div className="modal-field-container">
-                        <label className="modal-label w-1/3"> Qty Out</label>
-                        <input className="w-full modal-field" type="text"></input>
-                    </div>
-                    <div className="modal-field-container">
-                        <label className="modal-label w-1/3"> Vintage_ID </label>
-                        <input className="w-full modal-field" type="number"></input>
-                    </div>  
-                </div>
 
                 {/* Footer */}
                 <p className="button-color px-6 py-2 my-2 font-bold text-2xl" onClick={() => consoleLog()} >

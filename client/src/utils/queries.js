@@ -46,7 +46,7 @@ export const TASKS_BY_ASSIGNED_ID = gql`
                 focus
                 category
                 important
-                urgency
+                urgent
                 high_effort
                 comment
             }
@@ -88,7 +88,7 @@ export const TASK_BY_TASK_ID = gql`
                 focus
                 category
                 important
-                urgency
+                urgent
                 high_effort
                 comment
             }
@@ -134,7 +134,7 @@ export const ALL_TASKS = gql`
                 focus
                 category
                 important
-                urgency
+                urgent
                 high_effort
                 comment
             }

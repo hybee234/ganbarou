@@ -57,9 +57,10 @@ export default function SideMenu() {
     //- Randomly picks between 3 gifs for side menu -//
     //-----------------------------------------------//
     function randomInt123(min, max) { // min and max included 
+
         return Math.floor(Math.random() * (max - min + 1) + min)
     }
-    const rndInt = randomInt123(1, 3)
+    const rndInt = randomInt123(1, 6)
     let gif = `../assets/images/chiikawa loading ${rndInt}.gif`
 
 
@@ -132,7 +133,7 @@ export default function SideMenu() {
                         }
                     </li>
                     <div id="side-menu-chiikawa">
-                        <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src={gif}/></div>                        
+                        <div className = "text-center py-2"><img className = "m-auto py-2" width="160px" src={gif}/></div>                        
                     </div>
                 </div>
             {/* </OutsideClickHandler> */}

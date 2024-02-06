@@ -42,7 +42,7 @@ const typeDefs = `
         focus: Boolean
         category: Int
         important: Boolean
-        urgency: Boolean
+        urgent: Boolean
         high_effort: Boolean
         comment: String
     }
@@ -65,6 +65,18 @@ const typeDefs = `
         username: String
     }
 
+
+    input priorityUserInput {
+        pipeline_number: Int
+        business_driven: Boolean
+        focus: Boolean
+        category: Int
+        important: Boolean
+        urgent: Boolean
+        high_effort: Boolean
+        comment: String
+    }
+
     type Mutation {
         addUser(username: String! email: String! password: String!): Auth
         login(email: String password: String!): Auth
@@ -77,7 +89,10 @@ const typeDefs = `
             title: String
             summary: String
             stakeholder: String
+            status_macro: String
+            status_micro: String
             assigned: assignedUserInput
+            priority: priorityUserInput
         ): Task
     }
 `;

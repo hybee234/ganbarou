@@ -531,7 +531,6 @@ li {
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-
     display: none;
     /* background-color: rgba(35, 35, 35, .7);  */
     position: absolute;
@@ -539,7 +538,6 @@ li {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 150;
-    /* max-height: calc(100vh - 40px); Limit height of modal window - Original */
     max-height: calc(100vh - 40px); /* Limit height of modal window - Original */
     overflow-y: auto; /* Add scrollbar if screen is too small for modal window */
     border-radius: 0.75rem;
@@ -571,34 +569,39 @@ li {
     /* border: 2px solid green; */
     /* background-color: rgba(0, 128, 0, 0.2); */
     width:100%;
+    text-transform: capitalize;
+    padding-left: 10px;
+    
 }
 
 .modal-select {
     border: 1px solid var(--inputborder);
-    font-size: 0.75rem;
+    font-size: 1rem;
     color: var(--text);
     border-radius: 8px;    
     transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     padding-left: 10px;
     padding-right: 10px;
-    /* background-color: rgba(0, 0, 128, 0.2);  */
+    background-color: rgba(150, 150, 150, 0.25); 
 }
 
 .modal-select option {
-    /* background-color: var(--darkgrey); */
+    background-color: var(--darkgrey);
     color: var(--modaltext);
-    padding: 12px 16px;
+    /* padding: 12px 16px; */
+
     text-decoration: none;
     display: block;
+    text-align: center;
 }
 .modal-field {
     /* background-color: var(--inputbackground); */
     border: 1px solid var(--inputborder);
 
-    font-size: 0.75rem;
+    font-size: 1rem;
     color: var(--text);
     border-radius: 8px;    
     transition-duration: 200ms;
@@ -607,7 +610,7 @@ li {
     padding-bottom: 2px;
     padding-left: 10px;
     padding-right: 10px;
-    /* background-color: rgba(0, 0, 128, 0.2);  */
+    background-color: rgba(150, 150, 150, 0.25);
 }
 
 .modal-field:hover {
@@ -626,11 +629,13 @@ li {
     /* border: 2px solid yellow; */
     /* background-color: rgba(255, 255, 0, 0.2); */
     text-align: left;
+    
 }
 
 .modal-section-divider {
     /* border: 2px solid magenta; */
     /* background-color: rgba(255, 0, 255, 0.2); */
+    padding: 5px
 }
 
 .modal-section {
@@ -691,7 +696,9 @@ li {
 /* Media Query LESS THAN 1280px /
 /*******************************/
 @media (max-width: 1280px) {
-
+    .modal-form {
+        width: 90%;
+    }
     h1 {
         font-size: 2.1rem;
     }
@@ -717,6 +724,9 @@ li {
 /* Media Query LESS THAN 1024 /
 /*****************************/
 @media (max-width: 1024px) {
+    .modal-form {
+        width: 95%;
+    }
     .page {        
         width: 90%        
     }

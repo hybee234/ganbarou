@@ -204,8 +204,14 @@ const resolvers = {
                         title: args.title,
                         summary: args.summary,
                         stakeholder: args.stakeholder,
+                        status_macro: args.status_macro,
+                        status_micro: args.status_micro,
                         $set: {assigned: {
                             _id: args.assigned._id,
+                        }},
+                        $set: {priority: {
+                            business_driven: args.priority.business_driven,
+                            focus: args.priority.focus,
                         }}
                     },
                     { new: true, runValidators: true})
