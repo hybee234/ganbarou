@@ -135,3 +135,12 @@ export const TASK_BY_TASK_ID = gql`
         }
     }
 `
+export const USER_LIST = gql`
+query Users {
+    users {
+        _id
+        username
+    }
+}
+
+`

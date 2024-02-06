@@ -7,12 +7,13 @@ const { Provider } = GlobalContext;
 const GlobalProvider = ({ value = [], ...props }) => {
 
     const initialstate = {
-        // login_email: '',
-        // login_password: '',
+
         sidemenu: true,
         user:[],
         taskDetailId:'',
         taskDetail:'',
+        tasks:[],
+        userlist:[],
         // showHideDetailView:'hide',       
     }
 
