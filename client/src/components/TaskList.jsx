@@ -51,7 +51,7 @@ export default function TaskList (props) {
     taskArray.focus.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
     taskArray.opportunistic.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
 
-    console.log("taskArray", taskArray)
+    console.log("TaskList Component: taskArray", taskArray)
 
 
     // console.log("user", user)               

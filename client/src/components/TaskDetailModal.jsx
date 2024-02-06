@@ -2,6 +2,7 @@
 Receives task ID of interest from parent and renders it
 The only way to show this is to click on a task that will pass task details to this component
 */
+import Auth from '../utils/auth';
 import dayjs from 'dayjs'
 import { format } from 'date-fns'
 import { useState } from 'react'
@@ -60,7 +61,35 @@ export default function TaskDetailModal(props) {
         document.getElementById('view-details-modal-form').style.display = 'none'
     }
 
-    console.log("State Assigned", state.taskDetail.assigned)
+    // console.log("State Assigned", state.taskDetail.assigned.username)
+    // console.log("State Assigned", state.taskDetail.assigned._id)
+
+    //-----------------------//
+    //- Log state to Console -//
+    //-----------------------//
+
+    const consoleLog = () => {
+        console.log("state", state)
+        const loggedIn = Auth.loggedIn()
+        console.log("Logged In?", loggedIn)
+    }
+    //------------------------//
+    //- Handle Assign Update -//
+    //------------------------//
+
+    const handleAssignUpdate = (e)=> {
+
+        console.log("HandleAssignUpdate, etarget,value", e.target.value)
+        const assigned = userSelect.filter( (a) => a._id === e.target.value)
+        console.log("Assigned", assigned[0])
+        dispatch({
+            type: TASK_DETAIL_ASSIGNED,
+            payload: assigned[0]
+        })
+    }
+    
+
+
 
     return (
         <div >Hello world
@@ -102,7 +131,7 @@ export default function TaskDetailModal(props) {
                                     >
                                 </input>
                             </div>
-                            <div className="modal-field-container">
+                            <div className="modal-field-container justify-left items-start align-top">
                                 <label className="modal-label"> Review Date </label>
                                 <input
                                     className="modal-field"
@@ -122,9 +151,9 @@ export default function TaskDetailModal(props) {
                                     className="modal-select"
                                     name="assigned"
                                     type="text"
-                                    value={state.taskDetail.assigned}
-                                    onChange= {(e) =>
-                                        dispatch({ type: TASK_DETAIL_ASSIGNED, payload: e.target.value})}
+                                    value={state.taskDetail.assigned._id}
+                                    onChange= {(e) => handleAssignUpdate(e)}
+                                        // dispatch({ type: TASK_DETAIL_ASSIGNED, payload: e.target.value})}
                                     required
                                     >
                                     {
@@ -248,6 +277,9 @@ export default function TaskDetailModal(props) {
                 </div>
 
                 {/* Footer */}
+                <p className="button-color px-6 py-2 my-2 font-bold text-2xl" onClick={() => consoleLog()} >
+                    Console.log(state)
+                </p>
                 <p className="block modal-label mt-10"> Task ID: {state.taskDetail._id}</p> 
             </form>
         </div>

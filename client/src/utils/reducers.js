@@ -18,13 +18,14 @@ import {
 export const reducer = (state, action) => {
     switch (action.type) {    
         case SIDE_MENU: {
+            console.log("SIDE_MENU reducer engaged")
             return {
                 ...state,
                 sidemenu: action.payload,
             }
         }
         case USER: {
-            console.log("Reducer USER engaged")
+            console.log("USER reducer engaged")
             return {
                 ...state,
                 user: action.payload,
@@ -43,7 +44,7 @@ export const reducer = (state, action) => {
         case TASKS: {
             console.log("TASK_DETAIL_ID reducer engaged")
             return {
-                ...state,
+                ...state, ...state,
                 tasks: action.payload,
             }
         }
@@ -110,17 +111,21 @@ export const reducer = (state, action) => {
             // Payload provides _id
             // Need to find the username based on _id
             //Then update both the _id and username in state
-            
+            // console.log("state", state)
+            // console.log("state userlist", state.userlist)
+            // console.log ("action payload", action.payload)
+            // const assigned = [state.userlist].filter( (a) => a._id === action.payload)
+            // console.log("State user", assigned)
             return {
                 ...state,
                 taskDetail: {
                     ...state.taskDetail,
-                    assigned: {
-                        ...state.taskDetail.assigned,
-                        _id: action.payload}
+                    assigned: action.payload
                 }
+                        // ...state.taskDetail.assigned,
+                        // assigned:: action.payload}
             }
-        }
+        }        
         case TASK_DETAIL_SUMMARY: {
             console.log("TASK_DETAIL_SUMMARY reducer engaged")
             return {

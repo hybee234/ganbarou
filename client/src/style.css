@@ -568,31 +568,15 @@ li {
 .modal-label {
     /* text-transform: uppercase; */
     /* letter-spacing: 0.25em; */
-    font-weight: 700;
+    font-weight: 500;
     font-size: 0.75rem/* 12px */;
     line-height: 1rem/* 16px */;
     border: 2px solid green;
     background-color: rgba(0, 128, 0, 0.2);
 }
 
-.modal-field {
-    /* background-color: var(--inputbackground); */
-    /* border: 2px solid var(--inputborder); */
-    font-size: 0.75rem;
-    color: var(--text);
-    border-radius: 8px;    
-    transition-duration: 200ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    padding-top: 2px;
-    padding-bottom: 2px;
-    padding-left: 10px;
-    padding-right: 10px;
-
-    /* border: 2px solid blue;*/
-    background-color: rgba(0, 0, 128, 0.2); 
-}
-
 .modal-select {
+    border: 1px solid var(--inputborder);
     font-size: 0.75rem;
     color: var(--text);
     border-radius: 8px;    
@@ -602,10 +586,7 @@ li {
     padding-bottom: 2px;
     padding-left: 10px;
     padding-right: 10px;
-
-    /* border: 2px solid blue;*/
     background-color: rgba(0, 0, 128, 0.2); 
-
 }
 
 .modal-select option {
@@ -615,16 +596,29 @@ li {
     text-decoration: none;
     display: block;
 }
-
+.modal-field {
+    /* background-color: var(--inputbackground); */
+    border: 1px solid var(--inputborder);
+    font-size: 0.75rem;
+    color: var(--text);
+    border-radius: 8px;    
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgba(0, 0, 128, 0.2); 
+}
 
 .modal-field:hover {
-    border: 2px solid var(--texthighlight)
+    border: 1px solid var(--texthighlight)
 }
 
 .modal-field:focus {
     outline: 2px solid transparent;
     outline-offset: 2px;
-    border: 2px solid var(--texthighlight);
+    border: 1px solid var(--texthighlight);
 }
 
 

@@ -42,7 +42,7 @@ export default function TasksSummary(props) {
 
     //Operational Tickets (total), future review
     const operationalReviewDue = tasks.filter(task => !task.complete_flag && !task.priority.business_driven && dayjs(task.review_dt).format('DD/MM/YYYY') <=  dayjs(now).format('DD/MM/YYYY')).length
-    console.log("operationalReviewDue: ", operationalReviewDue)
+    // console.log("operationalReviewDue: ", operationalReviewDue)
 
     //Business driven total 
     const totalBusiness = tasks.filter(task => !task.complete_flag && task.priority.business_driven).length
@@ -54,7 +54,7 @@ export default function TasksSummary(props) {
 
     // Business driven Focus, future review
     const businessFocusReviewDue = tasks.filter(task => !task.complete_flag && task.priority.business_driven && task.priority.focus && dayjs(task.review_dt).format('DD/MM/YYYY') <=  dayjs(now).format('DD/MM/YYYY')).length
-    console.log("businessFocusReviewDue: ", businessFocusReviewDue)
+    // console.log("businessFocusReviewDue: ", businessFocusReviewDue)
 
     // Business driven opportunistic, total
     const businessOpportunistic = tasks.filter(task => !task.complete_flag && task.priority.business_driven && !task.priority.focus).length

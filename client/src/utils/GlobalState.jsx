@@ -7,11 +7,45 @@ const { Provider } = GlobalContext;
 const GlobalProvider = ({ value = [], ...props }) => {
 
     const initialstate = {
-
         sidemenu: true,
         user:[],
         taskDetailId:'',
-        taskDetail:'',
+        taskDetail:{
+            assigned: {
+                _id :'',
+                username: '',
+            },
+            complete_dt:'',
+            complete_flag:'',
+            create_dt:'',
+            note: [{
+                note_author:{
+                    _id:""
+                },
+                note_dt:'',
+                note_id:'',
+                note_test:'',
+                note_type:'',
+            }],
+            priority: {
+                business_driven:'',
+                category: '',
+                comment: '',
+                focus: '',
+                high_effort: '',
+                important: '',
+                pipieline_number:'',
+                priority_id: '',
+                urgency: '',
+            },
+            review_dt:'',
+            stakeholder: '',
+            status_macro:'',
+            status_micro:'',
+            summary:'',
+            title:'',
+            _id:'',
+        },
         tasks:[],
         userlist:[],
         // showHideDetailView:'hide',       
