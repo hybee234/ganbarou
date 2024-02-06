@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import { useGlobalContext } from '../utils/GlobalState';
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { COMPLETE_TASK } from './../utils/mutations'
 import { TASK_DETAIL } from "./../utils/actions"
 import { toast } from 'react-toastify';
@@ -10,42 +10,41 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { FiEdit } from "react-icons/fi";
 import { TiTick } from "react-icons/ti";
-import { FaRegUserCircle } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
-import { LuCalendarClock } from "react-icons/lu";
 import { FaUserTie } from "react-icons/fa6";
 import { FaUserNinja } from "react-icons/fa6";
-import { LiaUserNinjaSolid } from "react-icons/lia";
 import { BsFillCalendar2WeekFill } from "react-icons/bs";
 
 import { Icon } from '@iconify/react';
-
 
 export default function TaskList (props) {
     console.log ("TaskList Rendering")
     //---------------------//
     //- Data Manipulation -//
     //---------------------//
-    const user = props.user                                     // User and tasks together
-    const userTasks = user.tasks                                // Just the tasks extracted out
+    const {tasks} = props
 
-    const tasks = userTasks.filter(task => !task.complete_flag) // Active tasks only
-
-    const operationalTasks = userTasks.filter(task => !task.complete_flag && !task.priority.business_driven) // OpertaionalTasks
-    const focusTasks = userTasks.filter(task => !task.complete_flag && task.priority.business_driven && task.priority.focus) // Focus Tasks
-    const opportunisticTasks = userTasks.filter(task => !task.complete_flag && task.priority.business_driven && !task.priority.focus) // Opportunistic Tasks
-
+    const allActiveTasks = tasks.filter(task => !task.complete_flag) // Active tasks only
+    const operationalTasks = tasks.filter(task => !task.complete_flag && !task.priority.business_driven) // OpertaionalTasks
+    const focusTasks = tasks.filter(task => !task.complete_flag && task.priority.business_driven && task.priority.focus) // Focus Tasks
+    const opportunisticTasks = tasks.filter(task => !task.complete_flag && task.priority.business_driven && !task.priority.focus) // Opportunistic Tasks
+    
     let taskArray = []
     taskArray.operational = operationalTasks
     taskArray.focus = focusTasks
     taskArray.opportunistic = opportunisticTasks
 
+    // All user accounts (for assigned dropdown)
+    const {userSelect} = props
+    // console.log("TaskList Component: userSelect:", userSelect)
+    
+    
     //-----------------------//
     //- Sort by review date -//
     //-----------------------//
 
     //sort array by older review date on top (smallest to greatest)
-    tasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
+    allActiveTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
 
     //Sort arrays lowest to max  (smallest to greatest)
     taskArray.operational.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
@@ -70,7 +69,7 @@ export default function TaskList (props) {
     const [rowIndex, setRowIndex] = useState('');
 
     // useState for Task Count
-    const [taskCount, useTaskCount] = useState(tasks.length)
+    const [taskCount, useTaskCount] = useState(allActiveTasks.length)
     const [operationalTaskCount, useOperationalTaskCount] = useState(taskArray.operational.length)
     const [focusTaskCount, useFocusTaskCount] = useState(taskArray.focus.length)
     const [opportunisticTaskCount, useOpportunisticTaskCount] = useState(taskArray.opportunistic.length)
@@ -122,11 +121,11 @@ export default function TaskList (props) {
         )
     }   
     
-    // Show error screen if error
+    // // Show error screen if error
     if (error) {return (
         <div id="loading-screen"> TaskList Component - Error! 
             <div>${error.message}</div>
-            <div>Allow this Chiikawa character to lighten the mood</div>
+            <div>Allow this Chiikawa character to lighten the mood (TaskList Mutation - Complete Task)</div>
             <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading 3.gif" /></div>        
         </div>    
     );}
@@ -171,7 +170,7 @@ export default function TaskList (props) {
     const viewTask = (taskId) => {
         
         // Filter userTasks for Task of interest
-        let taskDetailArray = userTasks.filter(task => task._id === taskId)
+        let taskDetailArray = tasks.filter(task => task._id === taskId)
         let taskDetail = taskDetailArray[0]
         // console.log("taskDetail", taskDetail)
         // let created_dtArray = taskDetail.created_dt.split("/")
@@ -253,7 +252,7 @@ export default function TaskList (props) {
         //         <tbody>
         //             {
         //                 // {/* Index in array to add rowIndex to table */}
-        //                 tasks.map( (task, index) => {   
+        //                 allActiveTasks.map( (task, index) => {   
         //                     return(
         //                         // <tr id={`table-row-${task._id}`} className="table-row text-center" key={task._id}  style={{ backgroundColor: reviewDue(task.review_dt)}}  onClick= { ()=> setRowIndex(index)}>
         //                         <tr id={`table-row-${task._id}`} className="table-row text-center" key={task._id} onClick= { ()=> setRowIndex(index)}>
@@ -355,22 +354,21 @@ export default function TaskList (props) {
                                         <td className="hidden sm:table-cell text-xs sm:text-xs md:text-sm xl:text-base table-row-cell review-date-js " data-review-dt={task.review_dt}> {dayjs(task.review_dt).format('DD/MM/YY')}</td>
                                         <td className="hidden sm:table-cell text-xs sm:text-xs md:text-sm xl:text-base table-row-cell">{task.assigned.username}</td> 
                                         <td className="hidden sm:table-cell text-xs sm:text-xs md:text-sm xl:text-base table-row-cell">{task.stakeholder}</td> 
-                                        <td className="sm:hidden table-cell text-xs sm:text-xs md:text-sm xl:text-base table-row-cell">
+                                        <td className="min-w-20 sm:hidden table-cell text-xs sm:text-xs md:text-sm xl:text-base table-row-cell">
 
-                                            <div className="flex justify-left items-center">
-                                                <div><BsFillCalendar2WeekFill className=""/> </div>
-                                                <div>&nbsp; {dayjs(task.review_dt).format('DD/MM/YY')}</div>
+                                            <div className="flex justify-left items-center pt-1">
+                                                <BsFillCalendar2WeekFill/>
+                                                <span>&nbsp; {dayjs(task.review_dt).format('D MMM')}</span>
                                             </div>
 
-
-                                            <div className="flex justify-left items-center">
-                                                <div><FaUserNinja className=""/> </div>
-                                                <div>&nbsp; {task.assigned.username}</div>
+                                            <div className="flex justify-left items-center py-1">
+                                                <FaUserNinja/>
+                                                <span>&nbsp; {task.assigned.username}</span>
                                             </div>
 
-                                            <div className="flex justify-left items-center">
-                                                <div><FaUserTie className=""/> </div>
-                                                <div>&nbsp; {task.stakeholder}</div>
+                                            <div className="flex justify-left items-center pb-1">
+                                                <FaUserTie/>
+                                                <span>&nbsp; {task.stakeholder}</span>
                                             </div>
 
                                         </td> 
@@ -433,7 +431,7 @@ export default function TaskList (props) {
                         taskArray.focus.map( (task, index) => {   
                             return(
                                 // <tr id={`table-row-${task._id}`} className="table-row text-center" key={task._id}  style={{ backgroundColor: reviewDue(task.review_dt)}}  onClick= { ()=> setRowIndex(index)}>
-                                <tr id={`table-row-${task._id}`} className="table-row text-center" key={task._id} onClick= { ()=> setRowIndex(index)}>
+                                <tr id={`table-row-${task._id}`} className="table-row" key={task._id} onClick= { ()=> setRowIndex(index)}>
                                     <td id={`created-dt-${task._id}`} className=" xl:text-base text-xs sm:text-xs md:text-sm" data-created-dt={task.created_dt}> {task.created_dt}</td>                                
                                     <td id={`title-${task._id}`} className="xl:text-base text-xs sm:text-xs md:text-sm"> {task.title}</td>
                                     {/* Hide if less than 640 pixels */}

@@ -1,14 +1,15 @@
-import { useState } from 'react'
-import OutsideClickHandler from 'react-outside-click-handler';
-import { Link } from 'react-router-dom';
-import { useGlobalContext } from '../utils/GlobalState';
 import Auth from '../utils/auth';
-import {useNavigate} from 'react-router-dom';
+import OutsideClickHandler from 'react-outside-click-handler';
+import { useState } from 'react'
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
+import { useGlobalContext } from '../utils/GlobalState';
 import { SIDE_MENU } from '../utils/actions';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function SideMenu() {
 
