@@ -163,11 +163,21 @@ export default function TaskDetailModal( {userSelect}) {
                             </input>                                
                         </div>                           
                         <div className="modal-field-container w-1/2 sm:w-full">                            
-                            <Tooltip title="This date determines when you next need to consider acting on this task, set it and move it around to organise your work (the task tables sort by this value and it also determines the red/green colouring. A perfect use case is when all your actions are complete awaiting a committee decision to move forward - set this date to the committee meeting date to declutter your list" arrow placement="right">
-                                <>  
+                            
+                                 
                                     <div>
                                         <label className="modal-label">Review Date*</label>
                                     </div>
+                                <Tooltip
+                                    title={
+                                        <div className="tooltip">                                            
+                                            <div className="tooltip-string">* Set your review date for when you next want to look at this task. Adjust it as frequently as needed to manage your workload.</div>                                    
+                                            <div className="tooltip-string">* Task lists sort by review date and are highlighted red if the date elapses.</div>                                    
+                                            <div className="tooltip-string">* Can't progress a task because you're waiting on the stakeholder? Set a review date in the future to follow up!"</div>
+                                        </div>}
+                                    arrow placement="right"
+                                    >
+                                 
                                     <input
                                         className="modal-field w-full text-center"
                                         name="review-dt"
@@ -178,8 +188,7 @@ export default function TaskDetailModal( {userSelect}) {
                                             dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value})}
                                         required
                                         >
-                                    </input>
-                                </> 
+                                    </input>                                
                             </Tooltip>                               
                         </div>
                         <div className="modal-field-container w-1/2 sm:w-full">

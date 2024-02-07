@@ -89,6 +89,20 @@ h2 {
     padding: 10px;
 }
 
+.tooltip {
+    font-size: 1rem;
+    /* line-height: 1px; */
+    padding: 5px;
+    font-weight: 300;
+    display: block;
+}
+
+.tooltip-string {
+    padding: 5px;
+    font-weight: 300;
+    display: block;
+}
+
 /********************/
 /* Background Image */
 /********************/
