@@ -26,6 +26,7 @@ import {
     TASK_DETAIL_SUMMARY,
     TASK_DETAIL_STATUS_MACRO,
     TASK_DETAIL_STATUS_MICRO,
+    TASK_DETAIL_COMMENT
 } from '../utils/actions'
 
 
@@ -162,33 +163,30 @@ export default function TaskDetailModal( {userSelect}) {
                                 >
                             </input>                                
                         </div>                           
-                        <div className="modal-field-container w-1/2 sm:w-full">                            
-                            
-                                 
-                                    <div>
-                                        <label className="modal-label">Review Date*</label>
-                                    </div>
-                                <Tooltip
-                                    title={
-                                        <div className="tooltip">                                            
-                                            <div className="tooltip-string">* Set your review date for when you next want to look at this task. Adjust it as frequently as needed to manage your workload.</div>                                    
-                                            <div className="tooltip-string">* Task lists sort by review date and are highlighted red if the date elapses.</div>                                    
-                                            <div className="tooltip-string">* Can't progress a task because you're waiting on the stakeholder? Set a review date in the future to follow up!"</div>
-                                        </div>}
-                                    arrow placement="right"
+                        <div className="modal-field-container w-1/2 sm:w-full">                           
+                            <div>
+                                <label className="modal-label">Review Date*</label>
+                            </div>
+                            <Tooltip
+                                title={
+                                    <div className="tooltip">                                            
+                                        <div className="tooltip-string">* Set your review date for when you next want to look at this task. Adjust it as frequently as needed to manage your workload.</div>                                    
+                                        <div className="tooltip-string">* Task lists sort by review date and are highlighted red if the date elapses.</div>                                    
+                                        <div className="tooltip-string">* Can't progress a task because you're waiting on the stakeholder? Set a review date in the future to follow up!"</div>
+                                    </div>}
+                                arrow placement="right"
+                            >
+                                <input
+                                    className="modal-field w-full text-center"
+                                    name="review-dt"
+                                    type="date"
+                                    placeholder="MM/DD/YYYY"
+                                    value={dayjs(state.taskDetail.review_dt).format('YYYY-MM-DD')}
+                                    onChange= {(e) =>
+                                        dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value})}
+                                    required
                                     >
-                                 
-                                    <input
-                                        className="modal-field w-full text-center"
-                                        name="review-dt"
-                                        type="date"
-                                        placeholder="MM/DD/YYYY"
-                                        value={dayjs(state.taskDetail.review_dt).format('YYYY-MM-DD')}
-                                        onChange= {(e) =>
-                                            dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value})}
-                                        required
-                                        >
-                                    </input>                                
+                                </input>                                
                             </Tooltip>                               
                         </div>
                         <div className="modal-field-container w-1/2 sm:w-full">
@@ -303,8 +301,7 @@ export default function TaskDetailModal( {userSelect}) {
                             </textarea>
 
                             {/* <div className="modal-section-divider justify-center align-center"> */}
-                                {/* Task Type Selector */}
-                                <div className="w-full">
+                                        <div className="w-full">
                                 <TaskDetailTaskType />
                             {/* </div> */}
                     </div>
@@ -320,30 +317,79 @@ export default function TaskDetailModal( {userSelect}) {
                 state.taskDetail.priority.business_driven === true ?
                 (
                     
-                <div className="modal-section bg-filter p-5 justify-center">
+                <div className="modal-section bg-filter p-5 justify-center flex flexwrap">
                     <label className="w-full modal-label text-right"> Prioritisation Section </label>
                 
-                    <div className="modal-section-divider w-full sm:w-1/2">
+                    <div className="modal-section-divider w-full sm:w-1/2 md:w-1/3">
                         {/* Important, Urgent, Effort */}
                         <div className="w-full">
                             <TaskDetailUrgentImportant />
                         </div>
                     </div>
-                    <div className="modal-section-divider w-full sm:w-1/2">
+                    <div className="modal-section-divider w-full sm:w-1/2 md:w-1/3">
                         {/* Category and Pipeline */}
                         <div className="w-full">
                             <TaskDetailCategory/>
                         </div>
                     </div>
-                    <div className="modal-section-divider">
-                        {/* Task Type Selector */}
+
+                {/* Comment*/}
+                    <div className="modal-section-divider w-full md:w-1/3">
                         <div className="w-full">
-                            comments
+                            <div className="modal-field-container">
+                                <label className="modal-label w-1/3">Comment</label>
+                                <Tooltip
+                                    title={
+                                        <div className="tooltip">                                            
+                                            <div className="tooltip-string">---</div>                                    
+                                            <div className="tooltip-string">---</div>                                      
+                                        </div>}
+                                    arrow placement="right"
+                                >
+                                <textarea
+                                    className="w-full modal-field"
+                                    name="status-summary"
+                                    type="text"
+                                    placeholder="Summary"
+                                    rows="4"
+                                    cols="30"
+                                    value={state.taskDetail.priority.comment}
+                                    onInput={(e) => expandArea(e)}
+                                    onChange= {(e) =>
+                                        dispatch({ type: TASK_DETAIL_COMMENT, payload: e.target.value})}
+                                    >
+                            </textarea>
+                                </Tooltip>
+                            </div>
                         </div>
                     </div>
+
+                {/* Pipeline */}
+                    <div className="modal-section-divider w-full md:w-1/3">
+                        <div className="w-full">
+                            <div className="modal-field-container">
+                                <label className="modal-label w-1/3">Pipeline Number</label>
+                                <Tooltip
+                                    title={
+                                        <div className="tooltip">                                            
+                                            <div className="tooltip-string">---</div>
+                                            <div className="tooltip-string">---</div>                                     
+                                        </div>}
+                                    arrow placement="right"
+                                >
+                                <div className="flex border-2 modal-field"> What's up?
+
+                                </div>
+                                </Tooltip>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div> 
                 ):(
-                        <div>Operational Tasks Exempt from Prioritsation</div>
+                        <div>Operational Tasks are exempt from Prioritsation</div>
                 )
             }
 
