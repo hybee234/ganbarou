@@ -545,7 +545,7 @@ li {
     background-attachment: fixed;
     display: none;
     /* background-color: rgba(35, 35, 35, .7);  */
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -581,6 +581,7 @@ li {
     line-height: 1rem/* 16px */;
     width:100%;
     text-align: center;  
+    padding: 2px;
     /* border: 2px solid green; */
     /* background-color: rgba(0, 128, 0, 0.2); */
     transition: ease-in-out 0.2s;
@@ -639,7 +640,7 @@ li {
 
     
 .modal-field-container {
-    /* border: 2px solid yellow; */
+    border: 2px solid yellow;
     /* background-color: rgba(255, 255, 0, 0.2); */
     text-align: left;
     transition: ease-in-out 0.2s;
@@ -647,7 +648,7 @@ li {
 }
 
 .modal-section-divider {
-    /* border: 2px solid magenta; */
+    border: 2px solid magenta;
     /* background-color: rgba(255, 0, 255, 0.2); */
     padding: 5px;
     transition: ease-in-out 0.2s;
@@ -659,7 +660,7 @@ li {
     margin: 5px;
     padding: 5px;
     /* border: 2px solid green; */
-    /* background-color: rgba(0, 255, 0, 0.2);       */
+    background-color: rgba(0, 255, 0, 0.2);      
     transition: ease-in-out 0.2s;
 }
 

@@ -311,16 +311,16 @@ export default function TaskDetailModal( {userSelect}) {
                 state.taskDetail.priority.business_driven === true ?
                 (
                     
-                    <div className="modal-section bg-filter p-5">
+                <div className="modal-section bg-filter p-5 justify-center">
                     <label className="w-full modal-label text-right"> Prioritisation Section </label>
                 
-                    <div className="modal-section-divider">
+                    <div className="modal-section-divider w-full sm:w-1/2">
                         {/* Important, Urgent, Effort */}
                         <div className="w-full">
                             <TaskDetailUrgentImportant />
                         </div>
                     </div>
-                    <div className="modal-section-divider">
+                    <div className="modal-section-divider w-full sm:w-1/2">
                         {/* Category and Pipeline */}
                         <div className="w-full">
                             <TaskDetailCategory/>
