@@ -19,7 +19,16 @@ export default function TaskDetailCategory() {
         <div className="flex justify-center">
             <div className="modal-field-container">
             <label className="modal-label">Cat 1</label>
-                <Tooltip title="Cat 1: Urgent, High Value - Critical Initiatives. Crippling to business without immediate attention" arrow placement="top">
+                
+                <Tooltip
+                    title={
+                        <div className="tooltip">                                            
+                            <div className="tooltip-string">CAT 1</div>                                    
+                            <div className="tooltip-string">Urgent, High Value - Critical Initiatives.</div>                                    
+                            <div className="tooltip-string">Critical enterprise risk to business without immediate attention</div>
+                        </div>}
+                    arrow placement="top"
+                >
                     <div
                         className="border-2 modal-field cursor-pointer"
                         onClick={ () => {
@@ -56,7 +65,15 @@ export default function TaskDetailCategory() {
             
             <div className="modal-field-container">
                 <label className="modal-label">Cat 2</label>
-                <Tooltip title="Cat 2: Urgent, High Value - Must Have - Major initiatives, typically strategic in nature" arrow placement="top">
+                <Tooltip
+                    title={
+                        <div className="tooltip">                                            
+                            <div className="tooltip-string">CAT 2</div>                                    
+                            <div className="tooltip-string">Urgent, High Value - Must Have.</div>                                    
+                            <div className="tooltip-string">Major initiatives, typically strategic in nature</div>
+                        </div>}
+                    arrow placement="top"
+                >
                     <div
                         className="border-2 modal-field cursor-pointer"
                         onClick={ () => {
@@ -91,7 +108,15 @@ export default function TaskDetailCategory() {
 
             <div className="modal-field-container">
                 <label className="modal-label">Cat 3</label>
-                <Tooltip title="Cat 3: Not-urgent, High Value - Should Have - Moderate initiatives, supports part of business" arrow placement="top">
+                <Tooltip
+                    title={
+                        <div className="tooltip">                                            
+                            <div className="tooltip-string">CAT 3</div>                                    
+                            <div className="tooltip-string">Not-urgent, High Value - Should Have</div>                                    
+                            <div className="tooltip-string">Moderate initiatives, supports part of business</div>
+                        </div>}
+                    arrow placement="top"
+                >
                     <div
                         className="border-2 modal-field cursor-pointer"
                         onClick={ () => {
@@ -126,7 +151,15 @@ export default function TaskDetailCategory() {
 
             <div className="modal-field-container">
                 <label className="modal-label">Cat 4</label>
-                <Tooltip title="Cat 4: Not-urgent, Low Value, Low effort - Could Have - Low impact to business as a whole, non critical" arrow placement="top">
+                <Tooltip
+                    title={
+                        <div className="tooltip">                                            
+                            <div className="tooltip-string">CAT 4</div>                                    
+                            <div className="tooltip-string">Not-urgent, Low Value, Low effort - Could Have</div>                                    
+                            <div className="tooltip-string">Low impact to business as a whole, non critical</div>
+                        </div>}
+                    arrow placement="top"
+                >
                     <div
                         className="border-2 modal-field cursor-pointer"
                         onClick={ () => {
@@ -161,7 +194,15 @@ export default function TaskDetailCategory() {
 
             <div className="modal-field-container">
                 <label className="modal-label">Cat 5</label>
-                <Tooltip title="Cat 5: Not-urgent, Low Value, High effort - Nice to have - Effort outweights value" arrow placement="top">
+                <Tooltip
+                    title={
+                        <div className="tooltip">                                            
+                            <div className="tooltip-string">CAT 5</div>                                    
+                            <div className="tooltip-string">Not-urgent, Low Value, High effort - Nice to have</div>                                    
+                            <div className="tooltip-string">Effort outweights value</div>
+                        </div>}
+                    arrow placement="top"
+                >
                     <div
                         className="border-2 modal-field cursor-pointer"
                         onClick={ () => {

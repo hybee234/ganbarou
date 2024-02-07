@@ -35,7 +35,16 @@ export default function TaskDetailUrgentImportant() {
                         }}
                     }
                 >
-                    <Tooltip title="How time critical is this request? Determined by Enterprise Risk Assessment" arrow placement="top">
+
+                    <Tooltip
+                        title={
+                            <div className="tooltip">                                            
+                                <div className="tooltip-string">URGENT</div>                                    
+                                <div className="tooltip-string">How time critical is this request? Determined by Enterprise Risk Assessment.</div>                                    
+                                <div className="tooltip-string"></div>
+                            </div>}
+                        arrow placement="top"
+                    >
                         {
                             state.taskDetail.priority.urgent ?
                             (
@@ -79,7 +88,16 @@ export default function TaskDetailUrgentImportant() {
                         }}
                     }
                 >
-                    <Tooltip title="Is this request of high value and impact to business risks/benefits?" arrow placement="top">
+                    
+                    <Tooltip
+                        title={
+                            <div className="tooltip">                                            
+                                <div className="tooltip-string">IMPORTANT</div>                                    
+                                <div className="tooltip-string">Is this request of high value and impact to business risks/benefits?</div>                                    
+                                <div className="tooltip-string"></div>
+                            </div>}
+                        arrow placement="top"
+                    >
                         {
                             state.taskDetail.priority.important ?
                             (
@@ -121,7 +139,16 @@ export default function TaskDetailUrgentImportant() {
                         }}
                     }
                 >
-                    <Tooltip title="Judgement call on effort required to meet business request" arrow placement="top">
+                
+                    <Tooltip
+                        title={
+                            <div className="tooltip">                                            
+                                <div className="tooltip-string">EFFORT</div>                                    
+                                <div className="tooltip-string">Judgement call on effort required to meet business request</div>                                    
+                                <div className="tooltip-string"></div>
+                            </div>}
+                        arrow placement="top"
+                    >
                     {
                         state.taskDetail.priority.high_effort ?
                         (
