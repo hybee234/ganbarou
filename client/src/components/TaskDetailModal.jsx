@@ -29,35 +29,14 @@ import {
 } from '../utils/actions'
 
 
-export default function TaskDetailModal(props) {
+export default function TaskDetailModal( {userSelect}) {
     
     console.log("TaskDetailModal Reloaded")
 
     //Hook to access global context
-    const [state, dispatch] = useGlobalContext();      
-    console.log("state.taskDetail", state.taskDetail)
-    //---------------------//
-    //- Data Manipulation -//
-    //---------------------//
-    let now = new Date();
-    const { userSelect } = props
-    // console.log("TaskDetailModal Component: userSelect:", userSelect)
-        
+    const [state, dispatch] = useGlobalContext();  
 
-    //-------------------------//
-    //- Date Formatter Helper -//
-    //-------------------------//    
-    // Converts date format to be accetpable by HTML date field
-    const dateHelper = (date)=> {
-        if (date) {
-            // console.log ("Date Before", date)
-            // let htmldate = format(new Date (date),"yyyy-MM-dd")
-            const htmldate = dayjs(date).format('YYYY-MM-DD')
-            // console.log ("Date After", htmldate)
-            return htmldate
-        } else 
-            return 
-    }
+    console.log("state.taskDetail", state.taskDetail)
 
     //--------------------//
     //- Close Modal Form -//
@@ -153,22 +132,7 @@ export default function TaskDetailModal(props) {
         textarea.style.height = Math.min(textarea.scrollHeight, heightLimit) + "px";
         };
 
-    //-------------------------//
-    //- Populate Radio Buttons-//
-    //-------------------------//
 
-    // if (state.taskDetail.priority.business_driven === true) {
-    //     document.getElementById('radio-business-driven-true').checked=true
-    // }
-    // if (state.taskDetail.priority.business_driven === false) {
-    //     document.getElementById('radio-business-driven-false').checked=true
-    // }
-    // if (state.taskDetail.priority.focus === true) {
-    //     document.getElementById('radio-focus-true').checked=true
-    // }
-    // if (state.taskDetail.priority.focus === false) {
-    //     document.getElementById('radio-focus-false').checked=true
-    // }
 
     return (
         <div>
@@ -191,32 +155,31 @@ export default function TaskDetailModal(props) {
                                 name="created-dt"
                                 type="date"
                                 placeholder="MM/DD/YYYY"
-                                value={dateHelper(state.taskDetail.created_dt)}
+                                value={dayjs(state.taskDetail.created_dt).format('YYYY-MM-DD')}
                                 onChange= {(e) =>
                                     dispatch({ type: TASK_DETAIL_CREATED_DT, payload: e.target.value})}
                                 required
                                 >
                             </input>                                
                         </div>                           
-                        <div className="modal-field-container w-1/2 sm:w-full">
-                            
-                        <Tooltip title="This date determines when you next need to consider acting on this task, set it and move it around to organise your work (the task tables sort by this value and it also determines the red/green colouring. A perfect use case is when all your actions are complete awaiting a committee decision to move forward - set this date to the committee meeting date to declutter your list" arrow placement="right">
-
-
-                            <div>
-                                <label className="modal-label">Review Date*</label>
-                            </div>
-                            <input
-                                className="modal-field w-full text-center"
-                                name="review-dt"
-                                type="date"
-                                placeholder="MM/DD/YYYY"
-                                value={dateHelper(state.taskDetail.review_dt)}
-                                onChange= {(e) =>
-                                    dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value})}
-                                required
-                                >
-                            </input> 
+                        <div className="modal-field-container w-1/2 sm:w-full">                            
+                            <Tooltip title="This date determines when you next need to consider acting on this task, set it and move it around to organise your work (the task tables sort by this value and it also determines the red/green colouring. A perfect use case is when all your actions are complete awaiting a committee decision to move forward - set this date to the committee meeting date to declutter your list" arrow placement="right">
+                                <>  
+                                    <div>
+                                        <label className="modal-label">Review Date*</label>
+                                    </div>
+                                    <input
+                                        className="modal-field w-full text-center"
+                                        name="review-dt"
+                                        type="date"
+                                        placeholder="MM/DD/YYYY"
+                                        value={dayjs(state.taskDetail.review_dt).format('YYYY-MM-DD')}
+                                        onChange= {(e) =>
+                                            dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value})}
+                                        required
+                                        >
+                                    </input>
+                                </> 
                             </Tooltip>                               
                         </div>
                         <div className="modal-field-container w-1/2 sm:w-full">
@@ -341,9 +304,9 @@ export default function TaskDetailModal(props) {
                 </div>
 
 
-                    {/*************************/}
-                    {/* Prioritisation Section*/}
-                    {/*************************/}
+    {/*************************/}
+    {/* Prioritisation Section*/}
+    {/*************************/}
             {
                 state.taskDetail.priority.business_driven === true ?
                 (
