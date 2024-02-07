@@ -168,7 +168,7 @@ export default function TaskDetailTaskType() {
                                     (
                                         <div>
                                             <p className = "modal-label"> Focus Task Type </p>
-                                            <p className = "modal-label"> (Business Driven/High Priority) </p>
+                                            <p className = "modal-label"> Business Driven/High Priority </p>
                                         </div>
                                     ):(
                                         <div>

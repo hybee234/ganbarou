@@ -1,4 +1,7 @@
 
+
+import * as React from 'react';
+import Tooltip from '@mui/material/Tooltip';
 import { Icon } from '@iconify/react';
 import { useGlobalContext } from '../utils/GlobalState';
 
@@ -32,30 +35,36 @@ export default function TaskDetailUrgentImportant() {
                         }}
                     }
                 >
-                    {
-                        state.taskDetail.priority.urgent ?
-                        (
-                            <div>
-                                <Icon
-                                    icon="noto:fire"
-                                    // icon="emojione:fire"
-                                    // width="128" height="128" 
-                                    className="task-detail-icon m-auto"
-                                />
-                                <p className = "text-center">Yes</p>
-                            </div>  
-                        ):(
-                            <div> 
-                                <Icon
-                                    icon="fluent-emoji-flat:sloth"
-                                    // icon="fa6-solid:fire"
-                                    // width="128" height="128" 
-                                    className="task-detail-icon m-auto"
-                                /> 
-                                <p className = "text-center">No</p>
-                            </div>  
-                        )
-                    }
+                    <Tooltip title="How time critical is this request? Determined by Enterprise Risk Assessment" arrow placement="top">
+                        {
+                            state.taskDetail.priority.urgent ?
+                            (
+                                <div>
+                                    <Icon
+                                        // icon="noto:fire"
+                                        icon="emojione-v1:fire"
+                                        
+                                        // icon="emojione:fire"
+                                        // width="128" height="128" 
+                                        className="task-detail-icon m-auto"
+                                    />
+                                    <p className = "text-center">Yes</p>
+                                </div>  
+                            ):(
+                                <div> 
+                                    <Icon
+                                        // icon="fluent-emoji-flat:sloth"
+                                        icon="streamline-emojis:turtle"
+                                        
+                                        // icon="fa6-solid:fire"
+                                        // width="128" height="128" 
+                                        className="task-detail-icon m-auto"
+                                    /> 
+                                    <p className = "text-center">No</p>
+                                </div>  
+                            )
+                        }
+                    </Tooltip>
                 </div>
             </div>
             <div className="modal-field-container cursor-pointer">
@@ -74,30 +83,34 @@ export default function TaskDetailUrgentImportant() {
                         }}
                     }
                 >
-                    {
-                        state.taskDetail.priority.important ?
-                        (
-                            <div> 
-                                <Icon
-                                    icon="noto:crown"
-                                    // icon="emojione:fire"
-                                    // width="128" height="128" 
-                                    className="task-detail-icon m-auto"
-                                />
-                                <p className = "text-center">Yes</p>
-                            </div>    
-                        ):(
-                            <div>
-                                <Icon
-                                    icon="emojione-v1:cross-mark"
-                                    // icon="fa6-solid:fire"
-                                    // width="128" height="128" 
-                                    className="task-detail-icon m-auto"
-                                /> 
-                                <p className = "text-center">No</p>
-                            </div>  
-                        )
-                    }
+                    <Tooltip title="Is this request of high value and impact to business risks/benefits?" arrow placement="top">
+                        {
+                            state.taskDetail.priority.important ?
+                            (
+                                <div> 
+                                    <Icon
+                                        icon="noto:crown"
+                                        // icon="emojione:fire"
+                                        // width="128" height="128" 
+                                        className="task-detail-icon m-auto"
+                                    />
+                                    <p className = "text-center">Yes</p>
+                                </div>    
+                            ):(
+                                <div>
+                                    <Icon
+                                        // icon="emojione-v1:cross-mark"
+                                        icon="noto-v1:down-arrow"
+                                        // noto-v1:down-arrow
+                                        // icon="fa6-solid:fire"
+                                        // width="128" height="128" 
+                                        className="task-detail-icon m-auto"
+                                    /> 
+                                    <p className = "text-center">No</p>
+                                </div>  
+                            )
+                        }
+                    </Tooltip>
                 </div>
             </div>
             <div className="modal-field-container justify-center text-center align-center">
@@ -116,6 +129,7 @@ export default function TaskDetailUrgentImportant() {
                         }}
                     }
                 >
+                    <Tooltip title="Judgement call on effort required to meet business request" arrow placement="top">
                     {
                         state.taskDetail.priority.high_effort ?
                         (
@@ -140,6 +154,7 @@ export default function TaskDetailUrgentImportant() {
                             </div>  
                         )
                     }
+                    </Tooltip>
                 </div>
             </div>    
         </div>  

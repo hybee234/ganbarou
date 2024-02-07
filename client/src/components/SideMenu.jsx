@@ -16,7 +16,6 @@ export default function SideMenu() {
     // console.log("SideMenu refreshed")
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
-
     // const [outsideClick, setOutSideClick] = useState(false)
 
     // Hook to useNavigate
@@ -62,9 +61,6 @@ export default function SideMenu() {
     }
     const rndInt = randomInt123(1, 6)
     let gif = `../assets/images/chiikawa loading ${rndInt}.gif`
-
-
-
 
     return (
         <header >
@@ -145,7 +141,7 @@ export default function SideMenu() {
                         <Link className="link" to='/'>
                             {/* <img src='/assets/images/Ganbarou Logo 2.png' width="300px" className="font-semibold text-center text-color text-3xl sm:text-4xl lg:text-5xl m-auto "></img>   */}
                             <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Ganbarou!</div>
-                            <div className="hidden sm:block text-md xl:text-lg">頑張ろう</div>
+                            <div id="ganbarou-subtitle" className="hidden sm:block text-md xl:text-lg">頑張ろう</div>
                         </Link>
                     </div>
                 </div>
