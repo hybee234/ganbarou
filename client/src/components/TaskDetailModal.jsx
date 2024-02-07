@@ -16,7 +16,7 @@ import { UPDATE_TASK_BY_TASK_ID } from './../utils/mutations';
 
 import TaskDetailTaskType from '../components/TaskDetailTaskType';
 import TaskDetailUrgentImportant from '../components/TaskDetailUrgentImportant';
-import TaskDetailCategoryPipeline from '../components/TaskDetailCategoryPipeline';
+import TaskDetailCategory from '../components/TaskDetailCategory';
 
 import {
     TASK_DETAIL_CREATED_DT,
@@ -330,21 +330,28 @@ export default function TaskDetailModal(props) {
                                     dispatch({ type: TASK_DETAIL_SUMMARY, payload: e.target.value})}
                                 >
                             </textarea>
+
+                            {/* <div className="modal-section-divider justify-center align-center"> */}
+                                {/* Task Type Selector */}
+                                <div className="w-full">
+                                <TaskDetailTaskType />
+                            {/* </div> */}
+                    </div>
                         </div>                 
                     </div>
                 </div>
 
-    {/*************************/}
-    {/* Prioritisation Section*/}
-    {/*************************/}
-                <div className="modal-section bg-filter p-5">
+
+                    {/*************************/}
+                    {/* Prioritisation Section*/}
+                    {/*************************/}
+            {
+                state.taskDetail.priority.business_driven === true ?
+                (
+                    
+                    <div className="modal-section bg-filter p-5">
                     <label className="w-full modal-label text-right"> Prioritisation Section </label>
-                    <div className="modal-section-divider">
-                        {/* Task Type Selector */}
-                        <div className="w-full">
-                            <TaskDetailTaskType />
-                        </div>
-                    </div>
+                
                     <div className="modal-section-divider">
                         {/* Important, Urgent, Effort */}
                         <div className="w-full">
@@ -354,7 +361,7 @@ export default function TaskDetailModal(props) {
                     <div className="modal-section-divider">
                         {/* Category and Pipeline */}
                         <div className="w-full">
-                            <TaskDetailCategoryPipeline />
+                            <TaskDetailCategory/>
                         </div>
                     </div>
                     <div className="modal-section-divider">
@@ -363,10 +370,11 @@ export default function TaskDetailModal(props) {
                             comments
                         </div>
                     </div>
-
-
-
                 </div> 
+                ):(
+                        <div>Operational Tasks Exempt from Prioritsation</div>
+                )
+            }
 
     {/****************/}
     {/* Notes Section*/}

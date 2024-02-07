@@ -571,6 +571,7 @@ li {
     text-align: center;  
     /* border: 2px solid green; */
     /* background-color: rgba(0, 128, 0, 0.2); */
+    transition: ease-in-out 0.2s;
 }
 
 .modal-select {
@@ -610,6 +611,7 @@ li {
     padding-left: 10px;
     padding-right: 10px;
     background-color: rgba(150, 150, 150, 0.25);
+    transition: ease-in-out 0.2s;
 }
 
 .modal-field:hover {
@@ -628,13 +630,15 @@ li {
     /* border: 2px solid yellow; */
     /* background-color: rgba(255, 255, 0, 0.2); */
     text-align: left;
+    transition: ease-in-out 0.2s;
     
 }
 
 .modal-section-divider {
     border: 2px solid magenta;
     background-color: rgba(255, 0, 255, 0.2);
-    padding: 5px
+    padding: 5px;
+    transition: ease-in-out 0.2s;
 }
 
 .modal-section {
@@ -644,11 +648,13 @@ li {
     padding: 5px;
     /* border: 2px solid green; */
     /* background-color: rgba(0, 255, 0, 0.2);       */
+    transition: ease-in-out 0.2s;
 }
 
 .task-detail-icon {
     font-size: 3rem;
     padding: 3px;
+    transition: ease-in-out 0.2s;
 }
 
 /******************************/
