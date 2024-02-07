@@ -644,6 +644,10 @@ li {
     margin: 5px;      
 }
 
+.task-detail-icon {
+    font-size: 2rem;
+}
+
 /******************************/
 /* Modal - Close/Cross button */
 /******************************/

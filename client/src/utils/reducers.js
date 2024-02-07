@@ -165,29 +165,31 @@ export const reducer = (state, action) => {
         }
         case TASK_DETAIL_BUSINESS_DRIVEN: {
             console.log("TASK_DETAIL_BUSINESS_DRIVEN reducer engaged")
-
-            return {
+            return { 
                 ...state,
                 taskDetail: {
                     ...state.taskDetail,
                     priority: {
                         ...state.taskDetail.priority,
-                        business_driven: action.payload}
-                    }
+                        business_driven: action.payload.business_driven,
+                        focus: action.payload.focus}                    
                 }
+            }
         }
+        
         case TASK_DETAIL_FOCUS: {
             console.log("TASK_DETAIL_FOCUS reducer engaged")
-
-            return {
+            console.log(action.payload.focus)
+            return { 
                 ...state,
                 taskDetail: {
                     ...state.taskDetail,
                     priority: {
                         ...state.taskDetail.priority,
-                        focus: action.payload}
-                    }
+                        business_driven: action.payload.business_driven,
+                        focus: action.payload.focus}                    
                 }
+            }
         }
 
         // TASK_DETAIL_IMPORTANT,

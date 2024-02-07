@@ -62,7 +62,7 @@ export default function MyTasks() {
     // Filter array for provided UserID (default is the logged in user)
     // console.log("UserID:", userId) 
     const tasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === userId)
-    console.log("tasks", tasks)
+    // console.log("MyTasksPage:tasks", tasks)
 
     // WARNING ... Dispatch causes infinite re-render loop ...
     //

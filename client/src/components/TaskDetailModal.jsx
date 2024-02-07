@@ -10,6 +10,10 @@ import { useGlobalContext } from '../utils/GlobalState';
 import { useMutation } from '@apollo/client';
 import { UPDATE_TASK_BY_TASK_ID } from './../utils/mutations';
 
+import { SiTarget } from "react-icons/si";
+import { FaTools } from "react-icons/fa";
+import { FaClock } from "react-icons/fa6";
+
 import {
     TASK_DETAIL_CREATED_DT,
     TASK_DETAIL_TITLE,
@@ -36,6 +40,7 @@ export default function TaskDetailModal(props) {
     //---------------------//
     //- Data Manipulation -//
     //---------------------//
+    let now = new Date();
     const {userSelect} = props
     // console.log("TaskDetailModal Component: userSelect:", userSelect)
         
@@ -142,6 +147,23 @@ export default function TaskDetailModal(props) {
         textarea.style.height = ""; /* Reset the height*/
         textarea.style.height = Math.min(textarea.scrollHeight, heightLimit) + "px";
         };
+
+    //-------------------------//
+    //- Populate Radio Buttons-//
+    //-------------------------//
+
+    if (state.taskDetail.priority.business_driven === true) {
+        document.getElementById('radio-business-driven-true').checked=true
+    }
+    if (state.taskDetail.priority.business_driven === false) {
+        document.getElementById('radio-business-driven-false').checked=true
+    }
+    if (state.taskDetail.priority.focus === true) {
+        document.getElementById('radio-focus-true').checked=true
+    }
+    if (state.taskDetail.priority.focus === false) {
+        document.getElementById('radio-focus-false').checked=true
+    }
 
     return (
         <div >
@@ -302,24 +324,167 @@ export default function TaskDetailModal(props) {
                 <div className="modal-section bg-filter">
                     <label className="w-full modal-label text-right"> Prioritisation Section </label>
                 
+                    { //first checkpoint
+                        state.taskDetail.priority.business_driven ? 
+                        ( // Business driven request
+                            <div>
+                                <FaTools
+                                    color="grey"
+                                    className="task-detail-icon"
+                                    onClick={ () => {
+                                        dispatch({ type: TASK_DETAIL_BUSINESS_DRIVEN,
+                                            payload: {
+                                                business_driven: false,
+                                                focus: false
+                                            }
+                                        })
+                                    }}
+                                />
+
+                                
+
+                                { //Check if Focus or opportunistic
+                                    state.taskDetail.priority.focus ?
+                                    (
+                                        <div>
+                                            {// is review date passed?
+                                                dayjs(now).isAfter(dayjs(state.taskDetail.review_dt)) ?
+                                                (
+                                                    <div>
+                                                        <SiTarget color="red" className="task-detail-icon" />
+                                                    </div>
+                                                ):(
+                                                    <div>
+                                                        <SiTarget color="green" className="task-detail-icon" />
+                                                    </div>
+                                                )
+                                            }
+
+                                            <FaClock
+                                                color="grey"
+                                                className="task-detail-icon"
+                                                onClick={() => {
+                                                    dispatch({ type: TASK_DETAIL_FOCUS,
+                                                        payload: {
+                                                            business_driven: true,
+                                                            focus: false
+                                                        }
+                                                    })
+                                                }}
+                                            />
+                                        </div>
+                                    ):(
+                                        <div>
+                                            <SiTarget
+                                                color="grey"
+                                                className="task-detail-icon"                                
+                                                onClick={ () => {
+                                                    dispatch({ type: TASK_DETAIL_FOCUS,
+                                                        payload: {
+                                                            business_driven: true,
+                                                            focus: true
+                                                        }
+                                                    })
+                                                }}
+                                            />
+                                            {// is review date passed?
+                                                dayjs(now).isAfter(dayjs(state.taskDetail.review_dt)) ?
+                                                (
+                                                    <div>
+                                                        <FaClock color="red" className="task-detail-icon" />
+                                                    </div>
+                                                ):(
+                                                    <div>
+                                                        <FaClock color="green" className="task-detail-icon" />
+                                                    </div>
+                                                )
+                                            }
+                                        </div>   
+                                    )
+                                }
+                            </div>
+                            
+                        ):(
+                            //Not a business driven request (Operationa; Active)
+                            <div>
+                                { 
+                                    <div>                               
+                                        {// is review date passed?
+                                            dayjs(now).isAfter(dayjs(state.taskDetail.review_dt)) ?
+                                            (
+                                                <div>
+                                                    <FaTools color="red" className="task-detail-icon" />
+                                                </div>
+                                            ):(
+                                                <div>
+                                                    <FaTools color="green" className="task-detail-icon" />
+                                                </div>
+                                            )
+                                        }
+                                        <SiTarget
+                                            color="grey"
+                                            className="task-detail-icon"                                
+                                            onClick={ () => {
+                                                dispatch({ type: TASK_DETAIL_FOCUS,
+                                                    payload: {
+                                                        business_driven: true,
+                                                        focus: true
+                                                    }
+                                                })
+                                            }}
+                                        />
+                                        <FaClock
+                                        color="grey"
+                                        className="task-detail-icon"
+                                        onClick={() => {
+                                            dispatch({ type: TASK_DETAIL_FOCUS,
+                                                payload: {
+                                                    business_driven: true,
+                                                    focus: false
+                                                }
+                                            })
+                                        }}
+                                        />
+
+
+                                    </div>
+                                }
+                            </div>
+                        )
+                    }
+
+
+
                     <div>
                         <p>Business Driven?</p>
                         <input
+                            id="radio-business-driven-true"
                             type="radio"
-                            name="business_driven"
+                            name="business-driven"
                             value="true"
-                            onClick={ (e) => {
-                                dispatch({ type: TASK_DETAIL_BUSINESS_DRIVEN, payload: true})
+                            onClick={ () => {
+                                dispatch({ type: TASK_DETAIL_BUSINESS_DRIVEN,
+                                    payload: {
+                                        business_driven: true,
+                                        focus: true                        
+                                    }
+                                })                                
                             }}
                             >
                         </input>
                         <label>True</label>                    
                         <input
+                            id="radio-business-driven-false"
                             type="radio"
-                            name="business_driven"
+                            name="business-driven"
                             value="false"
-                            onClick={ (e) => {
-                                dispatch({ type: TASK_DETAIL_BUSINESS_DRIVEN, payload: false})
+                            onClick={ () => {
+                                dispatch({ type: TASK_DETAIL_BUSINESS_DRIVEN,
+                                    payload: {
+                                        business_driven: false,
+                                        focus: true 
+                                    }
+                                })                                
                             }}
                             >
                         </input>
@@ -328,21 +493,33 @@ export default function TaskDetailModal(props) {
                     <div>
                         <p>Focus?</p>
                         <input
+                            id="radio-focus-true"
                             type="radio"
                             name="focus"
                             value="true"
-                            onClick={ (e) => {
-                                dispatch({ type: TASK_DETAIL_FOCUS, payload: true})
+                            onClick={(e) => {
+                                dispatch({ type: TASK_DETAIL_FOCUS,
+                                    payload: {
+                                        business_driven: true,
+                                        focus: true
+                                    }
+                                })
                             }}
                             >
                         </input>
                         <label>True</label>                    
                         <input
+                            id="radio-focus-false"
                             type="radio"
                             name="focus"
                             value="false"
-                            onClick={ (e) => {
-                                dispatch({ type: TASK_DETAIL_FOCUS, payload: false})
+                            onClick={() => {
+                                dispatch({ type: TASK_DETAIL_FOCUS,
+                                    payload: {
+                                        business_driven: true,
+                                        focus: false
+                                    }
+                                })
                             }}
                             >
                         </input>
@@ -352,7 +529,7 @@ export default function TaskDetailModal(props) {
 
                 {/* Notes */}
                 <div className="bg-filter modal-section">
-                    <label className="w-full modal-label w-1/3 text-right"> Notes Section</label>     
+                    <label className="w-full modal-labeltext-right"> Notes Section</label>     
                 </div>
 
 
