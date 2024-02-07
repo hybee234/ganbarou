@@ -67,13 +67,13 @@ const typeDefs = `
 
 
     input priorityUserInput {
-        pipeline_number: Int
         business_driven: Boolean
-        focus: Boolean
-        category: Int
+        focus: Boolean        
         important: Boolean
         urgent: Boolean
         high_effort: Boolean
+        category: Int
+        pipeline_number: Int
         comment: String
     }
 

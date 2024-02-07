@@ -215,6 +215,9 @@ const resolvers = {
                             important: args.priority.important,
                             urgent: args.priority.urgent,
                             high_effort: args.priority.high_effort,
+                            pipeline_number: args.priority.pipeline_number,
+                            category: args.priority.category,
+                            comment: args.priority.comment
                         }}
                     },
                     { new: true, runValidators: true})
