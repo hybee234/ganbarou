@@ -46,28 +46,47 @@ export const COMPLETE_TASK = gql`
 `
 
 export const UPDATE_TASK_BY_TASK_ID = gql`
-mutation Mutation($id: ID!, $createdDt: Date, $reviewDt: Date, $title: String, $summary: String, $stakeholder: String, $assigned: assignedUserInput, $priority: priorityUserInput) {
-    updateTaskByTaskId(_id: $id, created_dt: $createdDt, review_dt: $reviewDt, title: $title, summary: $summary, stakeholder: $stakeholder, assigned: $assigned, priority: $priority) {
-      _id
-      created_dt
-      title
-      summary
-      complete_flag
-      complete_dt
-      review_dt
-      stakeholder
-      assigned {
-        _id
-        username
-      }
-      status_macro
-      status_micro
-      priority {
-        business_driven
-        focus
-        important
-        urgent
-      }
+    mutation UpdateTaskByTaskId($id: ID!, $createdDt: Date, $reviewDt: Date, $title: String, $summary: String, $stakeholder: String, $statusMacro: String, $statusMicro: String, $assigned: assignedUserInput, $priority: priorityUserInput) {
+        updateTaskByTaskId(_id: $id, created_dt: $createdDt, review_dt: $reviewDt, title: $title, summary: $summary, stakeholder: $stakeholder, status_macro: $statusMacro, status_micro: $statusMicro, assigned: $assigned, priority: $priority) {
+            _id
+            created_dt
+            title
+            summary
+            complete_flag
+            complete_dt
+            review_dt
+            stakeholder
+            assigned {
+                _id
+                username
+                email
+                security
+            }
+            status_macro
+            status_micro
+            note {
+                note_id
+                note_text
+                note_type
+                note_author {
+                    _id
+                    username
+                    email
+                    security
+                }
+                note_dt
+            }
+            priority {
+                priority_id
+                pipeline_number
+                business_driven
+                focus
+                category
+                important
+                urgent
+                high_effort
+                comment
+            }
+        }
     }
-  }
 `

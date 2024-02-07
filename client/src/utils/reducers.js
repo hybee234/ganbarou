@@ -15,11 +15,11 @@ import {
     TASK_DETAIL_STATUS_MICRO,
     TASK_DETAIL_BUSINESS_DRIVEN,
     TASK_DETAIL_FOCUS,
-    // TASK_DETAIL_IMPORTANT,
-    // TASK_DETAIL_URGENT,
-    // TASK_DETAIL_EFFORT,
-    // TASK_DETAIL_COMMENT,
-    // TASK_DETAIL_PIPELINE,
+    TASK_DETAIL_IMPORTANT,
+    TASK_DETAIL_URGENT,
+    TASK_DETAIL_EFFORT,
+    TASK_DETAIL_COMMENT,
+    TASK_DETAIL_PIPELINE,
 } from './actions';
 
 export const reducer = (state, action) => {
@@ -192,11 +192,74 @@ export const reducer = (state, action) => {
             }
         }
 
-        // TASK_DETAIL_IMPORTANT,
-        // TASK_DETAIL_URGENT,
-        // TASK_DETAIL_EFFORT,
-        // TASK_DETAIL_COMMENT,
-        // TASK_DETAIL_PIPELINE,
+        case TASK_DETAIL_IMPORTANT: {
+            console.log("TASK_DETAIL_IMPORTANT reducer engaged")
+            return { 
+                ...state,
+                taskDetail: {
+                    ...state.taskDetail,
+                    priority: {
+                        ...state.taskDetail.priority,
+                        important: action.payload,
+                    }                    
+                }
+            }
+        }
+
+        case TASK_DETAIL_URGENT: {
+            console.log("TASK_DETAIL_URGENT reducer engaged")
+            return { 
+                ...state,
+                taskDetail: {
+                    ...state.taskDetail,
+                    priority: {
+                        ...state.taskDetail.priority,
+                        urgent: action.payload,
+                    }                    
+                }
+            }
+        }
+
+        case TASK_DETAIL_EFFORT: {
+            console.log("TASK_DETAIL_EFFORT reducer engaged")
+            return { 
+                ...state,
+                taskDetail: {
+                    ...state.taskDetail,
+                    priority: {
+                        ...state.taskDetail.priority,
+                        high_effort: action.payload,
+                    }                    
+                }
+            }
+        }
+        case TASK_DETAIL_COMMENT: {
+            console.log("TASK_DETAIL_COMMENT reducer engaged")
+            return { 
+                ...state,
+                taskDetail: {
+                    ...state.taskDetail,
+                    priority: {
+                        ...state.taskDetail.priority,
+                        comment: action.payload,
+                    }                    
+                }
+            }
+        }
+        case TASK_DETAIL_PIPELINE: {
+            console.log("TASK_DETAIL_PIPELINE reducer engaged")
+            return { 
+                ...state,
+                taskDetail: {
+                    ...state.taskDetail,
+                    priority: {
+                        ...state.taskDetail.priority,
+                        pipeline_number: action.payload,
+                    }                    
+                }
+            }
+        }
+
 
 
 

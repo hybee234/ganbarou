@@ -546,11 +546,11 @@ li {
 }
 
 .modal-heading {
-    /* margin-top: 0.25rem;
-    margin-left: 0.25rem;
-    margin-right: 0.25rem;
-    margin-bottom: 0.25rem; */
-    /* padding: 0.5rem; */
+    margin-top: 1rem;
+    /*margin-left: 0.25rem;*/
+    /*margin-right: 0.25rem;*/
+    /*margin-bottom: 0.25rem;*/
+    padding: 0.5rem;
     border-radius: 6px;
     color: var(--modaltext);
     font-weight: 600;
@@ -563,15 +563,14 @@ li {
 }
 
 .modal-label {
+    display: block;
     font-weight: 500;
     font-size: 0.75rem/* 12px */;
     line-height: 1rem/* 16px */;
+    width:100%;
+    text-align: center;  
     /* border: 2px solid green; */
     /* background-color: rgba(0, 128, 0, 0.2); */
-    width:100%;
-    text-transform: capitalize;
-    padding-left: 10px;
-    
 }
 
 .modal-select {
@@ -633,19 +632,23 @@ li {
 }
 
 .modal-section-divider {
-    /* border: 2px solid magenta; */
-    /* background-color: rgba(255, 0, 255, 0.2); */
+    border: 2px solid magenta;
+    background-color: rgba(255, 0, 255, 0.2);
     padding: 5px
 }
 
 .modal-section {
     display: flex;
     flex-wrap: wrap;
-    margin: 5px;      
+    margin: 5px;
+    padding: 5px;
+    /* border: 2px solid green; */
+    /* background-color: rgba(0, 255, 0, 0.2);       */
 }
 
 .task-detail-icon {
     font-size: 3rem;
+    padding: 3px;
 }
 
 /******************************/
