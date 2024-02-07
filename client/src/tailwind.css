@@ -700,6 +700,10 @@ video {
   border-width: 1px;
 }
 
+.border-2 {
+  border-width: 2px;
+}
+
 .p-1 {
   padding: 0.25rem;
 }
@@ -1514,6 +1518,10 @@ li {
   display: flex;
   flex-wrap: wrap;
   margin: 5px;
+}
+
+.task-detail-icon {
+  font-size: 3rem;
 }
 
 /******************************/
