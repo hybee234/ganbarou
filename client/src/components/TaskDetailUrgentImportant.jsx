@@ -100,8 +100,8 @@ export default function TaskDetailUrgentImportant() {
                     }
                 </div>
             </div>
-            <div className="modal-field-container">
-                <label className="modal-label w-1/3">Effort</label>
+            <div className="modal-field-container justify-center text-center align-center">
+                <label className="modal-label m-auto text-center align-center">Effort</label>
                 <div
                     className="flex modal-field cursor-pointer"
                     onClick={ () => {

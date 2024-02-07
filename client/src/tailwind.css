@@ -1448,14 +1448,14 @@ li {
 }
 
 .modal-label {
+  display: block;
   font-weight: 500;
   font-size: 0.75rem/* 12px */;
   line-height: 1rem/* 16px */;
+  width:100%;
+  text-align: center;
   /* border: 2px solid green; */
   /* background-color: rgba(0, 128, 0, 0.2); */
-  width:100%;
-  text-transform: capitalize;
-  padding-left: 10px;
 }
 
 .modal-select {
