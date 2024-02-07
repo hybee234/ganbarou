@@ -3,7 +3,6 @@ Receives task ID of interest from parent and renders it
 The only way to show this is to click on a task that will pass task details to this component
 */
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 
 
@@ -41,7 +40,7 @@ export default function TaskDetailModal(props) {
     //- Data Manipulation -//
     //---------------------//
     let now = new Date();
-    const {userSelect} = props
+    const { userSelect } = props
     // console.log("TaskDetailModal Component: userSelect:", userSelect)
         
 

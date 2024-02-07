@@ -33,6 +33,7 @@ modal-form: 150
     --redwarning: rgb(220, 38, 38);
     --tablegrey: rgba(88, 88, 88, 0.3);
     --black: rgba(0, 0, 0, 1);
+    --blackfilter: rgba(0 ,0 ,0, 0.7);
 
 /*UI Objects*/
     --text: var(--onyx);
@@ -44,12 +45,10 @@ modal-form: 150
     --inputborder: var(--black);
     --buttontext: var(--onyx);
     --buttonbackgroundhover: var(--darkgrey);
-    --tablereviewdue: (var(--old-rose))
-    --tableborders: (var(--tablegrey))
+    --tablereviewdue: var(--old-rose);
+    --tableborders: var(--tablegrey);
+    --tableheadingrow: var(--blackfilter);
     --modaltext: rgba(244, 244, 255, 1);
-    /* --textwinein: rgb(22, 163, 74); */    
-    /* --deletebutton: rgb(223, 55, 55); */
-    /* --deletebuttonhover: rgb(185, 28, 28); */
     
 
     font-family: Inter, Helvetica, system-ui, Avenir,  Arial, sans-serif;
@@ -95,8 +94,12 @@ h2 {
 /********************/
 
 .bg-image {
-    /* background-image: linear-gradient( rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0) ), url("/assets/images/Graphite.jpg"); */
-    background-image: linear-gradient( to bottom,rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0) ), url("/assets/images/Graphite.jpg");
+    /* background-image:
+        linear-gradient(  rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0) ),
+        url("/assets/images/Graphite.jpg"); */
+    background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5) ),
+        url("/assets/images/Graphite.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -148,6 +151,13 @@ header {
     transition: ease-in-out .1s;
 }
 
+.cherry-font {
+    font-family: 'Cherry Bomb One', system-ui;
+}
+
+#ganbarou-subtitle {
+    
+}
 
 /******************/
 /* Hamburger Icon */
@@ -157,7 +167,7 @@ header {
 .hamburger {
     cursor: pointer;
     display: block;
-    position: absolute;
+    position: fixed;
     z-index: 100;
 
 }
@@ -270,8 +280,8 @@ li {
     cursor: pointer;
     display: block;
     position: absolute;
-    left: 30x;
-    bottom: 10px;
+    left: 00x;
+    bottom: 100px;
     z-index: 100;
 
 }
@@ -394,7 +404,9 @@ li {
 }
 
 .table-heading-cell {
-    font-weight: 500;
+    background-color: var(--tableheadingrow);
+    /* background-color: rgba(0,0,0,1); */
+    font-weight: 600;
     /* font-size: 0.75rem; */
     /* line-height: 1rem; */
     padding-top: 5px;
@@ -635,8 +647,8 @@ li {
 }
 
 .modal-section-divider {
-    border: 2px solid magenta;
-    background-color: rgba(255, 0, 255, 0.2);
+    /* border: 2px solid magenta; */
+    /* background-color: rgba(255, 0, 255, 0.2); */
     padding: 5px;
     transition: ease-in-out 0.2s;
 }
@@ -654,7 +666,6 @@ li {
 .task-detail-icon {
     font-size: 3rem;
     padding: 3px;
-    transition: ease-in-out 0.2s;
 }
 
 /******************************/
@@ -663,9 +674,9 @@ li {
 .close {
     color: #aaa;
     position: absolute;
-    top: 5px;
+    top: 0px;
     right: 10px;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
 }
 
@@ -801,7 +812,7 @@ li {
 /******************************/
 @media (max-width: 640px) {
     .welcome-text-container {
-        font-size: 0.75rem;
+        font-size:    1rem;
     }
     .page {        
         width: 95%;

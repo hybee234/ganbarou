@@ -196,7 +196,7 @@ export default function TaskList (props) {
                     <thead>
                         <tr className="table-heading-row text-xs sm:text-xs md:text-sm xl:text-base">
                             <th className="table-heading-cell">Created</th>
-                            <th className="text-xs sm:text-xs md:text-sm xl:text-basetable-heading-cell ">Title</th>
+                            <th className="text-xs sm:text-xs md:text-sm xl:text-base table-heading-cell">Title</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Review</th>                            
                             <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>

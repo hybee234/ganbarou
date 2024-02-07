@@ -17,7 +17,7 @@ export default function Welcome() {
     return (
         <div className="page">
             <div className="page-header bg-filter">
-                <h1>Welcome to Ganbarou!</h1>
+                <h1 >Welcome!</h1>
             </div>
             
             <div className = "welcome-page bg-filter justify-center">
@@ -29,7 +29,7 @@ export default function Welcome() {
                         <div className = "welcome-text-container p-2 m-2 text-center">               
                         <p> "Ganbarou!" is a Japanese expression of encouragement and support in times of challenge.</p>
                         <p> Ganbarou means "Lets do our best together!" inspiring team determination, perseverence, and collaboration. </p>       
-                        <p> My solution seeks to support the positive team spirit by providing a means to organise and plan team tasks! </p>  
+                        <p> <span className="cherry-font text-2xl lg:text-3xl">Ganbarou!</span> seeks to support the positive team spirit by providing a means to organise and plan team tasks! </p>  
                         {
                             Auth.loggedIn() ?
                             (
