@@ -18,7 +18,7 @@ export default function TaskDetailUrgentImportant() {
     const [state, dispatch] = useGlobalContext();  
 
     return (
-        <div className="flex">
+        <div className="flex justify-center">
             <div className="modal-field-container">
                 <label className="modal-label w-1/3">Urgent</label>
                 <div 
@@ -43,8 +43,6 @@ export default function TaskDetailUrgentImportant() {
                                     <Icon
                                         // icon="noto:fire"
                                         icon="emojione-v1:fire"
-                                        
-                                        // icon="emojione:fire"
                                         // width="128" height="128" 
                                         className="task-detail-icon m-auto"
                                     />
@@ -55,8 +53,6 @@ export default function TaskDetailUrgentImportant() {
                                     <Icon
                                         // icon="fluent-emoji-flat:sloth"
                                         icon="streamline-emojis:turtle"
-                                        
-                                        // icon="fa6-solid:fire"
                                         // width="128" height="128" 
                                         className="task-detail-icon m-auto"
                                     /> 
@@ -90,7 +86,6 @@ export default function TaskDetailUrgentImportant() {
                                 <div> 
                                     <Icon
                                         icon="noto:crown"
-                                        // icon="emojione:fire"
                                         // width="128" height="128" 
                                         className="task-detail-icon m-auto"
                                     />
@@ -99,10 +94,7 @@ export default function TaskDetailUrgentImportant() {
                             ):(
                                 <div>
                                     <Icon
-                                        // icon="emojione-v1:cross-mark"
                                         icon="noto-v1:down-arrow"
-                                        // noto-v1:down-arrow
-                                        // icon="fa6-solid:fire"
                                         // width="128" height="128" 
                                         className="task-detail-icon m-auto"
                                     /> 

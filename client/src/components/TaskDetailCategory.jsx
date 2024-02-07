@@ -16,7 +16,7 @@ export default function TaskDetailCategory() {
 
 
     return(
-        <div className="flex">
+        <div className="flex justify-center">
             <div className="modal-field-container">
             <label className="modal-label">Cat 1</label>
                 <Tooltip title="Cat 1: Urgent, High Value - Critical Initiatives. Crippling to business without immediate attention" arrow placement="top">

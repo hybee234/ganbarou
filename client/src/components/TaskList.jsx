@@ -1,21 +1,25 @@
 import dayjs from 'dayjs'
 import { useGlobalContext } from '../utils/GlobalState';
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { COMPLETE_TASK } from './../utils/mutations'
-import { TASK_DETAIL } from "./../utils/actions"
+import { COMPLETE_TASK, UPDATE_TASK_BY_TASK_ID } from './../utils/mutations'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { FiEdit } from "react-icons/fi";
-import { TiTick } from "react-icons/ti";
-import { ImCross } from "react-icons/im";
+import {
+    TASK_DETAIL,
+    TASK_DETAIL_REVIEW_DT,
+} from "./../utils/actions";
+
+// import { FiEdit } from "react-icons/fi";
+// import { TiTick } from "react-icons/ti";
+// import { ImCross } from "react-icons/im";
 import { FaUserTie } from "react-icons/fa6";
 import { FaUserNinja } from "react-icons/fa6";
 import { BsFillCalendar2WeekFill } from "react-icons/bs";
-
 import { Icon } from '@iconify/react';
+
 
 export default function TaskList (props) {
     console.log ("TaskList Rendering")
@@ -74,6 +78,13 @@ export default function TaskList (props) {
     const [focusTaskCount, useFocusTaskCount] = useState(taskArray.focus.length)
     const [opportunisticTaskCount, useOpportunisticTaskCount] = useState(taskArray.opportunistic.length)
 
+
+//useState taskState
+    const [taskState, useTaskState] = useState(taskArray)
+    console.log("taskState", taskState)
+
+
+
     //----------------------------------------//
     //- Create and Store Date/Time constants -//
     //----------------------------------------//
@@ -89,17 +100,11 @@ export default function TaskList (props) {
             document.querySelectorAll('.review-date-js').forEach(element => {
                 if (dayjs(element.dataset.reviewDt).isAfter(dayjs(now))) {                
                     element.parentNode.classList.remove('review-due')
-                    // console.log ("not due for review", dayjs(element.dataset.reviewDt).format('DD MMM YYYY') + "(DD/MM/YYYY)" + dayjs(new Date).format('DD/MMM/YYYY'))
                 } else {
                     element.parentNode.classList.add('review-due')
-                    // console.log ("BEFORE TRUE")
-                    // console.log ("Review DT", dayjs(element.dataset.reviewDt))
-                    // console.log ("Review DT", dayjs(element.dataset.reviewDt).format('DD/MMM/YYYY'))
-                    // console.log ("Now", dayjs(now))
-                    // console.log ("Now", dayjs(now).format('DD/MMM/YYYY'))
                 }
             })
-    },[tasks])
+    },[tasks, taskState])
 
     //----------------------------//
     //- MUTATION - Complete Task -//
@@ -159,6 +164,78 @@ export default function TaskList (props) {
         }
     }
 
+    //-----------------------------------//
+    //-- useMutation update on change Review date -//
+    //-----------------------------------//
+
+    //useMutation hook
+    const [UpdateTaskByTaskId, { errors }] = useMutation(UPDATE_TASK_BY_TASK_ID);
+
+    const handleFieldUpdate = async (taskId) => {
+        // event.preventDefault();
+
+            console.log(eTarget)
+            dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: eTarget.value})
+
+
+        // const viewTask = (taskId) => {        
+            // Filter userTasks for Task of interest
+            // let taskDetailArray = tasks.filter(task => task._id === taskId)
+            // let taskDetail = taskDetailArray[0]
+            // console.log(taskDetail)
+            // dispatch ({ type: TASK_DETAIL, payload: taskDetail})
+    
+        //     document.getElementById('view-details-modal-background').style.display = 'block'
+        //     document.getElementById('view-details-modal-form').style.display = 'block'
+        // }
+    
+
+
+
+        // const taskDetail = state.taskDetail
+        // console.log("taskDetail:", taskDetail)
+        // console.log("taskDetail:", taskDetail.priority.business_driven)
+        
+        // try {    
+
+        //     const { data } = await UpdateTaskByTaskId({
+        //         variables: {
+        //             id: state.taskDetail._id,
+        //             createdDt: state.taskDetail.created_dt,
+        //             reviewDt: state.taskDetail.review_dt,
+        //             title: state.taskDetail.title,
+        //             summary: state.taskDetail.summary,
+        //             stakeholder: state.taskDetail.stakeholder,
+        //             assigned: {
+        //                 _id: state.taskDetail.assigned._id,
+        //             },
+        //             status_macro: state.taskDetail.status_macro,
+        //             status_micro: state.taskDetail.status_micro,
+        //             priority: {
+        //                 business_driven: state.taskDetail.priority.business_driven,
+        //                 focus: state.taskDetail.priority.focus,
+        //                 urgent: state.taskDetail.priority.urgent,
+        //                 important: state.taskDetail.priority.important,
+        //                 high_effort: state.taskDetail.priority.high_effort,
+        //                 pipeline_number: state.taskDetail.priority.pipeline_number,
+        //                 category: state.taskDetail.priority.category,
+        //                 comment: state.taskDetail.priority.comment
+        //             }
+                
+        //         },
+        //     });
+
+        //     console.log("UpdateTaskByTaskId", data)
+        //     closeDetailForm()
+        // } catch (error) {
+        //     console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
+        // }
+    }
+
+
+
+
+
     //--------------------//
     // View Task Modal -//
     //--------------------//
@@ -175,23 +252,13 @@ export default function TaskList (props) {
 
     // console.log("rowIndex", rowIndex)
 
-    //----------------------------------//
-    //- Submit Update Mutation Per Row -//
-    //----------------------------------//
-
-    // const submitRow = (taskId) => {
-    //     //submit update to database
-    //     //Write update mutation
-    //     console.log("submitRow - Surprise!", taskId)
-    // }
-
     return (
 
         <div>
             {/********************/}
             {/* Operational Table*/}
             {/********************/}
-            <div className ="w-full m-auto text-center">Operational
+            <div className ="w-full m-auto text-center"><span className = "cherry-font text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Operational Tasks</span>
                 <table className="table-auto table-container bg-filter">
                     <thead>
                         <tr className="table-heading-row text-xs sm:text-xs md:text-sm xl:text-base">
@@ -208,9 +275,10 @@ export default function TaskList (props) {
                         {
                             // {/* Index in array to add rowIndex to table */}
                             taskArray.operational.map( (task, index) => {   
+                                // taskState.operational.map( (task, index) => {   
                                 return(                                    
                                     <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
-                                        <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
+                                        <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('D/M/YY')}</td>                                
                                         <td>
                                             <p
                                                 className=" table-row-cell link-color "
@@ -218,26 +286,40 @@ export default function TaskList (props) {
                                                     {task.title}
                                             </p>
                                         </td>
-                                        <td className="hidden sm:table-cell  table-row-cell review-date-js " data-review-dt={task.review_dt}> {dayjs(task.review_dt).format('DD/MM/YY')}</td>
-                                        <td className="hidden sm:table-cell  table-row-cell">{task.assigned.username}</td> 
-                                        <td className="hidden sm:table-cell  table-row-cell">{task.stakeholder}</td> 
+                                        <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}> {dayjs(task.review_dt).format('D/M/YY')}</td>
+                                        
+                                        {/* An attempt to have review updated on main table
+                                        <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
+                                            <input
+                                                className="modal-field w-full text-center"
+                                                name="review-dt"
+                                                type="date"
+                                                placeholder="MM/DD/YYYY"
+                                                value={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                onChange= {(e) =>
+                                                    // dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value}),
+                                                    handleFieldUpdate(e.target, task._id)
+                                                }
+                                                required
+                                            >
+                                            </input>
+                                        </td>
+                                        */}
+                                        <td className="hidden sm:table-cell table-row-cell">{task.assigned.username}</td> 
+                                        <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
                                         <td className="min-w-20 sm:hidden table-cell  table-row-cell">
-
                                             <div className="flex justify-left items-center">
                                                 <BsFillCalendar2WeekFill/>
                                                 <span>&nbsp; {dayjs(task.review_dt).format('D MMM')}</span>
                                             </div>
-
                                             <div className="flex justify-left items-center ">
                                                 <FaUserNinja/>
                                                 <span>&nbsp; {task.assigned.username}</span>
                                             </div>
-
                                             <div className="flex justify-left items-center">
                                                 <FaUserTie/>
                                                 <span>&nbsp; {task.stakeholder}</span>
                                             </div>
-
                                         </td> 
                                         <td>
                                             <button                                                
@@ -253,7 +335,7 @@ export default function TaskList (props) {
                         }
                         <tr className="table-last-row">
                             <th></th>
-                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Total :</span>&nbsp;{operationalTaskCount}</th>                        
+                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Tasks :</span>&nbsp;{operationalTaskCount}</th>                        
                             <th></th>
                             <th></th>
                             <th></th>
@@ -267,189 +349,279 @@ export default function TaskList (props) {
                     </tbody>
                 </table>
             </div>
-        
+
             {/**************/}
             {/* Focus Table*/}
             {/**************/}
-            <h1> Focus  </h1>
-            <table className="w-11/12 table-auto bg-filter table-container">
-                <thead>
-                    <tr className="text-16 table-heading-cell">
-                        <th className="table-heading-cell ">Created</th>
-                        <th className="table-heading-cell ">Title</th>
-                        <th className="hidden sm:table-cell table-heading-cell ">Review Date</th>
-                        <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
-                        <th className="hidden sm:table-cell table-heading-cell ">Status (Macro)</th>
-                        <th className="hidden sm:table-cell table-heading-cell ">Status (Micro)</th>
-                        {/* <th className="hidden sm:table-cell table-heading-cell ">Complete Flag</th> */}
-                        <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
-                        <th className="table-heading-cell ">Complete</th>
-                        <th className="hidden lg:table-cell table-heading-cell ">Last Updated</th>
-                        <th className="hidden lg:table-cell table-heading-cell ">Category</th>
-                        <th className="hidden lg:table-cell table-heading-cell ">Edit</th>
-                        <th className="hidden lg:table-cell table-heading-cell ">task_id</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        // {/* Index in array to add rowIndex to table */}
-                        taskArray.focus.map( (task, index) => {   
-                            return(
-                                // <tr id={`table-row-${task._id}`} className="table-row text-center" key={task._id}  style={{ backgroundColor: reviewDue(task.review_dt)}}  onClick= { ()=> setRowIndex(index)}>
-                                <tr id={`table-row-${task._id}`} className="table-row" key={task._id} onClick= { ()=> setRowIndex(index)}>
-                                    <td id={`created-dt-${task._id}`} className=" xl:text-base text-xs sm:text-xs md:text-sm" data-created-dt={task.created_dt}> {task.created_dt}</td>                                
-                                    <td id={`title-${task._id}`} className="xl:text-base text-xs sm:text-xs md:text-sm"> {task.title}</td>
-                                    {/* Hide if less than 640 pixels */}
-                                    <td id={`review-dt-${task._id}`} className="review-date-js hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-review-dt={task.review_dt}>{dayjs(task.review_dt).format('DD/MM/YY')}</td>
-                                    <td id={`stakeholder-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-stakeholder={task.stakeholder}>{task.stakeholder}</td>                                    
-                                    <td id={`status-macro-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-status-macro={task.status_macro}>{task.status_macro}</td>  
-                                    <td id={`status-micro-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-status-micro={task.micro}>{task.status_micro}</td>
-                                                    
-                                    {/* <td id={`complete-flag-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-complete-flag={task.complete_flag}>
-                                        {
-                                            task.complete_flag ? (
-                                                "True"
-                                            ) : (
-                                                "False"
-                                            )
-                                        }                                    
-                                        </td>   */}
-                                    {/* Show if less than 640 pixels */}
-                                    <td id={`assigned-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-status-assigned-username={task.assigned.username}>{task.assigned.username}</td> 
-                                    <td>
-                                        <button
-                                            id={`complete-button-${task._id}`}
-                                            className="text-xs md:text-sm sm:text-xs px-4 py-1 my-1 button-color "
-                                            onClick={ ()=> completeHandler(task._id, "focus") }
-                                            ><ImCross className="m-auto text-red-600"/> 
-                                        </button>
-                                    </td>
-                                    {/* Show if greater than 1280 pixels */}                                
-                                    <td id={`updated-at-${task._id}`} className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm">{task.updatedAt}</td> 
-                                    <td id={`category-${task._id}`} className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-category={task.priority.category}>{task.priority.category}</td> 
-                                    <td className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm">                                        
-                                        <button
-                                            id={`edit-button-${task._id}`}
-                                            value={`${task._id}`}
-                                            className='button-color px-4 py-1 my-1'
-                                            onClick={()=> {viewTask(task._id)}}
-                                            >
-                                                <FiEdit className="m-auto"/>                                                
-                                        </button>
-                                    </td>
-                                    <td id={`${task._id}`} className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm">{task._id}</td>                                      
-                                </tr>
-                            )                            
-                        })                         
-                    }
-                    <tr className="table-last-row">
-                        <th></th>
-                        <th></th>
-                        <th>Total Tasks: {focusTaskCount}</th>                        
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr> 
-                </tbody>
-            </table>
+            <div className ="w-full m-auto text-center"><span className = "cherry-font text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Focus Initiatives</span>
+                <table className="table-auto table-container bg-filter">
+                    <thead>
+                        <tr className="table-heading-row text-xs sm:text-xs md:text-sm xl:text-base">
+                            <th className="table-heading-cell">Created</th>
+                            <th className="text-xs sm:text-xs md:text-sm xl:text-base table-heading-cell">Title</th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Review</th>                            
+                            <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
+                            <th className="sm:hidden table-cell table-heading-cell"></th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Category</th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Urgent</th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Important</th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Effort</th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Pipeline</th>
+                            <th className="table-heading-cell ">Done</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            // {/* Index in array to add rowIndex to table */}
+                            taskArray.focus.map( (task, index) => {   
+                                return(                                    
+                                    <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
+                                        <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('D/M/YY')}</td>                                
+                                        <td>
+                                            <p
+                                                className=" table-row-cell link-color "
+                                                onClick={()=> {viewTask(task._id)}}>
+                                                    {task.title}
+                                            </p>
+                                        </td>
+                                        <td className="hidden sm:table-cell table-row-cell review-date-js " data-review-dt={task.review_dt}> {dayjs(task.review_dt).format('D/M/YY')}</td>
+                                        <td className="hidden sm:table-cell table-row-cell">{task.assigned.username}</td> 
+                                        <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
+                                        <td className="min-w-20 sm:hidden table-cell  table-row-cell">
+                                            <div className="flex justify-left items-center">
+                                                <BsFillCalendar2WeekFill/>
+                                                <span>&nbsp; {dayjs(task.review_dt).format('D MMM')}</span>
+                                            </div>
+                                            <div className="flex justify-left items-center ">
+                                                <FaUserNinja/>
+                                                <span>&nbsp; {task.assigned.username}</span>
+                                            </div>
+                                            <div className="flex justify-left items-center">
+                                                <FaUserTie/>
+                                                <span>&nbsp; {task.stakeholder}</span>
+                                            </div>
+                                        </td>
+                                        <td className="hidden sm:table-cell table-row-cell">{task.priority.category}</td> 
+                                        <td className="hidden sm:table-cell table-row-cell">
+                                            {
+                                                task.priority.urgent? (
+                                                    <Icon                                                        
+                                                        icon="emojione-v1:fire"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                ):(
+                                                    <Icon                                                        
+                                                        icon="streamline-emojis:turtle"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                )
+                                            }
+                                        </td> 
+
+                                        <td className="hidden sm:table-cell table-row-cell">
+                                            {
+                                                task.priority.important? (
+                                                    <Icon                                                        
+                                                        icon="noto:crown"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                ):(
+                                                    <Icon                                                        
+                                                        icon="noto-v1:down-arrow"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                )
+                                            }
+                                        </td> 
+                                        <td className="hidden sm:table-cell table-row-cell">
+                                            {
+                                                task.priority.high_effort? (
+                                                    <Icon                                                        
+                                                        icon="twemoji:snow-capped-mountain"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                ):(
+                                                    <Icon                                                        
+                                                        icon="streamline-emojis:shortcake-2"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                )
+                                            }
+                                        </td> 
+                                        <td className="hidden sm:table-cell table-row-cell">{task.priority.pipeline_number}</td>
+                                        <td>
+                                            <button                                                
+                                                className=" table-row-cell link-color"
+                                                onClick={ ()=> completeHandler(task._id, "operational") }
+                                                >                                              
+                                                    <Icon icon="subway:tick" width="15" height="15" strokeWidth={3} color="green"/>  
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )                            
+                            })                         
+                        }
+                        <tr className="table-last-row">
+                            <th></th>
+                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Initiatives :</span>&nbsp;{focusTaskCount}</th>                        
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                    </tbody>
+                </table>
+            </div>
+
 
             {/**********************/}
             {/* Opportunistic Table*/}
             {/**********************/}
-            <h1> Opportunistic </h1>
-            <table className="w-11/12 table-auto bg-filter table-container">
-                <thead>
-                    <tr className="text-16 table-heading-cell">
-                        <th className="table-heading-cell ">Created</th>
-                        <th className="table-heading-cell ">Title</th>
-                        <th className="hidden sm:table-cell table-heading-cell ">Review Date</th>
-                        <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
-                        <th className="hidden sm:table-cell table-heading-cell ">Status (Macro)</th>
-                        <th className="hidden sm:table-cell table-heading-cell ">Status (Micro)</th>
-                        {/* <th className="hidden sm:table-cell table-heading-cell ">Complete Flag</th> */}
-                        <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
-                        <th className="table-heading-cell ">Complete</th>
-                        <th className="hidden lg:table-cell table-heading-cell ">Last Updated</th>
-                        <th className="hidden lg:table-cell table-heading-cell ">Category</th>
-                        <th className="hidden lg:table-cell table-heading-cell ">Edit</th>
-                        <th className="hidden lg:table-cell table-heading-cell ">task_id</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        // {/* Index in array to add rowIndex to table */}
-                        taskArray.opportunistic.map( (task, index) => {   
-                            return(
-                                // <tr id={`table-row-${task._id}`} className="table-row text-center" key={task._id}  style={{ backgroundColor: reviewDue(task.review_dt)}}  onClick= { ()=> setRowIndex(index)}>
-                                <tr id={`table-row-${task._id}`} className="table-row text-center" key={task._id} onClick= { ()=> setRowIndex(index)}>
-                                    <td id={`created-dt-${task._id}`} className=" xl:text-base text-xs sm:text-xs md:text-sm" data-created-dt={task.created_dt}> {task.created_dt}</td>                                
-                                    <td id={`title-${task._id}`} className="xl:text-base text-xs sm:text-xs md:text-sm"> {task.title}</td>
-                                    {/* Hide if less than 640 pixels */}
-                                    <td id={`review-dt-${task._id}`} className="review-date-js hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-review-dt={task.review_dt}>{task.review_dt}</td>
-                                    <td id={`stakeholder-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-stakeholder={task.stakeholder}>{task.stakeholder}</td>                                    
-                                    <td id={`status-macro-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-status-macro={task.status_macro}>{task.status_macro}</td>  
-                                    <td id={`status-micro-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-status-micro={task.micro}>{task.status_micro}</td>
-                                                    
-                                    {/* <td id={`complete-flag-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-complete-flag={task.complete_flag}>
-                                        {
-                                            task.complete_flag ? (
-                                                "True"
-                                            ) : (
-                                                "False"
-                                            )
-                                        }                                    
-                                        </td>   */}
-                                    {/* Show if less than 640 pixels */}
-                                    <td id={`assigned-${task._id}`}className="hidden sm:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-status-assigned-username={task.assigned.username}>{task.assigned.username}</td> 
-                                    <td>
-                                        <button
-                                            id={`complete-button-${task._id}`}
-                                            className="text-xs md:text-sm sm:text-xs px-4 py-1 my-1 button-color "
-                                            onClick={ ()=> completeHandler(task._id, "opportunistic") }
-                                            ><ImCross className="m-auto text-red-600"/> 
-                                        </button>
-                                    </td>
-                                    {/* Show if greater than 1280 pixels */}                                
-                                    <td id={`updated-at-${task._id}`} className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm">{task.updatedAt}</td> 
-                                    <td id={`category-${task._id}`} className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm" data-category={task.priority.category}>{task.priority.category}</td> 
-                                    <td className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm">                                        
-                                        <button
-                                            id={`edit-button-${task._id}`}
-                                            value={`${task._id}`}
-                                            className='button-color px-4 py-1 my-1'
-                                            onClick={()=> {viewTask(task._id)}}
-                                            >
-                                                <TiTick className="m-auto"/>                                                
-                                        </button>
-                                    </td>
-                                    <td id={`${task._id}`} className="hidden lg:table-cell xl:text-base text-xs sm:text-xs md:text-sm">{task._id}</td>                                      
-                                </tr>
-                            )                            
-                        })                         
-                    }
-                    <tr className="table-last-row">
-                        <th></th>
-                        <th></th>
-                        <th>Total Tasks: {opportunisticTaskCount}</th>                        
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr> 
-                </tbody>
-            </table>
 
+            <div className ="w-full m-auto text-center"><span className = "cherry-font text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Opportunistic Initiatives</span>
+                <table className="table-auto table-container bg-filter">
+                    <thead>
+                        <tr className="table-heading-row text-xs sm:text-xs md:text-sm xl:text-base">
+                            <th className="table-heading-cell">Created</th>
+                            <th className="text-xs sm:text-xs md:text-sm xl:text-base table-heading-cell">Title</th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Review</th>                            
+                            <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
+                            <th className="sm:hidden table-cell table-heading-cell"></th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Category</th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Urgent</th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Important</th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Effort</th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Pipeline</th>
+                            <th className="table-heading-cell ">Done</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            // {/* Index in array to add rowIndex to table */}
+                            taskArray.opportunistic.map( (task, index) => {   
+                                return(                                    
+                                    <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
+                                        <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('D/M/YY')}</td>                                
+                                        <td>
+                                            <p
+                                                className=" table-row-cell link-color "
+                                                onClick={()=> {viewTask(task._id)}}>
+                                                    {task.title}
+                                            </p>
+                                        </td>
+                                        <td className="hidden sm:table-cell table-row-cell review-date-js " data-review-dt={task.review_dt}> {dayjs(task.review_dt).format('D/M/YY')}</td>
+                                        <td className="hidden sm:table-cell table-row-cell">{task.assigned.username}</td> 
+                                        <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
+                                        <td className="min-w-20 sm:hidden table-cell  table-row-cell">
+                                            <div className="flex justify-left items-center">
+                                                <BsFillCalendar2WeekFill/>
+                                                <span>&nbsp; {dayjs(task.review_dt).format('D MMM')}</span>
+                                            </div>
+                                            <div className="flex justify-left items-center ">
+                                                <FaUserNinja/>
+                                                <span>&nbsp; {task.assigned.username}</span>
+                                            </div>
+                                            <div className="flex justify-left items-center">
+                                                <FaUserTie/>
+                                                <span>&nbsp; {task.stakeholder}</span>
+                                            </div>
+                                        </td>
+                                        <td className="hidden sm:table-cell table-row-cell">{task.priority.category}</td> 
+                                        <td className="hidden sm:table-cell table-row-cell">
+                                            {
+                                                task.priority.urgent? (
+                                                    <Icon                                                        
+                                                        icon="emojione-v1:fire"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                ):(
+                                                    <Icon                                                        
+                                                        icon="streamline-emojis:turtle"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                )
+                                            }
+                                        </td> 
+
+                                        <td className="hidden sm:table-cell table-row-cell">
+                                            {
+                                                task.priority.important? (
+                                                    <Icon                                                        
+                                                        icon="noto:crown"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                ):(
+                                                    <Icon                                                        
+                                                        icon="noto-v1:down-arrow"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                )
+                                            }
+                                        </td> 
+                                        <td className="hidden sm:table-cell table-row-cell">
+                                            {
+                                                task.priority.high_effort? (
+                                                    <Icon                                                        
+                                                        icon="twemoji:snow-capped-mountain"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                ):(
+                                                    <Icon                                                        
+                                                        icon="streamline-emojis:shortcake-2"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                )
+                                            }
+                                        </td> 
+                                        <td className="hidden sm:table-cell table-row-cell">{task.priority.pipeline_number}</td>
+                                        <td>
+                                            <button                                                
+                                                className=" table-row-cell link-color"
+                                                onClick={ ()=> completeHandler(task._id, "operational") }
+                                                >                                              
+                                                    <Icon icon="subway:tick" width="15" height="15" strokeWidth={3} color="green"/>  
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )                            
+                            })                         
+                        }
+                        <tr className="table-last-row">
+                            <th></th>
+                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Initiatives :</span>&nbsp;{opportunisticTaskCount}</th>                        
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr> 
+                    </tbody>
+                </table>
+            </div>
         </div>
-
     )
 }
 

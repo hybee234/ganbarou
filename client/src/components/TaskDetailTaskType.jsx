@@ -29,7 +29,7 @@ export default function TaskDetailTaskType() {
                 //*********************//
                 //* Task Type selector //
                 //*********************//
-                    <div className="modal-field-container">
+                    <div className="modal-field-container w-full sm:w-1/2 m-auto">
                         <Tooltip title="
                         Tasks are organised into 3 types. Operational ('Tasks' that must be done to keep the business going). 'Focus' (Business driven requests rated as priority, handled after operational tasks are done) and 'Opportunistic' (Business driven tasks that are handled when awaiting external actions on Focus tasks - Lowest priority of the 3 types.)" arrow placement="right">
                         <label className="modal-label w-1/3">Task Type</label>
