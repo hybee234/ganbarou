@@ -546,11 +546,11 @@ li {
 }
 
 .modal-heading {
-    /* margin-top: 0.25rem;
-    margin-left: 0.25rem;
-    margin-right: 0.25rem;
-    margin-bottom: 0.25rem; */
-    /* padding: 0.5rem; */
+    margin-top: 1rem;
+    /*margin-left: 0.25rem;*/
+    /*margin-right: 0.25rem;*/
+    /*margin-bottom: 0.25rem;*/
+    padding: 0.5rem;
     border-radius: 6px;
     color: var(--modaltext);
     font-weight: 600;
@@ -641,11 +641,15 @@ li {
 .modal-section {
     display: flex;
     flex-wrap: wrap;
-    margin: 5px;      
+    margin: 5px;
+    padding: 5px;
+    /* border: 2px solid green; */
+    /* background-color: rgba(0, 255, 0, 0.2);       */
 }
 
 .task-detail-icon {
     font-size: 3rem;
+    padding: 3px;
 }
 
 /******************************/

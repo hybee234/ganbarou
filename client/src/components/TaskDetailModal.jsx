@@ -175,249 +175,253 @@ export default function TaskDetailModal(props) {
             <form id="view-details-modal-form" className="modal-form" onSubmit={()=> handleFormSubmit(event)}>                    
                 <span className="close" onClick={(() => closeDetailForm())}>&times;</span>
                 <h2 className="block modal-heading"> Task Details</h2>
-                {/* Task Details */}
+    {/***********************/}
+    {/* Task Details Section*/}
+    {/***********************/}
                 <div className="bg-filter modal-section p-5">
-                        <label className="modal-label w-full"> </label>     
-                        <div className="flex flex-wrap modal-section-divider w-full sm:w-1/4">
-                            <div className="modal-field-container w-1/2 sm:w-full">
-                                <div>
-                                    <label className="modal-label"> Created Date* </label>
-                                </div>
-                                <input
-                                    className="modal-field w-full text-center"
-                                    name="created-dt"
-                                    type="date"
-                                    placeholder="MM/DD/YYYY"
-                                    value={dateHelper(state.taskDetail.created_dt)}
-                                    onChange= {(e) =>
-                                        dispatch({ type: TASK_DETAIL_CREATED_DT, payload: e.target.value})}
-                                    required
-                                    >
-                                </input>                                
-                            </div>                           
-                            <div className="modal-field-container w-1/2 sm:w-full">
-                                
-                            <Tooltip title="This date determines when you next need to consider acting on this task, set it and move it around to organise your work (the task tables sort by this value and it also determines the red/green colouring. A perfect use case is when all your actions are complete awaiting a committee decision to move forward - set this date to the committee meeting date to declutter your list" arrow placement="right">
-
-
-                                <div>
-                                    <label className="modal-label">Review Date*</label>
-                                </div>
-                                <input
-                                    className="modal-field w-full text-center"
-                                    name="review-dt"
-                                    type="date"
-                                    placeholder="MM/DD/YYYY"
-                                    value={dateHelper(state.taskDetail.review_dt)}
-                                    onChange= {(e) =>
-                                        dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value})}
-                                    required
-                                    >
-                                </input> 
-                                </Tooltip>                               
-                            </div>
-                            <div className="modal-field-container w-1/2 sm:w-full">
+                    <label className="modal-label w-full"> </label>     
+                    <div className="flex flex-wrap modal-section-divider w-full sm:w-1/4">
+                        <div className="modal-field-container w-1/2 sm:w-full">
                             <div>
-                                    <label className="modal-label">Assigned*</label>
-                                </div>
-                                <select
-                                    className="modal-select w-full text-center"
-                                    name="assigned"
-                                    type="text"
-                                    value={state.taskDetail.assigned._id}
-                                    onChange= {(e) => handleAssignUpdate(e)}
-                                    required
-                                    >
-                                    {
-                                        userSelect.map( (user)=> {
-                                            return(
-                                                <option value={user._id} key={user._id}>{user.username}</option>
-                                            ) 
-                                        })
-                                    }
-                                </select>                                
+                                <label className="modal-label"> Created Date* </label>
                             </div>
-                            <div className="modal-field-container w-1/2 sm:w-full">
-                                <div>
-                                    <label className="modal-label">Stakeholder*</label>
-                                </div>
-                                <input
-                                    className="modal-field w-full text-center"
-                                    name="stakeholder"
-                                    type="text"
-                                    placeholder="Stakeholder"
-                                    rows="1"
-                                    cols="30"
-                                    value={state.taskDetail.stakeholder}
-                                    onChange= {(e) =>
-                                        dispatch({ type: TASK_DETAIL_STAKEHOLDER, payload: e.target.value})}
-                                    required
-                                    >
-                                </input>
+                            <input
+                                className="modal-field w-full text-center"
+                                name="created-dt"
+                                type="date"
+                                placeholder="MM/DD/YYYY"
+                                value={dateHelper(state.taskDetail.created_dt)}
+                                onChange= {(e) =>
+                                    dispatch({ type: TASK_DETAIL_CREATED_DT, payload: e.target.value})}
+                                required
+                                >
+                            </input>                                
+                        </div>                           
+                        <div className="modal-field-container w-1/2 sm:w-full">
+                            
+                        <Tooltip title="This date determines when you next need to consider acting on this task, set it and move it around to organise your work (the task tables sort by this value and it also determines the red/green colouring. A perfect use case is when all your actions are complete awaiting a committee decision to move forward - set this date to the committee meeting date to declutter your list" arrow placement="right">
+
+
+                            <div>
+                                <label className="modal-label">Review Date*</label>
                             </div>
-                            <div className="modal-field-container w-1/2 sm:w-full">
-                                <div>
-                                    <label className="modal-label">Stage</label>
-                                </div>
-                                <select
-                                    className="modal-select w-full"
-                                    name="status-macro"
-                                    type="text"
-                                    value={state.taskDetail.status_macro}
-                                    onChange= {(e) =>
-                                        dispatch({ type: TASK_DETAIL_STATUS_MACRO, payload: e.target.value})}
-                                    >
-                                    <option>New</option>
-                                    <option>Design</option>
-                                    <option>Testing</option>
-                                    <option>Training</option>
-                                    <option>Deployment</option>
-                                </select>                                
-                            </div>
-                            <div className="modal-field-container w-1/2 sm:w-full">
-                                <label className="modal-label">Status</label>
-                                <select
-                                    className="modal-select w-full"
-                                    name="status-micro"
-                                    type="text"
-                                    value={state.taskDetail.status_micro}
-                                    onChange= {(e) =>
-                                        dispatch({ type: TASK_DETAIL_STATUS_MICRO, payload: e.target.value})}
-                                    >
-                                    <option>On Hold</option>
-                                    <option>Design</option>
-                                    <option>Testing</option>
-                                    <option>Training</option>
-                                    <option>Deployment</option>
-                                </select> 
-                            </div>
+                            <input
+                                className="modal-field w-full text-center"
+                                name="review-dt"
+                                type="date"
+                                placeholder="MM/DD/YYYY"
+                                value={dateHelper(state.taskDetail.review_dt)}
+                                onChange= {(e) =>
+                                    dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value})}
+                                required
+                                >
+                            </input> 
+                            </Tooltip>                               
                         </div>
-                        <div className="modal-section-divider w-full sm:w-3/4">
-                            <div className="modal-field-container">                                    
-                                <label className="modal-label">Title*</label>
-                                
-                                <textarea
-                                    className="w-full modal-field"
-                                    name="title"
-                                    type="text"
-                                    placeholder="Title"
-                                    rows="2"
-                                    cols="50"
-                                    value={state.taskDetail.title}
-                                    onInput={(e) => expandArea(e)}
-                                    onChange= {(e) =>
-                                        dispatch({ type: TASK_DETAIL_TITLE, payload: e.target.value})}
-                                    required
-                                    >
-                                </textarea>
-                            </div>                            
-                            <div className="w-full modal-field-container">
-                                <label className="modal-label w-1/3">Summary</label>
-                                <textarea
-                                    className="w-full modal-field"
-                                    name="status-summary"
-                                    type="text"
-                                    placeholder="Summary"
-                                    rows="4"
-                                    cols="30"
-                                    value={state.taskDetail.summary}
-                                    onInput={(e) => expandArea(e)}
-                                    onChange= {(e) =>
-                                        dispatch({ type: TASK_DETAIL_SUMMARY, payload: e.target.value})}
-                                    >
-                                </textarea>
-                            </div>                 
+                        <div className="modal-field-container w-1/2 sm:w-full">
+                        <div>
+                                <label className="modal-label">Assigned*</label>
+                            </div>
+                            <select
+                                className="modal-select w-full text-center"
+                                name="assigned"
+                                type="text"
+                                value={state.taskDetail.assigned._id}
+                                onChange= {(e) => handleAssignUpdate(e)}
+                                required
+                                >
+                                {
+                                    userSelect.map( (user)=> {
+                                        return(
+                                            <option value={user._id} key={user._id}>{user.username}</option>
+                                        ) 
+                                    })
+                                }
+                            </select>                                
                         </div>
+                        <div className="modal-field-container w-1/2 sm:w-full">
+                            <div>
+                                <label className="modal-label">Stakeholder*</label>
+                            </div>
+                            <input
+                                className="modal-field w-full text-center"
+                                name="stakeholder"
+                                type="text"
+                                placeholder="Stakeholder"
+                                rows="1"
+                                cols="30"
+                                value={state.taskDetail.stakeholder}
+                                onChange= {(e) =>
+                                    dispatch({ type: TASK_DETAIL_STAKEHOLDER, payload: e.target.value})}
+                                required
+                                >
+                            </input>
+                        </div>
+                        <div className="modal-field-container w-1/2 sm:w-full">
+                            <div>
+                                <label className="modal-label">Stage</label>
+                            </div>
+                            <select
+                                className="modal-select w-full"
+                                name="status-macro"
+                                type="text"
+                                value={state.taskDetail.status_macro}
+                                onChange= {(e) =>
+                                    dispatch({ type: TASK_DETAIL_STATUS_MACRO, payload: e.target.value})}
+                                >
+                                <option>New</option>
+                                <option>Design</option>
+                                <option>Testing</option>
+                                <option>Training</option>
+                                <option>Deployment</option>
+                            </select>                                
+                        </div>
+                        <div className="modal-field-container w-1/2 sm:w-full">
+                            <label className="modal-label">Status</label>
+                            <select
+                                className="modal-select w-full"
+                                name="status-micro"
+                                type="text"
+                                value={state.taskDetail.status_micro}
+                                onChange= {(e) =>
+                                    dispatch({ type: TASK_DETAIL_STATUS_MICRO, payload: e.target.value})}
+                                >
+                                <option>On Hold</option>
+                                <option>Design</option>
+                                <option>Testing</option>
+                                <option>Training</option>
+                                <option>Deployment</option>
+                            </select> 
+                        </div>
+                    </div>
+                    <div className="modal-section-divider w-full sm:w-3/4">
+                        <div className="modal-field-container">                                    
+                            <label className="modal-label">Title*</label>
+                            
+                            <textarea
+                                className="w-full modal-field"
+                                name="title"
+                                type="text"
+                                placeholder="Title"
+                                rows="2"
+                                cols="50"
+                                value={state.taskDetail.title}
+                                onInput={(e) => expandArea(e)}
+                                onChange= {(e) =>
+                                    dispatch({ type: TASK_DETAIL_TITLE, payload: e.target.value})}
+                                required
+                                >
+                            </textarea>
+                        </div>                            
+                        <div className="w-full modal-field-container">
+                            <label className="modal-label w-1/3">Summary</label>
+                            <textarea
+                                className="w-full modal-field"
+                                name="status-summary"
+                                type="text"
+                                placeholder="Summary"
+                                rows="4"
+                                cols="30"
+                                value={state.taskDetail.summary}
+                                onInput={(e) => expandArea(e)}
+                                onChange= {(e) =>
+                                    dispatch({ type: TASK_DETAIL_SUMMARY, payload: e.target.value})}
+                                >
+                            </textarea>
+                        </div>                 
+                    </div>
                 </div>
-                {/* Prioritisation Section*/}
-                <div className="modal-section bg-filter">
-                    <label className="w-full modal-label text-right"> Prioritisation Section </label>
-                    
+
+    {/*************************/}
+    {/* Prioritisation Section*/}
+    {/*************************/}
+
+                {/**********************/}
+                {/* Task Type selector */}
+                {/**********************/}
+                <div className="modal-section bg-filter p-5">
+                    <label className="w-full modal-label text-right"> Prioritisation Section </label>                    
                     <div className="w-full modal-field-container border-2">
                         <Tooltip title="
                         Tasks are organised into 3 types. Operational ('Tasks' that must be done to keep the business going). 'Focus' (Business driven requests rated as priority, handled after operational tasks are done) and 'Opportunistic' (Business driven tasks that are handled when awaiting external actions on Focus tasks - Lowest priority of the 3 types.)" arrow placement="right">
-                            <label className="modal-label w-1/3">Task Type</label>
+                        <label className="modal-label w-1/3">Task Type</label>
                         </Tooltip>
-                        <div className="border-2">
+                        <div className="flex border-2 modal-field justify-center text-center align-center">
                             { //first checkpoint
                                 state.taskDetail.priority.business_driven ? 
                                 ( // Business driven request
-                                    <div className="flex">
-                                        
-                                            <FaTools
-                                                color="grey"
-                                                className="task-detail-icon"
-                                                onClick={ () => {
-                                                    dispatch({ type: TASK_DETAIL_BUSINESS_DRIVEN,
-                                                        payload: {
-                                                            business_driven: false,
-                                                            focus: false
-                                                        }
-                                                    })
-                                                }}
-                                            />
-                                        
-                                        
-
-                                        { //Check if Focus or opportunistic
-                                            state.taskDetail.priority.focus ?
-                                            (
-                                                <div className="flex">
-                                                    {// is review date passed?
-                                                        dayjs(now).isAfter(dayjs(state.taskDetail.review_dt)) ?
-                                                        (
-                                                            <div>
-                                                                <SiTarget color="red" className="task-detail-icon" />
-                                                            </div>
-                                                        ):(
-                                                            <div>
-                                                                <SiTarget color="green" className="task-detail-icon" />
-                                                            </div>
-                                                        )
+                                    <div className="flex">                                        
+                                        <FaTools
+                                            color="grey"
+                                            className="task-detail-icon"
+                                            onClick={ () => {
+                                                dispatch({ type: TASK_DETAIL_BUSINESS_DRIVEN,
+                                                    payload: {
+                                                        business_driven: false,
+                                                        focus: false
                                                     }
+                                                })
+                                            }}
+                                        /> 
+                                    { //Check if Focus or opportunistic
+                                        state.taskDetail.priority.focus ?
+                                        (
+                                            <div className="flex">
+                                                {// is review date passed?
+                                                    dayjs(now).isAfter(dayjs(state.taskDetail.review_dt)) ?
+                                                    (
+                                                        <div>
+                                                            <SiTarget color="red" className="task-detail-icon" />
+                                                        </div>
+                                                    ):(
+                                                        <div>
+                                                            <SiTarget color="green" className="task-detail-icon" />
+                                                        </div>
+                                                    )
+                                                }
 
-                                                    <FaClock
-                                                        color="grey"
-                                                        className="task-detail-icon"
-                                                        onClick={() => {
-                                                            dispatch({ type: TASK_DETAIL_FOCUS,
-                                                                payload: {
-                                                                    business_driven: true,
-                                                                    focus: false
-                                                                }
-                                                            })
-                                                        }}
-                                                    />
-                                                </div>
-                                            ):(
-                                                <div className="flex">
-                                                    <SiTarget
-                                                        color="grey"
-                                                        className="task-detail-icon"                                
-                                                        onClick={ () => {
-                                                            dispatch({ type: TASK_DETAIL_FOCUS,
-                                                                payload: {
-                                                                    business_driven: true,
-                                                                    focus: true
-                                                                }
-                                                            })
-                                                        }}
-                                                    />
-                                                    {// is review date passed?
-                                                        dayjs(now).isAfter(dayjs(state.taskDetail.review_dt)) ?
-                                                        (
-                                                            <div>
-                                                                <FaClock color="red" className="task-detail-icon" />
-                                                            </div>
-                                                        ):(
-                                                            <div>
-                                                                <FaClock color="green" className="task-detail-icon" />
-                                                            </div>
-                                                        )
-                                                    }
-                                                </div>   
-                                            )
-                                        }
+                                                <FaClock
+                                                    color="grey"
+                                                    className="task-detail-icon"
+                                                    onClick={() => {
+                                                        dispatch({ type: TASK_DETAIL_FOCUS,
+                                                            payload: {
+                                                                business_driven: true,
+                                                                focus: false
+                                                            }
+                                                        })
+                                                    }}
+                                                />
+                                            </div>
+                                        ):(
+                                            <div className="flex">
+                                                <SiTarget
+                                                    color="grey"
+                                                    className="task-detail-icon"                                
+                                                    onClick={ () => {
+                                                        dispatch({ type: TASK_DETAIL_FOCUS,
+                                                            payload: {
+                                                                business_driven: true,
+                                                                focus: true
+                                                            }
+                                                        })
+                                                    }}
+                                                />
+                                                {// is review date passed?
+                                                    dayjs(now).isAfter(dayjs(state.taskDetail.review_dt)) ?
+                                                    (
+                                                        <div>
+                                                            <FaClock color="red" className="task-detail-icon" />
+                                                        </div>
+                                                    ):(
+                                                        <div>
+                                                            <FaClock color="green" className="task-detail-icon" />
+                                                        </div>
+                                                    )
+                                                }
+                                            </div>   
+                                        )
+                                    }
                                     </div>
                                     
                                 ):(
@@ -433,8 +437,9 @@ export default function TaskDetailModal(props) {
                                                         </div>
                                                     ):(
                                                         <div>
-                                                            <FaTools color="green" className="task-detail-icon" />
+                                                            <FaTools color="green" className="task-detail-icon" />                                                            
                                                         </div>
+                                                        
                                                     )
                                                 }
                                                 <SiTarget
@@ -461,100 +466,50 @@ export default function TaskDetailModal(props) {
                                                     })
                                                 }}
                                                 />
-
-
                                             </div>
                                         }
                                     </div>
                                 )
                             }
                         </div>
-                    </div>
-
-
-                    {/* <div>
-                        <p>Business Driven?</p>
-                        <input
-                            id="radio-business-driven-true"
-                            type="radio"
-                            name="business-driven"
-                            value="true"
-                            onClick={ () => {
-                                dispatch({ type: TASK_DETAIL_BUSINESS_DRIVEN,
-                                    payload: {
-                                        business_driven: true,
-                                        focus: true                        
-                                    }
-                                })                                
-                            }}
-                            >
-                        </input>
-                        <label>True</label>                    
-                        <input
-                            id="radio-business-driven-false"
-                            type="radio"
-                            name="business-driven"
-                            value="false"
-                            onClick={ () => {
-                                dispatch({ type: TASK_DETAIL_BUSINESS_DRIVEN,
-                                    payload: {
-                                        business_driven: false,
-                                        focus: true 
-                                    }
-                                })                                
-                            }}
-                            >
-                        </input>
-                        <label>False</label>
-                    </div>
-
-                    <div>
-                        <p>Focus?</p>
-                        <input
-                            id="radio-focus-true"
-                            type="radio"
-                            name="focus"
-                            value="true"
-                            onClick={() => {
-                                dispatch({ type: TASK_DETAIL_FOCUS,
-                                    payload: {
-                                        business_driven: true,
-                                        focus: true
-                                    }
-                                })
-                            }}
-                            >
-                        </input>
-                        <label>True</label>                    
-                        <input
-                            id="radio-focus-false"
-                            type="radio"
-                            name="focus"
-                            value="false"
-                            onClick={() => {
-                                dispatch({ type: TASK_DETAIL_FOCUS,
-                                    payload: {
-                                        business_driven: true,
-                                        focus: false
-                                    }
-                                })
-                            }}
-                            >
-                        </input>
-                        <label>False</label>
-                    </div> */}
-                
-                
+                        <div className = "text-center">
+                            { 
+                                state.taskDetail.priority.business_driven ?
+                                (
+                                    state.taskDetail.priority.focus ? 
+                                    (
+                                        <div>
+                                            <p className = "modal-label"> Focus Task Type </p>
+                                            <p className = "modal-label"> (Business Driven/High Priority) </p>
+                                        </div>
+                                    ):(
+                                        <div>
+                                            <p className = "modal-label"> Focus Task Type </p>
+                                            <p className = "modal-label"> (Business Driven/Low Priority) </p>                                            
+                                        </div>
+                                    )                                    
+                                ):(
+                                    <div>
+                                        <p className = "modal-label"> Operational Task Type </p>
+                                        <p className = "modal-label"> (Operations/Maintenance/Incidents/Problems) </p>
+                                    </div>
+                                )                                    
+                            }
+                        </div>
+                    </div>                        
                 </div>
 
-                {/* Notes */}
-                <div className="bg-filter modal-section">
+    {/****************/}
+    {/* Notes Section*/}
+    {/****************/}
+                <div className="bg-filter modal-section p-5">
                     <label className="w-full modal-labeltext-right"> Notes Section</label>     
                 </div>
 
 
-
-                {/* Sign off section */}                    
+    {/*******************/}
+    {/* Sign off Section*/}
+    {/*******************/}                
                 <div className="bg-filter modal-section justify-center"> 
                     <button className="w-20 px-2 m-1 text-sm font-bold button-color" type="submit" value="submit"> Save </button>
                     <button className="w-20 px-2 m-1 text-sm font-bold button-color" type="button" value="cancel" onClick={(() => closeDetailForm())}> Cancel </button>    
@@ -562,7 +517,9 @@ export default function TaskDetailModal(props) {
 
                 {/* Modal Form Element Graveyard */}
 
-                {/* Footer */}
+    {/**********/}
+    {/* Footer */}
+    {/**********/}
                 <p className="button-color px-6 py-2 my-2 font-bold text-2xl" onClick={() => consoleLog()} >
                     Console.log(state)
                 </p>
