@@ -784,6 +784,11 @@ video {
   line-height: 2.25rem;
 }
 
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -819,6 +824,11 @@ video {
   letter-spacing: 0.025em;
 }
 
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+
 .text-green-400 {
   --tw-text-opacity: 1;
   color: rgb(74 222 128 / var(--tw-text-opacity));
@@ -832,6 +842,11 @@ video {
 .text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
+.text-yellow-400 {
+  --tw-text-opacity: 1;
+  color: rgb(250 204 21 / var(--tw-text-opacity));
 }
 
 .underline {
@@ -1456,6 +1471,7 @@ li {
   text-align: center;
   /* border: 2px solid green; */
   /* background-color: rgba(0, 128, 0, 0.2); */
+  transition: ease-in-out 0.2s;
 }
 
 .modal-select {
@@ -1494,6 +1510,7 @@ li {
   padding-left: 10px;
   padding-right: 10px;
   background-color: rgba(150, 150, 150, 0.25);
+  transition: ease-in-out 0.2s;
 }
 
 .modal-field:hover {
@@ -1510,12 +1527,14 @@ li {
   /* border: 2px solid yellow; */
   /* background-color: rgba(255, 255, 0, 0.2); */
   text-align: left;
+  transition: ease-in-out 0.2s;
 }
 
 .modal-section-divider {
   border: 2px solid magenta;
   background-color: rgba(255, 0, 255, 0.2);
-  padding: 5px
+  padding: 5px;
+  transition: ease-in-out 0.2s;
 }
 
 .modal-section {
@@ -1525,11 +1544,13 @@ li {
   padding: 5px;
   /* border: 2px solid green; */
   /* background-color: rgba(0, 255, 0, 0.2);       */
+  transition: ease-in-out 0.2s;
 }
 
 .task-detail-icon {
   font-size: 3rem;
   padding: 3px;
+  transition: ease-in-out 0.2s;
 }
 
 /******************************/

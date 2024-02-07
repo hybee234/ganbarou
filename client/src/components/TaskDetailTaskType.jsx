@@ -34,14 +34,14 @@ export default function TaskDetailTaskType() {
                         Tasks are organised into 3 types. Operational ('Tasks' that must be done to keep the business going). 'Focus' (Business driven requests rated as priority, handled after operational tasks are done) and 'Opportunistic' (Business driven tasks that are handled when awaiting external actions on Focus tasks - Lowest priority of the 3 types.)" arrow placement="right">
                         <label className="modal-label w-1/3">Task Type</label>
                         </Tooltip>
-                        <div className="flex border-2 modal-field cursor-pointer">
+                        <div className="flex border-2 modal-field justify-center">
                             { //first checkpoint
                                 state.taskDetail.priority.business_driven ? 
                                 ( // Business driven request
                                     <div className="flex">                                        
                                         <FaTools
                                             color="grey"
-                                            className="task-detail-icon"
+                                            className="task-detail-icon cursor-pointer"
                                             onClick={ () => {
                                                 dispatch({ type: TASK_DETAIL_BUSINESS_DRIVEN,
                                                     payload: {
@@ -59,18 +59,18 @@ export default function TaskDetailTaskType() {
                                                     dayjs(now).isAfter(dayjs(state.taskDetail.review_dt)) ?
                                                     (
                                                         <div>
-                                                            <SiTarget color="red" className="task-detail-icon" />
+                                                            <SiTarget color="red" className="task-detail-icon cursor-pointer" />
                                                         </div>
                                                     ):(
                                                         <div>
-                                                            <SiTarget color="green" className="task-detail-icon" />
+                                                            <SiTarget color="green" className="task-detail-icon cursor-pointer" />
                                                         </div>
                                                     )
                                                 }
 
                                                 <FaClock
                                                     color="grey"
-                                                    className="task-detail-icon"
+                                                    className="task-detail-icon cursor-pointer"
                                                     onClick={() => {
                                                         dispatch({ type: TASK_DETAIL_FOCUS,
                                                             payload: {
@@ -85,7 +85,7 @@ export default function TaskDetailTaskType() {
                                             <div className="flex">
                                                 <SiTarget
                                                     color="grey"
-                                                    className="task-detail-icon"                                
+                                                    className="task-detail-icon cursor-pointer"                                
                                                     onClick={ () => {
                                                         dispatch({ type: TASK_DETAIL_FOCUS,
                                                             payload: {
@@ -99,11 +99,11 @@ export default function TaskDetailTaskType() {
                                                     dayjs(now).isAfter(dayjs(state.taskDetail.review_dt)) ?
                                                     (
                                                         <div>
-                                                            <FaClock color="red" className="task-detail-icon" />
+                                                            <FaClock color="red" className="task-detail-icon cursor-pointer" />
                                                         </div>
                                                     ):(
                                                         <div>
-                                                            <FaClock color="green" className="task-detail-icon" />
+                                                            <FaClock color="green" className="task-detail-icon cursor-pointer" />
                                                         </div>
                                                     )
                                                 }
@@ -121,18 +121,18 @@ export default function TaskDetailTaskType() {
                                                     dayjs(now).isAfter(dayjs(state.taskDetail.review_dt)) ?
                                                     (
                                                         <div>
-                                                            <FaTools color="red" className="task-detail-icon" />
+                                                            <FaTools color="red" className="task-detail-icon cursor-pointer" />
                                                         </div>
                                                     ):(
                                                         <div>
-                                                            <FaTools color="green" className="task-detail-icon" />                                                            
+                                                            <FaTools color="green" className="task-detail-icon cursor-pointer" />                                                            
                                                         </div>
                                                         
                                                     )
                                                 }
                                                 <SiTarget
                                                     color="grey"
-                                                    className="task-detail-icon"                                
+                                                    className="task-detail-icon cursor-pointer"                                
                                                     onClick={ () => {
                                                         dispatch({ type: TASK_DETAIL_FOCUS,
                                                             payload: {
@@ -144,7 +144,7 @@ export default function TaskDetailTaskType() {
                                                 />
                                                 <FaClock
                                                 color="grey"
-                                                className="task-detail-icon"
+                                                className="task-detail-icon cursor-pointer"
                                                 onClick={() => {
                                                     dispatch({ type: TASK_DETAIL_FOCUS,
                                                         payload: {
@@ -180,6 +180,7 @@ export default function TaskDetailTaskType() {
                                     <div>
                                         <p className = "modal-label"> Operational Task Type </p>
                                         <p className = "modal-label"> (Maintenance/Incidents) </p>
+                                        <p className = "modal-label text-red-400"> Operational Tasks are Exempt from Prioritisation </p>
                                     </div>
                                 )                                    
                             }
