@@ -676,6 +676,10 @@ video {
   table-layout: auto;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .flex-wrap {
   flex-wrap: wrap;
 }
@@ -1509,8 +1513,8 @@ li {
 }
 
 .modal-section-divider {
-  /* border: 2px solid magenta; */
-  /* background-color: rgba(255, 0, 255, 0.2); */
+  border: 2px solid magenta;
+  background-color: rgba(255, 0, 255, 0.2);
   padding: 5px
 }
 

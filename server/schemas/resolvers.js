@@ -212,6 +212,9 @@ const resolvers = {
                         $set: {priority: {
                             business_driven: args.priority.business_driven,
                             focus: args.priority.focus,
+                            important: args.priority.important,
+                            urgent: args.priority.urgent,
+                            high_effort: args.priority.high_effort,
                         }}
                     },
                     { new: true, runValidators: true})
