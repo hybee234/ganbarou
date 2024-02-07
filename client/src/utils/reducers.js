@@ -18,8 +18,9 @@ import {
     TASK_DETAIL_IMPORTANT,
     TASK_DETAIL_URGENT,
     TASK_DETAIL_EFFORT,
-    TASK_DETAIL_COMMENT,
+    TASK_DETAIL_CATEGORY,
     TASK_DETAIL_PIPELINE,
+    TASK_DETAIL_COMMENT
 } from './actions';
 
 export const reducer = (state, action) => {
@@ -233,15 +234,15 @@ export const reducer = (state, action) => {
                 }
             }
         }
-        case TASK_DETAIL_COMMENT: {
-            console.log("TASK_DETAIL_COMMENT reducer engaged")
+        case TASK_DETAIL_CATEGORY: {
+            console.log("TASK_DETAIL_CATEGORY reducer engaged")
             return { 
                 ...state,
                 taskDetail: {
                     ...state.taskDetail,
                     priority: {
                         ...state.taskDetail.priority,
-                        comment: action.payload,
+                        category: action.payload,
                     }                    
                 }
             }
@@ -259,7 +260,19 @@ export const reducer = (state, action) => {
                 }
             }
         }
-
+        case TASK_DETAIL_COMMENT: {
+            console.log("TASK_DETAIL_COMMENT reducer engaged")
+            return { 
+                ...state,
+                taskDetail: {
+                    ...state.taskDetail,
+                    priority: {
+                        ...state.taskDetail.priority,
+                        comment: action.payload,
+                    }                    
+                }
+            }
+        }
 
 
 

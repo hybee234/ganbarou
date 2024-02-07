@@ -16,6 +16,7 @@ import { UPDATE_TASK_BY_TASK_ID } from './../utils/mutations';
 
 import TaskDetailTaskType from '../components/TaskDetailTaskType';
 import TaskDetailUrgentImportant from '../components/TaskDetailUrgentImportant';
+import TaskDetailCategoryPipeline from '../components/TaskDetailCategoryPipeline';
 
 import {
     TASK_DETAIL_CREATED_DT,
@@ -126,6 +127,9 @@ export default function TaskDetailModal(props) {
                         urgent: state.taskDetail.priority.urgent,
                         important: state.taskDetail.priority.important,
                         high_effort: state.taskDetail.priority.high_effort,
+                        pipeline_number: state.taskDetail.priority.pipeline_number,
+                        category: state.taskDetail.priority.category,
+                        comment: state.taskDetail.priority.comment
                     }
                 
                 },
@@ -348,10 +352,9 @@ export default function TaskDetailModal(props) {
                         </div>
                     </div>
                     <div className="modal-section-divider">
-                        {/* Task Type Selector */}
+                        {/* Category and Pipeline */}
                         <div className="w-full">
-                            category
-                            Pipeline
+                            <TaskDetailCategoryPipeline />
                         </div>
                     </div>
                     <div className="modal-section-divider">
