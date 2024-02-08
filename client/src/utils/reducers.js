@@ -20,7 +20,8 @@ import {
     TASK_DETAIL_EFFORT,
     TASK_DETAIL_CATEGORY,
     TASK_DETAIL_PIPELINE,
-    TASK_DETAIL_COMMENT
+    TASK_DETAIL_COMMENT,
+    TASK_DETAIL_NOTE_TEXT,
 } from './actions';
 
 export const reducer = (state, action) => {
@@ -274,7 +275,20 @@ export const reducer = (state, action) => {
             }
         }
 
-
+        // Task Notes
+        case TASK_DETAIL_NOTE_TEXT: {
+            console.log("TASK_DETAIL_NOTE_TEXT reducer engaged")
+            return { 
+                ...state,
+                taskDetail: {
+                    ...state.taskDetail,
+                    note: {
+                        ...state.taskDetail.note,
+                        text: action.payload,
+                    }                    
+                }
+            }
+        }
 
 
         // Default to returning the state as is in our switch statement

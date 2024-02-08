@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Tooltip from '@mui/material/Tooltip';
+import Zoom from '@mui/material/Zoom';
 
 import { Icon } from '@iconify/react'
 import { useGlobalContext } from '../utils/GlobalState';
@@ -28,9 +29,11 @@ export default function TaskDetailCategory() {
                             <div className="tooltip-string">Critical enterprise risk to business without immediate attention</div>
                         </div>}
                     arrow placement="top"
-                    enterDelay="500"
-                    // enterNextDelay="500"
-                    followCursor="true"
+                    enterDelay={500}
+                    enterNextDelay={500}
+                    TransitionComponent={Zoom}
+                    TransitionProps={{ timeout: 200 }}
+                    // followCursor
                 >
                     <div
                         className="border-2 modal-field cursor-pointer"
@@ -76,9 +79,11 @@ export default function TaskDetailCategory() {
                             <div className="tooltip-string">Major initiatives, typically strategic in nature</div>
                         </div>}
                     arrow placement="top"
-                    enterDelay="500"
-                    // enterNextDelay="500"
-                    followCursor="true"
+                    enterDelay={500}
+                    enterNextDelay={500}
+                    TransitionComponent={Zoom}
+                    TransitionProps={{ timeout: 200 }}
+                    // followCursor
                 >
                     <div
                         className="border-2 modal-field cursor-pointer"
@@ -122,9 +127,11 @@ export default function TaskDetailCategory() {
                             <div className="tooltip-string">Moderate initiatives, supports part of business</div>
                         </div>}
                     arrow placement="top"
-                    enterDelay="500"
-                    // enterNextDelay="500"
-                    followCursor="true"
+                    enterDelay={500}
+                    enterNextDelay={500}
+                    TransitionComponent={Zoom}
+                    TransitionProps={{ timeout: 200 }}
+                    // followCursor
                 >
                     <div
                         className="border-2 modal-field cursor-pointer"
@@ -168,9 +175,11 @@ export default function TaskDetailCategory() {
                             <div className="tooltip-string">Low impact to business as a whole, non critical</div>
                         </div>}
                     arrow placement="top"
-                    enterDelay="500"
-                    // enterNextDelay="500"
-                    followCursor="true"
+                    enterDelay={500}
+                    enterNextDelay={500}
+                    TransitionComponent={Zoom}
+                    TransitionProps={{ timeout: 200 }}
+                    // followCursor
                 >
                     <div
                         className="border-2 modal-field cursor-pointer"
@@ -214,9 +223,11 @@ export default function TaskDetailCategory() {
                             <div className="tooltip-string">Effort outweights value</div>
                         </div>}
                     arrow placement="top"
-                    enterDelay="500"
-                    // enterNextDelay="500"
-                    followCursor="true"
+                    enterDelay={500}
+                    enterNextDelay={500}
+                    TransitionComponent={Zoom}
+                    TransitionProps={{ timeout: 200 }}
+                    // followCursor
                 >
                     <div
                         className="border-2 modal-field cursor-pointer"

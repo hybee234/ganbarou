@@ -142,12 +142,12 @@ export default function TaskDetailModal( {userSelect}) {
             <div id="view-details-modal-background" className="modal-background"></div>     
             <form id="view-details-modal-form" className="modal-form" onSubmit={()=> handleFormSubmit(event)}>                    
                 <span className="close" onClick={(() => closeDetailForm())}>&times;</span>
-                <h2 className="block modal-heading"> Task Details</h2>
+                <h2 className="block modal-heading cherry-font"> Task Details</h2>
     {/***********************/}
     {/* Task Details Section*/}
     {/***********************/}
                 <div className="bg-filter modal-section p-5">
-                    <label className="modal-label w-full text-right"> Task Section</label>     
+                    <h2 className="block cherry-font w-full"> Task </h2>   
                     <div className="flex flex-wrap modal-section-divider w-full sm:w-1/4">
                         <div className="modal-field-container w-1/2 sm:w-full">
                             <div>
@@ -320,109 +320,104 @@ export default function TaskDetailModal( {userSelect}) {
     {/*************************/}
     {/* Prioritisation Section*/}
     {/*************************/}
-            {
-                state.taskDetail.priority.business_driven === true ?
-                (
                     
                 <div className="modal-section bg-filter p-5 justify-center flex flex-wrap">
-                    <label className="w-full modal-label text-right"> Prioritisation Section </label>
-                
-                {/* Urgency/Importance*/}
-                    <div className="modal-section-divider w-full md:w-1/2 lg:w-1/3">
-                        <div className="m-auto">
-                            {/* Important, Urgent, Effort */}
-                            <div className="w-full">
-                                <TaskDetailUrgentImportant />
-                            </div>
-                        </div>
-                    </div>
-                
-                {/* Category*/}
-                    <div className="modal-section-divider w-full md:w-1/2 lg:w-1/3">
-                        <div className="m-auto">
-                            {/* Category and Pipeline */}
-                            <div className="w-full">
-                                <TaskDetailCategory/>
-                            </div>
-                        </div>
-                    </div>
+                <h2 className="block cherry-font w-full"> Prioritisation</h2> 
+                {
+                    state.taskDetail.priority.business_driven === true ?
+                        (
+                            <div className="modal-section-divider w-full flex">
+                            
+                                {/* Urgency/Importance*/}
+                                <div className="modal-section-divider w-full flex justify-center">
+                                    <div className="">
+                                        {/* Important, Urgent, Effort */}
+                                        <div className="p-1">
+                                            <TaskDetailUrgentImportant />
+                                        </div>
+                                    </div>
+                                    <div className="">                                        
+                                        <div className="p-1">
+                                            <TaskDetailCategory/>
+                                        </div>
+                                    </div>
+                                </div>
+                            
 
-                {/* Comment*/}
-                    <div className="modal-section-divider w-full sm:w-1/2 lg:w-1/3">
-                        <div className="w-full">
-                            <div className="modal-field-container">
-                                <label className="modal-label w-1/3">Prioritisation Notes</label>
-                                <Tooltip
-                                    title={
-                                        <div className="tooltip">                                            
-                                            <div className="tooltip-string">Comments pertaining to prioritisation Only</div>                                    
-                                            <div className="tooltip-string"></div>                                      
-                                        </div>}
-                                    arrow placement="bottom"
-                                    enterDelay={500}
-                                    enterNextDelay={500}
-                                    TransitionComponent={Zoom}
-                                    TransitionProps={{ timeout: 200 }}
-                                    // followCursor
-                                >
-                                    <textarea
-                                        className="w-full modal-field"
-                                        name="status-summary"
-                                        type="text"
-                                        placeholder="Summary"
-                                        rows="4"
-                                        cols="30"
-                                        value={state.taskDetail.priority.comment}
-                                        onInput={(e) => expandArea(e)}
-                                        onChange= {(e) =>
-                                            dispatch({ type: TASK_DETAIL_COMMENT, payload: e.target.value})}
-                                        >
-                                    </textarea>
-                                </Tooltip>
-                            </div>
-                        </div>
-                    </div>
+                            {/* Comment*/}
+                                <div className="modal-section-divider w-full sm:w-1/2 lg:w-1/3">
+                                    <div className="w-full">
+                                        <div className="modal-field-container">
+                                            <label className="modal-label w-1/3">Prioritisation Notes</label>
+                                            <Tooltip
+                                                title={
+                                                    <div className="tooltip">                                            
+                                                        <div className="tooltip-string">Comments pertaining to prioritisation Only</div>                                    
+                                                        <div className="tooltip-string"></div>                                      
+                                                    </div>}
+                                                arrow placement="bottom"
+                                                enterDelay={500}
+                                                enterNextDelay={500}
+                                                TransitionComponent={Zoom}
+                                                TransitionProps={{ timeout: 200 }}
+                                                // followCursor
+                                            >
+                                                <textarea
+                                                    className="w-full modal-field"
+                                                    name="status-summary"
+                                                    type="text"
+                                                    placeholder="Summary"
+                                                    rows="3"
+                                                    cols="30"
+                                                    value={state.taskDetail.priority.comment}
+                                                    onInput={(e) => expandArea(e)}
+                                                    onChange= {(e) =>
+                                                        dispatch({ type: TASK_DETAIL_COMMENT, payload: e.target.value})}
+                                                    >
+                                                </textarea>
+                                            </Tooltip>
+                                        </div>
+                                    </div>
+                                </div>
 
-                {/* Pipeline */}
-                    <div className="modal-section-divider w-full sm:w-1/2">
-                        <div className="w-full">
-                            <div className="modal-field-container text-center justify-center flex flex-wrap">
-                                <label className="modal-label">Pipeline Number</label>
-                                <Tooltip
-                                    title={
-                                        <div className="tooltip">                                            
-                                            <div className="tooltip-string">---</div>
-                                            <div className="tooltip-string">---</div>                                     
-                                        </div>}
-                                    enterDelay={500}
-                                    enterNextDelay={500}
-                                    TransitionComponent={Zoom}
-                                    TransitionProps={{ timeout: 200 }}
-                                    // followCursor
-                                >
-                                    <input
-                                        id="pipeline-number"
-                                        className="modal-field text-center cherry-font m-auto"                                        
-                                        type="number"
-                                        inputMode="number"
-                                        step="1"
-                                        value={state.taskDetail.priority.pipeline_number}
-                                        onChange= {(e) =>
-                                            dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
-                                        >
-                                    </input>                                
-                                </Tooltip>
-                            </div>
-                        </div>
-                    </div>
-
-
-
+                            {/* Pipeline */}
+                                <div className="modal-section-divider w-full sm:w-1/2">
+                                    <div className="w-full">
+                                        <div className="modal-field-container text-center justify-center flex flex-wrap">
+                                            <label className="modal-label">Pipeline Number</label>
+                                            <Tooltip
+                                                title={
+                                                    <div className="tooltip">                                            
+                                                        <div className="tooltip-string">---</div>
+                                                        <div className="tooltip-string">---</div>                                     
+                                                    </div>}
+                                                enterDelay={500}
+                                                enterNextDelay={500}
+                                                TransitionComponent={Zoom}
+                                                TransitionProps={{ timeout: 200 }}
+                                                // followCursor
+                                            >
+                                                <input
+                                                    id="pipeline-number"
+                                                    className="modal-field text-center cherry-font m-auto"                                        
+                                                    type="number"
+                                                    inputMode="number"
+                                                    step="1"
+                                                    value={state.taskDetail.priority.pipeline_number}
+                                                    onChange= {(e) =>
+                                                        dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
+                                                    >
+                                                </input>                                
+                                            </Tooltip>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        ):(
+                                <div>Operational Tasks are exempt from Prioritsation</div>
+                        )
+                    }
                 </div> 
-                ):(
-                        <div>Operational Tasks are exempt from Prioritsation</div>
-                )
-            }
 
     {/****************/}
     {/* Notes Section*/}
@@ -435,8 +430,8 @@ export default function TaskDetailModal( {userSelect}) {
     {/* Sign off Section*/}
     {/*******************/}                
                 <div className="bg-filter modal-section justify-center"> 
-                    <button className="w-20 px-2 m-1 text-sm font-bold button-color" type="submit" value="submit"> Save </button>
-                    <button className="w-20 px-2 m-1 text-sm font-bold button-color" type="button" value="cancel" onClick={(() => closeDetailForm())}> Cancel </button>    
+                    <button className="w-20 px-2 py-1 m-1 text-sm font-bold button-color" type="submit" value="submit"> Save </button>
+                    <button className="w-20 px-2 py-1 m-1 text-sm font-bold button-color" type="button" value="cancel" onClick={(() => closeDetailForm())}> Cancel </button>    
                 </div>
 
                 {/* Modal Form Element Graveyard */}

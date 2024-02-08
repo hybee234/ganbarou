@@ -573,6 +573,11 @@ video {
   margin-right: auto;
 }
 
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -740,6 +745,11 @@ video {
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .py-2 {
@@ -1546,14 +1556,14 @@ li {
 }
 
 .modal-field-container {
-  /* border: 2px solid yellow; */
+  border: 2px solid yellow;
   /* background-color: rgba(255, 255, 0, 0.2); */
   text-align: left;
   transition: ease-in-out 0.2s;
 }
 
 .modal-section-divider {
-  /* border: 2px solid magenta; */
+  border: 2px solid magenta;
   /* background-color: rgba(255, 0, 255, 0.2); */
   padding: 5px;
   transition: ease-in-out 0.2s;
@@ -1564,7 +1574,7 @@ li {
   flex-wrap: wrap;
   margin: 5px;
   padding: 5px;
-  /* border: 2px solid green; */
+  border: 2px solid green;
   /* background-color: rgba(0, 255, 0, 0.2);       */
   transition: ease-in-out 0.2s;
 }
@@ -1599,11 +1609,47 @@ li {
   cursor: pointer;
 }
 
-/****************/
+/******************/
 
-/* Task Summary */
+/* Notes Component*/
 
-/****************/
+/******************/
+
+.note-container {
+  display: flex;
+  text-align: center;
+}
+
+.note-details {
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 30%;
+  font-size: 0.85em;
+  min-width: 90px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  /* border: 2px solid blue; */
+}
+
+.note-text {
+  width: 100%;
+  text-align: left;
+  padding: 5px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+/**************************/
+
+/* Task Summary Component */
+
+/**************************/
 
 .task-icon {
   font-size: 1.5rem;
@@ -1785,6 +1831,17 @@ li {
   .task-summary-container {
     font-size: 0.85rem;
   }
+
+  .note-container {
+    flex-wrap: wrap;
+  }
+
+  .note-details {
+    width: 100%;
+    display: flex;
+    font-size: 0.8rem;
+    margin-bottom: 0px
+  }
 }
 
 /****************************/
@@ -1873,10 +1930,6 @@ li {
     text-align: center;
 } */
 
-.backdrop\:p-5::backdrop {
-  padding: 1.25rem;
-}
-
 @media (min-width: 640px) {
   .sm\:block {
     display: block;
@@ -1929,10 +1982,6 @@ li {
 @media (min-width: 768px) {
   .md\:flex {
     display: flex;
-  }
-
-  .md\:w-1\/2 {
-    width: 50%;
   }
 
   .md\:flex-wrap {
