@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import Tooltip from '@mui/material/Tooltip';
+import Zoom from '@mui/material/Zoom';
 import { useGlobalContext } from '../utils/GlobalState';
 import { useState, useEffect } from 'react'
 // import { useNavigate } from 'react-router-dom';
@@ -268,7 +269,11 @@ export default function TaskList (props) {
                             <div className="tooltip-string">Operational Tasks take priority over Business Driven Initiatives (Focus and Opportunistic)</div>
                             <div className="tooltip-string">Handle Operational tasks due for review before moving onto Focus Initiatives</div>                                     
                         </div>}
-                    arrow placement="bottom"
+                    enterDelay={500}
+                    enterNextDelay={500}
+                    TransitionComponent={Zoom}
+                    TransitionProps={{ timeout: 200 }}
+                    // followCursor
                 > 
                     <span className = "cherry-font text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Operational Tasks</span>
                 </Tooltip>
@@ -375,7 +380,11 @@ export default function TaskList (props) {
                             <div className="tooltip-string">Focus Initiatives are what the team have commited to delivering and will be reported against </div>
                             <div className="tooltip-string">You must not progress Opportunistic Initiatives if there is a Focus Initiative requiring attention </div>
                         </div>}
-                    arrow placement="bottom"
+                    enterDelay={500}
+                    enterNextDelay={500}
+                    TransitionComponent={Zoom}
+                    TransitionProps={{ timeout: 200 }}
+                    // followCursor
                 >                
                     <span className = "cherry-font text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Focus Initiatives</span>
                 </Tooltip>
@@ -524,7 +533,11 @@ export default function TaskList (props) {
                             <div className="tooltip-string">Opportunistic Initiatives do not have time commitments attached to them and are not reported against. </div>
                             <div className="tooltip-string">Do not progress Opportunistic Initiatives if you the action is on your to progress Operational Tasks or Focus Initiatives </div>
                         </div>}
-                    arrow placement="bottom"
+                    enterDelay={500}
+                    enterNextDelay={500}
+                    TransitionComponent={Zoom}
+                    TransitionProps={{ timeout: 200 }}
+                    // followCursor
                 >                
                     <span className = "cherry-font text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Opportunistic Initiatives</span>
                 </Tooltip>

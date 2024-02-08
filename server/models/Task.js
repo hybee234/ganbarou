@@ -25,6 +25,7 @@ const taskSchema = new Schema({
     review_dt: {
         //Time defaults to 0000hrs
         type: Date,
+        default: Date.now,
     },
     stakeholder: {
         type: String,

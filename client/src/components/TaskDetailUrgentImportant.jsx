@@ -2,6 +2,8 @@
 
 import * as React from 'react';
 import Tooltip from '@mui/material/Tooltip';
+import Zoom from '@mui/material/Zoom';
+
 import { Icon } from '@iconify/react';
 import { useGlobalContext } from '../utils/GlobalState';
 
@@ -43,10 +45,12 @@ export default function TaskDetailUrgentImportant() {
                                 <div className="tooltip-string">How time critical is this request? Determined by Enterprise Risk Assessment.</div>                                    
                                 <div className="tooltip-string"></div>
                             </div>}
-                    arrow placement="top"
-                    enterDelay="500"
-                    // enterNextDelay="500"
-                    followCursor="true"
+                        arrow placement="top"
+                        enterDelay={500}
+                        enterNextDelay={500}
+                        TransitionComponent={Zoom}
+                        TransitionProps={{ timeout: 200 }}
+                        // followCursor
                     >
                         {
                             state.taskDetail.priority.urgent ?
@@ -99,10 +103,11 @@ export default function TaskDetailUrgentImportant() {
                                 <div className="tooltip-string">Is this request of high value and impact to business risks/benefits?</div>                                    
                                 <div className="tooltip-string"></div>
                             </div>}
-                    arrow placement="top"
-                    enterDelay="500"
-                    // enterNextDelay="500"
-                    followCursor="true"
+                        enterDelay={500}
+                        enterNextDelay={500}
+                        TransitionComponent={Zoom}
+                        TransitionProps={{ timeout: 200 }}
+                        // followCursor
                     >
                         {
                             state.taskDetail.priority.important ?
@@ -153,10 +158,11 @@ export default function TaskDetailUrgentImportant() {
                                 <div className="tooltip-string">Judgement call on effort required to meet business request</div>                                    
                                 <div className="tooltip-string"></div>
                             </div>}
-                    arrow placement="top"
-                    enterDelay="500"
-                    // enterNextDelay="500"
-                    followCursor="true"
+                        enterDelay={500}
+                        enterNextDelay={500}
+                        TransitionComponent={Zoom}
+                        TransitionProps={{ timeout: 200 }}
+                        // followCursor
                     >
                     {
                         state.taskDetail.priority.high_effort ?

@@ -1,5 +1,7 @@
 import * as React from 'react';
 import Tooltip from '@mui/material/Tooltip';
+import Zoom from '@mui/material/Zoom';
+
 
 import { SiTarget } from "react-icons/si";
 import { FaTools } from "react-icons/fa";
@@ -34,6 +36,7 @@ export default function TaskDetailTaskType() {
                         <label className="modal-label w-1/3">Assign the Task Type*</label>
 
                         <Tooltip
+
                             title={
                                 <div className="tooltip">                                            
                                     <div className="tooltip-string"><b>* Operational:</b> Tasks that must be carried out to maintain BAU (e.g. Monitoring, auditing, content updates, incidents).</div>                                    
@@ -41,9 +44,11 @@ export default function TaskDetailTaskType() {
                                     <div className="tooltip-string"><b>* Opportunistic:</b> Business driven initiatives. Lowest priority - handled only when awaiting Operattional and Focus tasks are awaiting external actions.</div>
                                 </div>}                            
                             arrow placement="bottom"
-                            enterDelay="500"
-                            enterNextDelay="500"
-                            followCursor="true"
+                            enterDelay={500}
+                            enterNextDelay={500}
+                            TransitionComponent={Zoom}
+                            TransitionProps={{ timeout: 200 }}
+                            // followCursor
                             
                         >
                             <div className="flex border-2 modal-field justify-center w-2/3 sm:w-1/2  m-auto">

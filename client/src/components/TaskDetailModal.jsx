@@ -4,7 +4,7 @@ The only way to show this is to click on a task that will pass task details to t
 */
 import * as React from 'react';
 import Tooltip from '@mui/material/Tooltip';
-
+import Zoom from '@mui/material/Zoom';
 
 import Auth from '../utils/auth';
 import dayjs from 'dayjs'
@@ -177,9 +177,11 @@ export default function TaskDetailModal( {userSelect}) {
                                         <div className="tooltip-string">* Can't progress a task because you're waiting on the stakeholder? Set a review date in the future to follow up!"</div>
                                     </div>}
                                 arrow placement="bottom"
-                                enterDelay="500"
-                                enterNextDelay="500"
-                                followCursor="true"
+                                enterDelay={500}
+                                enterNextDelay={500}
+                                TransitionComponent={Zoom}
+                                TransitionProps={{ timeout: 200 }}
+                                // followCursor
                             >
                                 <input
                                     className="modal-field w-full text-center"
@@ -357,9 +359,11 @@ export default function TaskDetailModal( {userSelect}) {
                                             <div className="tooltip-string"></div>                                      
                                         </div>}
                                     arrow placement="bottom"
-                                    enterDelay="500"
-                                    enterNextDelay="500"
-                                    followCursor="true"
+                                    enterDelay={500}
+                                    enterNextDelay={500}
+                                    TransitionComponent={Zoom}
+                                    TransitionProps={{ timeout: 200 }}
+                                    // followCursor
                                 >
                                     <textarea
                                         className="w-full modal-field"
@@ -390,10 +394,11 @@ export default function TaskDetailModal( {userSelect}) {
                                             <div className="tooltip-string">---</div>
                                             <div className="tooltip-string">---</div>                                     
                                         </div>}
-                                    arrow placement="bottom"
-                                    enterDelay="500"
-                                    enterNextDelay="500"
-                                    followCursor="true"
+                                    enterDelay={500}
+                                    enterNextDelay={500}
+                                    TransitionComponent={Zoom}
+                                    TransitionProps={{ timeout: 200 }}
+                                    // followCursor
                                 >
                                     <input
                                         id="pipeline-number"
