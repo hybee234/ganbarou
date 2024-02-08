@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
+import { Icon } from '@iconify/react';
 import { useGlobalContext } from '../utils/GlobalState';
-import { TASK_DETAIL_NOTE_TEXT } from '../utils/actions'
 import dayjs from 'dayjs'
 
 import Tooltip from '@mui/material/Tooltip';
@@ -63,12 +63,12 @@ const handleInputChange = (e) => {
             </div>
 
             <div className="modal-section-divider w-full">
-                <label className="modal-label w-1/3">Add new Note</label>
+                {/* <label className="modal-label">Add new Note</label> */}
                     <textarea
                         className="w-full modal-field"
                         name="note-text"
                         type="text"
-                        placeholder="Type a new note here"
+                        placeholder="Type in your new note here"
                         rows="4"
                         cols="30"
                         value={newNote}
@@ -77,9 +77,21 @@ const handleInputChange = (e) => {
                             
                         >
                     </textarea>
-                    <button className="w-20 px-2 py-1 m-1 text-sm font-bold button-color" type="submit" value="submit"> Add Note </button>
-            </div>
-            
+                    <button
+                        className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
+                        type="button"
+                        value="note"
+                        >
+                        <div className="flex align-middle items-center">                          
+                                <Icon
+                                    icon="mdi:file-document-add-outline"
+                                    width="30" height="30" 
+                                    className="task-detail-icon m-auto"
+                                />
+                                <div>&nbsp; Add Note</div>                                                  
+                        </div> 
+                    </button>
+            </div>            
         </div>
     )
 }

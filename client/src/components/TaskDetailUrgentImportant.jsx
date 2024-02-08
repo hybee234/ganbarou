@@ -21,7 +21,7 @@ export default function TaskDetailUrgentImportant() {
 
     return (
         <div className="modal-field-container p-1">
-            <label className="modal-label"> Value/Effort</label>
+            {/* <label className="modal-label"> Value/Effort</label> */}
             <div className="flex justify-center">
                 
                 <div className="modal-field-container">

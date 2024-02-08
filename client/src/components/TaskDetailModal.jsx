@@ -5,6 +5,7 @@ The only way to show this is to click on a task that will pass task details to t
 import * as React from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import Zoom from '@mui/material/Zoom';
+import { Icon } from '@iconify/react';
 
 import Auth from '../utils/auth';
 import dayjs from 'dayjs'
@@ -147,7 +148,7 @@ export default function TaskDetailModal( {userSelect}) {
     {/* Task Details Section*/}
     {/***********************/}
                 <div className="bg-filter modal-section p-5">
-                    <h2 className="block cherry-font w-full"> Task </h2>   
+                    <h2 className="block cherry-font w-full"> Task </h2>
                     <div className="flex flex-wrap modal-section-divider w-full sm:w-1/4">
                         <div className="modal-field-container w-1/2 sm:w-full">
                             <div>
@@ -421,8 +422,38 @@ export default function TaskDetailModal( {userSelect}) {
     {/* Sign off Section*/}
     {/*******************/}                
                 <div className="bg-filter modal-section justify-center"> 
-                    <button className="w-20 px-2 py-1 m-1 text-sm font-bold button-color" type="submit" value="submit"> Save </button>
-                    <button className="w-20 px-2 py-1 m-1 text-sm font-bold button-color" type="button" value="cancel" onClick={(() => closeDetailForm())}> Cancel </button>    
+                    <button
+                        className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
+                        type="submit"
+                        value="submit"
+                        >
+                        <div className="flex align-middle items-center">                          
+                                <Icon
+                                    icon="mi:save"
+                                    width="30" height="30" 
+                                    className="task-detail-icon m-auto"
+                                />
+                                <div>&nbsp; Save</div>                                                  
+                        </div> 
+                    </button>
+
+                    <button
+                        className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
+                        type="button"
+                        value="cancel"
+                        onClick={(() => closeDetailForm())}
+                        >
+                        <div className="flex align-middle items-center">                          
+                                <Icon
+                                    icon="icons8:cancel-2"
+                                    width="30" height="30" 
+                                    className="task-detail-icon m-auto"
+                                />
+                                <div>&nbsp; Cancel</div>                                                  
+                        </div> 
+                    </button>
+
+
                 </div>
 
                 {/* Modal Form Element Graveyard */}
@@ -430,9 +461,27 @@ export default function TaskDetailModal( {userSelect}) {
     {/**********/}
     {/* Footer */}
     {/**********/}
-                <p className="button-color px-6 py-2 my-2 font-bold text-2xl" onClick={() => consoleLog()} >
-                    Console.log(state)
-                </p>
+
+                <button
+                    className="px-6 py-2 mt-20 font-bold duration-200 ease-in-out button-color"
+                    type="button"
+                    value="cancel"
+                    onClick={() => consoleLog()}
+                    >
+                    <div className="flex align-middle items-center">                          
+                            <Icon
+                                icon="fa:gears"
+                                width="30" height="30" 
+                                className="task-detail-icon m-auto"
+                            />
+                            <div>&nbsp; console.log(state)</div>                                                  
+                    </div> 
+                </button>
+
+
+
+
+
                 <p className="block modal-label w-1/3 mt-10"> Task ID: {state.taskDetail._id}</p> 
             </form>
         </div>

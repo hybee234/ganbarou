@@ -18,7 +18,7 @@ export default function TaskDetailCategory() {
 
     return(
         <div className="modal-field-container p-1">
-            <label className="modal-label">Triage</label>
+            {/* <label className="modal-label">Triage</label> */}
             <div className="flex justify-center">
                 <div className="modal-field-container">
                 <label className="modal-label">Cat 1</label>

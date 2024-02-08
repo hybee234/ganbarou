@@ -105,7 +105,7 @@ export default function Login () {
                         </div>
                         <button id="login-login-button" className="px-6 py-2 my-5 font-bold duration-200 ease-in-out button-color" type="submit" value="submit">
                             <div className="flex align-middle items-center">
-                                <div><PiSignInBold size="25" /></div>
+                                <PiSignInBold size="25" />
                                 <div>&nbsp; Log in</div>
                             </div>
                         </button>
