@@ -61,7 +61,7 @@ export default function MyTasks() {
 
     // Filter array for provided UserID (default is the logged in user)
     // console.log("UserID:", userId) 
-    const tasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === userId)
+    const tasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === userId && !task.complete_flag)
     // console.log("MyTasksPage:tasks", tasks)
 
     // WARNING ... Dispatch causes infinite re-render loop ...
@@ -80,10 +80,8 @@ export default function MyTasks() {
     return (
     <div>    
         <TasksSummary tasks={tasks}  />
-        <TaskList tasks={tasks} userSelect={userSelect.data.users} />        
-        <div className= "">
-            <TaskDetailModal userSelect={userSelect.data.users} />
-        </div>
+        <TaskList tasks={tasks} userSelect={userSelect.data.users} />  
+        <TaskDetailModal userSelect={userSelect.data.users} />
     </div>
     )
 }
