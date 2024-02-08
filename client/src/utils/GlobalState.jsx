@@ -20,11 +20,12 @@ const GlobalProvider = ({ value = [], ...props }) => {
             create_dt:'',
             note: [{
                 note_author:{
-                    _id:""
+                    _id:"",
+                    username: '',
                 },
                 note_dt:'',
                 note_id:'',
-                note_test:'',
+                note_text:'',
                 note_type:'',
             }],
             priority: {
