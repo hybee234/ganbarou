@@ -298,11 +298,25 @@ export default function TaskList (props) {
                                     <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
                                         <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('D/M/YY')}</td>                                
                                         <td>
-                                            <p
-                                                className=" table-row-cell link-color "
-                                                onClick={()=> {viewTask(task._id)}}>
-                                                    {task.title}
-                                            </p>
+                                            <Tooltip
+                                                title={
+                                                    <div className="tooltip">                                            
+                                                        <div className="tooltip-string">Task Summary</div>                                                                            
+                                                        <div className="tooltip-string">{task.summary}</div>                                                                            
+                                                    </div>}
+                                                arrow placement="bottom"
+                                                enterDelay={500}
+                                                enterNextDelay={500}
+                                                TransitionComponent={Zoom}
+                                                TransitionProps={{ timeout: 200 }}
+                                                // followCursor
+                                            >
+                                                <p
+                                                    className=" table-row-cell link-color "
+                                                    onClick={()=> {viewTask(task._id)}}>
+                                                        {task.title}
+                                                </p>
+                                            </Tooltip>
                                         </td>
                                         <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}> {dayjs(task.review_dt).format('D/M/YY')}</td>
                                         

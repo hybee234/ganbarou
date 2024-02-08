@@ -556,10 +556,6 @@ video {
   position: relative;
 }
 
-.m-1 {
-  margin: 0.25rem;
-}
-
 .m-2 {
   margin: 0.5rem;
 }
@@ -571,6 +567,11 @@ video {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .my-2 {
@@ -589,6 +590,10 @@ video {
 
 .mt-10 {
   margin-top: 2.5rem;
+}
+
+.mt-20 {
+  margin-top: 5rem;
 }
 
 .mt-3 {
@@ -645,10 +650,6 @@ video {
 
 .w-2\/3 {
   width: 66.666667%;
-}
-
-.w-20 {
-  width: 5rem;
 }
 
 .w-28 {
@@ -732,11 +733,6 @@ video {
   padding-right: 0.25rem;
 }
 
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -781,11 +777,6 @@ video {
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
-}
-
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
 }
 
 .text-xs {
@@ -1562,7 +1553,7 @@ li {
 .modal-section {
   display: flex;
   flex-wrap: wrap;
-  margin: 5px;
+  margin: 10px;
   padding: 5px;
   /* border: 2px solid green; */
   /* background-color: rgba(0, 255, 0, 0.2);       */
@@ -1599,11 +1590,47 @@ li {
   cursor: pointer;
 }
 
-/****************/
+/******************/
 
-/* Task Summary */
+/* Notes Component*/
 
-/****************/
+/******************/
+
+.note-container {
+  display: flex;
+  text-align: center;
+}
+
+.note-details {
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 30%;
+  font-size: 0.85em;
+  min-width: 90px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  /* border: 2px solid blue; */
+}
+
+.note-text {
+  width: 100%;
+  text-align: left;
+  padding: 5px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+/**************************/
+
+/* Task Summary Component */
+
+/**************************/
 
 .task-icon {
   font-size: 1.5rem;
@@ -1785,6 +1812,17 @@ li {
   .task-summary-container {
     font-size: 0.85rem;
   }
+
+  .note-container {
+    flex-wrap: wrap;
+  }
+
+  .note-details {
+    width: 100%;
+    display: flex;
+    font-size: 0.8rem;
+    margin-bottom: 0px
+  }
 }
 
 /****************************/
@@ -1873,10 +1911,6 @@ li {
     text-align: center;
 } */
 
-.backdrop\:p-5::backdrop {
-  padding: 1.25rem;
-}
-
 @media (min-width: 640px) {
   .sm\:block {
     display: block;
@@ -1931,10 +1965,6 @@ li {
     display: flex;
   }
 
-  .md\:w-1\/2 {
-    width: 50%;
-  }
-
   .md\:flex-wrap {
     flex-wrap: wrap;
   }
@@ -1961,10 +1991,6 @@ li {
 }
 
 @media (min-width: 1024px) {
-  .lg\:w-1\/3 {
-    width: 33.333333%;
-  }
-
   .lg\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;

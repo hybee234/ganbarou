@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../utils/GlobalState';
+import { Icon } from '@iconify/react';
 
 import Auth from '../utils/auth';
 
@@ -34,9 +35,21 @@ function Footer() {
         <div className = "footer">
 
             <div className = "bg-filter" >       
-                <button className="button-color px-6 py-2 my-2 font-bold text-2xl" onClick={() => consoleLog()} >
-                    Console.log(state)
-                </button>
+                <button
+                        className="px-6 py-2 font-bold duration-200 ease-in-out button-color"
+                        type="button"
+                        value="cancel"
+                        onClick={() => consoleLog()}
+                        >
+                        <div className="flex align-middle items-center">                          
+                                <Icon
+                                    icon="fa:gears"
+                                    width="30" height="30" 
+                                    className="task-detail-icon m-auto"
+                                />
+                                <div>&nbsp; console.log(state)</div>                                                  
+                        </div> 
+                    </button>
                 {/* Flag used for developing */}
                 { 
                     Auth.loggedIn() ? (

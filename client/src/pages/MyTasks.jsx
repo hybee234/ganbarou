@@ -6,7 +6,6 @@ import Auth from '../utils/auth';
 import TasksSummary from '../components/TaskSummary';
 import TaskList from '../components/TaskList';
 import TaskDetailModal from '../components/TaskDetailModal';
-import TestComponent from '../components/TestComponent';
 
 import { useGlobalContext } from '../utils/GlobalState';
 import {
@@ -34,6 +33,7 @@ export default function MyTasks() {
     //Handle error and loading together
     const error = allTaskData.error|| userSelect.error
     const loading = allTaskData.loading || userSelect.loading
+
 
     //Show Loading screen if loading
     if (loading) {
@@ -84,7 +84,6 @@ export default function MyTasks() {
         <div className= "">
             <TaskDetailModal userSelect={userSelect.data.users} />
         </div>
-        {/* <TestComponent test1={userData} test2={userList}/> */}
     </div>
     )
 }

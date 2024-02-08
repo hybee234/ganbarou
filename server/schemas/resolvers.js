@@ -72,9 +72,9 @@ const resolvers = {
 
         taskByTaskId: async (parent,args) => {
 
-            console.log (`\x1b[33m ┌───────────────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-            console.log (`\x1b[33m │ Find all Tasks by Assigned ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
-            console.log (`\x1b[33m └───────────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m ┌──────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Find Task by Task ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └──────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
             // console.log("taskId:", args._id)
 
@@ -151,25 +151,42 @@ const resolvers = {
             return task   
         },
 
-        // removeTaskFromUsers: async (parent, args) => {
+        addNote: async (parent, args, context) => {
             
-        //     console.log (`\x1b[33m ┌───────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-        //     console.log (`\x1b[33m │ Remove Task From User │ \x1b[0m\x1b[32m  \x1b[0m`); 
-        //     console.log (`\x1b[33m └───────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m ┌──────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Add Note to Task │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └──────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-        //     console.log(args.id)
+            console.log(args)
+            console.log(context.user)
 
-        //         // Remove Task ID from all User Documents
-        //         const user = await User.updateMany(
-        //             //{ _id: "65b8ed239359f0fca323570c" },
-        //             {  },
-        //             { $pull: { tasks: args.id }},
-        //             // { $addTOSet: { tasks: { _id: "65b8dba1b768a37702f656b7" }}},  // { id: args._id }
-        //             { new: true}
-        //         )
-        //         console.log(user)
-        //         return user
-        // },
+            if (!context.user){
+                throw AuthenticationError;
+            }
+
+            // Remove Task ID from all User Documents
+            const addNote = await Task.findOneAndUpdate(
+                { _id: args.taskId },
+                {
+                    $addToSet: {
+                        note: {
+                            note_text: args.noteUserInput.note_text,
+                            note_type: args.noteUserInput.note_type,                      
+                            note_author: {
+                                _id: context.user._id
+                            }
+                        },
+                    }
+                        
+                },
+                { new: true, runValidators: true})                    
+                .populate({ path: 'assigned' })
+                .populate({ path: 'note.note_author' })
+                .populate({ path: 'priority'})
+
+            console.log("ADDNOTE", addNote)
+            return addNote
+        },
 
 // Unauthorised - Missing context.user means failed authMiddelware
     //         if (!context.user) {

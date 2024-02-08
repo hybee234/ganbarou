@@ -60,7 +60,7 @@ const typeDefs = `
         taskByTaskId (_id: ID!): Task
     }
 
-    input assignedUserInput {
+    input userInput {
         _id: ID
         username: String
     }
@@ -77,6 +77,14 @@ const typeDefs = `
         comment: String
     }
 
+    input noteUserInput {
+        note_dt: Date
+        note_author: userInput
+        note_type: String
+        note_text: String
+
+    }
+
     type Mutation {
         addUser(username: String! email: String! password: String!): Auth
         login(email: String password: String!): Auth
@@ -91,9 +99,11 @@ const typeDefs = `
             stakeholder: String
             status_macro: String
             status_micro: String
-            assigned: assignedUserInput
+            assigned: userInput
             priority: priorityUserInput
+            note: noteUserInput
         ): Task
+        addNote(noteUserInput: noteUserInput, taskId:ID!): Task
     }
 `;
 

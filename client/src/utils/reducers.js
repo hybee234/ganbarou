@@ -20,7 +20,8 @@ import {
     TASK_DETAIL_EFFORT,
     TASK_DETAIL_CATEGORY,
     TASK_DETAIL_PIPELINE,
-    TASK_DETAIL_COMMENT
+    TASK_DETAIL_COMMENT,
+    TASK_DETAIL_NOTE,
 } from './actions';
 
 export const reducer = (state, action) => {
@@ -50,14 +51,14 @@ export const reducer = (state, action) => {
 //- MY TASK REDUCERS -//
 //-------------------//
         case TASKS: {
-            console.log("TASK_DETAIL_ID reducer engaged")
+            console.log("TASK reducer engaged")
             return {
                 ...state, ...state,
                 tasks: action.payload,
             }
         }
         case USER_SELECT: {
-            console.log("TASK_DETAIL_ID reducer engaged")
+            console.log("USER_SELECT reducer engaged")
             return {
                 ...state,
                 userlist: action.payload,
@@ -264,19 +265,29 @@ export const reducer = (state, action) => {
             console.log("TASK_DETAIL_COMMENT reducer engaged")
             return { 
                 ...state,
-                taskDetail: {
+                taskDetail: { //access taskDetail level
                     ...state.taskDetail,
-                    priority: {
+                    priority: { //access priority level
                         ...state.taskDetail.priority,
-                        comment: action.payload,
+                        comment: action.payload, //attach comment (payload) to comment
                     }                    
                 }
             }
         }
 
-
-
-
+        // Task Notes
+        case TASK_DETAIL_NOTE: {
+            console.log("TASK_DETAIL_NOTE reducer engaged")
+            return { 
+                ...state,
+                taskDetail: {   //access taskDetail level
+                    ...state.taskDetail,
+                    note: action.payload, //attach payload (array of notes) to note
+                }                    
+            }
+        }
+        
+       
         // Default to returning the state as is in our switch statement
         default:
             return state;
