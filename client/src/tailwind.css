@@ -1556,7 +1556,7 @@ li {
   margin: 10px;
   padding: 5px;
   /* border: 2px solid green; */
-  /* background-color: rgba(0, 255, 0, 0.2);       */
+  /* background-color: rgba(0, 255, 0, 0.2);  */
   transition: ease-in-out 0.2s;
 }
 
@@ -1588,6 +1588,18 @@ li {
 .close:hover, .close:focus {
   color: black;
   cursor: pointer;
+}
+
+/*************************/
+
+/* Modal - Close-section */
+
+/*************************/
+
+.close-section {
+  position: absolute;
+  top: 60px;
+  right: 20px
 }
 
 /******************/
@@ -1860,57 +1872,6 @@ li {
 
 /*******************************/
 
-/**********/
-
-/* NavTab */
-
-/**********/
-
-/* .navtab {
-    display: flex;
-    justify-content: right;
-    padding-right: 100px;
-    width: 60%;
-
-    margin-bottom: 5px;
-    margin-top: 5px;
-    transition: ease-in-out .3s;    
-}
-
-.nav-item {
-    padding-top: 3px;
-    padding-right: 1rem;
-    padding-bottom: 3px;
-    padding-left: 1rem;
-    margin: 1px;
-    transition-duration: 300ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 0.75rem;
-    text-align: center;
-    transition: ease-in-out .3s;    
-}
-
-.nav-item p {
-    font-size: 1.5rem;
-}
-
-.nav-item:hover {
-    background-color: var(--linkbackground); 
-    color: var(--buttontext);
-}
-
-.nav-active {
-    text-decoration: underline;
-    transform-origin: center;
-    transition-duration: 300ms;
-    background-color: var(--linkbackground); 
-    color: var(--buttontext);
-
-    display: inline-block;
-    vertical-align:bottom;
-    text-align: center;
-} */
-
 @media (min-width: 640px) {
   .sm\:block {
     display: block;
@@ -2018,4 +1979,5 @@ li {
     line-height: 1.75rem;
   }
 }
+
 
