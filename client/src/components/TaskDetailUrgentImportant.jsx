@@ -43,7 +43,10 @@ export default function TaskDetailUrgentImportant() {
                                 <div className="tooltip-string">How time critical is this request? Determined by Enterprise Risk Assessment.</div>                                    
                                 <div className="tooltip-string"></div>
                             </div>}
-                        arrow placement="top"
+                    arrow placement="top"
+                    enterDelay="500"
+                    // enterNextDelay="500"
+                    followCursor="true"
                     >
                         {
                             state.taskDetail.priority.urgent ?
@@ -96,7 +99,10 @@ export default function TaskDetailUrgentImportant() {
                                 <div className="tooltip-string">Is this request of high value and impact to business risks/benefits?</div>                                    
                                 <div className="tooltip-string"></div>
                             </div>}
-                        arrow placement="top"
+                    arrow placement="top"
+                    enterDelay="500"
+                    // enterNextDelay="500"
+                    followCursor="true"
                     >
                         {
                             state.taskDetail.priority.important ?
@@ -147,7 +153,10 @@ export default function TaskDetailUrgentImportant() {
                                 <div className="tooltip-string">Judgement call on effort required to meet business request</div>                                    
                                 <div className="tooltip-string"></div>
                             </div>}
-                        arrow placement="top"
+                    arrow placement="top"
+                    enterDelay="500"
+                    // enterNextDelay="500"
+                    followCursor="true"
                     >
                     {
                         state.taskDetail.priority.high_effort ?
