@@ -19,6 +19,9 @@ import TaskDetailUrgentImportant from '../components/TaskDetailUrgentImportant';
 import TaskDetailCategory from '../components/TaskDetailCategory';
 import TaskDetailNotesSection from '../components/TaskDetailNotesSection';
 
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
     TASK_DETAIL_CREATED_DT,
     TASK_DETAIL_TITLE,
@@ -119,8 +122,10 @@ export default function TaskDetailModal( {userSelect}) {
 
             console.log("UpdateTaskByTaskId", data)
             closeDetailForm()
+            toast.success("Task updated Successfully")
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
+            toast.success("Something went wrong - Task NOt Updated")
         }
     }
         
@@ -441,7 +446,7 @@ export default function TaskDetailModal( {userSelect}) {
                         className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
                         type="button"
                         value="cancel"
-                        onClick={(() => closeDetailForm())}
+                        onClick={() => closeDetailForm()}
                         >
                         <div className="flex align-middle items-center">                          
                                 <Icon
