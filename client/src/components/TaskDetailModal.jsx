@@ -321,97 +321,88 @@ export default function TaskDetailModal( {userSelect}) {
     {/* Prioritisation Section*/}
     {/*************************/}
                     
-                <div className="modal-section bg-filter p-5 justify-center flex flex-wrap">
+                <div className="modal-section bg-filter p-5 justify-center flex">
                 <h2 className="block cherry-font w-full"> Prioritisation</h2> 
                 {
                     state.taskDetail.priority.business_driven === true ?
                         (
-                            <div className="modal-section-divider w-full flex">
+                            <div className="modal-section-divider flex flex-wrap justify-center">
                             
                                 {/* Urgency/Importance*/}
-                                <div className="modal-section-divider w-full flex justify-center">
+                                <div className="modal-section-divider flex flex-wrap justify-center">
                                     <div className="">
-                                        {/* Important, Urgent, Effort */}
-                                        <div className="p-1">
-                                            <TaskDetailUrgentImportant />
-                                        </div>
+                                        <TaskDetailUrgentImportant />
                                     </div>
-                                    <div className="">                                        
-                                        <div className="p-1">
-                                            <TaskDetailCategory/>
-                                        </div>
+                                    <div className="">
+                                        <TaskDetailCategory/>
                                     </div>
                                 </div>
                             
 
-                            {/* Comment*/}
-                                <div className="modal-section-divider w-full sm:w-1/2 lg:w-1/3">
-                                    <div className="w-full">
-                                        <div className="modal-field-container">
-                                            <label className="modal-label w-1/3">Prioritisation Notes</label>
-                                            <Tooltip
-                                                title={
-                                                    <div className="tooltip">                                            
-                                                        <div className="tooltip-string">Comments pertaining to prioritisation Only</div>                                    
-                                                        <div className="tooltip-string"></div>                                      
-                                                    </div>}
-                                                arrow placement="bottom"
-                                                enterDelay={500}
-                                                enterNextDelay={500}
-                                                TransitionComponent={Zoom}
-                                                TransitionProps={{ timeout: 200 }}
-                                                // followCursor
-                                            >
-                                                <textarea
-                                                    className="w-full modal-field"
-                                                    name="status-summary"
-                                                    type="text"
-                                                    placeholder="Summary"
-                                                    rows="3"
-                                                    cols="30"
-                                                    value={state.taskDetail.priority.comment}
-                                                    onInput={(e) => expandArea(e)}
-                                                    onChange= {(e) =>
-                                                        dispatch({ type: TASK_DETAIL_COMMENT, payload: e.target.value})}
-                                                    >
-                                                </textarea>
-                                            </Tooltip>
-                                        </div>
-                                    </div>
-                                </div>
+                                {/* Comment*/}
+                                <div className="modal-section-divider flex flex-wrap justify-center">
 
-                            {/* Pipeline */}
-                                <div className="modal-section-divider w-full sm:w-1/2">
-                                    <div className="w-full">
-                                        <div className="modal-field-container text-center justify-center flex flex-wrap">
-                                            <label className="modal-label">Pipeline Number</label>
-                                            <Tooltip
-                                                title={
-                                                    <div className="tooltip">                                            
-                                                        <div className="tooltip-string">---</div>
-                                                        <div className="tooltip-string">---</div>                                     
-                                                    </div>}
-                                                enterDelay={500}
-                                                enterNextDelay={500}
-                                                TransitionComponent={Zoom}
-                                                TransitionProps={{ timeout: 200 }}
-                                                // followCursor
-                                            >
-                                                <input
-                                                    id="pipeline-number"
-                                                    className="modal-field text-center cherry-font m-auto"                                        
-                                                    type="number"
-                                                    inputMode="number"
-                                                    step="1"
-                                                    value={state.taskDetail.priority.pipeline_number}
-                                                    onChange= {(e) =>
-                                                        dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
-                                                    >
-                                                </input>                                
-                                            </Tooltip>
-                                        </div>
+                                    <div className="modal-field-container p-1">
+                                        <label className="modal-label">Prioritisation Notes</label>
+                                        <Tooltip
+                                            title={
+                                                <div className="tooltip">                                            
+                                                    <div className="tooltip-string">Comments pertaining to prioritisation Only</div>                                    
+                                                    <div className="tooltip-string"></div>                                      
+                                                </div>}
+                                            arrow placement="bottom"
+                                            enterDelay={500}
+                                            enterNextDelay={500}
+                                            TransitionComponent={Zoom}
+                                            TransitionProps={{ timeout: 200 }}
+                                            // followCursor
+                                        >
+                                            <textarea
+                                                className="modal-field "
+                                                name="status-summary"
+                                                type="text"
+                                                placeholder="Summary"
+                                                rows="3"
+                                                cols="30"
+                                                value={state.taskDetail.priority.comment}
+                                                onInput={(e) => expandArea(e)}
+                                                onChange= {(e) =>
+                                                    dispatch({ type: TASK_DETAIL_COMMENT, payload: e.target.value})}
+                                                >
+                                            </textarea>
+                                        </Tooltip>
                                     </div>
-                                </div>
+
+
+                                    <div className="modal-field-container p-1">
+                                        <label className="modal-label "> Pipeline Number</label>
+                                        <Tooltip
+                                            title={
+                                                <div className="tooltip">                                            
+                                                    <div className="tooltip-string">---</div>
+                                                    <div className="tooltip-string">---</div>                                     
+                                                </div>}
+                                            enterDelay={500}
+                                            enterNextDelay={500}
+                                            TransitionComponent={Zoom}
+                                            TransitionProps={{ timeout: 200 }}
+                                            // followCursor
+                                        >
+                                            <input
+                                                id="pipeline-number"
+                                                className="modal-field text-center cherry-font"                                        
+                                                type="number"
+                                                inputMode="number"
+                                                step="1"
+                                                value={state.taskDetail.priority.pipeline_number}
+                                                onChange= {(e) =>
+                                                    dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
+                                                >
+                                            </input>                                
+                                        </Tooltip>
+                                    </div>
+
+                                </div>           
                             </div> 
                         ):(
                                 <div>Operational Tasks are exempt from Prioritsation</div>

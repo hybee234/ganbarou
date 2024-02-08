@@ -654,7 +654,7 @@ li {
 
     
 .modal-field-container {
-    border: 2px solid yellow;
+    /* border: 2px solid yellow; */
     /* background-color: rgba(255, 255, 0, 0.2); */
     text-align: left;
     transition: ease-in-out 0.2s;
@@ -662,7 +662,7 @@ li {
 }
 
 .modal-section-divider {
-    border: 2px solid magenta;
+    /* border: 2px solid magenta; */
     /* background-color: rgba(255, 0, 255, 0.2); */
     padding: 5px;
     transition: ease-in-out 0.2s;
@@ -671,9 +671,9 @@ li {
 .modal-section {
     display: flex;
     flex-wrap: wrap;
-    margin: 5px;
+    margin: 10px;
     padding: 5px;
-    border: 2px solid green;
+    /* border: 2px solid green; */
     /* background-color: rgba(0, 255, 0, 0.2);       */
     transition: ease-in-out 0.2s;
 }
