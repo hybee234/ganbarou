@@ -39,10 +39,14 @@ export default function TaskDetailTaskType() {
                                     <div className="tooltip-string"><b>* Operational:</b> Tasks that must be carried out to maintain BAU (e.g. Monitoring, auditing, content updates, incidents).</div>                                    
                                     <div className="tooltip-string"><b>* Focus:</b> Business driven initiatives rated as priority, handled after operational tasks are done.</div>                                    
                                     <div className="tooltip-string"><b>* Opportunistic:</b> Business driven initiatives. Lowest priority - handled only when awaiting Operattional and Focus tasks are awaiting external actions.</div>
-                                </div>}
-                            arrow placement="right"
+                                </div>}                            
+                            arrow placement="bottom"
+                            enterDelay="500"
+                            enterNextDelay="500"
+                            followCursor="true"
+                            
                         >
-                            <div className="flex border-2 modal-field justify-center w-2/3 sm:w-1/2 m-auto">
+                            <div className="flex border-2 modal-field justify-center w-2/3 sm:w-1/2  m-auto">
                                 { //first checkpoint
                                     state.taskDetail.priority.business_driven ? 
                                     ( // Business driven request

@@ -16,6 +16,7 @@ import { UPDATE_TASK_BY_TASK_ID } from './../utils/mutations';
 import TaskDetailTaskType from '../components/TaskDetailTaskType';
 import TaskDetailUrgentImportant from '../components/TaskDetailUrgentImportant';
 import TaskDetailCategory from '../components/TaskDetailCategory';
+import TaskDetailNotesSection from '../components/TaskDetailNotesSection';
 
 import {
     TASK_DETAIL_CREATED_DT,
@@ -26,7 +27,8 @@ import {
     TASK_DETAIL_SUMMARY,
     TASK_DETAIL_STATUS_MACRO,
     TASK_DETAIL_STATUS_MICRO,
-    TASK_DETAIL_COMMENT
+    TASK_DETAIL_COMMENT,
+    TASK_DETAIL_PIPELINE
 } from '../utils/actions'
 
 
@@ -106,7 +108,7 @@ export default function TaskDetailModal( {userSelect}) {
                         urgent: state.taskDetail.priority.urgent,
                         important: state.taskDetail.priority.important,
                         high_effort: state.taskDetail.priority.high_effort,
-                        pipeline_number: state.taskDetail.priority.pipeline_number,
+                        pipeline_number:  parseInt(state.taskDetail.priority.pipeline_number, 10),
                         category: state.taskDetail.priority.category,
                         comment: state.taskDetail.priority.comment
                     }
@@ -174,7 +176,10 @@ export default function TaskDetailModal( {userSelect}) {
                                         <div className="tooltip-string">* Task lists sort by review date and are highlighted red if the date elapses.</div>                                    
                                         <div className="tooltip-string">* Can't progress a task because you're waiting on the stakeholder? Set a review date in the future to follow up!"</div>
                                     </div>}
-                                arrow placement="right"
+                                arrow placement="bottom"
+                                enterDelay="500"
+                                enterNextDelay="500"
+                                followCursor="true"
                             >
                                 <input
                                     className="modal-field w-full text-center"
@@ -317,69 +322,90 @@ export default function TaskDetailModal( {userSelect}) {
                 state.taskDetail.priority.business_driven === true ?
                 (
                     
-                <div className="modal-section bg-filter p-5 justify-center flex flexwrap">
+                <div className="modal-section bg-filter p-5 justify-center flex flex-wrap">
                     <label className="w-full modal-label text-right"> Prioritisation Section </label>
                 
-                    <div className="modal-section-divider w-full sm:w-1/2 md:w-1/3">
-                        {/* Important, Urgent, Effort */}
-                        <div className="w-full">
-                            <TaskDetailUrgentImportant />
+                {/* Urgency/Importance*/}
+                    <div className="modal-section-divider w-full md:w-1/2 lg:w-1/3">
+                        <div className="m-auto">
+                            {/* Important, Urgent, Effort */}
+                            <div className="w-full">
+                                <TaskDetailUrgentImportant />
+                            </div>
                         </div>
                     </div>
-                    <div className="modal-section-divider w-full sm:w-1/2 md:w-1/3">
-                        {/* Category and Pipeline */}
-                        <div className="w-full">
-                            <TaskDetailCategory/>
+                
+                {/* Category*/}
+                    <div className="modal-section-divider w-full md:w-1/2 lg:w-1/3">
+                        <div className="m-auto">
+                            {/* Category and Pipeline */}
+                            <div className="w-full">
+                                <TaskDetailCategory/>
+                            </div>
                         </div>
                     </div>
 
                 {/* Comment*/}
-                    <div className="modal-section-divider w-full md:w-1/3">
+                    <div className="modal-section-divider w-full sm:w-1/2 lg:w-1/3">
                         <div className="w-full">
                             <div className="modal-field-container">
-                                <label className="modal-label w-1/3">Comment</label>
+                                <label className="modal-label w-1/3">Prioritisation Notes</label>
                                 <Tooltip
                                     title={
                                         <div className="tooltip">                                            
-                                            <div className="tooltip-string">---</div>                                    
-                                            <div className="tooltip-string">---</div>                                      
+                                            <div className="tooltip-string">Comments pertaining to prioritisation Only</div>                                    
+                                            <div className="tooltip-string"></div>                                      
                                         </div>}
-                                    arrow placement="right"
+                                    arrow placement="bottom"
+                                    enterDelay="500"
+                                    enterNextDelay="500"
+                                    followCursor="true"
                                 >
-                                <textarea
-                                    className="w-full modal-field"
-                                    name="status-summary"
-                                    type="text"
-                                    placeholder="Summary"
-                                    rows="4"
-                                    cols="30"
-                                    value={state.taskDetail.priority.comment}
-                                    onInput={(e) => expandArea(e)}
-                                    onChange= {(e) =>
-                                        dispatch({ type: TASK_DETAIL_COMMENT, payload: e.target.value})}
-                                    >
-                            </textarea>
+                                    <textarea
+                                        className="w-full modal-field"
+                                        name="status-summary"
+                                        type="text"
+                                        placeholder="Summary"
+                                        rows="4"
+                                        cols="30"
+                                        value={state.taskDetail.priority.comment}
+                                        onInput={(e) => expandArea(e)}
+                                        onChange= {(e) =>
+                                            dispatch({ type: TASK_DETAIL_COMMENT, payload: e.target.value})}
+                                        >
+                                    </textarea>
                                 </Tooltip>
                             </div>
                         </div>
                     </div>
 
                 {/* Pipeline */}
-                    <div className="modal-section-divider w-full md:w-1/3">
+                    <div className="modal-section-divider w-full sm:w-1/2">
                         <div className="w-full">
-                            <div className="modal-field-container">
-                                <label className="modal-label w-1/3">Pipeline Number</label>
+                            <div className="modal-field-container text-center justify-center flex flex-wrap">
+                                <label className="modal-label">Pipeline Number</label>
                                 <Tooltip
                                     title={
                                         <div className="tooltip">                                            
                                             <div className="tooltip-string">---</div>
                                             <div className="tooltip-string">---</div>                                     
                                         </div>}
-                                    arrow placement="right"
+                                    arrow placement="bottom"
+                                    enterDelay="500"
+                                    enterNextDelay="500"
+                                    followCursor="true"
                                 >
-                                <div className="flex border-2 modal-field"> What's up?
-
-                                </div>
+                                    <input
+                                        id="pipeline-number"
+                                        className="modal-field text-center cherry-font m-auto"                                        
+                                        type="number"
+                                        inputMode="number"
+                                        step="1"
+                                        value={state.taskDetail.priority.pipeline_number}
+                                        onChange= {(e) =>
+                                            dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
+                                        >
+                                    </input>                                
                                 </Tooltip>
                             </div>
                         </div>
@@ -395,10 +421,9 @@ export default function TaskDetailModal( {userSelect}) {
 
     {/****************/}
     {/* Notes Section*/}
-    {/****************/}
-                <div className="bg-filter modal-section p-5">
-                    <label className="w-full modal-label text-right"> Notes Section</label>     
-                </div>
+    {/****************/}                
+                <TaskDetailNotesSection/>
+
 
 
     {/*******************/}

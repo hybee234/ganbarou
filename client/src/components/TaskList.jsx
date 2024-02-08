@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import Tooltip from '@mui/material/Tooltip';
 import { useGlobalContext } from '../utils/GlobalState';
 import { useState, useEffect } from 'react'
 // import { useNavigate } from 'react-router-dom';
@@ -258,7 +259,19 @@ export default function TaskList (props) {
             {/********************/}
             {/* Operational Table*/}
             {/********************/}
-            <div className ="w-full m-auto text-center"><span className = "cherry-font text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Operational Tasks</span>
+            
+
+            <div className ="w-full m-auto text-center">
+                <Tooltip
+                    title={
+                        <div className="tooltip">                                            
+                            <div className="tooltip-string">Operational Tasks take priority over Business Driven Initiatives (Focus and Opportunistic)</div>
+                            <div className="tooltip-string">Handle Operational tasks due for review before moving onto Focus Initiatives</div>                                     
+                        </div>}
+                    arrow placement="bottom"
+                > 
+                    <span className = "cherry-font text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Operational Tasks</span>
+                </Tooltip>
                 <table className="table-auto table-container bg-filter">
                     <thead>
                         <tr className="table-heading-row text-xs sm:text-xs md:text-sm xl:text-base">
@@ -353,7 +366,19 @@ export default function TaskList (props) {
             {/**************/}
             {/* Focus Table*/}
             {/**************/}
-            <div className ="w-full m-auto text-center"><span className = "cherry-font text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Focus Initiatives</span>
+            <div className ="w-full m-auto text-center">
+                <Tooltip
+                    title={
+                        <div className="tooltip">                                            
+                            <div className="tooltip-string">Focus Initiatives are Business Driven Initiatives handled after Operational Tasks are in order.</div>
+                            <div className="tooltip-string">Focus Initiatives take priority over Opportunistic Initiatives </div>
+                            <div className="tooltip-string">Focus Initiatives are what the team have commited to delivering and will be reported against </div>
+                            <div className="tooltip-string">You must not progress Opportunistic Initiatives if there is a Focus Initiative requiring attention </div>
+                        </div>}
+                    arrow placement="bottom"
+                >                
+                    <span className = "cherry-font text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Focus Initiatives</span>
+                </Tooltip>
                 <table className="table-auto table-container bg-filter">
                     <thead>
                         <tr className="table-heading-row text-xs sm:text-xs md:text-sm xl:text-base">
@@ -489,8 +514,20 @@ export default function TaskList (props) {
             {/**********************/}
             {/* Opportunistic Table*/}
             {/**********************/}
-
-            <div className ="w-full m-auto text-center"><span className = "cherry-font text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Opportunistic Initiatives</span>
+            
+            <div className ="w-full m-auto text-center">
+                <Tooltip
+                    title={
+                        <div className="tooltip">                                            
+                            <div className="tooltip-string">Opportunistic Initiatives are Business Driven Initiatives handled after there are no follow up actions for Operational Tasks and Focus Initiatives.</div>
+                            <div className="tooltip-string">Opportunistic Initiatives are the lowest priority task type </div>
+                            <div className="tooltip-string">Opportunistic Initiatives do not have time commitments attached to them and are not reported against. </div>
+                            <div className="tooltip-string">Do not progress Opportunistic Initiatives if you the action is on your to progress Operational Tasks or Focus Initiatives </div>
+                        </div>}
+                    arrow placement="bottom"
+                >                
+                    <span className = "cherry-font text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Opportunistic Initiatives</span>
+                </Tooltip>
                 <table className="table-auto table-container bg-filter">
                     <thead>
                         <tr className="table-heading-row text-xs sm:text-xs md:text-sm xl:text-base">
