@@ -46,8 +46,8 @@ export const COMPLETE_TASK = gql`
 `
 
 export const UPDATE_TASK_BY_TASK_ID = gql`
-    mutation Mutation($createdDt: Date, $reviewDt: Date, $title: String, $summary: String, $stakeholder: String, $statusMacro: String, $statusMicro: String, $assigned: userInput, $priority: priorityUserInput, $note: noteUserInput, $taskId: ID!) {
-        updateTaskByTaskId(created_dt: $createdDt, review_dt: $reviewDt, title: $title, summary: $summary, stakeholder: $stakeholder, status_macro: $statusMacro, status_micro: $statusMicro, assigned: $assigned, priority: $priority, note: $note, taskId: $taskId) {
+    mutation Mutation($createdDt: Date, $reviewDt: Date, $title: String, $summary: String, $stakeholder: String, $statusMacro: String, $statusMicro: String, $priority: priorityUserInput, $note: noteUserInput, $taskId: ID!) {
+        updateTaskByTaskId(created_dt: $createdDt, review_dt: $reviewDt, title: $title, summary: $summary, stakeholder: $stakeholder, status_macro: $statusMacro, status_micro: $statusMicro, priority: $priority, note: $note, taskId: $taskId) {
         _id
         created_dt
         title
@@ -56,9 +56,6 @@ export const UPDATE_TASK_BY_TASK_ID = gql`
         complete_dt
         review_dt
         stakeholder
-        assigned {
-            _id
-        }
         status_macro
         status_micro
         note {
@@ -126,6 +123,21 @@ export const ADD_NOTE = gql`
                 }
                 note_dt
             }
+        }
+    }
+`
+
+
+export const UPDATE_REVIEW_DATE_FROM_TASKLIST = gql`
+    mutation UpdateReviewDtFromTaskList($taskId: ID!, $reviewDt: Date) {
+        updateReviewDtFromTaskList(taskId: $taskId, review_dt: $reviewDt) {
+            _id
+            review_dt
+            title
+            summary
+            created_dt
+            complete_flag
+            complete_dt
         }
     }
 `

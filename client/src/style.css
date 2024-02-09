@@ -470,6 +470,58 @@ li {
     background-color: var(--inputbackgroundhover);
 } */
 
+.table-select {
+    border: 1px solid var(--inputborder);
+    color: var(--text);
+    border-radius: 5px;    
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    /* padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-right: 10px; */
+    background-color: rgba(150, 150, 150, 0.20); 
+}
+
+.table-select option {
+    background-color: var(--darkgrey);
+    color: var(--modaltext);
+    /* padding: 12px 16px; */
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.table-field {
+    /* background-color: var(--inputbackground); */
+    border: 1px solid var(--inputborder);
+    font-size: 1rem;
+    color: var(--text);
+    border-radius: 8px;    
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgba(150, 150, 150, 0.25);
+    transition: ease-in-out 0.2s;
+}
+
+.table-field:hover {
+    border: 1px solid var(--texthighlight)
+}
+
+.table-field:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border: 1px solid var(--texthighlight);
+}
+
+
+
+
+
 .review-due {
     background-color: rgba(109, 46, 52, 0.5);
 }
@@ -625,6 +677,7 @@ li {
     display: block;
     text-align: center;
 }
+
 .modal-field {
     /* background-color: var(--inputbackground); */
     border: 1px solid var(--inputborder);

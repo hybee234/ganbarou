@@ -63,7 +63,7 @@ export default function MyTasks() {
     // console.log("UserID:", userId) 
 
     const tasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === userId && !task.complete_flag) // Filter for Active Tasks for Current logged in user
-    console.log("MyTasksPage:tasks", tasks)
+    // console.log("MyTasksPage:tasks", tasks)
 
     // useEffect( ()=> {    
     //     if (state.tasks.length) {

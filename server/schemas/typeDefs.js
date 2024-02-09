@@ -103,10 +103,11 @@ const typeDefs = `
             stakeholder: String
             status_macro: String
             status_micro: String
-            assigned: userInput
             priority: priorityUserInput
             note: noteUserInput
         ): Task
+
+        updateReviewDtFromTaskList (taskId:ID!, review_dt: Date): Task
 
         addNote(noteUserInput: noteUserInput, taskId:ID!): Task
     }

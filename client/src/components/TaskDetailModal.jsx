@@ -101,10 +101,10 @@ export default function TaskDetailModal( {userSelect}) {
                     title: state.taskDetail.title,
                     summary: state.taskDetail.summary,
                     stakeholder: state.taskDetail.stakeholder,
-                    assigned: {
-                        _id: state.taskDetail.assigned._id,
-                        // username: state.taskDetail.assigned.username,
-                    },
+                    // assigned: {
+                    //     _id: state.taskDetail.assigned._id,
+                    //     // username: state.taskDetail.assigned.username,
+                    // },
                     status_macro: state.taskDetail.status_macro,
                     status_micro: state.taskDetail.status_micro,
                     priority: {
@@ -173,7 +173,7 @@ export default function TaskDetailModal( {userSelect}) {
                                 className="modal-field w-full text-center"
                                 name="created-dt"
                                 type="date"
-                                placeholder="MM/DD/YYYY"
+                                placeholder="DD/MM/YYYY"
                                 value={dayjs(state.taskDetail.created_dt).format('YYYY-MM-DD')}
                                 onChange= {(e) =>
                                     dispatch({ type: TASK_DETAIL_CREATED_DT, payload: e.target.value})}
@@ -203,7 +203,7 @@ export default function TaskDetailModal( {userSelect}) {
                                     className="modal-field w-full text-center"
                                     name="review-dt"
                                     type="date"
-                                    placeholder="MM/DD/YYYY"
+                                    placeholder="DD/MM/YYYY"
                                     value={dayjs(state.taskDetail.review_dt).format('YYYY-MM-DD')}
                                     onChange= {(e) =>
                                         dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value})}
