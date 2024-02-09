@@ -9,6 +9,7 @@ import { Icon } from '@iconify/react';
 
 import Auth from '../utils/auth';
 import dayjs from 'dayjs'
+
 import { useState } from 'react'
 import { useGlobalContext } from '../utils/GlobalState';
 import { useMutation } from '@apollo/client';
@@ -115,7 +116,8 @@ export default function TaskDetailModal( {userSelect}) {
                         high_effort: state.taskDetail.priority.high_effort,
                         pipeline_number:  parseInt(state.taskDetail.priority.pipeline_number, 10),
                         category: state.taskDetail.priority.category,
-                        comment: state.taskDetail.priority.comment
+                        comment: state.taskDetail.priority.comment,
+                        priority_id: state.taskDetail.priority_id,
                     }                
                 },
             });
