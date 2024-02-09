@@ -25,61 +25,58 @@ export default function AddNewTask(props) {
     const [state, dispatch] = useGlobalContext();  
 
     //------------------//
-    // View Task Modal -//
+    // Add Task Modal -//
     //------------------//
     const addNewTask = () => {        
         // Filter userTasks for Task of interest
         // let taskDetailArray = tasks.filter(task => task._id === taskId)
         // let taskDetail = taskDetailArray[0]
         let now = new Date();
-        
-        const today = () => {
-            return  (new Date().getFullYear() + '-' + ('0' + (new Date().getMonth()+1)).slice(-2) + '-' + ('0' + new Date().getDate()).slice(-2));
-        }
 
-        //ad a flag in here to say new or not - then downstream components can use it .... ....
         dispatch ({ type: CLEAR_TASK_DETAIL, payload:
             {
-                assigned: {
-                    _id : Auth.getProfile().data._id,
-                    username: '',
-                },
-                complete_dt:'',
-                complete_flag:'',
+                _id:"",
                 create_dt: now,
+                review_dt: now,                                        
+                title:"",
+                summary:"",
+                stakeholder: "",
+                status_macro:"New",
+                status_micro:"On Hold",                    
+                complete_dt:"",
+                complete_flag:"",
+                
                 note: [{
                     note_author:{
                         _id:"",
-                        username: '',
+                        username: "",
                     },
-                    note_dt:'',
-                    note_id:'',
-                    note_text:'',
-                    note_type:'',
+                    note_dt:"",
+                    note_id:"",
+                    note_text:"",
+                    note_type:"",
                 }],
                 priority: {
-                    business_driven:'',
-                    category: '',
-                    comment: '',
-                    focus: '',
-                    high_effort: '',
-                    important: '',
-                    pipieline_number:'',
-                    priority_id: '',
-                    urgency: '',
+                    priority_id: "",
+                    business_driven: false,
+                    category: 5,                        
+                    focus: false,
+                    comment: "",
+                    high_effort: false,
+                    important: false,
+                    pipeline_number: 100,                        
+                    urgent: false,
                 },
-                review_dt: now,
-                stakeholder: '',
-                status_macro:'',
-                status_micro:'',
-                summary:'',
-                title:'',
-                _id:'',
+                assigned: {
+                    _id : Auth.getProfile().data._id,
+                    username: Auth.getProfile().data.username,
+                },
             }
         })
-        dispatch ({ type: NEW_TASK, payload: true})
-
-        // Might need to dispatch something to clear state.taskDetail
+        //New_task flag to control downstream components
+        // True = add new task
+        // False = edit existing task
+        dispatch ({ type: NEW_TASK, payload: true})        
 
         document.getElementById('view-details-modal-background').style.display = 'block'
         document.getElementById('view-details-modal-form').style.display = 'block'

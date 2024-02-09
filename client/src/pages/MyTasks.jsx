@@ -96,7 +96,7 @@ export default function MyTasks() {
 
     return (
     <div>
-        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">My tasks</div>
+        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">{Auth.getProfile().data.username}'s tasks</div>
         
         <TasksSummary tasks={tasks}  />          
         <TaskList tasks={tasks} userSelect={userSelect.data.users} />  

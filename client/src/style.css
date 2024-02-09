@@ -86,7 +86,7 @@ h1 {
 h2 {
     font-size: 2.6rem;
     line-height: 1.1;
-    padding: 10px;
+    padding: 0px;
 }
 
 .tooltip {
@@ -648,7 +648,7 @@ li {
     line-height: 1rem/* 16px */;
     width:100%;
     text-align: center;  
-    padding: 2px;
+    padding: 0px;
     /* border: 2px solid green; */
     /* background-color: rgba(0, 128, 0, 0.2); */
     transition: ease-in-out 0.2s;
@@ -702,6 +702,10 @@ li {
     outline: 2px solid transparent;
     outline-offset: 2px;
     border: 1px solid var(--texthighlight);
+}
+
+.modal-field::placeholder {
+    color: var(--black)
 }
 
 

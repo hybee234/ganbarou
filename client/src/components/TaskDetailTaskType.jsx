@@ -43,7 +43,7 @@ export default function TaskDetailTaskType() {
                                     <div className="tooltip-string"><b>* Focus:</b> Business driven initiatives rated as priority, handled after operational tasks are done.</div>                                    
                                     <div className="tooltip-string"><b>* Opportunistic:</b> Business driven initiatives. Lowest priority - handled only when awaiting Operattional and Focus tasks are awaiting external actions.</div>
                                 </div>}                            
-                            arrow placement="bottom"
+                            arrow placement="top"
                             enterDelay={500}
                             enterNextDelay={500}
                             TransitionComponent={Zoom}
@@ -185,18 +185,18 @@ export default function TaskDetailTaskType() {
                                     state.taskDetail.priority.focus ? 
                                     (
                                         <div>
-                                            <p className = "modal-label"> Focus Task Type </p>
+                                            <p className = "modal-label"> Focus </p>
                                             <p className = "modal-label"> Business Driven/High Priority </p>
                                         </div>
                                     ):(
                                         <div>
-                                            <p className = "modal-label"> Focus Task Type </p>
+                                            <p className = "modal-label"> Opportunistic </p>
                                             <p className = "modal-label"> (Business Driven/Low Priority) </p>                                            
                                         </div>
                                     )                                    
                                 ):(
                                     <div>
-                                        <p className = "modal-label"> Operational Task Type </p>
+                                        <p className = "modal-label"> Operational </p>
                                         <p className = "modal-label"> (Maintenance/Incidents) </p>
                                         <p className = "modal-label text-red-400"> Operational Tasks are Exempt from Prioritisation </p>
                                     </div>

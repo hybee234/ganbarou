@@ -121,7 +121,7 @@ export const reducer = (state, action) => {
             console.log("TASK_DETAIL_ASSIGNED reducer engaged")
             // Payload provides _id
             // Need to find the username based on _id
-            //Then update both the _id and username in state
+            // Then update both the _id and username in state
             // console.log("state", state)
             // console.log("state userlist", state.userlist)
             // console.log ("action payload", action.payload)
