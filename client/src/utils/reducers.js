@@ -22,6 +22,8 @@ import {
     TASK_DETAIL_PIPELINE,
     TASK_DETAIL_COMMENT,
     TASK_DETAIL_NOTE,
+    CLEAR_TASK_DETAIL,
+    NEW_TASK,
 } from './actions';
 
 export const reducer = (state, action) => {
@@ -287,7 +289,24 @@ export const reducer = (state, action) => {
             }
         }
         
-       
+        // Used when adding new note - to clear taskDetail
+        case CLEAR_TASK_DETAIL:{
+            console.log("CLEAR_TASK_DETAIL reducer engaged")
+            return { 
+                ...state,
+                taskDetail: action.payload,
+            }                    
+        }
+
+        // Used to indicate to Task Modal Screen that this is a New Task
+        case NEW_TASK:{
+            console.log("NEW_TASK reducer engaged")
+            return { 
+                ...state,
+                new_task: action.payload,
+            }                    
+        }
+
         // Default to returning the state as is in our switch statement
         default:
             return state;

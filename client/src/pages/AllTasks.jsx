@@ -62,7 +62,7 @@ export default function AllTasks() {
     // Filter array for provided UserID (default is the logged in user)
     // console.log("UserID:", userId) 
     const tasks = allTaskData.data.tasks.filter( (task) => !task.complete_flag) // Filter for Active Tasks for Current logged in user
-    console.log("MyTasksPage:tasks", tasks)
+    // console.log("AllTasksPage:tasks", tasks)
 
     // useEffect( ()=> {    
     //     if (state.tasks.length) {
@@ -93,7 +93,8 @@ export default function AllTasks() {
 
 
     return (
-    <div> All Tasks   
+    <div>
+        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">All Tasks</div>    
         <TasksSummary tasks={tasks}  />
         <TaskList tasks={tasks} userSelect={userSelect.data.users} />  
         <TaskDetailModal userSelect={userSelect.data.users} />

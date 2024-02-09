@@ -12,7 +12,7 @@ import dayjs from 'dayjs'
 import { useState } from 'react'
 import { useGlobalContext } from '../utils/GlobalState';
 import { useMutation } from '@apollo/client';
-import { UPDATE_TASK_BY_TASK_ID, ASSIGN_USER } from './../utils/mutations';
+import { UPDATE_TASK_BY_TASK_ID, ASSIGN_USER, ADD_TASK } from './../utils/mutations';
 
 import TaskDetailTaskType from '../components/TaskDetailTaskType';
 import TaskDetailUrgentImportant from '../components/TaskDetailUrgentImportant';
@@ -85,11 +85,10 @@ export default function TaskDetailModal( {userSelect}) {
     const [UpdateTaskByTaskId, { error }] = useMutation(UPDATE_TASK_BY_TASK_ID);    
     const [AssignUser, { errorAssigned }] = useMutation(ASSIGN_USER);
 
-    const handleFormSubmit = async (event) => {
-        event.preventDefault();
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
         const taskDetail = state.taskDetail
         console.log("taskDetail:", taskDetail)
-        console.log("taskDetail:", taskDetail.priority.business_driven)
         
         try {    
 
@@ -101,10 +100,10 @@ export default function TaskDetailModal( {userSelect}) {
                     title: state.taskDetail.title,
                     summary: state.taskDetail.summary,
                     stakeholder: state.taskDetail.stakeholder,
-                    assigned: {
-                        _id: state.taskDetail.assigned._id,
-                        // username: state.taskDetail.assigned.username,
-                    },
+                    // assigned: {
+                    //     _id: state.taskDetail.assigned._id,
+                    //     // username: state.taskDetail.assigned.username,
+                    // },
                     status_macro: state.taskDetail.status_macro,
                     status_micro: state.taskDetail.status_micro,
                     priority: {
@@ -136,10 +135,60 @@ export default function TaskDetailModal( {userSelect}) {
             toast.success("Task updated Successfully")
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
-            toast.error("Something went wrong - Task NOt Updated")
+            toast.error("Updated Unsuccessful - something went wrong")
         }
     }
+
+    const [AddTask, { error : addTaskError }] = useMutation(ADD_TASK);    
+
+    const addNewTask = async (event) => {
+        event.preventDefault();
+        const taskDetail = state.taskDetail
+        console.log("taskDetail:", taskDetail)
+
         
+        try {    
+
+            const { data: addTaskData } = await AddTask({taskDetail})
+
+            
+                // variables: {
+                //     taskId: state.taskDetail._id,
+                //     createdDt: state.taskDetail.created_dt,
+                //     reviewDt: state.taskDetail.review_dt,
+                //     title: state.taskDetail.title,
+                //     summary: state.taskDetail.summary,
+                //     stakeholder: state.taskDetail.stakeholder,
+                //     // assigned: {
+                //     //     _id: state.taskDetail.assigned._id,
+                //     //     // username: state.taskDetail.assigned.username,
+                //     // },
+                //     status_macro: state.taskDetail.status_macro,
+                //     status_micro: state.taskDetail.status_micro,
+                //     priority: {
+                //         business_driven: state.taskDetail.priority.business_driven,
+                //         focus: state.taskDetail.priority.focus,
+                //         urgent: state.taskDetail.priority.urgent,
+                //         important: state.taskDetail.priority.important,
+                //         high_effort: state.taskDetail.priority.high_effort,
+                //         pipeline_number:  parseInt(state.taskDetail.priority.pipeline_number, 10),
+                //         category: state.taskDetail.priority.category,
+                //         comment: state.taskDetail.priority.comment
+                //     }                
+                // },
+                // });
+            
+
+            console.log("AddTaskData", addTaskData)
+            closeDetailForm()
+            toast.success("Successfully added a new task")
+        } catch (addTaskError) {
+            console.log(JSON.stringify(addTaskError, null, 2)); //Much better error reporting for GraphQl issues
+            toast.error("Add Task Unsuccessful - something went wrong")
+        }
+    }
+
+
     //---------------------//
     //- Expand Text Area  -//
     //---------------------//
@@ -152,12 +201,23 @@ export default function TaskDetailModal( {userSelect}) {
         textarea.style.height = Math.min(textarea.scrollHeight, heightLimit) + "px";
     };
 
+
+
+
+
     return (
         <div>
             <div id="view-details-modal-background" className="modal-background"></div>     
             <form id="view-details-modal-form" className="modal-form" onSubmit={()=> handleFormSubmit(event)}>                    
                 <span className="close" onClick={(() => closeDetailForm())}>&times;</span>
                 <h2 className="block modal-heading cherry-font"> Task Details</h2>
+                    {
+                        state.new_task ? (
+                            <div>state.new_task = True</div>
+                        ):(
+                            <div>state.new_task = False</div>
+                        )
+                    }
 
     {/***********************/}
     {/* Task Details Section*/}
@@ -173,7 +233,7 @@ export default function TaskDetailModal( {userSelect}) {
                                 className="modal-field w-full text-center"
                                 name="created-dt"
                                 type="date"
-                                placeholder="MM/DD/YYYY"
+                                placeholder="DD/MM/YYYY"
                                 value={dayjs(state.taskDetail.created_dt).format('YYYY-MM-DD')}
                                 onChange= {(e) =>
                                     dispatch({ type: TASK_DETAIL_CREATED_DT, payload: e.target.value})}
@@ -203,7 +263,7 @@ export default function TaskDetailModal( {userSelect}) {
                                     className="modal-field w-full text-center"
                                     name="review-dt"
                                     type="date"
-                                    placeholder="MM/DD/YYYY"
+                                    placeholder="DD/MM/YYYY"
                                     value={dayjs(state.taskDetail.review_dt).format('YYYY-MM-DD')}
                                     onChange= {(e) =>
                                         dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value})}
@@ -341,29 +401,65 @@ export default function TaskDetailModal( {userSelect}) {
 
     {/****************/}
     {/* Notes Section*/}
-    {/****************/}                
-                <TaskDetailNotesSection/>
+    {/****************/}
+                
+                {
+                    state.new_task ? (
+                        <div></div>
+                    ):(
+                        <TaskDetailNotesSection/>
+                    )
+                }
+                
+
+
+
+                
 
 
 
     {/*******************/}
     {/* Sign off Section*/}
-    {/*******************/}                
+    {/*******************/}  
+
                 <div className="modal-section justify-center"> 
-                    <button
+
+                {
+                    state.new_task ? (
+                        // New Task
+                        <button
+                            className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
+                            type="button"
+                            value="button"
+                            onClick={(e) => addNewTask(e)}
+                            >
+                            <div className="flex align-middle items-center">                          
+                                    <Icon
+                                        icon="mdi:file-document-add-outline"
+                                        width="30" height="30" 
+                                        className="task-detail-icon m-auto"
+                                    />
+                                    <div>&nbsp; Add New Task</div>                                                  
+                            </div> 
+                        </button>
+                    ):(
+                        // Not a new task
+                        <button
                         className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
                         type="submit"
                         value="submit"
                         >
-                        <div className="flex align-middle items-center">                          
-                                <Icon
-                                    icon="mi:save"
-                                    width="30" height="30" 
-                                    className="task-detail-icon m-auto"
-                                />
-                                <div>&nbsp; Save</div>                                                  
-                        </div> 
-                    </button>
+                            <div className="flex align-middle items-center">                          
+                                    <Icon
+                                        icon="mi:save"
+                                        width="30" height="30" 
+                                        className="task-detail-icon m-auto"
+                                    />
+                                    <div>&nbsp; Save</div>                                                  
+                            </div> 
+                        </button>
+                    )
+                }
 
                     <button
                         className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"

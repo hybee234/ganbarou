@@ -109,8 +109,13 @@ export default function SideMenu() {
                                 </div>
                             ): (
                                 <div>
-                                    <Link to="/login" className="side-menu-item">Login </Link>                  
-                                    <Link to="/signup" className="side-menu-item"> Sign Up</Link>
+                                    <div>
+                                        <Link to="/login" className="side-menu-item">Login </Link>                  
+                                        <Link to="/signup" className="side-menu-item"> Sign Up</Link>                                    
+                                    </div>
+                                    <div className="mt-20 side-menu-heading">
+                                        Log in for more
+                                    </div>
                                 </div>
                             )
                         }

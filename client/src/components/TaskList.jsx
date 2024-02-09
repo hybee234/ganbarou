@@ -1,15 +1,23 @@
 import dayjs from 'dayjs'
+import * as timezone from 'dayjs/plugin/timezone';
+import * as utc from 'dayjs/plugin/utc';
+import * as localizedFormat from 'dayjs/plugin/localizedFormat';
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(localizedFormat);
+
 import Tooltip from '@mui/material/Tooltip';
 import Zoom from '@mui/material/Zoom';
 import { useGlobalContext } from '../utils/GlobalState';
 import { useState, useEffect } from 'react'
 // import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { COMPLETE_TASK, UPDATE_TASK_BY_TASK_ID } from './../utils/mutations'
+import { COMPLETE_TASK, UPDATE_REVIEW_DATE_FROM_TASKLIST, UPDATE_TASK_BY_TASK_ID } from './../utils/mutations'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
+    NEW_TASK,
     TASK_DETAIL,
     TASK_DETAIL_REVIEW_DT,
 } from "./../utils/actions";
@@ -81,11 +89,9 @@ export default function TaskList (props) {
     const [opportunisticTaskCount, useOpportunisticTaskCount] = useState(taskArray.opportunistic.length)
 
 
-//useState taskState
-    const [taskState, useTaskState] = useState(taskArray)
-    console.log("taskState", taskState)
-
-
+    //useState taskState
+    // const [taskState, useTaskState] = useState(taskArray)
+    // console.log("taskState", taskState)
 
     //----------------------------------------//
     //- Create and Store Date/Time constants -//
@@ -106,7 +112,7 @@ export default function TaskList (props) {
                     element.parentNode.classList.add('review-due')
                 }
             })
-    },[tasks, taskState])
+    },[tasks])
 
     //----------------------------//
     //- MUTATION - Complete Task -//
@@ -167,79 +173,60 @@ export default function TaskList (props) {
     //---------------------------------------------//
 
     //useMutation hook
-    const [UpdateTaskByTaskId, { errors }] = useMutation(UPDATE_TASK_BY_TASK_ID);
+    const [UpdateReviewDtFromTaskList, { errors }] = useMutation(UPDATE_REVIEW_DATE_FROM_TASKLIST);
 
-    const handleFieldUpdate = async (taskId) => {
-        // event.preventDefault();
+    // Handles update post 
+    const handleReviewDtUpdate = async (e, taskId) => {
+        try {    
 
-            console.log(eTarget)
-            dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: eTarget.value})
-
-
-        // const viewTask = (taskId) => {        
-            // Filter userTasks for Task of interest
-            // let taskDetailArray = tasks.filter(task => task._id === taskId)
-            // let taskDetail = taskDetailArray[0]
-            // console.log(taskDetail)
-            // dispatch ({ type: TASK_DETAIL, payload: taskDetail})
-    
-        //     document.getElementById('view-details-modal-background').style.display = 'block'
-        //     document.getElementById('view-details-modal-form').style.display = 'block'
-        // }
-    
-
-
-
-        // const taskDetail = state.taskDetail
-        // console.log("taskDetail:", taskDetail)
-        // console.log("taskDetail:", taskDetail.priority.business_driven)
-        
-        // try {    
-
-        //     const { data } = await UpdateTaskByTaskId({
-        //         variables: {
-        //             id: state.taskDetail._id,
-        //             createdDt: state.taskDetail.created_dt,
-        //             reviewDt: state.taskDetail.review_dt,
-        //             title: state.taskDetail.title,
-        //             summary: state.taskDetail.summary,
-        //             stakeholder: state.taskDetail.stakeholder,
-        //             assigned: {
-        //                 _id: state.taskDetail.assigned._id,
-        //             },
-        //             status_macro: state.taskDetail.status_macro,
-        //             status_micro: state.taskDetail.status_micro,
-        //             priority: {
-        //                 business_driven: state.taskDetail.priority.business_driven,
-        //                 focus: state.taskDetail.priority.focus,
-        //                 urgent: state.taskDetail.priority.urgent,
-        //                 important: state.taskDetail.priority.important,
-        //                 high_effort: state.taskDetail.priority.high_effort,
-        //                 pipeline_number: state.taskDetail.priority.pipeline_number,
-        //                 category: state.taskDetail.priority.category,
-        //                 comment: state.taskDetail.priority.comment
-        //             }
-                
-        //         },
-        //     });
-
-        //     console.log("UpdateTaskByTaskId", data)
-        //     closeDetailForm()
-        // } catch (error) {
-        //     console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
-        // }
+            const { data } = await UpdateReviewDtFromTaskList({
+                variables: {
+                    taskId: taskId,
+                    reviewDt: e.value,                    
+                },
+            });
+            await dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.value})
+            console.log("UpdateReviewDtFromTaskList", data)              
+        } catch (error) {
+            console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
+        }
     }
 
+    //---------------------------------------------//
+    //-- useMutation update on change Review date -//
+    //---------------------------------------------//
 
-    //--------------------//
+    // This works, but just need to work out how to retrigger react
+    // //useMutation hook
+    // const [UpdateTaskByTaskId, { error : updateTaskByTaskIdError }] = useMutation(UPDATE_TASK_BY_TASK_ID);    
+
+    // // Handles update post 
+    // const handleReviewDtUpdate = async (e, taskId) => {
+    //     try {    
+
+    //         const { data } = await UpdateTaskByTaskId({
+    //             variables: {
+    //                 taskId: taskId,
+    //                 reviewDt: e.value,                    
+    //             },
+    //         });
+    //         await dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.value})
+    //         console.log("UpdateTaskByTaskId", data)              
+    //     } catch (updateTaskByTaskIdError) {
+    //         console.log(JSON.stringify(updateTaskByTaskIdError, null, 2)); //Much better error reporting for GraphQl issues
+    //     }
+    // }
+
+    //------------------//
     // View Task Modal -//
-    //--------------------//
+    //------------------//
     const viewTask = (taskId) => {        
         // Filter userTasks for Task of interest
         let taskDetailArray = tasks.filter(task => task._id === taskId)
         let taskDetail = taskDetailArray[0]
         
         dispatch ({ type: TASK_DETAIL, payload: taskDetail})
+        dispatch ({ type: NEW_TASK, payload: false})
 
         document.getElementById('view-details-modal-background').style.display = 'block'
         document.getElementById('view-details-modal-form').style.display = 'block'
@@ -310,26 +297,24 @@ export default function TaskList (props) {
                                                         {task.title}
                                                 </p>
                                             </Tooltip>
-                                        </td>
-                                        <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}> {dayjs(task.review_dt).format('D/M/YY')}</td>
-                                        
-                                        {/* An attempt to have review updated on main table
+                                        </td>                                      
                                         <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
                                             <input
-                                                className="modal-field w-full text-center"
+                                                className="table-select text-center"
                                                 name="review-dt"
                                                 type="date"
                                                 placeholder="MM/DD/YYYY"
-                                                value={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                //defaultValue = {dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                // value={dayjs(task.review_dt).format('YYYY-MM-DD')}
                                                 onChange= {(e) =>
                                                     // dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value}),
-                                                    handleFieldUpdate(e.target, task._id)
+                                                    handleReviewDtUpdate(e.target, task._id)
                                                 }
                                                 required
                                             >
                                             </input>
-                                        </td>
-                                        */}
+                                        </td>                                        
                                         <td className="hidden sm:table-cell table-row-cell">{task.assigned.username}</td> 
                                         <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
                                         <td className="min-w-20 sm:hidden table-cell  table-row-cell">
@@ -426,7 +411,23 @@ export default function TaskList (props) {
                                                     {task.title}
                                             </p>
                                         </td>
-                                        <td className="hidden sm:table-cell table-row-cell review-date-js " data-review-dt={task.review_dt}> {dayjs(task.review_dt).format('D/M/YY')}</td>
+                                        <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
+                                            <input
+                                                className="table-select text-center"
+                                                name="review-dt"
+                                                type="date"
+                                                placeholder="MM/DD/YYYY"
+                                                //defaultValue = {dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                // value={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                onChange= {(e) =>
+                                                    // dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value}),
+                                                    handleReviewDtUpdate(e.target, task._id)
+                                                }
+                                                required
+                                            >
+                                            </input>
+                                        </td>   
                                         <td className="hidden sm:table-cell table-row-cell">{task.assigned.username}</td> 
                                         <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
                                         <td className="min-w-20 sm:hidden table-cell  table-row-cell">
@@ -579,7 +580,23 @@ export default function TaskList (props) {
                                                     {task.title}
                                             </p>
                                         </td>
-                                        <td className="hidden sm:table-cell table-row-cell review-date-js " data-review-dt={task.review_dt}> {dayjs(task.review_dt).format('D/M/YY')}</td>
+                                        <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
+                                            <input
+                                                className="table-select text-center"
+                                                name="review-dt"
+                                                type="date"
+                                                placeholder="MM/DD/YYYY"
+                                                //defaultValue = {dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                // value={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                onChange= {(e) =>
+                                                    // dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value}),
+                                                    handleReviewDtUpdate(e.target, task._id)
+                                                }
+                                                required
+                                            >
+                                            </input>
+                                        </td>  
                                         <td className="hidden sm:table-cell table-row-cell">{task.assigned.username}</td> 
                                         <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
                                         <td className="min-w-20 sm:hidden table-cell  table-row-cell">

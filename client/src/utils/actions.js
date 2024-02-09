@@ -31,3 +31,7 @@ export const TASK_DETAIL_COMMENT = 'TASK_DETAIL_COMMENT'
 
 //Task Notes
 export const TASK_DETAIL_NOTE = 'TASK_DETAIL_NOTE'
+
+// Add New Task
+export const CLEAR_TASK_DETAIL = 'CLEAR_TASK_DETAIL'
+export const NEW_TASK = 'NEW_TASK'
