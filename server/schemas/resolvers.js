@@ -253,13 +253,20 @@ const resolvers = {
         },
 
         addTask: async (parent, args) => {
-            console.log (`\x1b[33m ┌────────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-            console.log (`\x1b[33m │ Update Task by Task ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
-            console.log (`\x1b[33m └────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m ┌──────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Add New Task │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └──────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
             console.log("args", args)
 
-            const addTask = await Task.create(args)
+            const addTask = await Task.create(
+                    args
+                    // { new: true, runValidators: true}
+                )
+                // .populate({ path: 'assigned' })
+                // .populate({ path: 'note.note_author' })
+                // .populate({ path: 'priority'}) 
+
                 // { _id: args.taskId },
                 // { 
                 //     created_dt: args.created_dt, 
@@ -286,13 +293,10 @@ const resolvers = {
                 //         comment: args.priority.comment
                 //     }}
                 // },
-                // { new: true, runValidators: true})
-                // // .populate({ path: 'assigned' })
-                // .populate({ path: 'note.note_author' })
-                // .populate({ path: 'priority'})                
-                            
+                
+
             // console.log(updateTask)
-            return addTask
+            return addTask.populate({ path: 'assigned' })
         },
 
     }

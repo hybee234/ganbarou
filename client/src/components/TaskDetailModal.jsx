@@ -32,6 +32,7 @@ import {
     TASK_DETAIL_SUMMARY,
     TASK_DETAIL_STATUS_MACRO,
     TASK_DETAIL_STATUS_MICRO,
+    TASKS,
 } from '../utils/actions'
 
 
@@ -64,9 +65,9 @@ export default function TaskDetailModal( {userSelect}) {
     //     console.log("Logged In?", loggedIn)
     // }
 
-    //------------------------//
-    //- Handle Assign Update -//
-    //------------------------//
+    //--------------------------------//
+    //- Handle Assign Update on form -//
+    //--------------------------------//
     // Receives new assign._id from form, filters userList for username and id, dispatches action to state.
     const handleAssignUpdate = (e)=> {
         // console.log("HandleAssignUpdate, etarget,value", e.target.value)
@@ -78,9 +79,9 @@ export default function TaskDetailModal( {userSelect}) {
         })
     }
     
-    //----------------------//
-    //- Handle form submit -//
-    //----------------------//
+    //----------------//
+    //- Update Task  -//
+    //----------------//
     //useMutation hook
     const [UpdateTaskByTaskId, { error }] = useMutation(UPDATE_TASK_BY_TASK_ID);    
     const [AssignUser, { errorAssigned }] = useMutation(ASSIGN_USER);
@@ -139,45 +140,58 @@ export default function TaskDetailModal( {userSelect}) {
         }
     }
 
-    const [AddTask, { error : addTaskError }] = useMutation(ADD_TASK);    
+    //----------------//
+    //- Add New Task -//
+    //----------------//
 
+    const [AddTask, { error : addTaskError }] = useMutation(ADD_TASK);    
     const addNewTask = async (event) => {
         event.preventDefault();
         const taskDetail = state.taskDetail
         console.log("taskDetail:", taskDetail)
-
+        console.log(Auth.getProfile().data._username)
         
         try {    
 
-            const { data: addTaskData } = await AddTask({taskDetail})
+            const { data: addTaskData } = await AddTask({
+                variables: {
+                    assigned: {
+                        _id : state.taskDetail.assigned._id,
+                        username: state.taskDetail.assigned.username,
+                    },
+                    complete_dt: state.taskDetail.complete_dt,
+                    complete_flag: state.taskDetail.complete_flag,
+                    create_dt: state.taskDetail.create_dt,
+                    // note: [{
+                    //     note_author:{
+                    //         _id:"",
+                    //         username: '',
+                    //     },
+                    //     note_dt:'',
+                    //     note_id:'',
+                    //     note_text:'',
+                    //     note_type:'',
+                    // }],
+                    priority: {
+                        business_driven: state.taskDetail.priority.business_driven,
+                        category: state.taskDetail.priority.category,
+                        comment: state.taskDetail.priority.comment,
+                        focus: state.taskDetail.priority.focus,
+                        high_effort: state.taskDetail.priority.high_effort,
+                        important: state.taskDetail.priority.important,
+                        pipeline_number: parseInt(state.taskDetail.priority.pipeline_number, 10),
+                        urgent: state.taskDetail.priority.urgent
+                    },
+                    review_dt: state.taskDetail.review_dt,
+                    stakeholder: state.taskDetail.stakeholder,
+                    status_macro: state.taskDetail.status_macro,
+                    status_micro: state.taskDetail.status_micro,
+                    summary: state.taskDetail.summary,
+                    title:state.taskDetail.title,
+                }
+            });
 
-            
-                // variables: {
-                //     taskId: state.taskDetail._id,
-                //     createdDt: state.taskDetail.created_dt,
-                //     reviewDt: state.taskDetail.review_dt,
-                //     title: state.taskDetail.title,
-                //     summary: state.taskDetail.summary,
-                //     stakeholder: state.taskDetail.stakeholder,
-                //     // assigned: {
-                //     //     _id: state.taskDetail.assigned._id,
-                //     //     // username: state.taskDetail.assigned.username,
-                //     // },
-                //     status_macro: state.taskDetail.status_macro,
-                //     status_micro: state.taskDetail.status_micro,
-                //     priority: {
-                //         business_driven: state.taskDetail.priority.business_driven,
-                //         focus: state.taskDetail.priority.focus,
-                //         urgent: state.taskDetail.priority.urgent,
-                //         important: state.taskDetail.priority.important,
-                //         high_effort: state.taskDetail.priority.high_effort,
-                //         pipeline_number:  parseInt(state.taskDetail.priority.pipeline_number, 10),
-                //         category: state.taskDetail.priority.category,
-                //         comment: state.taskDetail.priority.comment
-                //     }                
-                // },
-                // });
-            
+            dispatch({ type: TASKS, payload: addTaskData})
 
             console.log("AddTaskData", addTaskData)
             closeDetailForm()
@@ -287,7 +301,7 @@ export default function TaskDetailModal( {userSelect}) {
                                 {
                                     userSelect.map( (user)=> {
                                         return(
-                                            <option value={user._id} key={user._id}>{user.username}</option>
+                                            <option id={user._id} value={user._id} key={user._id}>{user.username}</option>
                                         ) 
                                     })
                                 }

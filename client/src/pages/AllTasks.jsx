@@ -6,6 +6,7 @@ import Auth from '../utils/auth';
 import TasksSummary from '../components/TaskSummary';
 import TaskList from '../components/TaskList';
 import TaskDetailModal from '../components/TaskDetailModal';
+import AddNewTask from '../components/Task - AddNew';
 
 import { useGlobalContext } from '../utils/GlobalState';
 import {
@@ -98,6 +99,7 @@ export default function AllTasks() {
         <TasksSummary tasks={tasks}  />
         <TaskList tasks={tasks} userSelect={userSelect.data.users} />  
         <TaskDetailModal userSelect={userSelect.data.users} />
+        <AddNewTask user={userId} userSelect={userSelect.data.users}/>  
     </div>
     )
 }

@@ -106,6 +106,7 @@ export default function TaskDetailUrgentImportant() {
                                     <div className="tooltip-string">Is this request of high value and impact to business risks/benefits?</div>                                    
                                     <div className="tooltip-string"></div>
                                 </div>}
+                            arrow placement="top"
                             enterDelay={500}
                             enterNextDelay={500}
                             TransitionComponent={Zoom}
@@ -161,6 +162,7 @@ export default function TaskDetailUrgentImportant() {
                                     <div className="tooltip-string">Judgement call on effort required to meet business request</div>                                    
                                     <div className="tooltip-string"></div>
                                 </div>}
+                            arrow placement="top"
                             enterDelay={500}
                             enterNextDelay={500}
                             TransitionComponent={Zoom}
