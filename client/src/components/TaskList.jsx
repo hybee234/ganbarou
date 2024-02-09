@@ -410,6 +410,7 @@ export default function TaskList (props) {
                             <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
                             <th className="sm:hidden table-cell table-heading-cell"></th>
                             <th className="hidden sm:table-cell table-heading-cell ">Category</th>
+                            <th className="sm:hidden table-cell table-heading-cell"></th>
                             <th className="hidden sm:table-cell table-heading-cell ">Urgent</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Important</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Effort</th>
@@ -480,7 +481,54 @@ export default function TaskList (props) {
                                                 <span>&nbsp; {task.stakeholder}</span>
                                             </div>
                                         </td>
-                                        <td className="hidden sm:table-cell table-row-cell">{task.priority.category}</td> 
+                                        <td className="hidden sm:table-cell table-row-cell">{task.priority.category}</td>
+                                        <td className="sm:hidden table-cell table-row-cell">
+                                            {
+                                                task.priority.urgent? (
+                                                    <Icon                                                        
+                                                        icon="emojione-v1:fire"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                ):(
+                                                    <Icon                                                        
+                                                        icon="streamline-emojis:turtle"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                )
+                                            }
+                                            {
+                                                task.priority.important? (
+                                                    <Icon                                                        
+                                                        icon="noto:crown"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                ):(
+                                                    <Icon                                                        
+                                                        icon="noto-v1:down-arrow"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                )
+                                            }
+                                            {
+                                                task.priority.high_effort? (
+                                                    <Icon                                                        
+                                                        icon="twemoji:snow-capped-mountain"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                ):(
+                                                    <Icon                                                        
+                                                        icon="streamline-emojis:shortcake-2"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                )
+                                            }
+                                        </td>
                                         <td className="hidden sm:table-cell table-row-cell">
                                             {
                                                 task.priority.urgent? (
@@ -610,6 +658,7 @@ export default function TaskList (props) {
                             <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
                             <th className="sm:hidden table-cell table-heading-cell"></th>
                             <th className="hidden sm:table-cell table-heading-cell ">Category</th>
+                            <th className="sm:hidden table-cell table-heading-cell"></th>
                             <th className="hidden sm:table-cell table-heading-cell ">Urgent</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Important</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Effort</th>
@@ -680,7 +729,54 @@ export default function TaskList (props) {
                                                 <span>&nbsp; {task.stakeholder}</span>
                                             </div>
                                         </td>
-                                        <td className="hidden sm:table-cell table-row-cell">{task.priority.category}</td> 
+                                        <td className="hidden sm:table-cell table-row-cell">{task.priority.category}</td>
+                                        <td className="sm:hidden table-cell table-row-cell">
+                                            {
+                                                task.priority.urgent? (
+                                                    <Icon                                                        
+                                                        icon="emojione-v1:fire"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                ):(
+                                                    <Icon                                                        
+                                                        icon="streamline-emojis:turtle"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                )
+                                            }
+                                            {
+                                                task.priority.important? (
+                                                    <Icon                                                        
+                                                        icon="noto:crown"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                ):(
+                                                    <Icon                                                        
+                                                        icon="noto-v1:down-arrow"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                )
+                                            }
+                                            {
+                                                task.priority.high_effort? (
+                                                    <Icon                                                        
+                                                        icon="twemoji:snow-capped-mountain"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                ):(
+                                                    <Icon                                                        
+                                                        icon="streamline-emojis:shortcake-2"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto"
+                                                    />
+                                                )
+                                            }
+                                        </td> 
                                         <td className="hidden sm:table-cell table-row-cell">
                                             {
                                                 task.priority.urgent? (

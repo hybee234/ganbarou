@@ -741,7 +741,7 @@ li {
 
 .task-detail-icon {
     font-size: 3rem;
-    padding: 3px;
+    /* padding: 1px; */
 }
 
 #pipeline-number {    
