@@ -1,18 +1,11 @@
 import dayjs from 'dayjs'
-// import * as timezone from 'dayjs/plugin/timezone';
-// import * as utc from 'dayjs/plugin/utc';
-// import * as localizedFormat from 'dayjs/plugin/localizedFormat';
-// dayjs.extend(utc);
-// dayjs.extend(timezone);
-// dayjs.extend(localizedFormat);
 
 import Tooltip from '@mui/material/Tooltip';
 import Zoom from '@mui/material/Zoom';
 import { useGlobalContext } from '../utils/GlobalState';
 import { useState, useEffect } from 'react'
-// import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { COMPLETE_TASK, UPDATE_REVIEW_DATE_FROM_TASKLIST, UPDATE_TASK_BY_TASK_ID } from './../utils/mutations'
+import { COMPLETE_TASK, UPDATE_REVIEW_DATE_FROM_TASKLIST } from './../utils/mutations'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -22,9 +15,6 @@ import {
     TASK_DETAIL_REVIEW_DT,
 } from "./../utils/actions";
 
-// import { FiEdit } from "react-icons/fi";
-// import { TiTick } from "react-icons/ti";
-// import { ImCross } from "react-icons/im";
 import { FaUserTie } from "react-icons/fa6";
 import { FaUserNinja } from "react-icons/fa6";
 import { BsFillCalendar2WeekFill } from "react-icons/bs";
@@ -33,44 +23,17 @@ import { Icon } from '@iconify/react';
 
 export default function TaskList (props) {
     console.log ("TaskList Rendering")
-    //---------------------//
-    //- Data Manipulation -//
-    //---------------------//
-    const {tasks} = props
+    //--------------------//
+    //- Props Validation -//
+    //--------------------//
+    const {tasks, userSelect} = props
 
-
-    const operationalTasks = tasks.filter(task => !task.priority.business_driven) // OpertaionalTasks
-    const focusTasks = tasks.filter(task => task.priority.business_driven && task.priority.focus) // Focus Tasks
-    const opportunisticTasks = tasks.filter(task => task.priority.business_driven && !task.priority.focus) // Opportunistic Tasks
-    
-    let taskArray = []
-    taskArray.operational = operationalTasks
-    taskArray.focus = focusTasks
-    taskArray.opportunistic = opportunisticTasks
-
-    // All user accounts (for assigned dropdown)
-    const {userSelect} = props
-    // console.log("TaskList Component: userSelect:", userSelect)
-    
-    
     //-----------------------//
     //- Sort by review date -//
     //-----------------------//
 
     //sort array by older review date on top (smallest to greatest)
     tasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
-
-    //Sort arrays lowest to max  (smallest to greatest)
-    taskArray.operational.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
-    taskArray.focus.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
-    taskArray.opportunistic.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
-
-    console.log("TaskList Component: taskArray", taskArray)
-
-
-    // console.log("user", user)               
-    // console.log("user task", user.tasks)    
-
 
     //---------//
     //- Hooks -//
@@ -81,17 +44,17 @@ export default function TaskList (props) {
     
     // Index for Rows - feature that console.logs row numbers when clicked on
     const [rowIndex, setRowIndex] = useState('');
+    
+    // useState to track task totals
+    const [taskCount, setTaskCount] = useState(
+        {
+            operationalTasks: tasks.filter(task => !task.priority.business_driven).length,
+            focusTasks: tasks.filter(task => task.priority.business_driven && task.priority.focus).length,
+            opportunisticTasks: tasks.filter(task => task.priority.business_driven && !task.priority.focus).length
+        }
+    );
 
-    // useState for Task Count
-    const [taskCount, useTaskCount] = useState(tasks.length)
-    const [operationalTaskCount, useOperationalTaskCount] = useState(taskArray.operational.length)
-    const [focusTaskCount, useFocusTaskCount] = useState(taskArray.focus.length)
-    const [opportunisticTaskCount, useOpportunisticTaskCount] = useState(taskArray.opportunistic.length)
-
-
-    //useState taskState
-    // const [taskState, useTaskState] = useState(taskArray)
-    // console.log("taskState", taskState)
+    // console.log("TASKCOUNT", taskCount)
 
     //----------------------------------------//
     //- Create and Store Date/Time constants -//
@@ -129,7 +92,7 @@ export default function TaskList (props) {
         )
     }   
     
-    // // Show error screen if error
+    // Show error screen if error
     if (error) {return (
         <div id="loading-screen"> TaskList Component - Error! 
             <div>${error.message}</div>
@@ -149,24 +112,27 @@ export default function TaskList (props) {
             })
             // console.log("data", data)
             // console.log("table", table)
-            toast.success(`Task Completed! Great Work!`) 
+            toast.success(`Task Completed! Great Work!`)
+
+            // Update Totals on Tables
             if (table === "operational") {
-                // console.log("Operational Task Completed")
-                useOperationalTaskCount(operationalTaskCount - 1)
+                console.log("Operational Task Completed")
+                setTaskCount(...taskCount, {operationalTasks: tasks.filter(task => !task.priority.business_driven).length -1})
             }
             if (table === "focus") {
-                // console.log("Focus Task Completed")
-                useFocusTaskCount(focusTaskCount -1)
+                console.log("Focus Task Completed")
+                console.log (tasks.filter(task => task.priority.business_driven && task.priority.focus).length)
+                setTaskCount({...taskCount, focusTasks: tasks.filter(task => task.priority.business_driven && task.priority.focus).length -1})
             }
             if (table === "opportunistic") {
-                // console.log("Opportunistic Task Completed")
-                useOpportunisticTaskCount(opportunisticTaskCount - 1)
+                console.log("Opportunistic Task Completed")
+                setTaskCount({...taskCount, opportunisticTasks: tasks.filter(task => task.priority.business_driven && !task.priority.focus).length -1})
             }
-            // console.log("Complete Task Returned Data:", data)
+            console.log("Complete Task Returned Data:", data)
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
         }
-    }
+    }                       
 
     //---------------------------------------------//
     //-- useMutation update on change Review date -//
@@ -178,7 +144,6 @@ export default function TaskList (props) {
     // Handles update post 
     const handleReviewDtUpdate = async (e, taskId) => {
         try {    
-
             const { data } = await UpdateReviewDtFromTaskList({
                 variables: {
                     taskId: taskId,
@@ -191,31 +156,6 @@ export default function TaskList (props) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
         }
     }
-
-    //---------------------------------------------//
-    //-- useMutation update on change Review date -//
-    //---------------------------------------------//
-
-    // This works, but just need to work out how to retrigger react
-    // //useMutation hook
-    // const [UpdateTaskByTaskId, { error : updateTaskByTaskIdError }] = useMutation(UPDATE_TASK_BY_TASK_ID);    
-
-    // // Handles update post 
-    // const handleReviewDtUpdate = async (e, taskId) => {
-    //     try {    
-
-    //         const { data } = await UpdateTaskByTaskId({
-    //             variables: {
-    //                 taskId: taskId,
-    //                 reviewDt: e.value,                    
-    //             },
-    //         });
-    //         await dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.value})
-    //         console.log("UpdateTaskByTaskId", data)              
-    //     } catch (updateTaskByTaskIdError) {
-    //         console.log(JSON.stringify(updateTaskByTaskIdError, null, 2)); //Much better error reporting for GraphQl issues
-    //     }
-    // }
 
     //------------------//
     // View Task Modal -//
@@ -235,13 +175,11 @@ export default function TaskList (props) {
     // console.log("rowIndex", rowIndex)
 
     return (
-
         <div>
             {/********************/}
             {/* Operational Table*/}
             {/********************/}
             
-
             <div className ="w-full m-auto text-center">
                 <Tooltip
                     title={
@@ -272,7 +210,7 @@ export default function TaskList (props) {
                     <tbody>
                         {
                             // {/* Index in array to add rowIndex to table */}
-                            taskArray.operational.map( (task, index) => {   
+                            tasks.filter(task => !task.priority.business_driven).map( (task, index) => {   
                                 // taskState.operational.map( (task, index) => {   
                                 return(                                    
                                     <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
@@ -345,7 +283,7 @@ export default function TaskList (props) {
                         }
                         <tr className="table-last-row">
                             <th></th>
-                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Tasks :</span>&nbsp;{operationalTaskCount}</th>                        
+                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Tasks :</span>&nbsp;{taskCount.operationalTasks}</th>                        
                             <th></th>
                             <th></th>
                             <th></th>
@@ -400,7 +338,7 @@ export default function TaskList (props) {
                     <tbody>
                         {
                             // {/* Index in array to add rowIndex to table */}
-                            taskArray.focus.map( (task, index) => {   
+                            tasks.filter(task => task.priority.business_driven && task.priority.focus).map( (task, index) => {     
                                 return(                                    
                                     <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
                                         <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('D/M/YY')}</td>                                
@@ -501,7 +439,7 @@ export default function TaskList (props) {
                                         <td>
                                             <button                                                
                                                 className=" table-row-cell link-color"
-                                                onClick={ ()=> completeHandler(task._id, "operational") }
+                                                onClick={ ()=> completeHandler(task._id, "focus") }
                                                 >                                              
                                                     <Icon icon="subway:tick" width="15" height="15" strokeWidth={3} color="green"/>  
                                             </button>
@@ -512,7 +450,7 @@ export default function TaskList (props) {
                         }
                         <tr className="table-last-row">
                             <th></th>
-                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Initiatives :</span>&nbsp;{focusTaskCount}</th>                        
+                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Initiatives :</span>&nbsp;{ taskCount.focusTasks}</th>                        
                             <th></th>
                             <th></th>
                             <th></th>
@@ -569,7 +507,7 @@ export default function TaskList (props) {
                     <tbody>
                         {
                             // {/* Index in array to add rowIndex to table */}
-                            taskArray.opportunistic.map( (task, index) => {   
+                            tasks.filter(task => task.priority.business_driven && !task.priority.focus).map( (task, index) => { 
                                 return(                                    
                                     <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
                                         <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('D/M/YY')}</td>                                
@@ -670,7 +608,7 @@ export default function TaskList (props) {
                                         <td>
                                             <button                                                
                                                 className=" table-row-cell link-color"
-                                                onClick={ ()=> completeHandler(task._id, "operational") }
+                                                onClick={ ()=> completeHandler(task._id, "opportunistic") }
                                                 >                                              
                                                     <Icon icon="subway:tick" width="15" height="15" strokeWidth={3} color="green"/>  
                                             </button>
@@ -681,7 +619,7 @@ export default function TaskList (props) {
                         }
                         <tr className="table-last-row">
                             <th></th>
-                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Initiatives :</span>&nbsp;{opportunisticTaskCount}</th>                        
+                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Initiatives :</span>&nbsp;{taskCount.opportunisticTasks}</th>                        
                             <th></th>
                             <th></th>
                             <th></th>

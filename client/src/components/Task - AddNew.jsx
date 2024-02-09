@@ -1,17 +1,6 @@
-import { useState } from 'react'
 import { Icon } from '@iconify/react';
 import { useGlobalContext } from '../utils/GlobalState';
-import dayjs from 'dayjs'
-
-import { useMutation } from '@apollo/client';
-import { ADD_NOTE } from './../utils/mutations';
-
-import Tooltip from '@mui/material/Tooltip';
-import Zoom from '@mui/material/Zoom';
-
 import Auth from '../utils/auth';
-import {  toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import {    
     NEW_TASK,
@@ -58,7 +47,7 @@ export default function AddNewTask(props) {
                 }],
                 priority: {
                     priority_id: "",
-                    business_driven: false,
+                    business_driven: true,
                     category: 5,                        
                     focus: false,
                     comment: "",
