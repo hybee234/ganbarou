@@ -10,10 +10,17 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
+    TASKS,
     NEW_TASK,
+    COMPLETE_STATE_TASK,
     TASK_DETAIL,
     TASK_DETAIL_REVIEW_DT,
+    // UPDATE_STATE_REVIEW_DT
 } from "./../utils/actions";
+
+// import {
+//     USER_SELECT,
+// } from '../utils/actions'
 
 import { FaUserTie } from "react-icons/fa6";
 import { FaUserNinja } from "react-icons/fa6";
@@ -22,18 +29,11 @@ import { Icon } from '@iconify/react';
 
 
 export default function TaskList (props) {
-    console.log ("TaskList Rendering")
+    // console.log ("TaskList Rendering")
     //--------------------//
     //- Props Validation -//
     //--------------------//
     const {tasks, userSelect} = props
-
-    //-----------------------//
-    //- Sort by review date -//
-    //-----------------------//
-
-    //sort array by older review date on top (smallest to greatest)
-    tasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
 
     //---------//
     //- Hooks -//
@@ -46,16 +46,45 @@ export default function TaskList (props) {
     const [rowIndex, setRowIndex] = useState('');
     
     // useState to track task totals
-    const [taskCount, setTaskCount] = useState(
-        {
-            operationalTasks: tasks.filter(task => !task.priority.business_driven).length,
-            focusTasks: tasks.filter(task => task.priority.business_driven && task.priority.focus).length,
-            opportunisticTasks: tasks.filter(task => task.priority.business_driven && !task.priority.focus).length
+    // const [taskCount, setTaskCount] = useState(
+    //     {
+    //         operationalTasks: tasks.filter(task => !task.priority.business_driven).length,
+    //         focusTasks: tasks.filter(task => task.priority.business_driven && task.priority.focus).length,
+    //         opportunisticTasks: tasks.filter(task => task.priority.business_driven && !task.priority.focus).length
+    //     }
+    // );
+
+    //-----------------------//
+    //- PUSH TASKS TO STATE -//
+    //-----------------------//
+
+    useEffect ( ()=> {
+        //Push Tasks to Global State if it is zero
+        if (state.tasks.length === 0) {
+            dispatch({
+                type: TASKS,
+                payload: tasks
+            })
+            console.log("state.tasks.length zero:", state.tasks.length)            
+        } else{            
+            console.log("state.tasks.length not zero", state.tasks.length)
         }
-    );
+    },[tasks, state.tasks])
 
-    // console.log("TASKCOUNT", taskCount)
 
+    // useEffect ( ()=> {
+    //     console.log ("Sort useEffect engaged")
+    //     let sortArray = state.tasks
+    //     let sorted = sortArray.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
+    //     console.log ("SORTED", sorted)
+    //     if (sorted) {
+    //         dispatch ({ type: TASKS, payload: sorted })
+    //     }
+    // },[state.tasks])
+
+    // console.log("sortArray", sortArray)
+
+    // console.log ("state.tasks (tasklist)", state.tasks)
     //----------------------------------------//
     //- Create and Store Date/Time constants -//
     //----------------------------------------//
@@ -68,13 +97,13 @@ export default function TaskList (props) {
 
     //Todo - to review if this should be in a useEffect or not
     useEffect(() => { 
-            document.querySelectorAll('.review-date-js').forEach(element => {
-                if (dayjs(element.dataset.reviewDt).isAfter(dayjs(now))) {                
-                    element.parentNode.classList.remove('review-due')
-                } else {
-                    element.parentNode.classList.add('review-due')
-                }
-            })
+        document.querySelectorAll('.review-date-js').forEach(element => {
+            if (dayjs(element.dataset.reviewDt).isAfter(dayjs(now))) {                
+                element.parentNode.classList.remove('review-due')
+            } else {
+                element.parentNode.classList.add('review-due')
+            }
+        })
     },[tasks])
 
     //----------------------------//
@@ -114,20 +143,24 @@ export default function TaskList (props) {
             // console.log("table", table)
             toast.success(`Task Completed! Great Work!`)
 
+            await dispatch ({ type: COMPLETE_STATE_TASK, payload: taskId})
+            console.log("State.tasks after complete", state.tasks)
+
             // Update Totals on Tables
-            if (table === "operational") {
-                console.log("Operational Task Completed")
-                setTaskCount(...taskCount, {operationalTasks: tasks.filter(task => !task.priority.business_driven).length -1})
-            }
-            if (table === "focus") {
-                console.log("Focus Task Completed")
-                console.log (tasks.filter(task => task.priority.business_driven && task.priority.focus).length)
-                setTaskCount({...taskCount, focusTasks: tasks.filter(task => task.priority.business_driven && task.priority.focus).length -1})
-            }
-            if (table === "opportunistic") {
-                console.log("Opportunistic Task Completed")
-                setTaskCount({...taskCount, opportunisticTasks: tasks.filter(task => task.priority.business_driven && !task.priority.focus).length -1})
-            }
+            // if (table === "operational") {
+            //     console.log("Operational Task Completed")
+            //     setTaskCount(...taskCount, {operationalTasks: tasks.filter(task => !task.priority.business_driven).length -1})
+            // }
+            // if (table === "focus") {
+            //     console.log("Focus Task Completed")
+            //     console.log (tasks.filter(task => task.priority.business_driven && task.priority.focus).length)
+            //     setTaskCount({...taskCount, focusTasks: tasks.filter(task => task.priority.business_driven && task.priority.focus).length -1})
+            // }
+            // if (table === "opportunistic") {
+            //     console.log("Opportunistic Task Completed")
+            //     setTaskCount({...taskCount, opportunisticTasks: tasks.filter(task => task.priority.business_driven && !task.priority.focus).length -1})
+            // }
+            
             console.log("Complete Task Returned Data:", data)
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
@@ -150,7 +183,10 @@ export default function TaskList (props) {
                     reviewDt: e.value,                    
                 },
             });
-            await dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.value})
+            await dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: {id: taskId, review_dt: e.value}})
+            // await dispatch ({ type: UPDATE_STATE_REVIEW_DT, payload:{id: taskId, review_dt: e.value}})
+            // await dispatch ({ type: SORT, payload: 1})
+
             console.log("UpdateReviewDtFromTaskList", data)              
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
@@ -179,8 +215,12 @@ export default function TaskList (props) {
             {/********************/}
             {/* Operational Table*/}
             {/********************/}
-            
-            <div className ="w-full m-auto text-center">
+        {
+            state.view === "business_driven" ?
+            (
+                <div></div>
+            ):(
+                <div className ="w-full m-auto text-center">
                 <Tooltip
                     title={
                         <div className="tooltip">                                            
@@ -200,11 +240,25 @@ export default function TaskList (props) {
                         <tr className="table-heading-row text-xs sm:text-xs md:text-sm xl:text-base">
                             <th className="table-heading-cell">Created</th>
                             <th className="text-xs sm:text-xs md:text-sm xl:text-base table-heading-cell">Title</th>
-                            <th className="hidden sm:table-cell table-heading-cell ">Review</th>                            
+                            {/* Review column */}
+                            {
+                                state.view === "completed" ? (
+                                    <div></div>
+                                ) : (
+                                <th className="hidden sm:table-cell table-heading-cell ">Review</th> 
+                                )
+                            }
                             <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
                             <th className="sm:hidden table-cell table-heading-cell"></th>
-                            <th className="table-heading-cell ">Done</th>
+                            {/* Complete Column */}
+                            {
+                                state.view === "completed" ? (
+                                    <th className="table-heading-cell">Completed</th>
+                                ) : (
+                                    <th className="table-heading-cell ">Done</th>
+                                )
+                            }
                         </tr>
                     </thead>
                     <tbody>
@@ -214,7 +268,7 @@ export default function TaskList (props) {
                                 // taskState.operational.map( (task, index) => {   
                                 return(                                    
                                     <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
-                                        <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('D/M/YY')}</td>                                
+                                        <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
                                         <td>
                                             <Tooltip
                                                 title={
@@ -235,24 +289,33 @@ export default function TaskList (props) {
                                                         {task.title}
                                                 </p>
                                             </Tooltip>
-                                        </td>                                      
-                                        <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
-                                            <input
-                                                className="table-select text-center"
-                                                name="review-dt"
-                                                type="date"
-                                                placeholder="MM/DD/YYYY"
-                                                //defaultValue = {dayjs(task.review_dt).format('YYYY-MM-DD')}
-                                                defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
-                                                // value={dayjs(task.review_dt).format('YYYY-MM-DD')}
-                                                onChange= {(e) =>
-                                                    // dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value}),
-                                                    handleReviewDtUpdate(e.target, task._id)
-                                                }
-                                                required
-                                            >
-                                            </input>
-                                        </td>                                        
+                                        </td> 
+                                        {/* Review column */}
+                                        {
+                                            state.view === "completed" ? (
+                                                <div>
+                                                </div>
+                                            ) : (
+                                                // Visible outside of complete
+                                                <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
+                                                    <input
+                                                        className="table-select text-center"
+                                                        name="review-dt"
+                                                        type="date"
+                                                        placeholder="MM/DD/YYYY"
+                                                        //defaultValue = {dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                        defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                        // value={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                        onChange= {(e) =>
+                                                            // dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value}),
+                                                            handleReviewDtUpdate(e.target, task._id)
+                                                        }
+                                                        required
+                                                    >
+                                                    </input>
+                                                </td>   
+                                            )
+                                        }                                                                                    
                                         <td className="hidden sm:table-cell table-row-cell">{task.assigned.username}</td> 
                                         <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
                                         <td className="min-w-20 sm:hidden table-cell  table-row-cell">
@@ -268,22 +331,32 @@ export default function TaskList (props) {
                                                 <FaUserTie/>
                                                 <span>&nbsp; {task.stakeholder}</span>
                                             </div>
-                                        </td> 
-                                        <td>
-                                            <button                                                
-                                                className=" table-row-cell link-color"
-                                                onClick={ ()=> completeHandler(task._id, "operational") }
-                                                >                                              
-                                                    <Icon icon="subway:tick" width="15" height="15" strokeWidth={3} color="green"/>  
-                                            </button>
                                         </td>
+                                        {/* Complete Column */}
+                                        {
+                                            state.view === "completed" ? (
+                                                <div>
+                                                    <td className="hidden sm:table-cell table-row-cell review-date-js">{dayjs(task.complete_dt).format('DD/MM/YY')}</td>
+                                                </div>
+                                            ) : (
+                                                <td>
+                                                    <button                                                
+                                                        className=" table-row-cell link-color"
+                                                        onClick={ ()=> completeHandler(task._id, "operational") }
+                                                        >                                              
+                                                            <Icon icon="subway:tick" width="15" height="15" strokeWidth={3} color="green"/>  
+                                                    </button>
+                                                </td>
+                                            )
+                                        } 
+                                        
                                     </tr>
                                 )                            
                             })                         
                         }
                         <tr className="table-last-row">
                             <th></th>
-                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Tasks :</span>&nbsp;{taskCount.operationalTasks}</th>                        
+                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Tasks :</span>&nbsp;{state.tasks.filter(task => !task.priority.business_driven).length} </th>                        
                             <th></th>
                             <th></th>
                             <th></th>
@@ -297,6 +370,8 @@ export default function TaskList (props) {
                     </tbody>
                 </table>
             </div>
+            )
+        }
 
             {/**************/}
             {/* Focus Table*/}
@@ -323,7 +398,14 @@ export default function TaskList (props) {
                         <tr className="table-heading-row text-xs sm:text-xs md:text-sm xl:text-base">
                             <th className="table-heading-cell">Created</th>
                             <th className="text-xs sm:text-xs md:text-sm xl:text-base table-heading-cell">Title</th>
-                            <th className="hidden sm:table-cell table-heading-cell ">Review</th>                            
+                            {/* Review column */}
+                            {
+                                state.view === "completed" ? (
+                                    <div></div>
+                                ) : (
+                                <th className="hidden sm:table-cell table-heading-cell ">Review</th> 
+                                )
+                            }                        
                             <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
                             <th className="sm:hidden table-cell table-heading-cell"></th>
@@ -332,7 +414,14 @@ export default function TaskList (props) {
                             <th className="hidden sm:table-cell table-heading-cell ">Important</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Effort</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Pipeline</th>
-                            <th className="table-heading-cell ">Done</th>
+                            {/* Complete Column */}
+                            {
+                                state.view === "completed" ? (
+                                    <th className="table-heading-cell">Completed</th>
+                                ) : (
+                                    <th className="table-heading-cell ">Done</th>
+                                )
+                            }
                         </tr>
                     </thead>
                     <tbody>
@@ -341,7 +430,7 @@ export default function TaskList (props) {
                             tasks.filter(task => task.priority.business_driven && task.priority.focus).map( (task, index) => {     
                                 return(                                    
                                     <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
-                                        <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('D/M/YY')}</td>                                
+                                        <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
                                         <td>
                                             <p
                                                 className=" table-row-cell link-color "
@@ -349,23 +438,32 @@ export default function TaskList (props) {
                                                     {task.title}
                                             </p>
                                         </td>
-                                        <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
-                                            <input
-                                                className="table-select text-center"
-                                                name="review-dt"
-                                                type="date"
-                                                placeholder="MM/DD/YYYY"
-                                                //defaultValue = {dayjs(task.review_dt).format('YYYY-MM-DD')}
-                                                defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
-                                                // value={dayjs(task.review_dt).format('YYYY-MM-DD')}
-                                                onChange= {(e) =>
-                                                    // dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value}),
-                                                    handleReviewDtUpdate(e.target, task._id)
-                                                }
-                                                required
-                                            >
-                                            </input>
-                                        </td>   
+                                        {/* Review column */}
+                                        {
+                                            state.view === "completed" ? (
+                                                <div>
+                                                </div>
+                                            ) : (
+                                                // Visible outside of complete
+                                                <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
+                                                    <input
+                                                        className="table-select text-center"
+                                                        name="review-dt"
+                                                        type="date"
+                                                        placeholder="MM/DD/YYYY"
+                                                        //defaultValue = {dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                        defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                        // value={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                        onChange= {(e) =>
+                                                            // dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value}),
+                                                            handleReviewDtUpdate(e.target, task._id)
+                                                        }
+                                                        required
+                                                    >
+                                                    </input>
+                                                </td>   
+                                            )
+                                        } 
                                         <td className="hidden sm:table-cell table-row-cell">{task.assigned.username}</td> 
                                         <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
                                         <td className="min-w-20 sm:hidden table-cell  table-row-cell">
@@ -400,7 +498,6 @@ export default function TaskList (props) {
                                                 )
                                             }
                                         </td> 
-
                                         <td className="hidden sm:table-cell table-row-cell">
                                             {
                                                 task.priority.important? (
@@ -436,21 +533,30 @@ export default function TaskList (props) {
                                             }
                                         </td> 
                                         <td className="hidden sm:table-cell table-row-cell">{task.priority.pipeline_number}</td>
-                                        <td>
-                                            <button                                                
-                                                className=" table-row-cell link-color"
-                                                onClick={ ()=> completeHandler(task._id, "focus") }
-                                                >                                              
-                                                    <Icon icon="subway:tick" width="15" height="15" strokeWidth={3} color="green"/>  
-                                            </button>
-                                        </td>
+                                        {/* Complete Column */}
+                                        {
+                                            state.view === "completed" ? (
+                                                <div>
+                                                    <td className="hidden sm:table-cell table-row-cell review-date-js">{dayjs(task.complete_dt).format('DD/MM/YY')}</td>
+                                                </div>
+                                            ) : (
+                                                <td>
+                                                    <button                                                
+                                                        className=" table-row-cell link-color"
+                                                        onClick={ ()=> completeHandler(task._id, "focus") }
+                                                        >                                              
+                                                            <Icon icon="subway:tick" width="15" height="15" strokeWidth={3} color="green"/>  
+                                                    </button>
+                                                </td>
+                                            )
+                                        } 
                                     </tr>
                                 )                            
                             })                         
                         }
                         <tr className="table-last-row">
                             <th></th>
-                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Initiatives :</span>&nbsp;{ taskCount.focusTasks}</th>                        
+                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Initiatives :</span>&nbsp;{state.tasks.filter(task => task.priority.business_driven && task.priority.focus).length}</th>                        
                             <th></th>
                             <th></th>
                             <th></th>
@@ -492,7 +598,14 @@ export default function TaskList (props) {
                         <tr className="table-heading-row text-xs sm:text-xs md:text-sm xl:text-base">
                             <th className="table-heading-cell">Created</th>
                             <th className="text-xs sm:text-xs md:text-sm xl:text-base table-heading-cell">Title</th>
-                            <th className="hidden sm:table-cell table-heading-cell ">Review</th>                            
+                            {/* Review column */}
+                            {
+                                state.view === "completed" ? (
+                                    <div></div>
+                                ) : (
+                                <th className="hidden sm:table-cell table-heading-cell ">Review</th> 
+                                )
+                            }                           
                             <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
                             <th className="sm:hidden table-cell table-heading-cell"></th>
@@ -501,7 +614,14 @@ export default function TaskList (props) {
                             <th className="hidden sm:table-cell table-heading-cell ">Important</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Effort</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Pipeline</th>
-                            <th className="table-heading-cell ">Done</th>
+                            {/* Complete Column */}
+                            {
+                                state.view === "completed" ? (
+                                    <th className="table-heading-cell">Completed</th>
+                                ) : (
+                                    <th className="table-heading-cell ">Done</th>
+                                )
+                            }
                         </tr>
                     </thead>
                     <tbody>
@@ -510,7 +630,7 @@ export default function TaskList (props) {
                             tasks.filter(task => task.priority.business_driven && !task.priority.focus).map( (task, index) => { 
                                 return(                                    
                                     <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
-                                        <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('D/M/YY')}</td>                                
+                                        <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
                                         <td>
                                             <p
                                                 className=" table-row-cell link-color "
@@ -518,23 +638,32 @@ export default function TaskList (props) {
                                                     {task.title}
                                             </p>
                                         </td>
-                                        <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
-                                            <input
-                                                className="table-select text-center"
-                                                name="review-dt"
-                                                type="date"
-                                                placeholder="MM/DD/YYYY"
-                                                //defaultValue = {dayjs(task.review_dt).format('YYYY-MM-DD')}
-                                                defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
-                                                // value={dayjs(task.review_dt).format('YYYY-MM-DD')}
-                                                onChange= {(e) =>
-                                                    // dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value}),
-                                                    handleReviewDtUpdate(e.target, task._id)
-                                                }
-                                                required
-                                            >
-                                            </input>
-                                        </td>  
+                                        {/* Review column */}
+                                        {
+                                            state.view === "completed" ? (
+                                                <div>
+                                                </div>
+                                            ) : (
+                                                // Visible outside of complete
+                                                <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
+                                                    <input
+                                                        className="table-select text-center"
+                                                        name="review-dt"
+                                                        type="date"
+                                                        placeholder="MM/DD/YYYY"
+                                                        //defaultValue = {dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                        defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                        // value={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                        onChange= {(e) =>
+                                                            // dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value}),
+                                                            handleReviewDtUpdate(e.target, task._id)
+                                                        }
+                                                        required
+                                                    >
+                                                    </input>
+                                                </td>   
+                                            )
+                                        } 
                                         <td className="hidden sm:table-cell table-row-cell">{task.assigned.username}</td> 
                                         <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
                                         <td className="min-w-20 sm:hidden table-cell  table-row-cell">
@@ -605,21 +734,30 @@ export default function TaskList (props) {
                                             }
                                         </td> 
                                         <td className="hidden sm:table-cell table-row-cell">{task.priority.pipeline_number}</td>
-                                        <td>
-                                            <button                                                
-                                                className=" table-row-cell link-color"
-                                                onClick={ ()=> completeHandler(task._id, "opportunistic") }
-                                                >                                              
-                                                    <Icon icon="subway:tick" width="15" height="15" strokeWidth={3} color="green"/>  
-                                            </button>
-                                        </td>
+                                        {/* Complete Column */}
+                                        {
+                                            state.view === "completed" ? (
+                                                <div>
+                                                    <td className="hidden sm:table-cell table-row-cell review-date-js">{dayjs(task.complete_dt).format('DD/MM/YY')}</td>
+                                                </div>
+                                            ) : (
+                                                <td>
+                                                    <button                                                
+                                                        className=" table-row-cell link-color"
+                                                        onClick={ ()=> completeHandler(task._id, "opportunistic") }
+                                                        >                                              
+                                                            <Icon icon="subway:tick" width="15" height="15" strokeWidth={3} color="green"/>  
+                                                    </button>
+                                                </td>
+                                            )
+                                        } 
                                     </tr>
                                 )                            
                             })                         
                         }
                         <tr className="table-last-row">
                             <th></th>
-                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Initiatives :</span>&nbsp;{taskCount.opportunisticTasks}</th>                        
+                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Initiatives :</span>&nbsp;{state.tasks.filter(task => task.priority.business_driven && !task.priority.focus).length}</th>                        
                             <th></th>
                             <th></th>
                             <th></th>

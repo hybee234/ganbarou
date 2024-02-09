@@ -7,8 +7,9 @@ import {
     CLEAR_TASK_DETAIL,
 } from '../utils/actions'
 
-
 export default function AddNewTask(props) {
+
+const {userId, userSelect} = props
 
     //Hook to access global context
     const [state, dispatch] = useGlobalContext();  
@@ -16,7 +17,7 @@ export default function AddNewTask(props) {
     //------------------//
     // Add Task Modal -//
     //------------------//
-    const addNewTask = () => {        
+    const addNewTask = async () => {        
         // Filter userTasks for Task of interest
         // let taskDetailArray = tasks.filter(task => task._id === taskId)
         // let taskDetail = taskDetailArray[0]
@@ -27,8 +28,8 @@ export default function AddNewTask(props) {
                 _id:"",
                 create_dt: now,
                 review_dt: now,                                        
-                title:"",
-                summary:"",
+                title: "",
+                summary: "",
                 stakeholder: "",
                 status_macro:"New",
                 status_micro:"On Hold",                    
@@ -65,13 +66,11 @@ export default function AddNewTask(props) {
         //New_task flag to control downstream components
         // True = add new task
         // False = edit existing task
-        dispatch ({ type: NEW_TASK, payload: true})        
-
+        await dispatch ({ type: NEW_TASK, payload: true})  
+            
         document.getElementById('view-details-modal-background').style.display = 'block'
         document.getElementById('view-details-modal-form').style.display = 'block'
     }
-
-
 
     return (
         <button

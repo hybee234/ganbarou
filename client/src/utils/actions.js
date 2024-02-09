@@ -3,8 +3,15 @@ export const SIDE_MENU = 'SIDE_MENU'
 
 export const USER = 'USER'
 
-// MyTask Actions
+// TASKLIST TASKS
 export const TASKS = 'TASKS'
+export const SORT = 'SORT'
+export const COMPLETE_STATE_TASK = 'COMPLETE_STATE_TASK'
+export const ADD_STATE_TASK = 'ADD_STATE_TASK'
+export const UPDATE_STATE_TASK = 'COMPLETE_STATE_TASK'
+export const UPDATE_STATE_REVIEW_DT = 'UPDATE_STATE_REVIEW_DT'
+
+
 export const USER_SELECT = 'USER_SELECT'
 
 export const TASK_DETAIL_ID = 'TASK_DETAIL_ID'
@@ -35,3 +42,7 @@ export const TASK_DETAIL_NOTE = 'TASK_DETAIL_NOTE'
 // Add New Task
 export const CLEAR_TASK_DETAIL = 'CLEAR_TASK_DETAIL'
 export const NEW_TASK = 'NEW_TASK'
+
+
+// Complete View
+export const VIEW = 'VIEW'

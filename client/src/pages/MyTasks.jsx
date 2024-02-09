@@ -10,10 +10,10 @@ import AddNewTask from '../components/Task - AddNew';
 
 import { useGlobalContext } from '../utils/GlobalState';
 
-// import {
-//     TASKS,
-//     USER_SELECT,
-// } from '../utils/actions'
+import {
+    VIEW,
+    USER_SELECT,
+} from '../utils/actions'
 
 export default function MyTasks() {
     console.log("MyTask Rendering")
@@ -21,20 +21,26 @@ export default function MyTasks() {
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
     const [userId, setUserId] = useState(Auth.getProfile().data._id)
+    
+    useEffect( ()=> {
+        dispatch ({ type: VIEW, payload: "mytask"})
+    },[state.view])
 
     //-------------//
     //- Use Query -//
     //-------------//
-    const allTaskData = useQuery(ALL_TASKS);    
-    const userSelect = useQuery(USER_LIST);   
 
     //Initialise the data
     // const myData = myDataQuery.data?.me || {}
     // const userList = userListQuery.data?.users || {}
 
     //Handle error and loading together
+    const allTaskData = useQuery(ALL_TASKS);    
+    const userSelect = useQuery(USER_LIST);   
     const error = allTaskData.error|| userSelect.error
     const loading = allTaskData.loading || userSelect.loading
+
+
 
     //Show Loading screen if loading
     if (loading) {
@@ -56,29 +62,21 @@ export default function MyTasks() {
         </div>    
     );}
 
+
     //---------------------//
     //- Data Manipulation -//
     //--------------------//
 
-    // Filter array for provided UserID (default is the logged in user)
-    // console.log("UserID:", userId) 
+    // Filter for Active Tasks for Current logged in user
+    const filterTasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === userId && !task.complete_flag) 
+    // Sort by Review Date
+    const sortTasks = filterTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
+    //Package into tasks to handover
+    const tasks = sortTasks
 
-    const tasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === userId && !task.complete_flag) // Filter for Active Tasks for Current logged in user
-    // console.log("MyTasksPage:tasks", tasks)
+    console.log("MyTasksPage:tasks", tasks)
 
-    // useEffect( ()=> {    
-    //     if (state.tasks.length) {
-    //         //do nothing
-    //         console.log(state.tasks)
-    //         console.log('state.tasks OK')
-    //     } else{
-    //         console.log('state.tasks null')
-    //         dispatch({
-    //                 type: TASKS,
-    //                 payload: tasks
-    //             })
-    //     }
-    // }, [])
+// console.log("STATE TASKS", state.tasks)
 
     // useEffect( ()=> {    
     //     if(state.userlist.length) {
@@ -101,7 +99,7 @@ export default function MyTasks() {
         <TasksSummary tasks={tasks}  />          
         <TaskList tasks={tasks} userSelect={userSelect.data.users}/>  
         <TaskDetailModal userSelect={userSelect.data.users} />
-        <AddNewTask user={userId} userSelect={userSelect.data.users}/>  
+        <AddNewTask user={userId} userSelect={userSelect.data.users} />  
     </div>
     )
 }
