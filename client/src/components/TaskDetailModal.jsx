@@ -10,14 +10,15 @@ import { Icon } from '@iconify/react';
 import Auth from '../utils/auth';
 import dayjs from 'dayjs'
 
-import { useState } from 'react'
+// import { useState } from 'react'
 import { useGlobalContext } from '../utils/GlobalState';
+import { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client';
 import { UPDATE_TASK_BY_TASK_ID, ASSIGN_USER, ADD_TASK } from './../utils/mutations';
 
 import TaskDetailTaskType from '../components/TaskDetailTaskType';
-import TaskDetailUrgentImportant from '../components/TaskDetailUrgentImportant';
-import TaskDetailCategory from '../components/TaskDetailCategory';
+// import TaskDetailUrgentImportant from '../components/TaskDetailUrgentImportant';
+// import TaskDetailCategory from '../components/TaskDetailCategory';
 import TaskDetailNotesSection from '../components/TaskDetailNotesSection';
 import TaskDetailPrioritisation from '../components/TaskDetailPrioritisation';
 
@@ -33,7 +34,7 @@ import {
     TASK_DETAIL_SUMMARY,
     TASK_DETAIL_STATUS_MACRO,
     TASK_DETAIL_STATUS_MICRO,
-    TASKS,
+    TASK_DETAIL,
 } from '../utils/actions'
 
 
@@ -43,7 +44,7 @@ export default function TaskDetailModal( {userSelect}) {
 
     //Hook to access global context
     const [state, dispatch] = useGlobalContext();  
-
+    
     console.log("state.taskDetail", state.taskDetail)
 
     //--------------------//
@@ -193,7 +194,7 @@ export default function TaskDetailModal( {userSelect}) {
                 }
             });
 
-            dispatch({ type: TASKS, payload: addTaskData})
+            dispatch({ type: TASK_DETAIL, payload: addTaskData.addTask})
 
             console.log("AddTaskData", addTaskData)
             closeDetailForm()
@@ -408,13 +409,6 @@ export default function TaskDetailModal( {userSelect}) {
                     </div>
                 </div>
 
-
-    {/*************************/}
-    {/* Prioritisation Section*/}
-    {/*************************/}
-                <TaskDetailPrioritisation />               
-                
-
     {/****************/}
     {/* Notes Section*/}
     {/****************/}
@@ -427,7 +421,10 @@ export default function TaskDetailModal( {userSelect}) {
                     )
                 }
                 
-
+    {/*************************/}
+    {/* Prioritisation Section*/}
+    {/*************************/}
+                <TaskDetailPrioritisation />    
 
 
                 
