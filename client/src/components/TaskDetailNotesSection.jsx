@@ -80,66 +80,69 @@ export default function TaskDetailNotesSection( ) {
     }
 
     return (
-        <div className="modal-section bg-filter p-5">
+        <div>
             <h2 className="block cherry-font w-full"> Notes </h2>   
+            <div className="modal-section bg-filter p-5">
+                
 
-            <div className="modal-section-divider w-full">
-                <div className=" ">
-                    {/* Note display section */}                
-                        {
-                            state.taskDetail.note && state.taskDetail.note.map( (note) => {
-                                return(
-                                    <div key={note.note_id} className ="modal-field justify-center my-1 ">
-                                        <div className="note-container">
-                                            <div className="note-details">                                                
-                                            { note.note_author.username ?
-                                                (
-                                                    <div className="px-1">{dayjs(note.note_dt).format('DD/MM/YY, HHmm')}hrs. {note.note_author.username}</div>
-                                                ):( 
-                                                    <div>Oops</div>
-                                                )} 
-                                            </div>
-                                            <div className="note-text">
-                                                {note.note_text}
-                                            </div>
-                                        </div>                                        
-                                    </div>
-                                )
-                            })
-                        }
+                <div className="modal-section-divider w-full">
+                    <div className=" ">
+                        {/* Note display section */}                
+                            {
+                                state.taskDetail.note && state.taskDetail.note.map( (note) => {
+                                    return(
+                                        <div key={note.note_id} className ="modal-field justify-center my-1 ">
+                                            <div className="note-container">
+                                                <div className="note-details">                                                
+                                                { note.note_author.username ?
+                                                    (
+                                                        <div className="px-1">{dayjs(note.note_dt).format('DD/MM/YY, HHmm')}hrs. {note.note_author.username}</div>
+                                                    ):( 
+                                                        <div>Oops</div>
+                                                    )} 
+                                                </div>
+                                                <div className="note-text">
+                                                    {note.note_text}
+                                                </div>
+                                            </div>                                        
+                                        </div>
+                                    )
+                                })
+                            }
+                    </div>
                 </div>
-            </div>
 
-            <div className="modal-section-divider w-full">
-                {/* <label className="modal-label">Add new Note</label> */}
-                    <textarea
-                        className="w-full modal-field"
-                        name="note-text"
-                        type="text"
-                        placeholder="Type in your new note here"
-                        rows="4"
-                        cols="30"
-                        value={newNote}
-                        onInput={(e) => expandArea(e)}
-                        onChange= {handleInputChange}
-                        >
-                    </textarea>
-                    <button
-                        className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
-                        type="button"
-                        value="note"
-                        onClick={()=>addNewNote()}
-                        >
-                        <div className="flex align-middle items-center">                          
-                                <Icon
-                                    icon="mdi:file-document-add-outline"
-                                    width="30" height="30" 
-                                    className="task-detail-icon m-auto"
-                                />
-                                <div>&nbsp; Add Note</div>                                                  
-                        </div> 
-                    </button>
-            </div>            
+                <div className="modal-section-divider w-full">
+                    {/* <label className="modal-label">Add new Note</label> */}
+                        <textarea
+                            className="w-full modal-field"
+                            name="note-text"
+                            type="text"
+                            placeholder="Type in your new note here"
+                            rows="4"
+                            cols="30"
+                            value={newNote}
+                            onInput={(e) => expandArea(e)}
+                            onChange= {handleInputChange}
+                            >
+                        </textarea>
+                        <button
+                            className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
+                            type="button"
+                            value="note"
+                            onClick={()=>addNewNote()}
+                            >
+                            <div className="flex align-middle items-center">                          
+                                    <Icon
+                                        icon="mdi:file-document-add-outline"
+                                        width="30" height="30" 
+                                        className="task-detail-icon m-auto"
+                                    />
+                                    <div>&nbsp; Add Note</div>                                                  
+                            </div> 
+                        </button>
+                </div>            
+            </div>
         </div>
     )
 }

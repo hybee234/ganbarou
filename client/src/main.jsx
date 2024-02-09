@@ -8,6 +8,7 @@ import Welcome from './pages/Welcome'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import MyTasks from './pages/MyTasks'
+import AllTasks from './pages/AllTasks'
 
 const router = createBrowserRouter([
     {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
         {
             path: 'mytasks',
             element: <MyTasks />
+        },
+        {
+            path: 'alltasks',
+            element: <AllTasks />
         },
         ]
     }

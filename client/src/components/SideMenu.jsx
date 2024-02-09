@@ -99,7 +99,8 @@ export default function SideMenu() {
                             Auth.loggedIn() ? 
                             (
                                 <div>
-                                    <Link to="/mytasks" className="side-menu-item">My Tasks </Link>                  
+                                    <Link to="/mytasks" className="side-menu-item">My Tasks </Link>    
+                                    <Link to="/alltasks" className="side-menu-item">All Tasks </Link>               
                                     <button id="logout-button" className="side-menu-item"
                                     onClick={handleLogout}
                                     >

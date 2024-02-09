@@ -46,16 +46,52 @@ export const COMPLETE_TASK = gql`
 `
 
 export const UPDATE_TASK_BY_TASK_ID = gql`
-    mutation UpdateTaskByTaskId($id: ID!, $createdDt: Date, $reviewDt: Date, $title: String, $summary: String, $stakeholder: String, $statusMacro: String, $statusMicro: String, $assigned: userInput, $priority: priorityUserInput, $note: noteUserInput) {
-        updateTaskByTaskId(_id: $id, created_dt: $createdDt, review_dt: $reviewDt, title: $title, summary: $summary, stakeholder: $stakeholder, status_macro: $statusMacro, status_micro: $statusMicro, assigned: $assigned, priority: $priority, note: $note) {
+    mutation Mutation($createdDt: Date, $reviewDt: Date, $title: String, $summary: String, $stakeholder: String, $statusMacro: String, $statusMicro: String, $assigned: userInput, $priority: priorityUserInput, $note: noteUserInput, $taskId: ID!) {
+        updateTaskByTaskId(created_dt: $createdDt, review_dt: $reviewDt, title: $title, summary: $summary, stakeholder: $stakeholder, status_macro: $statusMacro, status_micro: $statusMicro, assigned: $assigned, priority: $priority, note: $note, taskId: $taskId) {
+        _id
+        created_dt
+        title
+        summary
+        complete_flag
+        complete_dt
+        review_dt
+        stakeholder
+        assigned {
+            _id
+        }
+        status_macro
+        status_micro
+        note {
+            note_id
+            note_text
+            note_type
+            note_author {
+            _id
+            username
+            }
+            note_dt
+        }
+        priority {
+            priority_id
+            pipeline_number
+            business_driven
+            focus
+            category
+            important
+            urgent
+            high_effort
+            comment
+        }
+    }
+}
+`
+
+export const ASSIGN_USER = gql`
+    mutation AssignUser($taskId: ID!, $assigned: userInput) {
+        assignUser(taskId: $taskId, assigned: $assigned) {
             _id
             created_dt
             title
-            summary
-            complete_flag
-            complete_dt
-            review_dt
-            stakeholder
             assigned {
                 _id
                 username
@@ -65,27 +101,12 @@ export const UPDATE_TASK_BY_TASK_ID = gql`
             status_macro
             status_micro
             note {
-                note_id
-                note_text
-                note_type
                 note_author {
-                    _id
-                    username
-                    email
-                    security
-                    }
-                note_dt
+                _id
+                }
             }
             priority {
-                priority_id
-                pipeline_number
                 business_driven
-                focus
-                category
-                important
-                urgent
-                high_effort
-                comment
             }
         }
     }

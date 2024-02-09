@@ -7,12 +7,6 @@ import Toast from './components/Toast';
 import Footer from './components/Footer';
 import { GlobalProvider } from './utils/GlobalState'
 
-// Roboto Font (for Mui Code)
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
     uri: '/graphql',

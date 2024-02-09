@@ -12,12 +12,13 @@ import dayjs from 'dayjs'
 import { useState } from 'react'
 import { useGlobalContext } from '../utils/GlobalState';
 import { useMutation } from '@apollo/client';
-import { UPDATE_TASK_BY_TASK_ID } from './../utils/mutations';
+import { UPDATE_TASK_BY_TASK_ID, ASSIGN_USER } from './../utils/mutations';
 
 import TaskDetailTaskType from '../components/TaskDetailTaskType';
 import TaskDetailUrgentImportant from '../components/TaskDetailUrgentImportant';
 import TaskDetailCategory from '../components/TaskDetailCategory';
 import TaskDetailNotesSection from '../components/TaskDetailNotesSection';
+import TaskDetailPrioritisation from '../components/TaskDetailPrioritisation';
 
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -31,8 +32,6 @@ import {
     TASK_DETAIL_SUMMARY,
     TASK_DETAIL_STATUS_MACRO,
     TASK_DETAIL_STATUS_MICRO,
-    TASK_DETAIL_COMMENT,
-    TASK_DETAIL_PIPELINE
 } from '../utils/actions'
 
 
@@ -59,11 +58,11 @@ export default function TaskDetailModal( {userSelect}) {
     //- Log state to Console -//
     //-----------------------//
     // TROUBLESHOOTING ONLY
-    const consoleLog = () => {
-        console.log("state", state)
-        const loggedIn = Auth.loggedIn()
-        console.log("Logged In?", loggedIn)
-    }
+    // const consoleLog = () => {
+    //     console.log("state", state)
+    //     const loggedIn = Auth.loggedIn()
+    //     console.log("Logged In?", loggedIn)
+    // }
 
     //------------------------//
     //- Handle Assign Update -//
@@ -83,7 +82,8 @@ export default function TaskDetailModal( {userSelect}) {
     //- Handle form submit -//
     //----------------------//
     //useMutation hook
-    const [UpdateTaskByTaskId, { error }] = useMutation(UPDATE_TASK_BY_TASK_ID);
+    const [UpdateTaskByTaskId, { error }] = useMutation(UPDATE_TASK_BY_TASK_ID);    
+    const [AssignUser, { errorAssigned }] = useMutation(ASSIGN_USER);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -93,9 +93,9 @@ export default function TaskDetailModal( {userSelect}) {
         
         try {    
 
-            const { data } = await UpdateTaskByTaskId({
+            const { data: updateTaskData } = await UpdateTaskByTaskId({
                 variables: {
-                    id: state.taskDetail._id,
+                    taskId: state.taskDetail._id,
                     createdDt: state.taskDetail.created_dt,
                     reviewDt: state.taskDetail.review_dt,
                     title: state.taskDetail.title,
@@ -103,6 +103,7 @@ export default function TaskDetailModal( {userSelect}) {
                     stakeholder: state.taskDetail.stakeholder,
                     assigned: {
                         _id: state.taskDetail.assigned._id,
+                        // username: state.taskDetail.assigned.username,
                     },
                     status_macro: state.taskDetail.status_macro,
                     status_micro: state.taskDetail.status_micro,
@@ -115,17 +116,27 @@ export default function TaskDetailModal( {userSelect}) {
                         pipeline_number:  parseInt(state.taskDetail.priority.pipeline_number, 10),
                         category: state.taskDetail.priority.category,
                         comment: state.taskDetail.priority.comment
-                    }
-                
+                    }                
                 },
             });
 
-            console.log("UpdateTaskByTaskId", data)
+            const {data: assignUserData} = await AssignUser({
+                variables: {
+                    taskId: state.taskDetail._id,
+                    assigned: {
+                        _id: state.taskDetail.assigned._id,
+                    },  
+                },
+            });
+            
+
+            console.log("updateTaskData", updateTaskData)
+            console.log("assignUserData", assignUserData)
             closeDetailForm()
             toast.success("Task updated Successfully")
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
-            toast.success("Something went wrong - Task NOt Updated")
+            toast.error("Something went wrong - Task NOt Updated")
         }
     }
         
@@ -139,9 +150,7 @@ export default function TaskDetailModal( {userSelect}) {
         var heightLimit = 200; /* Maximum height: 200px */
         textarea.style.height = ""; /* Reset the height*/
         textarea.style.height = Math.min(textarea.scrollHeight, heightLimit) + "px";
-        };
-
-
+    };
 
     return (
         <div>
@@ -149,12 +158,13 @@ export default function TaskDetailModal( {userSelect}) {
             <form id="view-details-modal-form" className="modal-form" onSubmit={()=> handleFormSubmit(event)}>                    
                 <span className="close" onClick={(() => closeDetailForm())}>&times;</span>
                 <h2 className="block modal-heading cherry-font"> Task Details</h2>
+
     {/***********************/}
     {/* Task Details Section*/}
     {/***********************/}
                 <div className="bg-filter modal-section p-5">
-                    <h2 className="block cherry-font w-full"> Task </h2>
-                    <div className="flex flex-wrap modal-section-divider w-full sm:w-1/4">
+                    {/* <h1 className="block cherry-font w-full"> Task Details </h1> */}
+                    <div className="flex flex-wrap modal-section-divider w-full sm:w-1/4">                        
                         <div className="modal-field-container w-1/2 sm:w-full">
                             <div>
                                 <label className="modal-label"> Created Date* </label>
@@ -326,95 +336,8 @@ export default function TaskDetailModal( {userSelect}) {
     {/*************************/}
     {/* Prioritisation Section*/}
     {/*************************/}
-                    
-                <div className="modal-section bg-filter p-5 justify-center flex">
-                <h2 className="block cherry-font w-full"> Prioritisation</h2> 
-                {
-                    state.taskDetail.priority.business_driven === true ?
-                        (
-                            <div className="modal-section-divider flex flex-wrap justify-center">
-                            
-                                {/* Urgency/Importance*/}
-                                <div className="modal-section-divider flex flex-wrap justify-center">
-                                    <div className="">
-                                        <TaskDetailUrgentImportant />
-                                    </div>
-                                    <div className="">
-                                        <TaskDetailCategory/>
-                                    </div>
-                                </div>
-                            
-
-                                {/* Comment*/}
-                                <div className="modal-section-divider flex flex-wrap justify-center">
-
-                                    <div className="modal-field-container p-1">
-                                        <label className="modal-label">Prioritisation Notes</label>
-                                        <Tooltip
-                                            title={
-                                                <div className="tooltip">                                            
-                                                    <div className="tooltip-string">Comments pertaining to prioritisation Only</div>                                    
-                                                    <div className="tooltip-string"></div>                                      
-                                                </div>}
-                                            arrow placement="bottom"
-                                            enterDelay={500}
-                                            enterNextDelay={500}
-                                            TransitionComponent={Zoom}
-                                            TransitionProps={{ timeout: 200 }}
-                                            // followCursor
-                                        >
-                                            <textarea
-                                                className="modal-field "
-                                                name="status-summary"
-                                                type="text"
-                                                placeholder="Summary"
-                                                rows="3"
-                                                cols="30"
-                                                value={state.taskDetail.priority.comment}
-                                                onInput={(e) => expandArea(e)}
-                                                onChange= {(e) =>
-                                                    dispatch({ type: TASK_DETAIL_COMMENT, payload: e.target.value})}
-                                                >
-                                            </textarea>
-                                        </Tooltip>
-                                    </div>
-
-
-                                    <div className="modal-field-container p-1">
-                                        <label className="modal-label "> Pipeline Number</label>
-                                        <Tooltip
-                                            title={
-                                                <div className="tooltip">                                            
-                                                    <div className="tooltip-string">---</div>
-                                                    <div className="tooltip-string">---</div>                                     
-                                                </div>}
-                                            enterDelay={500}
-                                            enterNextDelay={500}
-                                            TransitionComponent={Zoom}
-                                            TransitionProps={{ timeout: 200 }}
-                                            // followCursor
-                                        >
-                                            <input
-                                                id="pipeline-number"
-                                                className="modal-field text-center cherry-font"                                        
-                                                type="number"
-                                                inputMode="number"
-                                                step="1"
-                                                value={state.taskDetail.priority.pipeline_number}
-                                                onChange= {(e) =>
-                                                    dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
-                                                >
-                                            </input>                                
-                                        </Tooltip>
-                                    </div>
-
-                                </div>           
-                            </div> 
-                        ):(
-                                <div>Operational Tasks are exempt from Prioritsation</div>
-                        )
-                    }
-                </div> 
+                <TaskDetailPrioritisation />               
+                
 
     {/****************/}
     {/* Notes Section*/}
@@ -426,7 +349,7 @@ export default function TaskDetailModal( {userSelect}) {
     {/*******************/}
     {/* Sign off Section*/}
     {/*******************/}                
-                <div className="bg-filter modal-section justify-center"> 
+                <div className="modal-section justify-center"> 
                     <button
                         className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
                         type="submit"
@@ -467,7 +390,7 @@ export default function TaskDetailModal( {userSelect}) {
     {/* Footer */}
     {/**********/}
 
-                <button
+                {/* <button
                     className="px-6 py-2 mt-20 font-bold duration-200 ease-in-out button-color"
                     type="button"
                     value="cancel"
@@ -481,7 +404,7 @@ export default function TaskDetailModal( {userSelect}) {
                             />
                             <div>&nbsp; console.log(state)</div>                                                  
                     </div> 
-                </button>
+                </button> */}
 
 
 

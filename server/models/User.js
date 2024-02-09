@@ -35,10 +35,11 @@ const userSchema = new Schema(
     },
     // set this to use virtual below
     {
-        // timestamp:true,
+        timestamp:false,
         toJSON: {
             virtuals: true,
         },
+        id: false, // passed back just the _id value
     }
 );
 

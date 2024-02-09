@@ -17,50 +17,43 @@ export default function TasksSummary(props) {
     console.log("TaskSummary Rendering")
     const {tasks} = props
 
-    //----------------------------------------//
-    //- Create and Store Date/Time constants -//
-    //----------------------------------------//
-
     // Now (date and time)
     let now = new Date();
 
-    // myData is passed through with all user and task data
-    // console.log("My Summary: Tasks:", user.tasks)
-
     // GrandTotal - My Total Active Tasks
-    const totalTasks = tasks.filter(task => !task.complete_flag).length
+    const totalTasks = tasks.filter(task => tasks.length)
     // console.log("totalTasks: ", totalTasks)
 
     // Grandtotal - Active, future review
-    const totalReviewDue = tasks.filter(task => !task.complete_flag && dayjs(now).isAfter(dayjs(task.review_dt))).length;
+    const totalReviewDue = tasks.filter(task => dayjs(now).isAfter(dayjs(task.review_dt))).length;
     // console.log("totalReviewDue", totalReviewDue);
 
     //Operational Tickets (total)
-    const totalOperational = tasks.filter(task => !task.complete_flag && !task.priority.business_driven).length
+    const totalOperational = tasks.filter(task => !task.priority.business_driven).length
     // console.log("totalOperational: ", totalOperational)
 
     //Operational Tickets (total), future review
-    const operationalReviewDue = tasks.filter(task => !task.complete_flag && !task.priority.business_driven && dayjs(now).isAfter(dayjs(task.review_dt))).length
+    const operationalReviewDue = tasks.filter(task => !task.priority.business_driven && dayjs(now).isAfter(dayjs(task.review_dt))).length
     // console.log("operationalReviewDue: ", operationalReviewDue)
 
     //Business driven total 
-    const totalBusiness = tasks.filter(task => !task.complete_flag && task.priority.business_driven).length
+    const totalBusiness = tasks.filter(task => task.priority.business_driven).length
     // console.log("totalBusiness: ", totalBusiness)
 
     //Business driven Focus total
-    const businessFocus = tasks.filter(task => !task.complete_flag && task.priority.business_driven && task.priority.focus).length
+    const businessFocus = tasks.filter(task => task.priority.business_driven && task.priority.focus).length
     // console.log("businessFocus: ", businessFocus)
 
     // Business driven Focus, future review
-    const businessFocusReviewDue = tasks.filter(task => !task.complete_flag && task.priority.business_driven && task.priority.focus && dayjs(now).isAfter(dayjs(task.review_dt))).length
+    const businessFocusReviewDue = tasks.filter(task => task.priority.business_driven && task.priority.focus && dayjs(now).isAfter(dayjs(task.review_dt))).length
     // console.log("businessFocusReviewDue: ", businessFocusReviewDue)
 
     // Business driven opportunistic, total
-    const businessOpportunistic = tasks.filter(task => !task.complete_flag && task.priority.business_driven && !task.priority.focus).length
+    const businessOpportunistic = tasks.filter(task => task.priority.business_driven && !task.priority.focus).length
     // console.log("businessOpportunistic: ", businessOpportunistic)
 
     // Business driven Focus, future review
-    const businessOpportunisticReviewDue = tasks.filter(task => !task.complete_flag && task.priority.business_driven && !task.priority.focus && dayjs(now).isAfter(dayjs(task.review_dt))).length
+    const businessOpportunisticReviewDue = tasks.filter(task => task.priority.business_driven && !task.priority.focus && dayjs(now).isAfter(dayjs(task.review_dt))).length
     // console.log("businessOpportunisticReviewDue: ", businessOpportunisticReviewDue)
 
 //----------------//

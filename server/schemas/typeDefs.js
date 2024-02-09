@@ -63,6 +63,8 @@ const typeDefs = `
     input userInput {
         _id: ID
         username: String
+        email: String
+        security: String
     }
 
 
@@ -82,16 +84,18 @@ const typeDefs = `
         note_author: userInput
         note_type: String
         note_text: String
-
+        _id: ID
     }
 
     type Mutation {
         addUser(username: String! email: String! password: String!): Auth
         login(email: String password: String!): Auth
         completeTask( id: ID!): Task
-        removeTaskFromUsers ( id:ID!): User
+
+        assignUser (taskId: ID! assigned: userInput): Task
+        
         updateTaskByTaskId (
-            _id: ID!
+            taskId: ID!
             created_dt: Date
             review_dt: Date
             title: String
@@ -103,6 +107,7 @@ const typeDefs = `
             priority: priorityUserInput
             note: noteUserInput
         ): Task
+
         addNote(noteUserInput: noteUserInput, taskId:ID!): Task
     }
 `;
