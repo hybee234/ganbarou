@@ -35,8 +35,6 @@ export default function MyTasks() {
     const error = allTaskData.error|| userSelect.error
     const loading = allTaskData.loading || userSelect.loading
 
-    console.log("test1")
-
     //Show Loading screen if loading
     if (loading) {
         return ( 
@@ -64,7 +62,6 @@ export default function MyTasks() {
     // Filter array for provided UserID (default is the logged in user)
     // console.log("UserID:", userId) 
 
-    console.log("test2")
     const tasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === userId && !task.complete_flag) // Filter for Active Tasks for Current logged in user
     console.log("MyTasksPage:tasks", tasks)
 
@@ -97,7 +94,8 @@ export default function MyTasks() {
 
 
     return (
-    <div>    
+    <div>
+        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">My tasks</div>    
         <TasksSummary tasks={tasks}  />
         <TaskList tasks={tasks} userSelect={userSelect.data.users} />  
         <TaskDetailModal userSelect={userSelect.data.users} />

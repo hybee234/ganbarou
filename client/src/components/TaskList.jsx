@@ -169,65 +169,53 @@ export default function TaskList (props) {
     //useMutation hook
     const [UpdateTaskByTaskId, { errors }] = useMutation(UPDATE_TASK_BY_TASK_ID);
 
-    const handleFieldUpdate = async (taskId) => {
+    const handleFieldUpdate = async (e, taskId) => {
         // event.preventDefault();
-
-            console.log(eTarget)
-            dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: eTarget.value})
-
-
-        // const viewTask = (taskId) => {        
-            // Filter userTasks for Task of interest
-            // let taskDetailArray = tasks.filter(task => task._id === taskId)
-            // let taskDetail = taskDetailArray[0]
-            // console.log(taskDetail)
-            // dispatch ({ type: TASK_DETAIL, payload: taskDetail})
-    
-        //     document.getElementById('view-details-modal-background').style.display = 'block'
-        //     document.getElementById('view-details-modal-form').style.display = 'block'
-        // }
-    
+            console.log("************** handleFieldUpdate Engaged *****************")
+            console.log(e)
+            await dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.value})
+            console.log("state.taskDetail.review_dt", state.taskDetail.review_dt)
+            console.log("taskId", taskId)
 
 
+            // const findOperational = taskArray.operational.find(task => task._id === taskId);
+            // const findFocus = taskArray.focus.find(task => task._id === taskId);
+            // const findOpportunistic = taskArray.opportunistic.find(task => task._id === taskId);
+            // console.log("findOperational", findOperational)
+            // console.log("findFocus", findFocus)
+            // console.log("findOpportunistic", findOpportunistic)
 
-        // const taskDetail = state.taskDetail
-        // console.log("taskDetail:", taskDetail)
-        // console.log("taskDetail:", taskDetail.priority.business_driven)
-        
-        // try {    
+        try {    
 
-        //     const { data } = await UpdateTaskByTaskId({
-        //         variables: {
-        //             id: state.taskDetail._id,
-        //             createdDt: state.taskDetail.created_dt,
-        //             reviewDt: state.taskDetail.review_dt,
-        //             title: state.taskDetail.title,
-        //             summary: state.taskDetail.summary,
-        //             stakeholder: state.taskDetail.stakeholder,
-        //             assigned: {
-        //                 _id: state.taskDetail.assigned._id,
-        //             },
-        //             status_macro: state.taskDetail.status_macro,
-        //             status_micro: state.taskDetail.status_micro,
-        //             priority: {
-        //                 business_driven: state.taskDetail.priority.business_driven,
-        //                 focus: state.taskDetail.priority.focus,
-        //                 urgent: state.taskDetail.priority.urgent,
-        //                 important: state.taskDetail.priority.important,
-        //                 high_effort: state.taskDetail.priority.high_effort,
-        //                 pipeline_number: state.taskDetail.priority.pipeline_number,
-        //                 category: state.taskDetail.priority.category,
-        //                 comment: state.taskDetail.priority.comment
-        //             }
+            const { data } = await UpdateTaskByTaskId({
+                variables: {
+                    taskId: taskId,
+                    reviewDt: state.taskDetail.review_dt,
+                    // title: state.taskDetail.title,
+                    // summary: state.taskDetail.summary,
+                    // stakeholder: state.taskDetail.stakeholder,
+                    // assigned: {
+                    //     _id: state.taskDetail.assigned._id,
+                    // },
+                    // status_macro: state.taskDetail.status_macro,
+                    // status_micro: state.taskDetail.status_micro,
+                    // priority: {
+                    //     business_driven: state.taskDetail.priority.business_driven,
+                    //     focus: state.taskDetail.priority.focus,
+                    //     urgent: state.taskDetail.priority.urgent,
+                    //     important: state.taskDetail.priority.important,
+                    //     high_effort: state.taskDetail.priority.high_effort,
+                    //     pipeline_number: state.taskDetail.priority.pipeline_number,
+                    //     category: state.taskDetail.priority.category,
+                    //     comment: state.taskDetail.priority.comment
+                    // }
                 
-        //         },
-        //     });
-
-        //     console.log("UpdateTaskByTaskId", data)
-        //     closeDetailForm()
-        // } catch (error) {
-        //     console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
-        // }
+                },
+            });
+            console.log("UpdateTaskByTaskId", data)              
+        } catch (error) {
+            console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
+        }
     }
 
 
@@ -313,14 +301,15 @@ export default function TaskList (props) {
                                         </td>
                                         <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}> {dayjs(task.review_dt).format('D/M/YY')}</td>
                                         
-                                        {/* An attempt to have review updated on main table
+                                        {/* An attempt to have review updated on main table */}
                                         <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
                                             <input
                                                 className="modal-field w-full text-center"
                                                 name="review-dt"
                                                 type="date"
                                                 placeholder="MM/DD/YYYY"
-                                                value={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                defaultValue = {dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                // value={dayjs(task.review_dt).format('YYYY-MM-DD')}
                                                 onChange= {(e) =>
                                                     // dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value}),
                                                     handleFieldUpdate(e.target, task._id)
@@ -329,7 +318,7 @@ export default function TaskList (props) {
                                             >
                                             </input>
                                         </td>
-                                        */}
+                                       
                                         <td className="hidden sm:table-cell table-row-cell">{task.assigned.username}</td> 
                                         <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
                                         <td className="min-w-20 sm:hidden table-cell  table-row-cell">
