@@ -12,11 +12,12 @@ import { useGlobalContext } from '../utils/GlobalState';
 import { useState, useEffect } from 'react'
 // import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { COMPLETE_TASK, UPDATE_REVIEW_DATE_FROM_TASKLIST } from './../utils/mutations'
+import { COMPLETE_TASK, UPDATE_REVIEW_DATE_FROM_TASKLIST, UPDATE_TASK_BY_TASK_ID } from './../utils/mutations'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
+    NEW_TASK,
     TASK_DETAIL,
     TASK_DETAIL_REVIEW_DT,
 } from "./../utils/actions";
@@ -191,6 +192,31 @@ export default function TaskList (props) {
         }
     }
 
+    //---------------------------------------------//
+    //-- useMutation update on change Review date -//
+    //---------------------------------------------//
+
+    // This works, but just need to work out how to retrigger react
+    // //useMutation hook
+    // const [UpdateTaskByTaskId, { error : updateTaskByTaskIdError }] = useMutation(UPDATE_TASK_BY_TASK_ID);    
+
+    // // Handles update post 
+    // const handleReviewDtUpdate = async (e, taskId) => {
+    //     try {    
+
+    //         const { data } = await UpdateTaskByTaskId({
+    //             variables: {
+    //                 taskId: taskId,
+    //                 reviewDt: e.value,                    
+    //             },
+    //         });
+    //         await dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.value})
+    //         console.log("UpdateTaskByTaskId", data)              
+    //     } catch (updateTaskByTaskIdError) {
+    //         console.log(JSON.stringify(updateTaskByTaskIdError, null, 2)); //Much better error reporting for GraphQl issues
+    //     }
+    // }
+
     //------------------//
     // View Task Modal -//
     //------------------//
@@ -200,6 +226,7 @@ export default function TaskList (props) {
         let taskDetail = taskDetailArray[0]
         
         dispatch ({ type: TASK_DETAIL, payload: taskDetail})
+        dispatch ({ type: NEW_TASK, payload: false})
 
         document.getElementById('view-details-modal-background').style.display = 'block'
         document.getElementById('view-details-modal-form').style.display = 'block'

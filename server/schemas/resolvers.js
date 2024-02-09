@@ -252,6 +252,48 @@ const resolvers = {
             return assignUser
         },
 
+        addTask: async (parent, args) => {
+            console.log (`\x1b[33m ┌────────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Update Task by Task ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+
+            console.log("args", args)
+
+            const addTask = await Task.create(args)
+                // { _id: args.taskId },
+                // { 
+                //     created_dt: args.created_dt, 
+                //     review_dt: args.review_dt,
+                //     title: args.title,
+                //     summary: args.summary,
+                //     stakeholder: args.stakeholder,
+                //     status_macro: args.status_macro,
+                //     status_micro: args.status_micro,
+                //     // $set: {assigned: args.assigned._id},
+                //         // _id: "65b8ed239359f0fca323570c",
+                //         // _id: args.assigned._id,
+                //         // username: args.assigned.username,
+                //         // email: args.assigned.email,
+                //         // security: args.assigned.security                        
+                //     $set: {priority: {
+                //         business_driven: args.priority.business_driven,
+                //         focus: args.priority.focus,
+                //         important: args.priority.important,
+                //         urgent: args.priority.urgent,
+                //         high_effort: args.priority.high_effort,
+                //         pipeline_number: args.priority.pipeline_number,
+                //         category: args.priority.category,
+                //         comment: args.priority.comment
+                //     }}
+                // },
+                // { new: true, runValidators: true})
+                // // .populate({ path: 'assigned' })
+                // .populate({ path: 'note.note_author' })
+                // .populate({ path: 'priority'})                
+                            
+            // console.log(updateTask)
+            return addTask
+        },
 
     }
 };

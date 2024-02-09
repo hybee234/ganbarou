@@ -110,6 +110,18 @@ const typeDefs = `
         updateReviewDtFromTaskList (taskId:ID!, review_dt: Date): Task
 
         addNote(noteUserInput: noteUserInput, taskId:ID!): Task
+
+        addTask(
+            created_dt: Date
+            review_dt: Date
+            title: String
+            summary: String
+            stakeholder: String
+            status_macro: String
+            status_micro: String
+            priority: priorityUserInput
+            assigned: userInput
+        ) : Task
     }
 `;
 

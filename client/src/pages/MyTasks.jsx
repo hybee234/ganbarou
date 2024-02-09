@@ -6,6 +6,7 @@ import Auth from '../utils/auth';
 import TasksSummary from '../components/TaskSummary';
 import TaskList from '../components/TaskList';
 import TaskDetailModal from '../components/TaskDetailModal';
+import AddNewTask from '../components/Task - AddNew';
 
 import { useGlobalContext } from '../utils/GlobalState';
 
@@ -95,10 +96,12 @@ export default function MyTasks() {
 
     return (
     <div>
-        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">My tasks</div>    
-        <TasksSummary tasks={tasks}  />
+        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">My tasks</div>
+        
+        <TasksSummary tasks={tasks}  />          
         <TaskList tasks={tasks} userSelect={userSelect.data.users} />  
         <TaskDetailModal userSelect={userSelect.data.users} />
+        <AddNewTask user={userId} userSelect={userSelect.data.users}/>  
     </div>
     )
 }

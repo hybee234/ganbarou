@@ -98,7 +98,7 @@ export default function TaskDetailNotesSection( ) {
                                                     (
                                                         <div className="px-1">{dayjs(note.note_dt).format('DD/MM/YY, HHmm')}hrs. {note.note_author.username}</div>
                                                     ):( 
-                                                        <div>Oops</div>
+                                                        <div>No Notes on Record</div>
                                                     )} 
                                                 </div>
                                                 <div className="note-text">

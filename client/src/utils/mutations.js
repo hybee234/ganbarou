@@ -127,7 +127,6 @@ export const ADD_NOTE = gql`
     }
 `
 
-
 export const UPDATE_REVIEW_DATE_FROM_TASKLIST = gql`
     mutation UpdateReviewDtFromTaskList($taskId: ID!, $reviewDt: Date) {
         updateReviewDtFromTaskList(taskId: $taskId, review_dt: $reviewDt) {
@@ -138,6 +137,38 @@ export const UPDATE_REVIEW_DATE_FROM_TASKLIST = gql`
             created_dt
             complete_flag
             complete_dt
+        }
+    }
+`
+
+export const ADD_TASK = gql`
+    mutation Mutation($createdDt: Date, $reviewDt: Date, $title: String, $summary: String, $stakeholder: String, $statusMacro: String, $statusMicro: String, $priority: priorityUserInput, $assigned: userInput) {
+        addTask(created_dt: $createdDt, review_dt: $reviewDt, title: $title, summary: $summary, stakeholder: $stakeholder, status_macro: $statusMacro, status_micro: $statusMicro, priority: $priority, assigned: $assigned) {
+            _id
+            created_dt
+            title
+            summary
+            complete_flag
+            complete_dt
+            review_dt
+            stakeholder
+            assigned {
+                _id
+                username
+            }
+            status_macro
+            status_micro
+            priority {
+                priority_id
+                pipeline_number
+                business_driven
+                focus
+                category
+                important
+                urgent
+                high_effort
+                comment
+            }
         }
     }
 `
