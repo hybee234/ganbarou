@@ -1,21 +1,20 @@
 
 import { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client';
-import { USER_LIST, ALL_TASKS } from './../utils/queries'
+import { USER_LIST, ALL_TASKS } from '../utils/queries'
 import Auth from '../utils/auth';
 import TasksSummary from '../components/TaskSummary';
 import TaskList from '../components/TaskList';
 import TaskDetailModal from '../components/TaskDetailModal';
 
 import { useGlobalContext } from '../utils/GlobalState';
+import {
+    TASKS,
+    USER_SELECT,
+} from '../utils/actions'
 
-// import {
-//     TASKS,
-//     USER_SELECT,
-// } from '../utils/actions'
-
-export default function MyTasks() {
-    console.log("MyTask Rendering")
+export default function AllTasks() {
+    console.log("AllTasks Rendering")
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
@@ -35,7 +34,6 @@ export default function MyTasks() {
     const error = allTaskData.error|| userSelect.error
     const loading = allTaskData.loading || userSelect.loading
 
-    console.log("test1")
 
     //Show Loading screen if loading
     if (loading) {
@@ -63,9 +61,7 @@ export default function MyTasks() {
 
     // Filter array for provided UserID (default is the logged in user)
     // console.log("UserID:", userId) 
-
-    console.log("test2")
-    const tasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === userId && !task.complete_flag) // Filter for Active Tasks for Current logged in user
+    const tasks = allTaskData.data.tasks.filter( (task) => !task.complete_flag) // Filter for Active Tasks for Current logged in user
     console.log("MyTasksPage:tasks", tasks)
 
     // useEffect( ()=> {    
@@ -97,7 +93,7 @@ export default function MyTasks() {
 
 
     return (
-    <div>    
+    <div> All Tasks   
         <TasksSummary tasks={tasks}  />
         <TaskList tasks={tasks} userSelect={userSelect.data.users} />  
         <TaskDetailModal userSelect={userSelect.data.users} />

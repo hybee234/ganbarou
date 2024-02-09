@@ -30,10 +30,13 @@ const taskSchema = new Schema({
     stakeholder: {
         type: String,
     },
-    assigned: {        
-            type: Schema.Types.ObjectId,
-            ref: 'User',        
-    },
+    assigned: 
+        {        
+                type: Schema.Types.ObjectId,
+                ref: 'User',        
+        },
+    
+
     status_macro: {
         type: String,
     },
@@ -44,10 +47,11 @@ const taskSchema = new Schema({
     priority: prioritySchema,
 },
 {
-    // timestamps: true,
+    timestamps: false,
     toJSON: {
         virtuals: true,
     },
+    // id: false, // passed back just the _id value
 }
 );
 

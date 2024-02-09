@@ -12,7 +12,7 @@ import dayjs from 'dayjs'
 import { useState } from 'react'
 import { useGlobalContext } from '../utils/GlobalState';
 import { useMutation } from '@apollo/client';
-import { UPDATE_TASK_BY_TASK_ID } from './../utils/mutations';
+import { UPDATE_TASK_BY_TASK_ID, ASSIGN_USER } from './../utils/mutations';
 
 import TaskDetailTaskType from '../components/TaskDetailTaskType';
 import TaskDetailUrgentImportant from '../components/TaskDetailUrgentImportant';
@@ -82,7 +82,8 @@ export default function TaskDetailModal( {userSelect}) {
     //- Handle form submit -//
     //----------------------//
     //useMutation hook
-    const [UpdateTaskByTaskId, { error }] = useMutation(UPDATE_TASK_BY_TASK_ID);
+    const [UpdateTaskByTaskId, { error }] = useMutation(UPDATE_TASK_BY_TASK_ID);    
+    const [AssignUser, { errorAssigned }] = useMutation(ASSIGN_USER);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -92,9 +93,9 @@ export default function TaskDetailModal( {userSelect}) {
         
         try {    
 
-            const { data } = await UpdateTaskByTaskId({
+            const { data: updateTaskData } = await UpdateTaskByTaskId({
                 variables: {
-                    id: state.taskDetail._id,
+                    taskId: state.taskDetail._id,
                     createdDt: state.taskDetail.created_dt,
                     reviewDt: state.taskDetail.review_dt,
                     title: state.taskDetail.title,
@@ -102,6 +103,7 @@ export default function TaskDetailModal( {userSelect}) {
                     stakeholder: state.taskDetail.stakeholder,
                     assigned: {
                         _id: state.taskDetail.assigned._id,
+                        // username: state.taskDetail.assigned.username,
                     },
                     status_macro: state.taskDetail.status_macro,
                     status_micro: state.taskDetail.status_micro,
@@ -114,17 +116,27 @@ export default function TaskDetailModal( {userSelect}) {
                         pipeline_number:  parseInt(state.taskDetail.priority.pipeline_number, 10),
                         category: state.taskDetail.priority.category,
                         comment: state.taskDetail.priority.comment
-                    }
-                
+                    }                
                 },
             });
 
-            console.log("UpdateTaskByTaskId", data)
+            const {data: assignUserData} = await AssignUser({
+                variables: {
+                    taskId: state.taskDetail._id,
+                    assigned: {
+                        _id: state.taskDetail.assigned._id,
+                    },  
+                },
+            });
+            
+
+            console.log("updateTaskData", updateTaskData)
+            console.log("assignUserData", assignUserData)
             closeDetailForm()
             toast.success("Task updated Successfully")
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
-            toast.success("Something went wrong - Task NOt Updated")
+            toast.error("Something went wrong - Task NOt Updated")
         }
     }
         

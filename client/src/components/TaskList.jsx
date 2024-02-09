@@ -30,10 +30,10 @@ export default function TaskList (props) {
     //---------------------//
     const {tasks} = props
 
-    const allActiveTasks = tasks.filter(task => !task.complete_flag) // Active tasks only
-    const operationalTasks = tasks.filter(task => !task.complete_flag && !task.priority.business_driven) // OpertaionalTasks
-    const focusTasks = tasks.filter(task => !task.complete_flag && task.priority.business_driven && task.priority.focus) // Focus Tasks
-    const opportunisticTasks = tasks.filter(task => !task.complete_flag && task.priority.business_driven && !task.priority.focus) // Opportunistic Tasks
+
+    const operationalTasks = tasks.filter(task => !task.priority.business_driven) // OpertaionalTasks
+    const focusTasks = tasks.filter(task => task.priority.business_driven && task.priority.focus) // Focus Tasks
+    const opportunisticTasks = tasks.filter(task => task.priority.business_driven && !task.priority.focus) // Opportunistic Tasks
     
     let taskArray = []
     taskArray.operational = operationalTasks
@@ -50,7 +50,7 @@ export default function TaskList (props) {
     //-----------------------//
 
     //sort array by older review date on top (smallest to greatest)
-    allActiveTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
+    tasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
 
     //Sort arrays lowest to max  (smallest to greatest)
     taskArray.operational.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
@@ -75,7 +75,7 @@ export default function TaskList (props) {
     const [rowIndex, setRowIndex] = useState('');
 
     // useState for Task Count
-    const [taskCount, useTaskCount] = useState(allActiveTasks.length)
+    const [taskCount, useTaskCount] = useState(tasks.length)
     const [operationalTaskCount, useOperationalTaskCount] = useState(taskArray.operational.length)
     const [focusTaskCount, useFocusTaskCount] = useState(taskArray.focus.length)
     const [opportunisticTaskCount, useOpportunisticTaskCount] = useState(taskArray.opportunistic.length)

@@ -112,7 +112,7 @@ h2 {
         linear-gradient(  rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0) ),
         url("/assets/images/Graphite.jpg"); */
     background-image:
-        linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5) ),
+        linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7) ),
         url("/assets/images/Graphite.jpg");
     background-position: center;
     background-repeat: no-repeat;

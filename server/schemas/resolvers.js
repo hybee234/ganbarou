@@ -34,7 +34,6 @@ const resolvers = {
             console.log (`\x1b[33m ┌─────────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
             console.log (`\x1b[33m │ Find Me - Active Tasks  │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └─────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
-
             console.log("context.user Find me", context.user)
             console.log("user._id", context.user._id)
 
@@ -57,7 +56,6 @@ const resolvers = {
             console.log (`\x1b[33m ┌───────────────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
             console.log (`\x1b[33m │ Find all Tasks by Assigned ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └───────────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
-
             // console.log("assigned:", args.assigned)
 
             // Find all tasks by assigned user ID
@@ -75,7 +73,6 @@ const resolvers = {
             console.log (`\x1b[33m ┌──────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
             console.log (`\x1b[33m │ Find Task by Task ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └──────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
-
             // console.log("taskId:", args._id)
 
             // Find all tasks by assigned user ID
@@ -139,12 +136,12 @@ const resolvers = {
             console.log("taskId", args.id)
             // Complete Task document (updates complete date to now)
             const task = await Task.findOneAndUpdate( 
-                { _id: args.id },        //filter
-                {   //update
+                { _id: args.id },                       //filter
+                {                                       //update
                     complete_flag: true,
                     complete_dt: Date.now(),
                 },
-                { new: true, runValidators: true})          // return doc                
+                { new: true, runValidators: true})      // return doc                
                 .populate({ path: 'assigned' })
                 .populate({ path: 'note.note_author' })
                 .populate({ path: 'priority'})
@@ -164,7 +161,6 @@ const resolvers = {
                 throw AuthenticationError;
             }
 
-            // Remove Task ID from all User Documents
             const addNote = await Task.findOneAndUpdate(
                 { _id: args.taskId },
                 {
@@ -188,6 +184,74 @@ const resolvers = {
             return addNote
         },
 
+        updateTaskByTaskId: async (parent, args) => {
+                
+            console.log (`\x1b[33m ┌────────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Update Task by Task ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+
+            console.log("args", args)
+            console.log("args.assigned._id", args.assigned._id)
+
+                const updateTask = await Task.findOneAndUpdate(
+                    { _id: args.taskId },
+                    { 
+                        created_dt: args.created_dt, 
+                        review_dt: args.review_dt,
+                        title: args.title,
+                        summary: args.summary,
+                        stakeholder: args.stakeholder,
+                        status_macro: args.status_macro,
+                        status_micro: args.status_micro,
+                        $set: {assigned: args.assigned._id},
+                            // _id: "65b8ed239359f0fca323570c",
+                            // _id: args.assigned._id,
+                            // username: args.assigned.username,
+                            // email: args.assigned.email,
+                            // security: args.assigned.security
+                        
+                        $set: {priority: {
+                            business_driven: args.priority.business_driven,
+                            focus: args.priority.focus,
+                            important: args.priority.important,
+                            urgent: args.priority.urgent,
+                            high_effort: args.priority.high_effort,
+                            pipeline_number: args.priority.pipeline_number,
+                            category: args.priority.category,
+                            comment: args.priority.comment
+                        }}
+                    },
+                    { new: true, runValidators: true})
+                    // .populate({ path: 'assigned' })
+                    .populate({ path: 'note.note_author' })
+                    .populate({ path: 'priority'})
+                    
+                                
+                // console.log(updateTask)
+                return updateTask
+        },
+
+
+        assignUser: async (parent, args) => {
+        
+            console.log (`\x1b[33m ┌────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ AssignUser │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+
+            console.log("Task ID", args.taskId)
+            console.log("userInput._id", args.assigned._id)
+
+                const assignUser = await Task.findOneAndUpdate(
+                    { _id: args.taskId },
+                    { $set: {assigned: args.assigned._id}},
+                    { new: true, runValidators: true})
+                    .populate({ path: 'assigned' })
+
+                console.log(assignUser)
+                return assignUser
+
+
+
 // Unauthorised - Missing context.user means failed authMiddelware
     //         if (!context.user) {
     //             throw AuthenticationError("Unauthorised to Delete");
@@ -202,53 +266,6 @@ const resolvers = {
 
     //         return deleteBook;
     //     },
-
-
-        updateTaskByTaskId: async (parent, args) => {
-                
-            console.log (`\x1b[33m ┌────────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-            console.log (`\x1b[33m │ Update Task by Task ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
-            console.log (`\x1b[33m └────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
-
-            console.log("args", args)
-
-
-                const updateTask = await Task.findByIdAndUpdate(
-                    { _id: args._id },
-                    { 
-                        created_dt: args.created_dt, 
-                        review_dt: args.review_dt,
-                        title: args.title,
-                        summary: args.summary,
-                        stakeholder: args.stakeholder,
-                        status_macro: args.status_macro,
-                        status_micro: args.status_micro,
-                        $set: {assigned: {
-                            _id: args.assigned._id,
-                        }},
-                        $set: {priority: {
-                            business_driven: args.priority.business_driven,
-                            focus: args.priority.focus,
-                            important: args.priority.important,
-                            urgent: args.priority.urgent,
-                            high_effort: args.priority.high_effort,
-                            pipeline_number: args.priority.pipeline_number,
-                            category: args.priority.category,
-                            comment: args.priority.comment
-                        }}
-                    },
-                    { new: true, runValidators: true})
-                    .populate({ path: 'assigned' })
-                    .populate({ path: 'note.note_author' })
-                    .populate({ path: 'priority'})
-                    .exec()
-                                
-                // console.log(updateTask)
-                return updateTask
-
-                //const user = original (remove from original)
-                                    // { $addTOSet: { tasks: { _id: "65b8dba1b768a37702f656b7" }}},  // { id: args._id }
-                //const user = new (add to new)
 
 
         },

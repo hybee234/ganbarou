@@ -53,7 +53,7 @@ export const reducer = (state, action) => {
         case TASKS: {
             console.log("TASK reducer engaged")
             return {
-                ...state, ...state,
+                ...state,
                 tasks: action.payload,
             }
         }
