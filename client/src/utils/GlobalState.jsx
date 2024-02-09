@@ -50,7 +50,7 @@ const GlobalProvider = ({ value = [], ...props }) => {
         new_task: true,
         tasks:[],
         userlist:[],
-        // showHideDetailView:'hide',       
+        view:''        
     }
 
     const [state, dispatch] = useReducer(reducer, initialstate );

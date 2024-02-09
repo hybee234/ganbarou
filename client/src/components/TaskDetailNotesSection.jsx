@@ -112,8 +112,14 @@ export default function TaskDetailNotesSection( ) {
                     </div>
                 </div>
 
-                <div className="modal-section-divider w-full">
-                    {/* <label className="modal-label">Add new Note</label> */}
+                {/* Add Note Button */}
+                {
+                    state.view === "complete" ? (
+                        <div>
+
+                        </div>
+                    ) : (                        
+                        <div className="modal-section-divider w-full">
                         <textarea
                             className="w-full modal-field"
                             name="note-text"
@@ -141,7 +147,9 @@ export default function TaskDetailNotesSection( ) {
                                     <div>&nbsp; Add Note</div>                                                  
                             </div> 
                         </button>
-                </div>            
+                    </div>       
+                    )
+                }                          
             </div>
         </div>
     )

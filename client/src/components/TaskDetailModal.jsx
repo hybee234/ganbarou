@@ -12,7 +12,7 @@ import dayjs from 'dayjs'
 
 // import { useState } from 'react'
 import { useGlobalContext } from '../utils/GlobalState';
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import { useMutation } from '@apollo/client';
 import { UPDATE_TASK_BY_TASK_ID, ASSIGN_USER, ADD_TASK } from './../utils/mutations';
 
@@ -34,13 +34,15 @@ import {
     TASK_DETAIL_SUMMARY,
     TASK_DETAIL_STATUS_MACRO,
     TASK_DETAIL_STATUS_MICRO,
-    TASK_DETAIL,
+    // ADD_STATE_TASK,
 } from '../utils/actions'
 
 
-export default function TaskDetailModal( {userSelect}) {
+export default function TaskDetailModal( props ) {
     
-    console.log("TaskDetailModal Reloaded")
+const {userSelect} = props
+
+    // console.log("TaskDetailModal Reloaded")
 
     //Hook to access global context
     const [state, dispatch] = useGlobalContext();  
@@ -61,11 +63,11 @@ export default function TaskDetailModal( {userSelect}) {
     //- Log state to Console -//
     //-----------------------//
     // TROUBLESHOOTING ONLY
-    // const consoleLog = () => {
-    //     console.log("state", state)
-    //     const loggedIn = Auth.loggedIn()
-    //     console.log("Logged In?", loggedIn)
-    // }
+    const consoleLog = () => {
+        console.log("state", state)
+        const loggedIn = Auth.loggedIn()
+        console.log("Logged In?", loggedIn)
+    }
 
     //--------------------------------//
     //- Handle Assign Update on form -//
@@ -87,14 +89,12 @@ export default function TaskDetailModal( {userSelect}) {
     //useMutation hook
     const [UpdateTaskByTaskId, { error }] = useMutation(UPDATE_TASK_BY_TASK_ID);    
     const [AssignUser, { errorAssigned }] = useMutation(ASSIGN_USER);
-
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         const taskDetail = state.taskDetail
         console.log("taskDetail:", taskDetail)
         
         try {    
-
             const { data: updateTaskData } = await UpdateTaskByTaskId({
                 variables: {
                     taskId: state.taskDetail._id,
@@ -122,7 +122,6 @@ export default function TaskDetailModal( {userSelect}) {
                     }                
                 },
             });
-
             const {data: assignUserData} = await AssignUser({
                 variables: {
                     taskId: state.taskDetail._id,
@@ -132,7 +131,6 @@ export default function TaskDetailModal( {userSelect}) {
                 },
             });
             
-
             console.log("updateTaskData", updateTaskData)
             console.log("assignUserData", assignUserData)
             closeDetailForm()
@@ -146,7 +144,6 @@ export default function TaskDetailModal( {userSelect}) {
     //----------------//
     //- Add New Task -//
     //----------------//
-
     const [AddTask, { error : addTaskError }] = useMutation(ADD_TASK);    
     const addNewTask = async (event) => {
         event.preventDefault();
@@ -155,7 +152,6 @@ export default function TaskDetailModal( {userSelect}) {
         console.log(Auth.getProfile().data._username)
         
         try {    
-
             const { data: addTaskData } = await AddTask({
                 variables: {
                     assigned: {
@@ -193,9 +189,7 @@ export default function TaskDetailModal( {userSelect}) {
                     title:state.taskDetail.title,
                 }
             });
-
-            dispatch({ type: TASK_DETAIL, payload: addTaskData.addTask})
-
+            // dispatch({ type: ADD_STATE_TASK, payload: addTaskData.addTask}) //This successfully updated the table
             console.log("AddTaskData", addTaskData)
             closeDetailForm()
             toast.success("Successfully added a new task")
@@ -204,7 +198,6 @@ export default function TaskDetailModal( {userSelect}) {
             toast.error("Add Task Unsuccessful - something went wrong")
         }
     }
-
 
     //---------------------//
     //- Expand Text Area  -//
@@ -399,16 +392,12 @@ export default function TaskDetailModal( {userSelect}) {
                                     dispatch({ type: TASK_DETAIL_SUMMARY, payload: e.target.value})}
                                 >
                             </textarea>
-
-                            {/* <div className="modal-section-divider justify-center align-center"> */}
-                                        <div className="w-full">
+                            <div className="w-full">
                                 <TaskDetailTaskType />
-                            {/* </div> */}
-                    </div>
+                            </div>
                         </div>                 
                     </div>
                 </div>
-
     {/****************/}
     {/* Notes Section*/}
     {/****************/}
@@ -425,55 +414,60 @@ export default function TaskDetailModal( {userSelect}) {
     {/* Prioritisation Section*/}
     {/*************************/}
                 <TaskDetailPrioritisation />    
-
-
-                
-
-
-
     {/*******************/}
     {/* Sign off Section*/}
     {/*******************/}  
-
                 <div className="modal-section justify-center"> 
 
-                {
-                    state.new_task ? (
-                        // New Task
-                        <button
-                            className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
-                            type="button"
-                            value="button"
-                            onClick={(e) => addNewTask(e)}
-                            >
-                            <div className="flex align-middle items-center">                          
-                                    <Icon
-                                        icon="mdi:file-document-add-outline"
-                                        width="30" height="30" 
-                                        className="task-detail-icon m-auto"
-                                    />
-                                    <div>&nbsp; Add New Task</div>                                                  
-                            </div> 
-                        </button>
-                    ):(
-                        // Not a new task
-                        <button
-                        className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
-                        type="submit"
-                        value="submit"
-                        >
-                            <div className="flex align-middle items-center">                          
-                                    <Icon
-                                        icon="mi:save"
-                                        width="30" height="30" 
-                                        className="task-detail-icon m-auto"
-                                    />
-                                    <div>&nbsp; Save</div>                                                  
-                            </div> 
-                        </button>
-                    )
-                }
 
+                {/* Add/Save Task Buttons*/}
+                {
+                    state.view === "complete" ? (
+                        <div>
+
+                        </div>
+                    ) : (
+                        <div>
+                            {
+                                state.new_task ? (
+                                    // New Task
+                                    <button
+                                        className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
+                                        type="button"
+                                        value="button"
+                                        onClick={(e) => addNewTask(e)}
+                                        >
+                                        <div className="flex align-middle items-center">                          
+                                            <Icon
+                                                icon="mdi:file-document-add-outline"
+                                                width="30" height="30" 
+                                                className="task-detail-icon m-auto"
+                                            />
+                                            <div>&nbsp; Add New Task</div>                                                  
+                                        </div> 
+                                    </button>
+                                ):(
+                                    // Not a new task
+                                    <button
+                                    className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
+                                    type="submit"
+                                    value="submit"
+                                    >
+                                        <div className="flex align-middle items-center">                          
+                                            <Icon
+                                                icon="mi:save"
+                                                width="30" height="30" 
+                                                className="task-detail-icon m-auto"
+                                            />
+                                            <div>&nbsp; Save</div>                                                  
+                                        </div> 
+                                    </button>
+                                )
+                            }
+                        </div>       
+                    )
+                }                            
+                        
                     <button
                         className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
                         type="button"
@@ -481,25 +475,21 @@ export default function TaskDetailModal( {userSelect}) {
                         onClick={() => closeDetailForm()}
                         >
                         <div className="flex align-middle items-center">                          
-                                <Icon
-                                    icon="icons8:cancel-2"
-                                    width="30" height="30" 
-                                    className="task-detail-icon m-auto"
-                                />
-                                <div>&nbsp; Cancel</div>                                                  
+                            <Icon
+                                icon="icons8:cancel-2"
+                                width="30" height="30" 
+                                className="task-detail-icon m-auto"
+                            />
+                            <div>&nbsp; Cancel</div>                                                  
                         </div> 
                     </button>
-
-
                 </div>
-
-                {/* Modal Form Element Graveyard */}
 
     {/**********/}
     {/* Footer */}
     {/**********/}
 
-                {/* <button
+                <button
                     className="px-6 py-2 mt-20 font-bold duration-200 ease-in-out button-color"
                     type="button"
                     value="cancel"
@@ -513,11 +503,7 @@ export default function TaskDetailModal( {userSelect}) {
                             />
                             <div>&nbsp; console.log(state)</div>                                                  
                     </div> 
-                </button> */}
-
-
-
-
+                </button>
 
                 <p className="block modal-label w-1/3 mt-10"> Task ID: {state.taskDetail._id}</p> 
             </form>

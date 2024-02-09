@@ -2,6 +2,11 @@ import {
     SIDE_MENU,
     USER,
     TASKS,
+    SORT,
+    COMPLETE_STATE_TASK,  
+    ADD_STATE_TASK,
+    UPDATE_STATE_TASK,
+    UPDATE_STATE_REVIEW_DT,
     USER_SELECT,
     TASK_DETAIL_ID,
     TASK_DETAIL,
@@ -24,7 +29,10 @@ import {
     TASK_DETAIL_NOTE,
     CLEAR_TASK_DETAIL,
     NEW_TASK,
+    VIEW,
 } from './actions';
+
+import createId from './createId';
 
 export const reducer = (state, action) => {
     switch (action.type) {    
@@ -52,6 +60,7 @@ export const reducer = (state, action) => {
 //-------------------//
 //- MY TASK REDUCERS -//
 //-------------------//
+
         case TASKS: {
             console.log("TASK reducer engaged")
             return {
@@ -59,6 +68,71 @@ export const reducer = (state, action) => {
                 tasks: action.payload,
             }
         }
+
+        case SORT: {
+            console.log("SORT reducer engaged")
+            return {
+                ...state,
+                sort: [...state, action.payload],
+            }
+        }
+
+        // Filter out task.id provided
+        case COMPLETE_STATE_TASK: {
+            console.log("COMPLETE_STATE_TASK reducer engaged")
+            return {
+                ...state,
+                tasks: [...state.tasks].filter((task) => task._id !== action.payload)
+            }
+        }
+
+        // Filter out task.id provided
+        case ADD_STATE_TASK: {
+            console.log("ADD_STATE_TASK reducer engaged")
+
+            // Create new ID
+                const newTaskId = createId(state.tasks)
+            // Take copy of new task Data and add an ID to it
+                const newTask = {... action.payload, id: newTaskId}
+            // Copy of State and include new Task in it
+                return {
+                    ...state,
+                    tasks: [...state.tasks, newTask]
+                }
+        }
+
+        // Filter out task.id provided
+        case UPDATE_STATE_REVIEW_DT: {
+            console.log("UPDATE_STATE_REVIEW_DT reducer engaged")
+
+                //Find index
+                const taskIndex = state.tasks.findIndex(
+                    (task) => task._id === action.payload.id)
+                
+                //Create updated task
+                const updatedTask = state.tasks[taskIndex]
+                updatedTask.review_dt = action.payload.review_dt
+
+                // Take copy of Array
+                const newArray = [... state.tasks];
+
+                // Place updated task into new array
+                newArray[taskIndex] = updatedTask
+
+                // Return original state with new Array
+                return { ...state, tasks: newArray}                  
+        }
+
+        // Filter out task.id provided
+        case UPDATE_STATE_TASK: {
+            console.log("UPDATE_STATE_TASK reducer engaged")
+            return {
+                ...state,
+                tasks: [...state.tasks].filter((task) => task._id !== action.payload)
+            }
+        }
+
+
         case USER_SELECT: {
             console.log("USER_SELECT reducer engaged")
             return {
@@ -306,6 +380,17 @@ export const reducer = (state, action) => {
                 new_task: action.payload,
             }                    
         }
+
+        // Used to indicate to Task Modal Screen that this is a New Task
+        case VIEW:{
+            console.log("VIEW reducer engaged")
+            return { 
+                ...state,
+                view: action.payload,
+            }                    
+        }
+
+
 
         // Default to returning the state as is in our switch statement
         default:

@@ -100,7 +100,11 @@ export default function SideMenu() {
                             (
                                 <div>
                                     <Link to="/mytasks" className="side-menu-item">My Tasks </Link>    
-                                    <Link to="/alltasks" className="side-menu-item">All Tasks </Link>               
+                                    <Link to="/alltasks" className="side-menu-item">All Active Tasks </Link>               
+                                    <Link to="/assigned" className="side-menu-item"> Assigned Tasks </Link>   
+                                    <Link to="/unassigned" className="side-menu-item"> Unassigned Tasks </Link> 
+                                    <Link to="/business" className="side-menu-item"> Business Driven Requests </Link> 
+                                    <Link to="/completed" className="side-menu-item">Completed Tasks </Link>   
                                     <button id="logout-button" className="side-menu-item"
                                     onClick={handleLogout}
                                     >

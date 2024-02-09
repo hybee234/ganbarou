@@ -4,7 +4,7 @@ Operational Tasks - Operational Tasks due for review
 Business Focus Initiatives - Business Focus tasks due for review
 Business Opportunistic Initiatives
 */
-
+import { useGlobalContext } from '../utils/GlobalState';
 import dayjs from 'dayjs';
 import { SiTarget } from "react-icons/si";
 import { FaTools } from "react-icons/fa";
@@ -14,7 +14,10 @@ import { FaClock } from "react-icons/fa6";
 
 export default function TasksSummary(props) {
     
-    console.log("TaskSummary Rendering")
+    //Hook to access state
+    const [state, dispatch] = useGlobalContext();
+
+    // console.log("TaskSummary Rendering")
     const {tasks} = props
 
     // Now (date and time)
@@ -133,11 +136,20 @@ return (
                     <div > {totalReviewDue} / {totalTasks} due for review </div>   
                     <TotalIcons />              
                 </div> */}
-                <div className = "px-1">
-                    <p className=""> Operational ({totalOperational-operationalReviewDue}/{totalOperational}) </p>
-                    <OperationalIcons/>
-                </div>
+                
+                
                 <div className="flex flex-wrap justify-center">
+                    {
+                        state.view === "business_driven" ?
+                        (
+                            <div></div>
+                            ):(
+                            <div className = "px-1">
+                                <p className=""> Operational ({totalOperational-operationalReviewDue}/{totalOperational}) </p>
+                                <OperationalIcons/>
+                            </div>
+                        )
+                    }                
                     <div className = "px-1">
                         <p className="">Focus ({businessFocus-businessFocusReviewDue}/{businessFocus})</p>
                         <FocusIcons />    

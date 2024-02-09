@@ -9,6 +9,11 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import MyTasks from './pages/MyTasks'
 import AllTasks from './pages/AllTasks'
+import Assigned from './pages/Assigned.jsx'
+import Unassigned from './pages/Unassigned'
+import BusinessDriven from './pages/BusinessDriven'
+import CompletedTasks from './pages/CompletedTasks'
+
 
 const router = createBrowserRouter([
     {
@@ -42,6 +47,22 @@ const router = createBrowserRouter([
         {
             path: 'alltasks',
             element: <AllTasks />
+        },
+        {
+            path: 'assigned',
+            element: <Assigned />
+        },
+        {
+            path: 'unassigned',
+            element: <Unassigned />
+        },
+        {
+            path: 'business',
+            element: <BusinessDriven />
+        },
+        {
+            path: 'completed',
+            element: <CompletedTasks />
         },
         ]
     }

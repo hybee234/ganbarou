@@ -13,7 +13,7 @@ import {
     VIEW,
 } from '../utils/actions'
 
-export default function AllTasks() {
+export default function CompletedTasks() {
     console.log("AllTasks Rendering")
 
     //Hook to access state
@@ -21,9 +21,9 @@ export default function AllTasks() {
     const [userId, setUserId] = useState(Auth.getProfile().data._id)
 
     useEffect( ()=> {
-        dispatch ({ type: VIEW, payload: "all"})
+        dispatch ({ type: VIEW, payload: "completed"})
     },[state.view])
-
+    
 
     //-------------//
     //- Use Query -//
@@ -62,23 +62,24 @@ export default function AllTasks() {
     //---------------------//
     //- Data Manipulation -//
     //--------------------//
-    
+
     // Filter for Active Tasks 
-    const filterTasks = allTaskData.data.tasks.filter( (task) => !task.complete_flag) // Filter for Active Tasks for Current logged in user
+    const filterTasks = allTaskData.data.tasks.filter( (task) => task.complete_flag) // Filter for Active Tasks for Current logged in user
     // SOrt by Review Date
-    const sortTasks = filterTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
+    const sortTasks = filterTasks.sort((a,b) => (a.complete_dt > b.complete_dt) ? 1 : (a.complete_dt < b.complete_dt) ?-1 :0)
     //Package into tasks to handover
     const tasks = sortTasks
 
-    console.log("AllTasksPage: tasks", tasks)
+ 
 
+    console.log("AllTasksPage: tasks", tasks)
     return (
     <div>
-        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">All Active Tasks</div>    
-        <TasksSummary tasks={tasks}  />
+        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl mb-5">Completed Tasks View</div>    
+        {/* <TasksSummary tasks={tasks}  /> */}
         <TaskList tasks={tasks} userSelect={userSelect.data.users} />  
         <TaskDetailModal userSelect={userSelect.data.users} />
-        <AddNewTask user={userId} userSelect={userSelect.data.users}/>  
+        {/* <AddNewTask user={userId} userSelect={userSelect.data.users}/>   */}
     </div>
     )
 }

@@ -228,7 +228,7 @@ li {
     position: fixed;
     left: -100%;
     top: 0px;
-    width: 175px;
+    width: 200px;
     height: 100vh;
     background-color: transparent;
     padding-top: 100px;
@@ -411,6 +411,7 @@ li {
     margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
+    width: 80%;
 }
 
 .table-heading-row {
@@ -431,12 +432,14 @@ li {
 
 .table-row {
     border-bottom: 2px solid var(--tablegrey);
+    justify-content: center;
 }
 
 .table-row-cell {
     font-weight: 400;
     /* font-size: 0.75rem; */
     margin: 2px;
+    text-align: center;
     /* border: 1px solid white; */
 }
 
@@ -506,6 +509,7 @@ li {
     padding-right: 10px;
     background-color: rgba(150, 150, 150, 0.25);
     transition: ease-in-out 0.2s;
+    
 }
 
 .table-field:hover {
@@ -737,7 +741,7 @@ li {
 
 .task-detail-icon {
     font-size: 3rem;
-    padding: 3px;
+    /* padding: 1px; */
 }
 
 #pipeline-number {    
