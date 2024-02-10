@@ -1420,6 +1420,14 @@ li {
   background-color: var(--reviewdatedue)
 }
 
+.pipeline-number {
+  color: gold;
+  background: green;
+  border-radius: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 /*****************/
 
 /* Login/Sign Up */
@@ -2073,6 +2081,11 @@ li {
     flex-wrap: nowrap;
   }
 
+  .sm\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
   .sm\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
@@ -2120,6 +2133,11 @@ li {
 }
 
 @media (min-width: 1024px) {
+  .lg\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
   .lg\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
@@ -2132,6 +2150,11 @@ li {
 }
 
 @media (min-width: 1280px) {
+  .xl\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
   .xl\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;

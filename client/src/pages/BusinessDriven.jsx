@@ -43,7 +43,7 @@ export default function BusinessDriven() {
     if (loading) {
         return ( 
         <div>
-            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading 1.gif" /></div>
+            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading 5.gif" /></div>
             <div className = "text-center py-2 text-lg font-normal md:text-2xl text-color">Loading ...</div>
         </div>
         )
@@ -53,9 +53,9 @@ export default function BusinessDriven() {
     if (error) {return (
         <div> MyTask Page - Error! 
             {/* <div> ${error.message}</div> */}
-            <div> Allow this Chiikawa character to lighten the mood</div>
-            <div> Has the user session expired? Perhaps this should point to the login screen</div>
-            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading 1.gif" /></div>        
+            <div> Allow this Chiikawa character to accompany you</div>
+            <div> </div>
+            <div className = "text-center py-2"><img className = "m-auto py-2" width="100px" src="../assets/images/chiikawa loading 5.gif" /></div>        
         </div>    
     );}
 
@@ -65,8 +65,10 @@ export default function BusinessDriven() {
     
     // Filter for Active Tasks 
     const filterTasks = allTaskData.data.tasks.filter( (task) => !task.complete_flag && task.priority.business_driven === true) // Filter for Active Tasks for Current logged in user
-    // SOrt by Review Date
-    const sortTasks = filterTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
+    // Sort by Review Date
+    // const sortTasks = filterTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
+    // Sort by Pipeline Number
+    const sortTasks = filterTasks.sort((a,b) => (a.priority.pipeline_number > b.priority.pipeline_number) ? 1 : (a.priority.pipeline_number < b.priority.pipeline_number) ?-1 :0)
     //Package into tasks to handover
     const tasks = sortTasks
 
@@ -74,7 +76,8 @@ export default function BusinessDriven() {
 
     return (
     <div>
-        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Active Business Driven Requests</div>    
+        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Business Driven Requests</div>    
+        <div className="brand text-2xl sm:text-2xl md:text-2xl lg:text-2xl xl:text-3xl">(Sorted by Pipeline)</div>    
         <TasksSummary tasks={tasks}  />
         <TaskList tasks={tasks} userSelect={userSelect.data.users} />  
         <TaskDetailModal userSelect={userSelect.data.users} />
