@@ -548,10 +548,10 @@ li {
 
 .pipeline-number {
     color: gold;
-    background: green;
+    /* background: green;
     border-radius: 10px;
     padding-left: 5px;
-    padding-right: 5px;
+    padding-right: 5px; */
 
 }
 
