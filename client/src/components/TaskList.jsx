@@ -5,7 +5,7 @@ import Zoom from '@mui/material/Zoom';
 import { useGlobalContext } from '../utils/GlobalState';
 import { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client';
-import { COMPLETE_TASK, UPDATE_REVIEW_DATE_FROM_TASKLIST } from './../utils/mutations'
+import { COMPLETE_TASK, UPDATE_REVIEW_DATE_FROM_TASKLIST, ASSIGN_USER } from './../utils/mutations'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -15,13 +15,11 @@ import {
     COMPLETE_STATE_TASK,
     TASK_DETAIL,
     TASK_DETAIL_REVIEW_DT,
+    TASK_DETAIL_ASSIGNED,
     USER_SELECT,
     // UPDATE_STATE_REVIEW_DT
 } from "./../utils/actions";
 
-// import {
-//     USER_SELECT,
-// } from '../utils/actions'
 
 import { FaUserTie } from "react-icons/fa6";
 import { FaUserNinja } from "react-icons/fa6";
@@ -210,27 +208,31 @@ export default function TaskList (props) {
     //-- useMutation update on change Review date -//
     //---------------------------------------------//
 
+    const [AssignUser, { errorAssigned }] = useMutation(ASSIGN_USER);
 
-// TODO [review typedef, resolver, mutation, action, reducer to get this going]]
- //useMutation hook
-    // const [UpdateAssignedFromTaskList, { errors }] = useMutation(UPDATE_ASSIGNED_FROM_TASKLIST);
+    const handleAssignUpdate = async (e, taskId) => {
 
-    // // Handles update post 
-    // const handleAssignedUpdate = async (e, taskId) => {
-    //     try {    
-    //         const { data } = await UpdateReviewDtFromTaskList({
-    //             variables: {
-    //                 taskId: taskId,
-    //                 assigned_id: e.value,                    
-    //             },
-    //         });
-    //         // await dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: {id: taskId, review_dt: e.value}})
-    //         console.log("📦 UpdateReviewDtFromTaskList", data)              
-    //     } catch (error) {
-    //         console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
-    //     }
-    // }
+        console.log("📢 handleAssignUpdate engaged")        
+        // e.value is assigned._id
+        // console.log("🖥️ e.target.value", e.value)
+        // console.log("🖥️ taskId", taskId)
 
+        try {    
+            const {data: assignUserData} = await AssignUser({
+                variables: {
+                    taskId: taskId,
+                    assigned: {
+                        _id: e.value,
+                    },  
+                },
+            });
+            console.log("📦 assignUserData", assignUserData)        
+            toast.success("Assigned User Updated Successfully@")
+        } catch (error) {
+            console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
+            toast.error("Updated Unsuccessful - something went wrong")
+        }
+    }
 
     //------------------//
     // View Task Modal -//
@@ -842,6 +844,7 @@ console.log ("🎁 userSelect", userSelect)
                                                 </p>
                                             </Tooltip>
                                         </td>
+                                        
                                         {/* Review column Opportunistic */}
                                         {
                                             state.view === "completed" ? (
@@ -871,16 +874,12 @@ console.log ("🎁 userSelect", userSelect)
 
                                         {/* Assign column Opportunistic */}
                                         <td className="hidden sm:table-cell table-row-cell">
-                                            {task.assigned.username}
-
-
-
                                             <select
                                             className="table-select text-center"
                                             name="assigned-user"
                                             type="text"
-                                            value={task.assigned.username}
-                                            onChange= {(e) => handleAssignedUpdate(e.target, task._id)}
+                                            value={task.assigned._id}
+                                            onChange= {(e) => handleAssignUpdate(e.target, task._id)}
                                             required
                                             >
                                                 {
@@ -891,9 +890,6 @@ console.log ("🎁 userSelect", userSelect)
                                                     })
                                                 }
                                             </select>
-                                      
-
-
                                         </td> 
 
 
@@ -902,10 +898,10 @@ console.log ("🎁 userSelect", userSelect)
                                         <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
                                         
                                         {/* Review/Assign Combined Column Opportunistic */} 
-                                        <td className="sm:hidden table-cell  table-row-cell">
+                                        <td className="sm:hidden table-cell table-row-cell">
                                             <div className="flex justify-center items-center">
                                                 <input
-                                                    className="table-select text-center"
+                                                    className="table-select text-center w-full"
                                                     name="review-dt"
                                                     type="date"
                                                     placeholder="MM/DD/YYYY"
@@ -917,10 +913,22 @@ console.log ("🎁 userSelect", userSelect)
                                                 >
                                                 </input>
                                             </div>
-                                            <div className="flex justify-center items-center ">
-                                                <FaUserNinja/>
-                                                <span>&nbsp; {task.assigned.username}</span>
-                                            </div>
+                                            <select
+                                                className="table-select text-center w-full"
+                                                name="assigned-user"
+                                                type="text"
+                                                value={task.assigned._id}
+                                                onChange= {(e) => handleAssignUpdate(e.target, task._id)}
+                                                required
+                                                >
+                                                    {
+                                                        userSelect.map( (user)=> {                            
+                                                            return(
+                                                                <option value={user._id} key={user._id}>{user.username}</option>
+                                                            ) 
+                                                        })
+                                                    }
+                                            </select>
                                         </td>      
 
                                         {/* Urgent/Important/Effort Combined Opportunistic*/}
