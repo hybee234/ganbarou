@@ -26,7 +26,7 @@ import { FaUserTie } from "react-icons/fa6";
 import { FaUserNinja } from "react-icons/fa6";
 import { BsFillCalendar2WeekFill } from "react-icons/bs";
 import { Icon } from '@iconify/react';
-
+import { FaFireAlt } from "react-icons/fa";
 
 export default function TaskList (props) {
     // console.log ("TaskList Rendering")
@@ -304,7 +304,7 @@ export default function TaskList (props) {
                                                         type="date"
                                                         placeholder="MM/DD/YYYY"
                                                         //defaultValue = {dayjs(task.review_dt).format('YYYY-MM-DD')}
-                                                        defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                        value={dayjs(task.review_dt).format('YYYY-MM-DD')}
                                                         // value={dayjs(task.review_dt).format('YYYY-MM-DD')}
                                                         onChange= {(e) =>
                                                             // dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value}),
@@ -733,11 +733,14 @@ export default function TaskList (props) {
                                         <td className="sm:hidden table-cell table-row-cell">
                                             {
                                                 task.priority.urgent? (
-                                                    <Icon                                                        
-                                                        icon="emojione-v1:fire"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
-                                                    />
+                                                    <div>
+                                                        <Icon                                                        
+                                                            icon="emojione-v1:fire"                                                        
+                                                            width="25" height="25" 
+                                                            className="task-detail-icon m-auto"
+                                                        />
+                                                        <FaFireAlt />
+                                                    </div>
                                                 ):(
                                                     <Icon                                                        
                                                         icon="streamline-emojis:turtle"                                                        

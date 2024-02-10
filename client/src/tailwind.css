@@ -592,10 +592,6 @@ video {
   margin-bottom: 1.25rem;
 }
 
-.mt-10 {
-  margin-top: 2.5rem;
-}
-
 .mt-20 {
   margin-top: 5rem;
 }
@@ -893,6 +889,8 @@ modal-form: 150
   --tablegrey: rgba(88, 88, 88, 0.3);
   --black: rgba(0, 0, 0, 1);
   --blackfilter: rgba(0 ,0 ,0, 0.7);
+  --redshadetransparent: rgba(100,40,40,0.5);
+  --greenshadetransparent: rgba(40, 100, 40 , 0.5);
   /*UI Objects*/
   --text: var(--onyx);
   --texthighlight: var(--lightblue);
@@ -907,6 +905,8 @@ modal-form: 150
   --tableborders: var(--tablegrey);
   --tableheadingrow: var(--blackfilter);
   --modaltext: rgba(244, 244, 255, 1);
+  --reviewdatedue: var(--redshadetransparent);
+  --reviewdateok: var(--greenshadetransparent);
   font-family: Inter, Helvetica, system-ui, Avenir,  Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -1028,9 +1028,6 @@ header {
 
 .cherry-font {
   font-family: 'Cherry Bomb One', system-ui;
-}
-
-#ganbarou-subtitle {
 }
 
 /******************/
@@ -1404,7 +1401,7 @@ li {
 }
 
 .review-due {
-  background-color: rgba(109, 46, 52, 0.5);
+  background-color: var(--reviewdatebackground)
 }
 
 /*****************/
@@ -1592,11 +1589,11 @@ li {
 }
 
 .modal-field::-moz-placeholder {
-  color: var(--black)
+  color: rgba(130, 130, 130, 1)
 }
 
 .modal-field::placeholder {
-  color: var(--black)
+  color: rgba(130, 130, 130, 1)
 }
 
 .modal-field-container {
@@ -1631,6 +1628,31 @@ li {
 #pipeline-number {
   width: 150px;
   font-size: 3rem
+}
+
+#task-title {
+  /* display: table-cell; */
+  font-size: 1.5rem;
+  text-align: center;
+  /* line-height: 1; */
+  vertical-align: middle;
+  /* background: rgba(0, 0 ,0, 0); */
+  transition: ease-in-out 0.2s;
+  /* border: 1px transparent black */
+}
+
+#task-title:hover {
+  border: 1px solid var(--texthighlight)
+}
+
+.review-dt-ok {
+  background-color: var(--reviewdateok);
+  color: green;
+}
+
+.review-dt-due{
+  background-color: var(--reviewdatedue);
+  color: red;
 }
 
 /******************************/

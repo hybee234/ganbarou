@@ -33,7 +33,7 @@ export default function TaskDetailTaskType() {
                 //*********************//
                     <div className="modal-field-container m-auto">
                         
-                        <label className="modal-label w-1/3">Assign the Task Type*</label>
+                        <label className="modal-label w-1/3">Assign Task Type*</label>
 
                         <Tooltip
 

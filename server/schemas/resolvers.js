@@ -31,8 +31,8 @@ const resolvers = {
             console.log (`\x1b[33m ┌─────────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
             console.log (`\x1b[33m │ Find Me - Active Tasks  │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └─────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
-            console.log("context.user Find me", context.user)
-            console.log("user._id", context.user._id)
+            console.log("🔒 context.user", context.user)
+            console.log("🔒 context.user._id", context.user._id)
 
             if (!context.user){
                 throw AuthenticationError;
@@ -125,7 +125,7 @@ const resolvers = {
             console.log (`\x1b[33m │ Complete Task │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └───────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            console.log("taskId", args.id)
+            console.log("🎁 taskId", args.id)
             // Complete Task document (updates complete date to now)
             const task = await Task.findOneAndUpdate( 
                 { _id: args.id },                       //filter
@@ -145,8 +145,8 @@ const resolvers = {
             console.log (`\x1b[33m │ Add Note to Task │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └──────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            console.log(args)
-            console.log(context.user)
+            console.log("🎁 args", args)
+            console.log("🔒 context.user", context.user)
 
             if (!context.user){
                 throw AuthenticationError;
@@ -170,7 +170,7 @@ const resolvers = {
                 .populate({ path: 'note.note_author' })
                 .populate({ path: 'priority'})
 
-            console.log("ADDNOTE", addNote)
+            console.log("📦 Add Note to Task", addNote)
             return addNote
         },
 
@@ -179,7 +179,7 @@ const resolvers = {
             console.log (`\x1b[33m │ Update Task by Task ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            console.log("args", args)
+            console.log("🎁 args", args)
 
             const updateTask = await Task.findOneAndUpdate(
                 { _id: args.taskId },
@@ -213,7 +213,7 @@ const resolvers = {
                 .populate({ path: 'note.note_author' })
                 .populate({ path: 'priority'})                
                             
-            // console.log(updateTask)
+            console.log("📦 Update Task By Task ID", updateTask)
             return updateTask
         },
 
@@ -222,8 +222,8 @@ const resolvers = {
             console.log (`\x1b[33m │ Update Review Date from Task List │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └───────────────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            console.log("Task ID", args.taskId)
-            console.log("Review_dt", args.review_dt)
+            console.log("🎁Task ID", args.taskId)
+            console.log("🎁Review_dt", args.review_dt)
 
             const updateReviewDt = await Task.findOneAndUpdate(
                 { _id: args.taskId },
@@ -235,12 +235,12 @@ const resolvers = {
         },
 
         assignUser: async (parent, args) => {        
-            console.log (`\x1b[33m ┌──────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-            console.log (`\x1b[33m │ Update Assigned User │ \x1b[0m\x1b[32m  \x1b[0m`); 
-            console.log (`\x1b[33m └──────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m ┌───────────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Update Task Assigned User │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └───────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            console.log("Task ID", args.taskId)
-            console.log("userInput._id", args.assigned._id)
+            console.log("🎁Task ID", args.taskId)
+            console.log("🎁userInput._id", args.assigned._id)
 
             const assignUser = await Task.findOneAndUpdate(
                 { _id: args.taskId },
@@ -248,7 +248,7 @@ const resolvers = {
                 { new: true, runValidators: true})
                 .populate({ path: 'assigned' })
 
-            console.log(assignUser)
+            console.log("📦 Update Task Assigned User", assignUser)
             return assignUser
         },
 
@@ -257,7 +257,7 @@ const resolvers = {
             console.log (`\x1b[33m │ Add New Task │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └──────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
-            console.log("args", args)
+            console.log("🎁args", args)
 
             const addTask = await Task.create(
                     args
@@ -295,7 +295,7 @@ const resolvers = {
                 // },
                 
 
-            // console.log(updateTask)
+            // console.log("📦Add New task", addTask)
             return addTask.populate({ path: 'assigned' })
         },
 
