@@ -54,7 +54,7 @@ const {userId, userSelect} = props
                     comment: "",
                     high_effort: false,
                     important: false,
-                    pipeline_number: 100,                        
+                    pipeline_number: "999",                        
                     urgent: false,
                 },
                 assigned: {

@@ -125,7 +125,7 @@ export default function TaskDetailNotesSection( ) {
                             name="note-text"
                             type="text"
                             placeholder="Type in your new note here"
-                            rows="4"
+                            rows="2"
                             cols="30"
                             value={newNote}
                             onInput={(e) => expandArea(e)}
