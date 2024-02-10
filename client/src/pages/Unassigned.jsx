@@ -14,7 +14,7 @@ import {
 } from '../utils/actions'
 
 export default function Unassigned() {
-    console.log("AllTasks Rendering")
+    console.log("🌳 Unassigned Rendering")
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
@@ -65,12 +65,13 @@ export default function Unassigned() {
     
     // Filter for Active Tasks 
     const filterTasks = allTaskData.data.tasks.filter( (task) => !task.complete_flag && task.assigned._id ==="65c5681fada9c3ff849efeed") // Filter for Active Tasks excluding unnassignedfor Current logged in user
+    // const filterTasks = allTaskData.data.tasks.filter( (task) => !task.complete_flag && task.assigned.username === "unassigned") // Filter for Active Tasks excluding unnassignedfor Current logged in user
     // SOrt by Review Date
     const sortTasks = filterTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
     //Package into tasks to handover
     const tasks = sortTasks
 
-    console.log("AllAssigned: tasks", tasks)
+    console.log("🎁 Unassigned: tasks", tasks)
 
     return (
     <div>

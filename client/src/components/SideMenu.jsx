@@ -25,7 +25,7 @@ export default function SideMenu() {
         if (state.sidemenu === true) {
             document.querySelector(".hamburger").classList.add("active");
             document.querySelector(".side-menu").classList.add("active"); 
-            console.log("Active Added")
+            // console.log("Active Added")
             dispatch ({
                 type: SIDE_MENU,
                 payload: false
@@ -33,7 +33,7 @@ export default function SideMenu() {
         } else {
             document.querySelector(".hamburger").classList.remove("active");
             document.querySelector(".side-menu").classList.remove("active"); 
-            console.log("Active removed")
+            // console.log("Active removed")
             dispatch ({
                 type: SIDE_MENU,
                 payload: true

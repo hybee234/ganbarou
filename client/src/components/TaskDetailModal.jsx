@@ -47,14 +47,14 @@ const {userSelect} = props
     //Hook to access global context
     const [state, dispatch] = useGlobalContext();  
     
-    console.log("state.taskDetail", state.taskDetail)
+    console.log("🌏 state.taskDetail", state.taskDetail)
 
     //--------------------//
     //- Close Modal Form -//
     //--------------------//
 
     const closeDetailForm = () => {
-        console.log("closeDetailForm triggered")
+        console.log("📢 closeDetailForm triggered")
         document.getElementById('view-details-modal-background').style.display = 'none'
         document.getElementById('view-details-modal-form').style.display = 'none'
     }
@@ -64,9 +64,9 @@ const {userSelect} = props
     //-----------------------//
     // TROUBLESHOOTING ONLY
     const consoleLog = () => {
-        console.log("state", state)
+        console.log("🌏 state", state)
         const loggedIn = Auth.loggedIn()
-        console.log("Logged In?", loggedIn)
+        console.log("💬 Logged In?", loggedIn)
     }
 
     //--------------------------------//
@@ -92,7 +92,7 @@ const {userSelect} = props
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         const taskDetail = state.taskDetail
-        console.log("taskDetail:", taskDetail)
+        console.log("🖥️ taskDetail:", taskDetail)
         
         try {    
             const { data: updateTaskData } = await UpdateTaskByTaskId({
@@ -131,8 +131,8 @@ const {userSelect} = props
                 },
             });
             
-            console.log("updateTaskData", updateTaskData)
-            console.log("assignUserData", assignUserData)
+            console.log("🖥️ updateTaskData", updateTaskData)
+            console.log("🖥️ assignUserData", assignUserData)
             closeDetailForm()
             toast.success("Task updated Successfully")
         } catch (error) {
@@ -148,8 +148,8 @@ const {userSelect} = props
     const addNewTask = async (event) => {
         event.preventDefault();
         const taskDetail = state.taskDetail
-        console.log("taskDetail:", taskDetail)
-        console.log(Auth.getProfile().data._username)
+        console.log("🖥️ taskDetail:", taskDetail)
+        console.log("💬", Auth.getProfile().data._username)
         
         try {    
             const { data: addTaskData } = await AddTask({
@@ -190,7 +190,7 @@ const {userSelect} = props
                 }
             });
             // dispatch({ type: ADD_STATE_TASK, payload: addTaskData.addTask}) //This successfully updated the table
-            console.log("AddTaskData", addTaskData)
+            console.log("🖥️ AddTaskData", addTaskData)
             closeDetailForm()
             toast.success("Successfully added a new task")
         } catch (addTaskError) {
@@ -501,7 +501,7 @@ const {userSelect} = props
                                 width="30" height="30" 
                                 className="task-detail-icon m-auto"
                             />
-                            <div>&nbsp; console.log(state)</div>                                                  
+                            <div>&nbsp; console.log(state) </div>                                                  
                     </div> 
                 </button>
 

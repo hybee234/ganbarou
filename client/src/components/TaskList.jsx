@@ -65,11 +65,11 @@ export default function TaskList (props) {
                 type: TASKS,
                 payload: tasks
             })
-            console.log("state.tasks.length zero:", state.tasks.length)            
+            console.log("🌏 state.tasks.length zero:", state.tasks.length)            
         } else{            
-            console.log("state.tasks.length not zero", state.tasks.length)
+            console.log("🌏 state.tasks.length not zero", state.tasks.length)
         }
-    },[tasks, state.tasks])
+    },[])
 
 
     // useEffect ( ()=> {
@@ -144,7 +144,7 @@ export default function TaskList (props) {
             toast.success(`Task Completed! Great Work!`)
 
             await dispatch ({ type: COMPLETE_STATE_TASK, payload: taskId})
-            console.log("State.tasks after complete", state.tasks)
+            console.log("🌏 State.tasks after complete", state.tasks)
 
             // Update Totals on Tables
             // if (table === "operational") {
@@ -161,7 +161,7 @@ export default function TaskList (props) {
             //     setTaskCount({...taskCount, opportunisticTasks: tasks.filter(task => task.priority.business_driven && !task.priority.focus).length -1})
             // }
             
-            console.log("Complete Task Returned Data:", data)
+            console.log("📦 Complete Task Returned Data:", data)
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
         }
@@ -187,7 +187,7 @@ export default function TaskList (props) {
             // await dispatch ({ type: UPDATE_STATE_REVIEW_DT, payload:{id: taskId, review_dt: e.value}})
             // await dispatch ({ type: SORT, payload: 1})
 
-            console.log("UpdateReviewDtFromTaskList", data)              
+            console.log("📦 UpdateReviewDtFromTaskList", data)              
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
         }

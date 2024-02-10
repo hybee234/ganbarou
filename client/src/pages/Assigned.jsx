@@ -14,7 +14,7 @@ import {
 } from '../utils/actions'
 
 export default function Assigned() {
-    console.log("AllTasks Rendering")
+    console.log("🌳 Assigned Rendering")
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
@@ -70,7 +70,7 @@ export default function Assigned() {
     //Package into tasks to handover
     const tasks = sortTasks
 
-    console.log("Unassigned: tasks", tasks)
+    console.log("🎁 Assigned: tasks", tasks)
 
     return (
     <div>

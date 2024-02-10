@@ -14,7 +14,7 @@ import {
 } from '../utils/actions'
 
 export default function AllTasks() {
-    console.log("AllTasks Rendering")
+    console.log("🌳 AllTasks Rendering")
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
@@ -70,7 +70,7 @@ export default function AllTasks() {
     //Package into tasks to handover
     const tasks = sortTasks
 
-    console.log("AllTasksPage: tasks", tasks)
+    console.log("🎁 All Tasks: tasks", tasks)
 
     return (
     <div>

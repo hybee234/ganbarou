@@ -37,21 +37,21 @@ import createId from './createId';
 export const reducer = (state, action) => {
     switch (action.type) {    
         case SIDE_MENU: {
-            console.log("SIDE_MENU reducer engaged")
+            console.log("⬇️ SIDE_MENU reducer engaged")
             return {
                 ...state,
                 sidemenu: action.payload,
             }
         }
         case USER: {
-            console.log("USER reducer engaged")
+            console.log("⬇️ USER reducer engaged")
             return {
                 ...state,
                 user: action.payload,
             }
         }
         case TASK_DETAIL_ID: {
-            console.log("TASK_DETAIL_ID reducer engaged")
+            console.log("⬇️ TASK_DETAIL_ID reducer engaged")
             return {
                 ...state,
                 taskDetailId: action.payload,
@@ -62,7 +62,7 @@ export const reducer = (state, action) => {
 //-------------------//
 
         case TASKS: {
-            console.log("TASK reducer engaged")
+            console.log("⬇️ TASK reducer engaged")
             return {
                 ...state,
                 tasks: action.payload,
@@ -70,7 +70,7 @@ export const reducer = (state, action) => {
         }
 
         case SORT: {
-            console.log("SORT reducer engaged")
+            console.log("⬇️ SORT reducer engaged")
             return {
                 ...state,
                 sort: [...state, action.payload],
@@ -79,7 +79,7 @@ export const reducer = (state, action) => {
 
         // Filter out task.id provided
         case COMPLETE_STATE_TASK: {
-            console.log("COMPLETE_STATE_TASK reducer engaged")
+            console.log("⬇️ COMPLETE_STATE_TASK reducer engaged")
             return {
                 ...state,
                 tasks: [...state.tasks].filter((task) => task._id !== action.payload)
@@ -88,7 +88,7 @@ export const reducer = (state, action) => {
 
         // Filter out task.id provided
         case ADD_STATE_TASK: {
-            console.log("ADD_STATE_TASK reducer engaged")
+            console.log("⬇️ ADD_STATE_TASK reducer engaged")
 
             // Create new ID
                 const newTaskId = createId(state.tasks)
@@ -103,7 +103,7 @@ export const reducer = (state, action) => {
 
         // Filter out task.id provided
         case UPDATE_STATE_REVIEW_DT: {
-            console.log("UPDATE_STATE_REVIEW_DT reducer engaged")
+            console.log("⬇️ UPDATE_STATE_REVIEW_DT reducer engaged")
 
                 //Find index
                 const taskIndex = state.tasks.findIndex(
@@ -125,7 +125,7 @@ export const reducer = (state, action) => {
 
         // Filter out task.id provided
         case UPDATE_STATE_TASK: {
-            console.log("UPDATE_STATE_TASK reducer engaged")
+            console.log("⬇️ UPDATE_STATE_TASK reducer engaged")
             return {
                 ...state,
                 tasks: [...state.tasks].filter((task) => task._id !== action.payload)
@@ -134,7 +134,7 @@ export const reducer = (state, action) => {
 
 
         case USER_SELECT: {
-            console.log("USER_SELECT reducer engaged")
+            console.log("⬇️ USER_SELECT reducer engaged")
             return {
                 ...state,
                 userlist: action.payload,
@@ -145,14 +145,14 @@ export const reducer = (state, action) => {
 //- TASK DETAIL MODAL -//
 //---------------------//
         case TASK_DETAIL: {
-            console.log("TASK_DETAIL reducer engaged")
+            console.log("⬇️ TASK_DETAIL reducer engaged")
             return {
                 ...state,
                 taskDetail: action.payload,
             }
         }
         case TASK_DETAIL_CREATED_DT: {
-            console.log("CREATED_DT reducer engaged")
+            console.log("⬇️ CREATED_DT reducer engaged")
             return {
                 ...state,
                 taskDetail: {
@@ -162,7 +162,7 @@ export const reducer = (state, action) => {
             }
         }
         case TASK_DETAIL_TITLE: {
-            console.log("TASK_DETAIL_TITLE reducer engaged")
+            console.log("⬇️ TASK_DETAIL_TITLE reducer engaged")
             return {
                 ...state,
                 taskDetail: {
@@ -172,7 +172,7 @@ export const reducer = (state, action) => {
             }
         }
         case TASK_DETAIL_STAKEHOLDER: {
-            console.log("TASK_DETAIL_STAKEHOLDER reducer engaged")
+            console.log("⬇️ TASK_DETAIL_STAKEHOLDER reducer engaged")
             return {
                 ...state,
                 taskDetail: {
@@ -182,7 +182,7 @@ export const reducer = (state, action) => {
             }
         }
         case TASK_DETAIL_REVIEW_DT: {
-            console.log("TASK_DETAIL_REVIEW_DT reducer engaged")
+            console.log("⬇️ TASK_DETAIL_REVIEW_DT reducer engaged")
             return {
                 ...state,
                 taskDetail: {
@@ -192,15 +192,15 @@ export const reducer = (state, action) => {
             }
         }
         case TASK_DETAIL_ASSIGNED: {
-            console.log("TASK_DETAIL_ASSIGNED reducer engaged")
+            console.log("⬇️ TASK_DETAIL_ASSIGNED reducer engaged")
             // Payload provides _id
             // Need to find the username based on _id
             // Then update both the _id and username in state
-            // console.log("state", state)
-            // console.log("state userlist", state.userlist)
+            // console.log("⬇️ state", state)
+            // console.log("⬇️ state userlist", state.userlist)
             // console.log ("action payload", action.payload)
             // const assigned = [state.userlist].filter( (a) => a._id === action.payload)
-            // console.log("State user", assigned)
+            // console.log("⬇️ State user", assigned)
             return {
                 ...state,
                 taskDetail: {
@@ -212,7 +212,7 @@ export const reducer = (state, action) => {
             }
         }        
         case TASK_DETAIL_SUMMARY: {
-            console.log("TASK_DETAIL_SUMMARY reducer engaged")
+            console.log("⬇️ TASK_DETAIL_SUMMARY reducer engaged")
             return {
                 ...state,
                 taskDetail: {
@@ -222,7 +222,7 @@ export const reducer = (state, action) => {
             }
         }
         case TASK_DETAIL_STATUS_MACRO: {
-            console.log("TASK_DETAIL_STATUS_MACRO reducer engaged")
+            console.log("⬇️ TASK_DETAIL_STATUS_MACRO reducer engaged")
             return {
                 ...state,
                 taskDetail: {
@@ -232,7 +232,7 @@ export const reducer = (state, action) => {
             }
         }
         case TASK_DETAIL_STATUS_MICRO: {
-            console.log("TASK_DETAIL_STATUS_MICRO reducer engaged")
+            console.log("⬇️ TASK_DETAIL_STATUS_MICRO reducer engaged")
             return {
                 ...state,
                 taskDetail: {
@@ -242,7 +242,7 @@ export const reducer = (state, action) => {
             }
         }
         case TASK_DETAIL_BUSINESS_DRIVEN: {
-            console.log("TASK_DETAIL_BUSINESS_DRIVEN reducer engaged")
+            console.log("⬇️ TASK_DETAIL_BUSINESS_DRIVEN reducer engaged")
             return { 
                 ...state,
                 taskDetail: {
@@ -256,7 +256,7 @@ export const reducer = (state, action) => {
         }
         
         case TASK_DETAIL_FOCUS: {
-            console.log("TASK_DETAIL_FOCUS reducer engaged")
+            console.log("⬇️ TASK_DETAIL_FOCUS reducer engaged")
             console.log(action.payload.focus)
             return { 
                 ...state,
@@ -271,7 +271,7 @@ export const reducer = (state, action) => {
         }
 
         case TASK_DETAIL_IMPORTANT: {
-            console.log("TASK_DETAIL_IMPORTANT reducer engaged")
+            console.log("⬇️ TASK_DETAIL_IMPORTANT reducer engaged")
             return { 
                 ...state,
                 taskDetail: {
@@ -285,7 +285,7 @@ export const reducer = (state, action) => {
         }
 
         case TASK_DETAIL_URGENT: {
-            console.log("TASK_DETAIL_URGENT reducer engaged")
+            console.log("⬇️ TASK_DETAIL_URGENT reducer engaged")
             return { 
                 ...state,
                 taskDetail: {
@@ -299,7 +299,7 @@ export const reducer = (state, action) => {
         }
 
         case TASK_DETAIL_EFFORT: {
-            console.log("TASK_DETAIL_EFFORT reducer engaged")
+            console.log("⬇️ TASK_DETAIL_EFFORT reducer engaged")
             return { 
                 ...state,
                 taskDetail: {
@@ -312,7 +312,7 @@ export const reducer = (state, action) => {
             }
         }
         case TASK_DETAIL_CATEGORY: {
-            console.log("TASK_DETAIL_CATEGORY reducer engaged")
+            console.log("⬇️ TASK_DETAIL_CATEGORY reducer engaged")
             return { 
                 ...state,
                 taskDetail: {
@@ -325,7 +325,7 @@ export const reducer = (state, action) => {
             }
         }
         case TASK_DETAIL_PIPELINE: {
-            console.log("TASK_DETAIL_PIPELINE reducer engaged")
+            console.log("⬇️ TASK_DETAIL_PIPELINE reducer engaged")
             return { 
                 ...state,
                 taskDetail: {
@@ -338,7 +338,7 @@ export const reducer = (state, action) => {
             }
         }
         case TASK_DETAIL_COMMENT: {
-            console.log("TASK_DETAIL_COMMENT reducer engaged")
+            console.log("⬇️ TASK_DETAIL_COMMENT reducer engaged")
             return { 
                 ...state,
                 taskDetail: { //access taskDetail level
@@ -353,7 +353,7 @@ export const reducer = (state, action) => {
 
         // Task Notes
         case TASK_DETAIL_NOTE: {
-            console.log("TASK_DETAIL_NOTE reducer engaged")
+            console.log("⬇️ TASK_DETAIL_NOTE reducer engaged")
             return { 
                 ...state,
                 taskDetail: {   //access taskDetail level
@@ -365,7 +365,7 @@ export const reducer = (state, action) => {
         
         // Used when adding new note - to clear taskDetail
         case CLEAR_TASK_DETAIL:{
-            console.log("CLEAR_TASK_DETAIL reducer engaged")
+            console.log("⬇️ CLEAR_TASK_DETAIL reducer engaged")
             return { 
                 ...state,
                 taskDetail: action.payload,
@@ -374,7 +374,7 @@ export const reducer = (state, action) => {
 
         // Used to indicate to Task Modal Screen that this is a New Task
         case NEW_TASK:{
-            console.log("NEW_TASK reducer engaged")
+            console.log("⬇️ NEW_TASK reducer engaged")
             return { 
                 ...state,
                 new_task: action.payload,
@@ -383,7 +383,7 @@ export const reducer = (state, action) => {
 
         // Used to indicate to Task Modal Screen that this is a New Task
         case VIEW:{
-            console.log("VIEW reducer engaged")
+            console.log("⬇️ VIEW reducer engaged")
             return { 
                 ...state,
                 view: action.payload,

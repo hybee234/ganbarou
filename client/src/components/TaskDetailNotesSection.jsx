@@ -49,7 +49,7 @@ export default function TaskDetailNotesSection( ) {
     const [AddNote, { error }] = useMutation(ADD_NOTE);
 
     const addNewNote = async (event) => {
-        console.log ("addNewNote engaged") 
+        console.log ("📢 addNewNote engaged") 
         if (!newNote) {
             toast.error("Cannot submit an empty note")
 
@@ -69,7 +69,7 @@ export default function TaskDetailNotesSection( ) {
                 // console.log("***data", data)
                 // console.log("***data.addnote", data.addNote)
                 await dispatch({ type: TASK_DETAIL_NOTE, payload: data.addNote.note })
-                console.log("***Post_dispatch", state.taskDetail)                
+                console.log("🌏 ***Post_dispatch", state.taskDetail)                
                 toast.success(`Note added!`) 
                 setNewNote('')
             } catch (error) {

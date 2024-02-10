@@ -16,7 +16,7 @@ import {
 } from '../utils/actions'
 
 export default function MyTasks() {
-    console.log("MyTask Rendering")
+    console.log("🌳 MyTask Rendering")
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
@@ -74,7 +74,7 @@ export default function MyTasks() {
     //Package into tasks to handover
     const tasks = sortTasks
 
-    console.log("MyTasksPage:tasks", tasks)
+    console.log("🎁 MyTasks:tasks", tasks)
 
 // console.log("STATE TASKS", state.tasks)
 

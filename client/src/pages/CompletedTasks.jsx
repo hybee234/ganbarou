@@ -14,7 +14,7 @@ import {
 } from '../utils/actions'
 
 export default function CompletedTasks() {
-    console.log("AllTasks Rendering")
+    console.log("🌳 Completed Task Rendering")
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
@@ -72,7 +72,7 @@ export default function CompletedTasks() {
 
  
 
-    console.log("AllTasksPage: tasks", tasks)
+    console.log("🎁 Completed: tasks", tasks)
     return (
     <div>
         <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl mb-5">Completed Tasks View</div>    
