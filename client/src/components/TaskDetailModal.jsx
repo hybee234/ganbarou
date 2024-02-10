@@ -86,9 +86,9 @@ const {userSelect} = props
         document.getElementById('view-details-modal-form').style.display = 'none'
     }
 
-    //-----------------------//
+    //------------------------//
     //- Log state to Console -//
-    //-----------------------//
+    //------------------------//
     // TROUBLESHOOTING ONLY
     const consoleLog = () => {
         console.log("🌏 state", state)
@@ -96,12 +96,29 @@ const {userSelect} = props
         console.log("💬 Logged In?", loggedIn)
     }
 
+    //----------------------------------//
+    //- CheckButton clicked (Add/Save) -//
+    //----------------------------------//
+
+const checkButton = (event) =>{
+    if (state.new_task === true) {
+        console.log("🌏state.new_task", state.new_task)
+        addNewTask(event)
+        
+    } else {
+        console.log("🌏state.new_task", state.new_task)
+        updateTask(event)
+    }
+}
+
+
     //--------------------------------//
     //- Handle Assign Update on form -//
     //--------------------------------//
     // Receives new assign._id from form, filters userList for username and id, dispatches action to state.
     const handleAssignUpdate = (e)=> {
         // console.log("HandleAssignUpdate, etarget,value", e.target.value)
+        console.log("📢 HandleAssignUpdate engaged")
         const assigned = userSelect.filter( (a) => a._id === e.target.value)
         // console.log("Assigned", assigned[0])
         dispatch({
@@ -116,8 +133,9 @@ const {userSelect} = props
     //useMutation hook
     const [UpdateTaskByTaskId, { error }] = useMutation(UPDATE_TASK_BY_TASK_ID);    
     const [AssignUser, { errorAssigned }] = useMutation(ASSIGN_USER);
-    const handleFormSubmit = async (e) => {
+    const updateTask = async (e) => {
         e.preventDefault();
+        console.log("📢 handleFormSubmit engaged")
         const taskDetail = state.taskDetail
         console.log("🖥️ taskDetail:", taskDetail)
         
@@ -158,8 +176,8 @@ const {userSelect} = props
                 },
             });
             
-            console.log("🖥️ updateTaskData", updateTaskData)
-            console.log("🖥️ assignUserData", assignUserData)
+            console.log("📦 updateTaskData", updateTaskData)
+            console.log("📦 assignUserData", assignUserData)
             closeDetailForm()
             toast.success("Task updated Successfully")
         } catch (error) {
@@ -174,6 +192,7 @@ const {userSelect} = props
     const [AddTask, { error : addTaskError }] = useMutation(ADD_TASK);    
     const addNewTask = async (event) => {
         event.preventDefault();
+        console.log("📢 addNewTask engaged")
         const taskDetail = state.taskDetail
         console.log("🖥️ taskDetail:", taskDetail)
         console.log("💬", Auth.getProfile().data._username)
@@ -216,8 +235,19 @@ const {userSelect} = props
                     title:state.taskDetail.title,
                 }
             });
+
+            const {data: assignUserNewTaskData} = await AssignUser({
+                variables: {
+                    taskId: addTaskData.addTask._id,
+                    assigned: {
+                        _id: addTaskData.addTask.assigned._id,
+                    },  
+                },
+            });
+
             // dispatch({ type: ADD_STATE_TASK, payload: addTaskData.addTask}) //This successfully updated the table
-            console.log("🖥️ AddTaskData", addTaskData)
+            console.log("📦 AddTaskData", addTaskData)
+            console.log("📦 assignUserNewTaskData", assignUserNewTaskData)
             closeDetailForm()
             toast.success("Successfully added a new task")
         } catch (addTaskError) {
@@ -238,14 +268,11 @@ const {userSelect} = props
         textarea.style.height = Math.min(textarea.scrollHeight, heightLimit) + "px";
     };
 
-
-
-
-
     return (
         <div>
             <div id="view-details-modal-background" className="modal-background"></div>     
-            <form id="view-details-modal-form" className="modal-form" onSubmit={()=> handleFormSubmit(event)}>                    
+            {/* <form id="view-details-modal-form" className="modal-form" onSubmit={()=> handleFormSubmit(event)}>                     */}
+            <form id="view-details-modal-form" className="modal-form" onSubmit={checkButton}>       
                 <span className="close" onClick={(() => closeDetailForm())}>&times;</span>
                 <h2 className="block modal-heading cherry-font"> Task Details</h2>                       
                     {/* {
@@ -488,9 +515,10 @@ const {userSelect} = props
                                     // New Task
                                     <button
                                         className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
-                                        type="button"
-                                        value="button"
-                                        onClick={(e) => addNewTask(e)}
+                                        name="add"
+                                        type="submit"
+                                        value="submit"
+                                        // onClick={(e) => addNewTask(e)}
                                         >
                                         <div className="flex align-middle items-center">                          
                                             <Icon
@@ -505,7 +533,8 @@ const {userSelect} = props
                                     // Not a new task
                                     <button
                                     className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
-                                    type="submit"
+                                    name="save"
+                                    type="submit"                                    
                                     value="submit"
                                     >
                                         <div className="flex align-middle items-center">                          

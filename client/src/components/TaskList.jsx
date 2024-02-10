@@ -185,9 +185,6 @@ export default function TaskList (props) {
                 },
             });
             await dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: {id: taskId, review_dt: e.value}})
-            // await dispatch ({ type: UPDATE_STATE_REVIEW_DT, payload:{id: taskId, review_dt: e.value}})
-            // await dispatch ({ type: SORT, payload: 1})
-
             console.log("📦 UpdateReviewDtFromTaskList", data)              
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
@@ -345,7 +342,7 @@ export default function TaskList (props) {
                                                         className=" table-row-cell link-color"
                                                         onClick={ ()=> completeHandler(task._id, "operational") }
                                                         >                                              
-                                                            <Icon icon="subway:tick" width="15" height="15" strokeWidth={3} color="green"/>  
+                                                            <Icon icon="subway:tick" width="15" height="15" color="green"/>  
                                                     </button>
                                                 </td>
                                             )
@@ -357,7 +354,7 @@ export default function TaskList (props) {
                         }
                         <tr className="table-last-row">
                             <th></th>
-                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Tasks :</span>&nbsp;{state.tasks.filter(task => !task.priority.business_driven).length} </th>                        
+                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Tasks :</span>&nbsp;{tasks.filter(task => !task.priority.business_driven).length} </th>                        
                             <th></th>
                             <th></th>
                             <th></th>
@@ -412,8 +409,8 @@ export default function TaskList (props) {
                             <th className="sm:hidden table-cell table-heading-cell"></th>
                             <th className="sm:hidden table-cell table-heading-cell"></th>
                             <th className="hidden sm:table-cell table-heading-cell "></th>
-                            <th className="hidden sm:table-cell table-heading-cell ">Pipeline</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Category</th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Pipeline</th>
                             {/* Complete Column */}
                             {
                                 state.view === "completed" ? (
@@ -566,7 +563,7 @@ export default function TaskList (props) {
                         }
                         <tr className="table-last-row">
                             <th></th>
-                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Initiatives :</span>&nbsp;{state.tasks.filter(task => task.priority.business_driven && task.priority.focus).length}</th>                        
+                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Initiatives :</span>&nbsp;{tasks.filter(task => task.priority.business_driven && task.priority.focus).length}</th>                        
                             <th></th>
                             <th></th>
                             <th></th>
@@ -764,7 +761,7 @@ export default function TaskList (props) {
                                                         className=" table-row-cell link-color"
                                                         onClick={ ()=> completeHandler(task._id, "opportunistic") }
                                                         >                                              
-                                                            <Icon icon="subway:tick" width="15" height="15" strokeWidth={3} color="green"/>  
+                                                            <Icon icon="subway:tick" width="15" height="15" color="green"/>  
                                                     </button>
                                                 </td>
                                             )
@@ -775,7 +772,7 @@ export default function TaskList (props) {
                         }
                         <tr className="table-last-row">
                             <th></th>
-                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Initiatives :</span>&nbsp;{state.tasks.filter(task => task.priority.business_driven && !task.priority.focus).length}</th>                        
+                            <th className="table-row-cell"><span className="inline sm:hidden">Σ :</span><span className="hidden sm:inline">Initiatives :</span>&nbsp;{tasks.filter(task => task.priority.business_driven && !task.priority.focus).length}</th>                        
                             <th></th>
                             <th></th>
                             <th></th>
