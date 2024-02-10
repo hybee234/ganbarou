@@ -92,17 +92,30 @@ h2 {
 }
 
 .tooltip {
-    font-size: 1rem;
+    font-size: 0.8rem;
     /* line-height: 1px; */
     padding: 5px;
-    font-weight: 300;
     display: block;
 }
 
+.tooltip-heading {
+    /* padding: 5px; */
+    font-weight: 600;
+
+    /* text-decoration: underline; */
+}
+
 .tooltip-string {
-    padding: 5px;
+    /* padding: 5px; */
     font-weight: 300;
-    display: block;
+
+}
+
+.tooltip-footer {
+    /* padding: 5px; */
+    font-weight: 300;
+    text-align: right;
+
 }
 
 /********************/
@@ -410,6 +423,7 @@ li {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
+    transition: ease-in-out 0.2s;
 }
 
 .table-heading-row {
@@ -736,15 +750,14 @@ li {
     transition: ease-in-out 0.2s;
 }
 
+/*****************/
+/* Tasklist Icons*/
+/*****************/
+
 /* Icons on tasklist */
 .task-detail-icon {
     font-size: 3rem;
     /* padding: 1px; */
-}
-
-/* Icons on Modal Form */
-.task-detail-modal-icon {
-    font-size: 3rem
 }
 
 .task-detail-icon-green {
@@ -754,6 +767,26 @@ li {
 .task-detail-icon-red {
     color: red
 }
+
+.tasklist-category-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/********************/
+/* Modal Form Icons */
+/********************/
+
+.task-category-model-icon {
+    font-size: 3rem;
+}
+
+/* Icons on Modal Form */
+.task-detail-modal-icon {
+    font-size: 3rem
+}
+
+
 
 
 
@@ -903,6 +936,9 @@ li {
     .task-summary-container  {
         font-size: 1rem;
     }
+    .table-container {
+        width: 85%;
+    }
 }
 
 
@@ -936,6 +972,9 @@ li {
     } 
     .task-summary-container {
         font-size: 1.0rem;
+    }
+    .table-container {
+        width: 90%;
     }
   
 }
@@ -971,7 +1010,10 @@ li {
     .task-detail-icon {
         width: 20px;
         height: 20px;        
-    }  
+    }
+    .table-container {
+        width: 95%;
+    }
 }
 
 /******************************/
@@ -1015,7 +1057,6 @@ li {
         width: 20px;
         height: 20px;        
     }
-
 }
 
 /****************************/

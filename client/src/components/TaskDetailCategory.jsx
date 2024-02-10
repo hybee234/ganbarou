@@ -51,9 +51,9 @@ export default function TaskDetailCategory() {
                                     (
                                         <div className="cherry-font text-5xl text-center text-red-400">1
                                             <Icon
-                                                icon="teenyicons:skull-solid"
+                                                icon="emojione-monotone:skull-and-crossbones"
                                                 width="25" height="25"
-                                                className="task-detail-icon m-auto"
+                                                className="task-category-model-icon m-auto"
                                             />
                                         </div>  
                                     ):(
@@ -61,7 +61,7 @@ export default function TaskDetailCategory() {
                                             <Icon
                                                 icon="ant-design:stop-outlined"
                                                 width="25" height="25"
-                                                className="task-detail-icon m-auto"
+                                                className="task-category-model-icon m-auto"
                                             />
                                         </div>  
                                     )
@@ -100,9 +100,9 @@ export default function TaskDetailCategory() {
                                 (
                                     <div className="cherry-font text-5xl text-center text-orange-400">2
                                         <Icon
-                                            icon="fxemoji:lightningmood"
+                                            icon="icon-park-twotone:lightning"
                                             width="25" height="25"
-                                            className="task-detail-icon m-auto"
+                                            className="task-category-model-icon m-auto"
                                         />
                                     </div>  
                                 ):(
@@ -110,7 +110,7 @@ export default function TaskDetailCategory() {
                                         <Icon
                                             icon="ant-design:stop-outlined"
                                             width="25" height="25"
-                                            className="task-detail-icon m-auto"
+                                            className="task-category-model-icon m-auto"
                                         />
                                     </div>  
                                 )
@@ -150,7 +150,7 @@ export default function TaskDetailCategory() {
                                         <Icon
                                             icon="noto:light-bulb"
                                             width="25" height="25"
-                                            className="task-detail-icon m-auto"
+                                            className="task-category-model-icon m-auto"
                                         />
                                     </div>  
                                 ):(
@@ -158,7 +158,7 @@ export default function TaskDetailCategory() {
                                         <Icon
                                             icon="ant-design:stop-outlined"
                                             width="25" height="25"
-                                            className="task-detail-icon m-auto"
+                                            className="task-category-model-icon m-auto"
                                         />
                                     </div>  
                                 )
@@ -198,7 +198,7 @@ export default function TaskDetailCategory() {
                                         <Icon
                                             icon="fluent-emoji:deciduous-tree"
                                             width="25" height="25"
-                                            className="task-detail-icon m-auto"
+                                            className="task-category-model-icon m-auto"
                                         />
                                     </div>  
                                 ):(
@@ -206,7 +206,7 @@ export default function TaskDetailCategory() {
                                         <Icon
                                             icon="ant-design:stop-outlined"
                                             width="25" height="25"
-                                            className="task-detail-icon m-auto"
+                                            className="task-category-model-icon m-auto"
                                         />
                                     </div>  
                                 )
@@ -246,7 +246,7 @@ export default function TaskDetailCategory() {
                                         <Icon
                                             icon="noto:ice"
                                             width="25" height="25"
-                                            className="task-detail-icon m-auto"
+                                            className="task-category-model-icon m-auto"
                                         />
                                     </div>  
                                 ):(
@@ -254,7 +254,7 @@ export default function TaskDetailCategory() {
                                         <Icon
                                             icon="ant-design:stop-outlined"
                                             width="25" height="25"
-                                            className="task-detail-icon m-auto"
+                                            className="task-category-model-icon m-auto"
                                         />
                                     </div>  
                                 )
