@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import SideMenuViewOneUserSelector from './SideMenuViewOneUserSelector'
+import ContactMe from './SideMenuContactMe'
 
 
 export default function SideMenu() {
@@ -142,6 +143,8 @@ export default function SideMenu() {
                             )               
                         }
                     </li>
+
+                    {/* Chiikawa character for a bit of fun */}
                     <div id="side-menu-chiikawa">
                         <div className = "text-center py-2">
                             <img
@@ -149,8 +152,15 @@ export default function SideMenu() {
                                 width="160px"
                                 src={gif}
                             />
-                        </div>                        
+                        </div>
+                        <ContactMe />                       
                     </div>
+
+
+
+
+
+
                 </div>
             {/* </OutsideClickHandler> */}
 

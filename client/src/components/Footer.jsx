@@ -1,23 +1,18 @@
-import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../utils/GlobalState';
 import { Icon } from '@iconify/react';
-
 import Auth from '../utils/auth';
-
-import { FaGithub } from "react-icons/fa6";
-import { FaSquareXTwitter } from "react-icons/fa6";
-import { FaLinkedin } from "react-icons/fa6";
-import { FaStackOverflow } from "react-icons/fa6";
 
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 function Footer() {
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
+    // Hook to useNavigate
+    const navigate = useNavigate();
 
-    // [HL] Hy tracking global state
     const consoleLog = () => {
         console.log("🌏 state", state)
         const loggedIn = Auth.loggedIn()
@@ -28,7 +23,8 @@ function Footer() {
     const clearToken = () => {
         console.log("📢 ClearToken Engaged - logged out")
         Auth.logout()  
-        toast.success('JWT removed from local storage, logged out')      
+        toast.success('JWT removed from local storage, logged out')     
+        navigate('/')
     }
 
     return (
@@ -36,20 +32,23 @@ function Footer() {
 
             <div className = "bg-filter" >       
                 <button
-                        className="px-6 py-2 font-bold duration-200 ease-in-out button-color"
-                        type="button"
-                        value="cancel"
-                        onClick={() => consoleLog()}
-                        >
-                        <div className="flex align-middle items-center">                          
-                                <Icon
-                                    icon="fa:gears"
-                                    width="30" height="30" 
-                                    className="task-detail-icon m-auto"
-                                />
-                                <div>&nbsp; console.log(state)</div>                                                  
-                        </div> 
-                    </button>
+                    className="px-3 py-2 font-bold duration-200 ease-in-out button-color"
+                    type="button"
+                    value="cancel"
+                    onClick={() => consoleLog()}
+                    >
+                    <div className="flex align-middle items-center">                          
+                            <Icon
+                                icon="fa:gears"
+                                width="30" height="30" 
+                                className="task-detail-icon m-auto"
+                            />
+                            <div>&nbsp; console.log(state)</div>                                                  
+                    </div> 
+                </button>
+
+
+
                 {/* Flag used for developing */}
                 { 
                     Auth.loggedIn() ? (
@@ -61,44 +60,19 @@ function Footer() {
                     ): (
                         <div>
                             <span className="text-red-400"> Not Logged in </span>
+                            
                         </div>
                     )
-                }         
-                <div className="flex justify-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-                    <span>
-                        <div className="p-3 link">
-                            <Link to="https://twitter.com/hklim5" target="_blank">
-                                <FaSquareXTwitter />
-                            </Link>
-                        </div>
-                    </span>
-                    <span>
-                        <div className="p-3 link" >
-                            <Link to="https://github.com/hybee234" target="_blank">
-                                <FaGithub />
-                            </Link>
-                        </div>
-                    </span>
-                    <span>
-                        <div className="p-3 link" >
-                            <Link to="https://www.linkedin.com/in/hy-l-25020953/" target="_blank">
-                                <FaLinkedin />
-                            </Link>
-                        </div>
-                    </span>
-                    <span>
-                        <div className="p-3 link" >
-                            <Link to="https://stackoverflow.com/users/23088153/hybee" target="_blank">
-                                <FaStackOverflow />
-                            </Link>
-                        </div>
-                    </span>
-                </div>
-                <button className="button-color px-6 py-2 my-2 font-bold text-2xl" onClick={() => clearToken()} >
+                }      
+                
+                <button
+                    className="px-3 py-2 font-bold duration-200 ease-in-out button-color"
+                    onClick={() => clearToken()}
+                >
                     Log out / Clear JWT                    
                 </button>
 
-                <p>Hybee January 2024</p>
+                <p>Hybee February 2024</p>
             </div>
         </div>
     );
