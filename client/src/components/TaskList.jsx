@@ -206,6 +206,31 @@ export default function TaskList (props) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
         }
     }
+    //---------------------------------------------//
+    //-- useMutation update on change Review date -//
+    //---------------------------------------------//
+
+
+// TODO [review typedef, resolver, mutation, action, reducer to get this going]]
+ //useMutation hook
+    // const [UpdateAssignedFromTaskList, { errors }] = useMutation(UPDATE_ASSIGNED_FROM_TASKLIST);
+
+    // // Handles update post 
+    // const handleAssignedUpdate = async (e, taskId) => {
+    //     try {    
+    //         const { data } = await UpdateReviewDtFromTaskList({
+    //             variables: {
+    //                 taskId: taskId,
+    //                 assigned_id: e.value,                    
+    //             },
+    //         });
+    //         // await dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: {id: taskId, review_dt: e.value}})
+    //         console.log("📦 UpdateReviewDtFromTaskList", data)              
+    //     } catch (error) {
+    //         console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
+    //     }
+    // }
+
 
     //------------------//
     // View Task Modal -//
@@ -288,6 +313,7 @@ export default function TaskList (props) {
 }
 
 
+console.log ("🎁 userSelect", userSelect)
 
     // console.log("rowIndex", rowIndex)
 
@@ -671,14 +697,14 @@ export default function TaskList (props) {
                                             {categoryColumn(task.priority.category)}
                                         </td>
 
-                                        {/* Pipeline Column FOcus */}
+                                        {/* Pipeline Column FOous */}
                                         <td className="table-row-cell px-1">
                                             {
                                                 !task.priority.pipeline_number || task.priority.pipeline_number === 999 ? (
                                                     <div> -- </div>
                                                 ):(
-                                                    <div className="flex justify-center border-2"> 
-                                                        <div className = "text-center text-xl pipeline-number border-2">
+                                                    <div className="flex justify-center"> 
+                                                        <div className = "text-center text-xl pipeline-number">
                                                             {task.priority.pipeline_number}
                                                         </div>
                                                     </div>
@@ -842,7 +868,37 @@ export default function TaskList (props) {
                                                 </td>   
                                             )
                                         } 
-                                        <td className="hidden sm:table-cell table-row-cell">{task.assigned.username}</td> 
+
+                                        {/* Assign column Opportunistic */}
+                                        <td className="hidden sm:table-cell table-row-cell">
+                                            {task.assigned.username}
+
+
+
+                                            <select
+                                            className="table-select text-center"
+                                            name="assigned-user"
+                                            type="text"
+                                            value={task.assigned.username}
+                                            onChange= {(e) => handleAssignedUpdate(e.target, task._id)}
+                                            required
+                                            >
+                                                {
+                                                    userSelect.map( (user)=> {                            
+                                                        return(
+                                                            <option value={user._id} key={user._id}>{user.username}</option>
+                                                        ) 
+                                                    })
+                                                }
+                                            </select>
+                                      
+
+
+                                        </td> 
+
+
+
+
                                         <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
                                         
                                         {/* Review/Assign Combined Column Opportunistic */} 
