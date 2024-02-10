@@ -74,11 +74,11 @@ export default function Assigned() {
 
     // Users
     // Sort users
-    console.log("🎁 userSelectData.data.users",userSelectData.data.users)
+    // console.log("🎁 userSelectData.data.users",userSelectData.data.users)
     const sortUsers = userSelectData.data.users
-    console.log("🎁 sortUsers", sortUsers)
+    // console.log("🎁 sortUsers", sortUsers)
     const userSelect = sortUsers.slice().sort((a,b) => (a.username > b.username) ? 1 : (a.username < b.username) ?-1 :0)
-    console.log("🎁 userSelect", userSelect)
+    // console.log("🎁 userSelect", userSelect)
 
 
     return (

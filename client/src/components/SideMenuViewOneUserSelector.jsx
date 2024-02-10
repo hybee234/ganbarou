@@ -68,6 +68,14 @@ export default function SideMenuUserSelect () {
         console.log("🌏 state.viewOneUser", state.viewOneUser)
     }
 
+    // Users
+    // Sort users
+    // console.log("🎁 userSelectData.data.users", data.users)
+    const sortUsers = data.users
+    // console.log("🎁 sortUsers", sortUsers)
+    const userSelect = sortUsers.slice().sort((a,b) => (a.username > b.username) ? 1 : (a.username < b.username) ?-1 :0)
+    // console.log("🎁 userSelect", userSelect)
+
     return (
         <div className = "">  
             <p className="side-menu-heading">View One User</p>       
@@ -82,7 +90,7 @@ export default function SideMenuUserSelect () {
                 >
                 <option value="1">Select a User...</option>
                 {
-                    data.users.map( (user)=> {                            
+                    userSelect.map( (user)=> {                            
                         return(
                             <option id={user._id} value={user._id} key={user._id}>{user.username}</option>
                         ) 

@@ -78,13 +78,6 @@ export default function OneUser() {
     //- Data Manipulation -//
     //--------------------//
 
-    // Filter for Active Tasks for Current logged in user
-    // const filterTasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === state.viewOneUser._id && !task.complete_flag) 
-    // // Sort by Review Date
-    // const sortTasks = filterTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
-    // //Package into tasks to handover
-    // const tasks = sortTasks
-
     // Tasks
     // Filter for Active Tasks for Current logged in user
     const filterTasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === state.viewOneUser._id && !task.complete_flag) 
@@ -96,11 +89,11 @@ export default function OneUser() {
 
     // Users
     // Sort users
-    console.log("🎁 userSelectData.data.users",userSelectData.data.users)
+    // console.log("🎁 userSelectData.data.users",userSelectData.data.users)
     const sortUsers = userSelectData.data.users
-    console.log("🎁 sortUsers", sortUsers)
+    // console.log("🎁 sortUsers", sortUsers)
     const userSelect = sortUsers.slice().sort((a,b) => (a.username > b.username) ? 1 : (a.username < b.username) ?-1 :0)
-    console.log("🎁 userSelect", userSelect)
+    // console.log("🎁 userSelect", userSelect)
 
 
     return (

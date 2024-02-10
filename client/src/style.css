@@ -91,6 +91,17 @@ h2 {
     padding: 0px;
 }
 
+input, select, option {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;  
+}
+
+/********************/
+/* Tooltips */
+/********************/
+
+
 .tooltip {
     font-size: 0.8rem;
     /* line-height: 1px; */
@@ -463,13 +474,13 @@ li {
     color: red
 } */
 
-/* .table-input {
+.table-input {
     border: 2px inset var(--inputborder);
     transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     padding: 1px;
     border-radius: 5px;
-    text-align: justify;
+    text-align: center;
 }
 
 .table-input::placeholder {
@@ -478,7 +489,7 @@ li {
 
 .table-input:hover {
     background-color: var(--inputbackgroundhover);
-} */
+}
 
 .table-select {
     border: 1px solid var(--inputborder);
@@ -1085,10 +1096,11 @@ li {
 /* Media Query HEIGHT LESS THAN 768px /
 /*************************************/
 
-@media (max-height: 640px) {
+@media (max-height: 670px) {
 
     #chiikawa-gif {
-        display: none;
+        width: 100px;
+
     }
 }
 

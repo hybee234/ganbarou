@@ -942,6 +942,16 @@ h2 {
   padding: 0px;
 }
 
+input, select, option {
+  box-sizing: border-box;
+}
+
+/********************/
+
+/* Tooltips */
+
+/********************/
+
 .tooltip {
   font-size: 0.8rem;
   /* line-height: 1px; */
@@ -1108,7 +1118,7 @@ li {
   width: 300px;
   height: 100vh;
   background-color: transparent;
-  padding-top: 100px;
+  padding-top: 50px;
   text-align: center;
   transition: left 0.3s;
   z-index: 0;
@@ -2040,8 +2050,19 @@ li {
 /* Media Query HEIGHT LESS THAN 768px /
 /*************************************/
 
-@media (max-height: 768px) {
-  #side-menu-chiikawa {
+@media (max-height: 670px) {
+  #chiikawa-gif {
+    width: 100px;
+  }
+}
+
+/*************************************/
+
+/* Media Query HEIGHT LESS THAN 640px /
+/*************************************/
+
+@media (max-height: 700px) {
+  #connect-with-me {
     display: none;
   }
 }
