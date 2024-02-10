@@ -158,7 +158,7 @@ export default function TaskList (props) {
             })
             // console.log("data", data)
             // console.log("table", table)
-            toast.success(`Task Completed! Great Work!`)
+            toast.success("Task Completed! Awesome Work! 🎉🥳🪇")
 
             await dispatch ({ type: COMPLETE_STATE_TASK, payload: taskId})
             console.log("🌏 State.tasks after complete", state.tasks)
