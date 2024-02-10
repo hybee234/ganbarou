@@ -59,22 +59,20 @@ export default function TaskDetailUrgentImportant() {
                                 state.taskDetail.priority.urgent ?
                                 (
                                     <div>
-                                        <Icon
-                                            // icon="noto:fire"
-                                            icon="emojione-v1:fire"
-                                            // width="128" height="128" 
-                                            className="task-detail-icon m-auto"
+                                        <Icon                                                        
+                                            icon="game-icons:burning-forest"                                                        
+                                            // width="25" height="25" 
+                                            className="task-detail-modal-icon m-auto task-detail-icon-red"
                                         />
                                         <p className = "text-center">Yes</p>
                                     </div>  
                                 ):(
                                     <div> 
-                                        <Icon
-                                            // icon="fluent-emoji-flat:sloth"
-                                            icon="streamline-emojis:turtle"
-                                            // width="128" height="128" 
-                                            className="task-detail-icon m-auto"
-                                        /> 
+                                        <Icon                                                        
+                                            icon="game-icons:camping-tent"                                                        
+                                            // width="25" height="25" 
+                                            className="task-detail-modal-icon m-auto task-detail-icon-green"
+                                        />
                                         <p className = "text-center">No</p>
                                     </div>  
                                 )
@@ -117,20 +115,20 @@ export default function TaskDetailUrgentImportant() {
                                 state.taskDetail.priority.important ?
                                 (
                                     <div> 
-                                        <Icon
-                                            icon="noto:crown"
-                                            // width="128" height="128" 
-                                            className="task-detail-icon m-auto"
+                                        <Icon                                                        
+                                            icon="game-icons:heart-plus"                                                        
+                                            // width="25" height="25" 
+                                            className="task-detail-modal-icon m-auto task-detail-icon-red"
                                         />
                                         <p className = "text-center">Yes</p>
                                     </div>    
                                 ):(
                                     <div>
-                                        <Icon
-                                            icon="noto-v1:down-arrow"
-                                            // width="128" height="128" 
-                                            className="task-detail-icon m-auto"
-                                        /> 
+                                        <Icon                                                        
+                                            icon="game-icons:plain-arrow"                                                        
+                                            // width="25" height="25" 
+                                            className="task-detail-modal-icon m-auto task-detail-icon-green"
+                                        />
                                         <p className = "text-center">No</p>
                                     </div>  
                                 )
@@ -173,21 +171,19 @@ export default function TaskDetailUrgentImportant() {
                             state.taskDetail.priority.high_effort ?
                             (
                                 <div>
-                                    <Icon
-                                        icon="twemoji:snow-capped-mountain"
-                                        // icon="emojione:fire"
-                                        // width="128" height="128" 
-                                        className="task-detail-icon m-auto "                               
-                                    />  
+                                    <Icon                                                        
+                                        icon="game-icons:mountain-road"                                                        
+                                        // width="25" height="25" 
+                                        className="task-detail-modal-icon m-auto task-detail-icon-red"
+                                    />
                                     <p className = "text-center">High</p>
                                 </div> 
                             ):(
                                 <div>
-                                    <Icon
-                                        icon="streamline-emojis:shortcake-2"
-                                        // icon="fa6-solid:fire"
-                                        // width="128" height="128" 
-                                        className="task-detail-icon m-auto"
+                                    <Icon                                                        
+                                        icon="game-icons:cake-slice"                                                        
+                                        // width="25" height="25" 
+                                        className="task-detail-modal-icon m-auto task-detail-icon-green"
                                     />
                                     <p className = "text-center">Low</p>
                                 </div>  

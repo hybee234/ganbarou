@@ -39,9 +39,12 @@ const taskSchema = new Schema({
 
     status_macro: {
         type: String,
+        default: "New",
     },
     status_micro: {
         type: String,
+        default: "On Hold,"
+
     },
     note: [noteSchema],
     priority: prioritySchema,

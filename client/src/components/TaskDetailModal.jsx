@@ -47,14 +47,41 @@ const {userSelect} = props
     //Hook to access global context
     const [state, dispatch] = useGlobalContext();  
     
-    console.log("state.taskDetail", state.taskDetail)
+    console.log("🌏 state.taskDetail", state.taskDetail)
+
+    //----------------------------------------//
+    //- Create and Store Date/Time constants -//
+    //----------------------------------------//
+    // Do not convert to Australian format (.toLocaleDateString(['en-AU']) or all your calculations will be wrong)
+    let now = new Date();
+
+    //----------------------------//
+    //- Colour Review Date Field -//
+    //----------------------------//
+
+    useEffect ( ()=> {
+        // console.log("📢 Review date check engaged")
+        if (dayjs(now).isAfter(dayjs(state.taskDetail.review_dt))) {        
+            //if Future review date
+            // console.log("💬 review-dt-due")
+            document.getElementById("review-dt-field").classList.add("review-dt-due")        
+            document.getElementById("review-dt-field").classList.remove("review-dt-ok")
+
+        } else {        
+            //Overdue review
+            // console.log("💬 review-dt-ok")
+
+            document.getElementById("review-dt-field").classList.add("review-dt-ok")        
+            document.getElementById("review-dt-field").classList.remove("review-dt-due")
+        }
+    },[state.taskDetail, now])
 
     //--------------------//
     //- Close Modal Form -//
     //--------------------//
 
     const closeDetailForm = () => {
-        console.log("closeDetailForm triggered")
+        console.log("📢 closeDetailForm triggered")
         document.getElementById('view-details-modal-background').style.display = 'none'
         document.getElementById('view-details-modal-form').style.display = 'none'
     }
@@ -64,9 +91,9 @@ const {userSelect} = props
     //-----------------------//
     // TROUBLESHOOTING ONLY
     const consoleLog = () => {
-        console.log("state", state)
+        console.log("🌏 state", state)
         const loggedIn = Auth.loggedIn()
-        console.log("Logged In?", loggedIn)
+        console.log("💬 Logged In?", loggedIn)
     }
 
     //--------------------------------//
@@ -92,7 +119,7 @@ const {userSelect} = props
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         const taskDetail = state.taskDetail
-        console.log("taskDetail:", taskDetail)
+        console.log("🖥️ taskDetail:", taskDetail)
         
         try {    
             const { data: updateTaskData } = await UpdateTaskByTaskId({
@@ -131,8 +158,8 @@ const {userSelect} = props
                 },
             });
             
-            console.log("updateTaskData", updateTaskData)
-            console.log("assignUserData", assignUserData)
+            console.log("🖥️ updateTaskData", updateTaskData)
+            console.log("🖥️ assignUserData", assignUserData)
             closeDetailForm()
             toast.success("Task updated Successfully")
         } catch (error) {
@@ -148,8 +175,8 @@ const {userSelect} = props
     const addNewTask = async (event) => {
         event.preventDefault();
         const taskDetail = state.taskDetail
-        console.log("taskDetail:", taskDetail)
-        console.log(Auth.getProfile().data._username)
+        console.log("🖥️ taskDetail:", taskDetail)
+        console.log("💬", Auth.getProfile().data._username)
         
         try {    
             const { data: addTaskData } = await AddTask({
@@ -190,7 +217,7 @@ const {userSelect} = props
                 }
             });
             // dispatch({ type: ADD_STATE_TASK, payload: addTaskData.addTask}) //This successfully updated the table
-            console.log("AddTaskData", addTaskData)
+            console.log("🖥️ AddTaskData", addTaskData)
             closeDetailForm()
             toast.success("Successfully added a new task")
         } catch (addTaskError) {
@@ -220,20 +247,43 @@ const {userSelect} = props
             <div id="view-details-modal-background" className="modal-background"></div>     
             <form id="view-details-modal-form" className="modal-form" onSubmit={()=> handleFormSubmit(event)}>                    
                 <span className="close" onClick={(() => closeDetailForm())}>&times;</span>
-                <h2 className="block modal-heading cherry-font"> Task Details</h2>
-                    {
+                <h2 className="block modal-heading cherry-font"> Task Details</h2>                       
+                    {/* {
                         state.new_task ? (
                             <div>state.new_task = True</div>
                         ):(
                             <div>state.new_task = False</div>
                         )
-                    }
+                    } */}
 
     {/***********************/}
     {/* Task Details Section*/}
     {/***********************/}
                 <div className="bg-filter modal-section p-5">
                     {/* <h1 className="block cherry-font w-full"> Task Details </h1> */}
+                    
+                    <div className="flex-wrap modal-section-divider w-full hidden sm:block">
+                        <div className="modal-field-container">
+                            <label className="modal-label">Title*</label>        
+                            <div className="text-2xl">                                    
+                                <textarea
+                                    id ="task-title"
+                                    className="w-full text-center modal-field"
+                                    name="title"
+                                    type="text"
+                                    placeholder="Title"
+                                    rows="2"
+                                    cols="50"
+                                    value={state.taskDetail.title}
+                                    onInput={(e) => expandArea(e)}
+                                    onChange= {(e) =>
+                                        dispatch({ type: TASK_DETAIL_TITLE, payload: e.target.value})}
+                                    required
+                                    >
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>  
                     <div className="flex flex-wrap modal-section-divider w-full sm:w-1/4">                        
                         <div className="modal-field-container w-1/2 sm:w-full">
                             <div>
@@ -268,9 +318,11 @@ const {userSelect} = props
                                 TransitionComponent={Zoom}
                                 TransitionProps={{ timeout: 200 }}
                                 // followCursor
+                            // REVIEW DATE FIELD
                             >
                                 <input
-                                    className="modal-field w-full text-center"
+                                    id = "review-dt-field"
+                                    className="modal-field w-full text-center"                                    
                                     name="review-dt"
                                     type="date"
                                     placeholder="DD/MM/YYYY"
@@ -279,7 +331,7 @@ const {userSelect} = props
                                         dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value})}
                                     required
                                     >
-                                </input>                                
+                                </input>
                             </Tooltip>                               
                         </div>
                         <div className="modal-field-container w-1/2 sm:w-full">
@@ -301,7 +353,7 @@ const {userSelect} = props
                                         ) 
                                     })
                                 }
-                            </select>                                
+                            </select>
                         </div>
                         <div className="modal-field-container w-1/2 sm:w-full">
                             <div>
@@ -338,7 +390,7 @@ const {userSelect} = props
                                 <option>Testing</option>
                                 <option>Training</option>
                                 <option>Deployment</option>
-                            </select>                                
+                            </select>
                         </div>
                         <div className="modal-field-container w-1/2 sm:w-full">
                             <label className="modal-label">Status</label>
@@ -358,15 +410,15 @@ const {userSelect} = props
                             </select> 
                         </div>
                     </div>
-                    <div className="modal-section-divider w-full sm:w-3/4">
-                        <div className="modal-field-container">                                    
+                    <div className="modal-section-divider w-full sm:w-3/4">                    
+                        <div className="modal-field-container block sm:hidden">
                             <label className="modal-label">Title*</label>
                             
                             <textarea
                                 className="w-full modal-field"
                                 name="title"
                                 type="text"
-                                placeholder="Title"
+                                placeholder="Title"  
                                 rows="2"
                                 cols="50"
                                 value={state.taskDetail.title}
@@ -384,7 +436,7 @@ const {userSelect} = props
                                 name="status-summary"
                                 type="text"
                                 placeholder="Summary"
-                                rows="4"
+                                rows="6"
                                 cols="30"
                                 value={state.taskDetail.summary}
                                 onInput={(e) => expandArea(e)}
@@ -398,10 +450,16 @@ const {userSelect} = props
                         </div>                 
                     </div>
                 </div>
+
+    {/*************************/}
+    {/* Prioritisation Section*/}
+    {/*************************/}
+                <TaskDetailPrioritisation />    
+
     {/****************/}
     {/* Notes Section*/}
     {/****************/}
-                
+
                 {
                     state.new_task ? (
                         <div></div>
@@ -410,11 +468,8 @@ const {userSelect} = props
                     )
                 }
                 
-    {/*************************/}
-    {/* Prioritisation Section*/}
-    {/*************************/}
-                <TaskDetailPrioritisation />    
-    {/*******************/}
+
+    {/*******************/}            
     {/* Sign off Section*/}
     {/*******************/}  
                 <div className="modal-section justify-center"> 
@@ -490,7 +545,7 @@ const {userSelect} = props
     {/**********/}
 
                 <button
-                    className="px-6 py-2 mt-20 font-bold duration-200 ease-in-out button-color"
+                    className="px-6 py-2 my-5 font-bold duration-200 ease-in-out button-color"
                     type="button"
                     value="cancel"
                     onClick={() => consoleLog()}
@@ -501,11 +556,11 @@ const {userSelect} = props
                                 width="30" height="30" 
                                 className="task-detail-icon m-auto"
                             />
-                            <div>&nbsp; console.log(state)</div>                                                  
+                            <div>&nbsp; console.log(state) </div>                                                  
                     </div> 
                 </button>
 
-                <p className="block modal-label w-1/3 mt-10"> Task ID: {state.taskDetail._id}</p> 
+                <p className="block modal-label w-1/3 mt-5"> Task ID: {state.taskDetail._id}</p> 
             </form>
         </div>
     )

@@ -3,10 +3,9 @@ import { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client';
 import { USER_LIST, ALL_TASKS } from '../utils/queries'
 import Auth from '../utils/auth';
-import TasksSummary from '../components/TaskSummary';
 import TaskList from '../components/TaskList';
 import TaskDetailModal from '../components/TaskDetailModal';
-import AddNewTask from '../components/Task - AddNew';
+
 
 import { useGlobalContext } from '../utils/GlobalState';
 import {
@@ -14,7 +13,7 @@ import {
 } from '../utils/actions'
 
 export default function CompletedTasks() {
-    console.log("AllTasks Rendering")
+    console.log("🌳 Completed Task Rendering")
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
@@ -72,7 +71,7 @@ export default function CompletedTasks() {
 
  
 
-    console.log("AllTasksPage: tasks", tasks)
+    console.log("🎁 Completed: tasks", tasks)
     return (
     <div>
         <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl mb-5">Completed Tasks View</div>    

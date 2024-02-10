@@ -34,6 +34,8 @@ modal-form: 150
     --tablegrey: rgba(88, 88, 88, 0.3);
     --black: rgba(0, 0, 0, 1);
     --blackfilter: rgba(0 ,0 ,0, 0.7);
+    --redshadetransparent: rgba(100,40,40,0.5);
+    --greenshadetransparent: rgba(40, 100, 40 , 0.5);
 
 /*UI Objects*/
     --text: var(--onyx);
@@ -45,11 +47,11 @@ modal-form: 150
     --inputborder: var(--black);
     --buttontext: var(--onyx);
     --buttonbackgroundhover: var(--darkgrey);
-    --tablereviewdue: var(--old-rose);
     --tableborders: var(--tablegrey);
     --tableheadingrow: var(--blackfilter);
     --modaltext: rgba(244, 244, 255, 1);
-    
+    --reviewdatedue: var(--redshadetransparent);
+    --reviewdateok: var(--greenshadetransparent);
 
     font-family: Inter, Helvetica, system-ui, Avenir,  Arial, sans-serif;
     line-height: 1.5;
@@ -167,10 +169,6 @@ header {
 
 .cherry-font {
     font-family: 'Cherry Bomb One', system-ui;
-}
-
-#ganbarou-subtitle {
-    
 }
 
 /******************/
@@ -523,12 +521,11 @@ li {
 }
 
 
-
-
-
 .review-due {
-    background-color: rgba(109, 46, 52, 0.5);
+    background-color: var(--reviewdatedue)
 }
+
+
 
 /*****************/
 /* Login/Sign Up */
@@ -709,7 +706,7 @@ li {
 }
 
 .modal-field::placeholder {
-    color: var(--black)
+    color: rgba(130, 130, 130, 1)
 }
 
 
@@ -739,14 +736,55 @@ li {
     transition: ease-in-out 0.2s;
 }
 
+/* Icons on tasklist */
 .task-detail-icon {
     font-size: 3rem;
     /* padding: 1px; */
 }
 
+/* Icons on Modal Form */
+.task-detail-modal-icon {
+    font-size: 3rem
+}
+
+.task-detail-icon-green {
+    color: green
+}
+
+.task-detail-icon-red {
+    color: red
+}
+
+
+
 #pipeline-number {    
     width: 150px;
     font-size: 3rem
+}
+
+#task-title {
+    /* display: table-cell; */
+    font-size: 1.5rem;
+    text-align: center;
+    /* line-height: 1; */
+    vertical-align: middle;
+    /* background: rgba(0, 0 ,0, 0); */
+    transition: ease-in-out 0.2s;
+    /* border: 1px transparent black */
+}
+
+#task-title:hover {
+    border: 1px solid var(--texthighlight)
+}
+
+.review-dt-ok {
+    background-color: var(--reviewdateok);
+    color: green;
+}
+
+.review-dt-due{
+    background-color: var(--reviewdatedue);
+    color: red;
 }
 
 /******************************/
@@ -899,6 +937,7 @@ li {
     .task-summary-container {
         font-size: 1.0rem;
     }
+  
 }
 
 /******************************/
@@ -929,6 +968,10 @@ li {
     .task-summary-container {
         font-size: 1rem;
     }
+    .task-detail-icon {
+        width: 20px;
+        height: 20px;        
+    }  
 }
 
 /******************************/
@@ -968,7 +1011,10 @@ li {
         font-size: 0.8rem;
         margin-bottom: 0px
     } 
-
+    .task-detail-icon {
+        width: 20px;
+        height: 20px;        
+    }
 
 }
 

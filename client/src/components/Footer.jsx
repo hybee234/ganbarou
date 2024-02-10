@@ -19,14 +19,14 @@ function Footer() {
 
     // [HL] Hy tracking global state
     const consoleLog = () => {
-        console.log("state", state)
+        console.log("🌏 state", state)
         const loggedIn = Auth.loggedIn()
-        console.log("Logged In?", loggedIn)
+        console.log("💬 Logged In?", loggedIn)
     }
 
     // Remove JWT - can be left over from a different app
     const clearToken = () => {
-        console.log("ClearToken Engaged - logged out")
+        console.log("📢 ClearToken Engaged - logged out")
         Auth.logout()  
         toast.success('JWT removed from local storage, logged out')      
     }

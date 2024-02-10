@@ -6,7 +6,7 @@ import Auth from '../utils/auth';
 import TasksSummary from '../components/TaskSummary';
 import TaskList from '../components/TaskList';
 import TaskDetailModal from '../components/TaskDetailModal';
-import AddNewTask from '../components/Task - AddNew';
+import AddNewTask from '../components/TaskAddNew';
 
 import { useGlobalContext } from '../utils/GlobalState';
 import {
@@ -14,7 +14,7 @@ import {
 } from '../utils/actions'
 
 export default function BusinessDriven() {
-    console.log("AllTasks Rendering")
+    console.log("🌳 Business Driven Rendering")
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
@@ -70,7 +70,7 @@ export default function BusinessDriven() {
     //Package into tasks to handover
     const tasks = sortTasks
 
-    console.log("Business Requests: tasks", tasks)
+    console.log("🎁 Business Driven: tasks", tasks)
 
     return (
     <div>
