@@ -504,7 +504,7 @@ const checkButton = (event) =>{
 
                 {/* Add/Save Task Buttons*/}
                 {
-                    state.view === "complete" ? (
+                    state.view === "completed" ? (
                         <div>
 
                         </div>
