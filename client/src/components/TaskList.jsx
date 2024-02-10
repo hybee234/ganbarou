@@ -15,6 +15,7 @@ import {
     COMPLETE_STATE_TASK,
     TASK_DETAIL,
     TASK_DETAIL_REVIEW_DT,
+    USER_SELECT,
     // UPDATE_STATE_REVIEW_DT
 } from "./../utils/actions";
 
@@ -45,6 +46,21 @@ export default function TaskList (props) {
     // Index for Rows - feature that console.logs row numbers when clicked on
     const [rowIndex, setRowIndex] = useState('');
     
+
+    //     console.log("userSelect:", userSelect)
+    // useEffect( ()=> {    
+    //     console.log("📢Userlist useEffect engaged")
+    //     if(state.userlist.length > 0) {
+    //         console.log("🌏 state.userlist", state.userlist)
+    //     } else {
+    //         console.log("🌏 state.userlist null")
+    //         dispatch({
+    //             type: USER_SELECT,
+    //             payload: userSelect
+    //         })
+    //     }
+    // }, [])
+
     // useState to track task totals
     // const [taskCount, setTaskCount] = useState(
     //     {
@@ -59,18 +75,18 @@ export default function TaskList (props) {
     //-----------------------//
 
     // Being used by task counters
-    useEffect ( ()=> {
-        //Push Tasks to Global State if it is zero
-        if (state.tasks.length === 0) {
-            dispatch({
-                type: TASKS,
-                payload: tasks
-            })
-            console.log("🌏 state.tasks.length zero:", state.tasks.length)            
-        } else{            
-            console.log("🌏 state.tasks.length not zero", state.tasks.length)
-        }
-    },[tasks])
+    // useEffect ( ()=> {
+    //     //Push Tasks to Global State if it is zero
+    //     if (state.tasks.length === 0) {
+    //         dispatch({
+    //             type: TASKS,
+    //             payload: tasks
+    //         })
+    //         console.log("🌏 state.tasks.length zero:", state.tasks.length)            
+    //     } else{            
+    //         console.log("🌏 state.tasks.length not zero", state.tasks.length)
+    //     }
+    // },[tasks])
 
 
     // useEffect ( ()=> {
@@ -308,14 +324,14 @@ export default function TaskList (props) {
                             {/* Review column */}
                             {
                                 state.view === "completed" ? (
-                                    <div></div>
+                                    <th></th>
                                 ) : (
                                 <th className="hidden sm:table-cell table-heading-cell ">Review</th> 
                                 )
                             }
                             <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
-                            <th className="sm:hidden table-cell table-heading-cell"></th>
+                            <th className="sm:hidden table-cell table-heading-cell">RV/Assign</th>
                             {/* Complete Column */}
                             {
                                 state.view === "completed" ? (
@@ -359,8 +375,8 @@ export default function TaskList (props) {
                                         {/* Review column */}
                                         {
                                             state.view === "completed" ? (
-                                                <div>
-                                                </div>
+                                                <td>
+                                                </td>
                                             ) : (
                                                 // Visible if not completed
                                                 <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
@@ -387,7 +403,7 @@ export default function TaskList (props) {
 
                                         {/* Review Combined Column Operational*/} 
                                         <td className="sm:hidden table-cell  table-row-cell">
-                                            <div className="flex justify-left items-center">
+                                            <div className="flex justify-center items-center">
                                                 <input
                                                     className="table-select text-center"
                                                     name="review-dt"
@@ -474,7 +490,7 @@ export default function TaskList (props) {
                             {/* Review column */}
                             {
                                 state.view === "completed" ? (
-                                    <div></div>
+                                    <th></th>
                                 ) : (
                                 <th className="hidden sm:table-cell table-heading-cell ">Review</th> 
                                 )
@@ -542,8 +558,8 @@ export default function TaskList (props) {
                                         {/* Review column */}
                                         {
                                             state.view === "completed" ? (
-                                                <div>
-                                                </div>
+                                                <td>
+                                                </td>
                                             ) : (
                                                 // Visible if not completed
                                                 <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
@@ -567,7 +583,7 @@ export default function TaskList (props) {
 
                                         {/* Review/Assign Combined Column Focus*/} 
                                         <td className="sm:hidden table-cell  table-row-cell">
-                                            <div className="flex justify-left items-center">
+                                            <div className="flex justify-center items-center">
                                                 <input
                                                     className="table-select text-center"
                                                     name="review-dt"
@@ -649,16 +665,20 @@ export default function TaskList (props) {
                                             }
                                             </div>
                                         </td>
+                                        
+                                        {/* Category Column Focus */}
                                         <td className="table-cell table-row-cell">
                                             {categoryColumn(task.priority.category)}
                                         </td>
-                                        <td className="table-row-cell cherry-font ">
+
+                                        {/* Pipeline Column FOcus */}
+                                        <td className="table-row-cell px-1">
                                             {
                                                 !task.priority.pipeline_number || task.priority.pipeline_number === 999 ? (
                                                     <div> -- </div>
                                                 ):(
-                                                    <div className="flex justify-center"> 
-                                                        <div className = "text-center text-xl">
+                                                    <div className="flex justify-center border-2"> 
+                                                        <div className = "text-center text-xl pipeline-number border-2">
                                                             {task.priority.pipeline_number}
                                                         </div>
                                                     </div>
@@ -731,7 +751,7 @@ export default function TaskList (props) {
                             {/* Review column */}
                             {
                                 state.view === "completed" ? (
-                                    <div></div>
+                                    <th></th>
                                 ) : (
                                 <th className="hidden sm:table-cell table-heading-cell ">Review</th> 
                                 )
@@ -799,8 +819,8 @@ export default function TaskList (props) {
                                         {/* Review column Opportunistic */}
                                         {
                                             state.view === "completed" ? (
-                                                <div>
-                                                </div>
+                                                <td>
+                                                </td>
                                             ) : (
                                                 // Visible if not completed
                                                 <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
@@ -827,7 +847,7 @@ export default function TaskList (props) {
                                         
                                         {/* Review/Assign Combined Column Opportunistic */} 
                                         <td className="sm:hidden table-cell  table-row-cell">
-                                            <div className="flex justify-left items-center">
+                                            <div className="flex justify-center items-center">
                                                 <input
                                                     className="table-select text-center"
                                                     name="review-dt"
@@ -916,13 +936,13 @@ export default function TaskList (props) {
                                         </td>
 
                                         {/* Pipeline Column Opportunistic */}
-                                        <td className="table-row-cell cherry-font ">
+                                        <td className="table-row-cell px-1">
                                             {
                                                 !task.priority.pipeline_number || task.priority.pipeline_number === 999 ? (
                                                     <div> -- </div>
                                                 ):(
                                                     <div className="flex justify-center"> 
-                                                        <div className = "text-center text-xl">
+                                                        <div className = "text-center text-xl pipeline-number">
                                                             {task.priority.pipeline_number}
                                                         </div>
                                                     </div>

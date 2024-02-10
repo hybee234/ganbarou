@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client';
-import { USER_LIST, ALL_TASKS } from './../utils/queries'
+import { USER_LIST, ALL_TASKS } from '../utils/queries'
 import Auth from '../utils/auth';
 
 import TasksSummary from '../components/TaskSummary';
@@ -10,21 +10,35 @@ import TaskDetailModal from '../components/TaskDetailModal';
 import AddNewTask from '../components/TaskAddNew';
 
 import { useGlobalContext } from '../utils/GlobalState';
+import { useNavigate } from 'react-router-dom';
 
 import {
     VIEW,
     USER_SELECT,
 } from '../utils/actions'
 
-export default function MyTasks() {
-    console.log("🌳 MyTask Rendering")
+
+export default function OneUser() {
+    console.log("🌳 OneUser Rendering")
+
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
+    // Hook to useNavigate
+    const navigate = useNavigate();
+
+    // If state.viewOneUser is blank (i.e. after refresh) then set it to then navigate to MyTask
+    // This is to prevent an infinite loop    
+    if (state.viewOneUser._id) {
+        console.log("🌏 state.viewOneUser._id", state.viewOneUser._id)
+    } else {
+        navigate('/mytasks')
+    }
+
     const [userId, setUserId] = useState(Auth.getProfile().data._id)
     
     useEffect( ()=> {
-        dispatch ({ type: VIEW, payload: "mytask"})
+        dispatch ({ type: VIEW, payload: "oneuser"})
     },[state.view])
 
 
@@ -69,7 +83,7 @@ export default function MyTasks() {
     //--------------------//
 
     // Filter for Active Tasks for Current logged in user
-    const filterTasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === userId && !task.complete_flag) 
+    const filterTasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === state.viewOneUser._id && !task.complete_flag) 
     // Sort by Review Date
     const sortTasks = filterTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
     //Package into tasks to handover
@@ -97,7 +111,7 @@ export default function MyTasks() {
 
     return (
     <div>
-        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">{Auth.getProfile().data.username}'s tasks</div>
+        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">{state.viewOneUser.username}'s tasks</div>
         
         <TasksSummary tasks={tasks}  />          
         <TaskList tasks={tasks} userSelect={userSelect.data.users}/>  

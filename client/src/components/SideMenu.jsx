@@ -10,6 +10,8 @@ import { SIDE_MENU } from '../utils/actions';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import SideMenuViewOneUserSelector from './SideMenuViewOneUserSelector'
+
 
 export default function SideMenu() {
 
@@ -98,17 +100,18 @@ export default function SideMenu() {
                         { 
                             Auth.loggedIn() ? 
                             (
-                                <div>
+                                <div className="">
                                     <Link to="/mytasks" className="side-menu-item">My Tasks </Link>    
                                     <Link to="/alltasks" className="side-menu-item">All Active Tasks </Link>               
                                     <Link to="/assigned" className="side-menu-item"> Assigned Tasks </Link>   
                                     <Link to="/unassigned" className="side-menu-item"> Unassigned Tasks </Link> 
                                     <Link to="/business" className="side-menu-item"> Business Driven Requests </Link> 
-                                    <Link to="/completed" className="side-menu-item">Completed Tasks </Link>   
+                                    <Link to="/completed" className="side-menu-item">Completed Tasks </Link>
+                                    <SideMenuViewOneUserSelector />   
                                     <button id="logout-button" className="side-menu-item"
-                                    onClick={handleLogout}
-                                    >
-                                    Logout
+                                        onClick={handleLogout}
+                                        >
+                                        Logout
                                     </button>
                                 </div>
                             ): (

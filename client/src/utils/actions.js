@@ -46,3 +46,6 @@ export const NEW_TASK = 'NEW_TASK'
 
 // Complete View
 export const VIEW = 'VIEW'
+
+// One user View
+export const VIEW_ONE_USER = 'VIEW_ONE_USER'

@@ -30,6 +30,7 @@ import {
     CLEAR_TASK_DETAIL,
     NEW_TASK,
     VIEW,
+    VIEW_ONE_USER,
 } from './actions';
 
 import createId from './createId';
@@ -390,6 +391,14 @@ export const reducer = (state, action) => {
             }                    
         }
 
+        // Used to indicate to Task Modal Screen that this is a New Task
+        case VIEW_ONE_USER:{
+            console.log("⬇️ VIEW_ONE_USER reducer engaged")
+            return { 
+                ...state,
+                viewOneUser: action.payload,
+            }                    
+        }
 
 
         // Default to returning the state as is in our switch statement

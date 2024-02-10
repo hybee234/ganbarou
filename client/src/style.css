@@ -239,7 +239,7 @@ li {
     position: fixed;
     left: -100%;
     top: 0px;
-    width: 200px;
+    width: 300px;
     height: 100vh;
     background-color: transparent;
     padding-top: 100px;
@@ -539,6 +539,14 @@ li {
     background-color: var(--reviewdatedue)
 }
 
+.pipeline-number {
+    color: gold;
+    background: green;
+    border-radius: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+}
 
 
 /*****************/
