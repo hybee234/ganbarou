@@ -24,20 +24,15 @@ export default function AllTasks() {
         dispatch ({ type: VIEW, payload: "all"})
     },[state.view])
 
-
     //-------------//
     //- Use Query -//
     //-------------//
     const allTaskData = useQuery(ALL_TASKS);    
-    const userSelect = useQuery(USER_LIST);   
-
-    //Initialise the data
-    // const myData = myDataQuery.data?.me || {}
-    // const userList = userListQuery.data?.users || {}
+    const userSelectData = useQuery(USER_LIST);   
 
     //Handle error and loading together
-    const error = allTaskData.error|| userSelect.error
-    const loading = allTaskData.loading || userSelect.loading
+    const error = allTaskData.error|| userSelectData.error
+    const loading = allTaskData.loading || userSelectData.loading
 
     //Show Loading screen if loading
     if (loading) {
@@ -62,23 +57,33 @@ export default function AllTasks() {
     //---------------------//
     //- Data Manipulation -//
     //--------------------//
-    
-    // Filter for Active Tasks 
-    const filterTasks = allTaskData.data.tasks.filter( (task) => !task.complete_flag) // Filter for Active Tasks for Current logged in user
-    // SOrt by Review Date
-    const sortTasks = filterTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
-    //Package into tasks to handover
-    const tasks = sortTasks
 
-    console.log("🎁 All Tasks: tasks", tasks)
+    // Tasks
+   // Filter for Active Tasks 
+    const filterTasks = allTaskData.data.tasks.filter( (task) => !task.complete_flag) 
+    // Sort by Review Date
+    const sortTasks = filterTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
+    // Package into tasks to handover
+    const tasks = sortTasks
+    console.log("🎁 AllTasks:tasks", tasks)
+
+
+    // Users
+    // Sort users
+    console.log("🎁 userSelectData.data.users",userSelectData.data.users)
+    const sortUsers = userSelectData.data.users
+    console.log("🎁 sortUsers", sortUsers)
+    const userSelect = sortUsers.slice().sort((a,b) => (a.username > b.username) ? 1 : (a.username < b.username) ?-1 :0)
+    console.log("🎁 userSelect", userSelect)
+
 
     return (
-    <div>
-        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">All Active Tasks</div>    
-        <TasksSummary tasks={tasks}  />
-        <TaskList tasks={tasks} userSelect={userSelect.data.users} />  
-        <TaskDetailModal userSelect={userSelect.data.users} />
-        <AddNewTask user={userId} userSelect={userSelect.data.users}/>  
-    </div>
+        <div>
+            <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">All Active Tasks</div>    
+            <TasksSummary tasks={tasks}  />
+            <TaskList tasks={tasks} userSelect={userSelect} />  
+            <TaskDetailModal userSelect={userSelect} />
+            <AddNewTask user={userId} userSelect={userSelect}/>  
+        </div>
     )
 }

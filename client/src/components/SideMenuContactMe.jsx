@@ -8,7 +8,7 @@ import { FaStackOverflow } from "react-icons/fa6";
 export default function ContactMe () {
 
     return (
-        <div>
+        <div id="connect-with-me">
             <p>Connect with me :</p>
             <div className="flex">                
                 <span>

@@ -242,7 +242,7 @@ li {
     width: 300px;
     height: 100vh;
     background-color: transparent;
-    padding-top: 100px;
+    padding-top: 50px;
     text-align: center;
     transition: left 0.3s;
     z-index: 0;
@@ -306,21 +306,9 @@ li {
     display: block;
     position: absolute;
     left: 00x;
-    bottom: 100px;
+    bottom: 10px;
     z-index: 100;
 }
-
-#side-menu-contact-me {
-    cursor: pointer;
-    display: block;
-    position: absolute;
-    left: 00x;
-    bottom: 100px;
-    z-index: 100;
-}
-
-
-
 
 /**********/
 /* Footer */
@@ -498,10 +486,12 @@ li {
     border-radius: 5px;    
     transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    /* padding-top: 4px;
+    padding-top: 4px;
     padding-bottom: 4px;
-    padding-left: 10px;
-    padding-right: 10px; */
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top:2px;
+    margin-bottom: 2px;
     background-color: rgba(150, 150, 150, 0.20); 
 }
 
@@ -991,7 +981,6 @@ li {
     .table-container {
         width: 90%;
     }
-  
 }
 
 /******************************/
@@ -1083,6 +1072,38 @@ li {
         font-size: 1rem;
     }
 }
+
+
+
+
+
+/************//************//************//************/
+/** HEIGHT **//** HEIGHT **//** HEIGHT **//** HEIGHT **/
+/************//************//************//************/
+
+/*************************************/
+/* Media Query HEIGHT LESS THAN 768px /
+/*************************************/
+
+@media (max-height: 640px) {
+
+    #chiikawa-gif {
+        display: none;
+    }
+}
+
+
+/*************************************/
+/* Media Query HEIGHT LESS THAN 640px /
+/*************************************/
+
+@media (max-height: 700px) {
+
+    #connect-with-me {
+        display: none;
+    }
+}
+
 
 
 /*************************************/

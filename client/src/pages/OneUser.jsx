@@ -14,13 +14,10 @@ import { useNavigate } from 'react-router-dom';
 
 import {
     VIEW,
-    USER_SELECT,
 } from '../utils/actions'
-
 
 export default function OneUser() {
     console.log("🌳 OneUser Rendering")
-
 
     //Hook to access state
     const [state, dispatch] = useGlobalContext();
@@ -41,7 +38,6 @@ export default function OneUser() {
         dispatch ({ type: VIEW, payload: "oneuser"})
     },[state.view])
 
-
     //-------------//
     //- Use Query -//
     //-------------//
@@ -52,9 +48,9 @@ export default function OneUser() {
 
     //Handle error and loading together
     const allTaskData = useQuery(ALL_TASKS);    
-    const userSelect = useQuery(USER_LIST);   
-    const error = allTaskData.error|| userSelect.error
-    const loading = allTaskData.loading || userSelect.loading
+    const userSelectData = useQuery(USER_LIST);   
+    const error = allTaskData.error|| userSelectData.error
+    const loading = allTaskData.loading || userSelectData.loading
 
     //Show Loading screen if loading
     if (loading) {
@@ -83,40 +79,37 @@ export default function OneUser() {
     //--------------------//
 
     // Filter for Active Tasks for Current logged in user
+    // const filterTasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === state.viewOneUser._id && !task.complete_flag) 
+    // // Sort by Review Date
+    // const sortTasks = filterTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
+    // //Package into tasks to handover
+    // const tasks = sortTasks
+
+    // Tasks
+    // Filter for Active Tasks for Current logged in user
     const filterTasks = allTaskData.data.tasks.filter( (task) => task.assigned._id === state.viewOneUser._id && !task.complete_flag) 
     // Sort by Review Date
     const sortTasks = filterTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
-    //Package into tasks to handover
+    // Package into tasks to handover
     const tasks = sortTasks
+    console.log("🎁 OneUser tasks:", tasks)
 
-    console.log("🎁 MyTasks:tasks", tasks)
-
-// console.log("STATE TASKS", state.tasks)
-
-// useEffect( ()=> {    
-//     console.log("📢Userlist useEffect engaged")
-//     if(state.userlist.length > 0) {
-//         console.log("🌏 state.userlist", state.userlist)
-//     } else {
-//         console.log("🌏 state.userlist null")
-//         dispatch({
-//             type: USER_SELECT,
-//             payload: userSelect.data.users
-//         })
-//     }
-// }, [state.userlist])
-
-
+    // Users
+    // Sort users
+    console.log("🎁 userSelectData.data.users",userSelectData.data.users)
+    const sortUsers = userSelectData.data.users
+    console.log("🎁 sortUsers", sortUsers)
+    const userSelect = sortUsers.slice().sort((a,b) => (a.username > b.username) ? 1 : (a.username < b.username) ?-1 :0)
+    console.log("🎁 userSelect", userSelect)
 
 
     return (
-    <div>
-        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">{state.viewOneUser.username}'s tasks</div>
-        
-        <TasksSummary tasks={tasks}  />          
-        <TaskList tasks={tasks} userSelect={userSelect.data.users}/>  
-        <TaskDetailModal userSelect={userSelect.data.users} />
-        <AddNewTask user={userId} userSelect={userSelect.data.users} />  
-    </div>
+        <div>
+            <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">{state.viewOneUser.username}'s tasks</div>
+            <TasksSummary tasks={tasks}  />          
+            <TaskList tasks={tasks} userSelect={userSelect}/>  
+            <TaskDetailModal userSelect={userSelect} />
+            <AddNewTask user={userId} userSelect={userSelect} />  
+        </div>
     )
 }

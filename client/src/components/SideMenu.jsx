@@ -148,7 +148,8 @@ export default function SideMenu() {
                     <div id="side-menu-chiikawa">
                         <div className = "text-center py-2">
                             <img
-                                className = "m-auto py-2"
+                                id="chiikawa-gif"
+                                className = "chiikawa-gif m-auto py-2"
                                 width="160px"
                                 src={gif}
                             />
