@@ -60,16 +60,16 @@ const {userSelect} = props
     //----------------------------//
 
     useEffect ( ()=> {
-        console.log("📢 Review date check engaged")
+        // console.log("📢 Review date check engaged")
         if (dayjs(now).isAfter(dayjs(state.taskDetail.review_dt))) {        
             //if Future review date
-            console.log("💬 review-dt-due")
+            // console.log("💬 review-dt-due")
             document.getElementById("review-dt-field").classList.add("review-dt-due")        
             document.getElementById("review-dt-field").classList.remove("review-dt-ok")
 
         } else {        
             //Overdue review
-            console.log("💬 review-dt-ok")
+            // console.log("💬 review-dt-ok")
 
             document.getElementById("review-dt-field").classList.add("review-dt-ok")        
             document.getElementById("review-dt-field").classList.remove("review-dt-due")
@@ -353,7 +353,7 @@ const {userSelect} = props
                                         ) 
                                     })
                                 }
-                            </select>                                
+                            </select>
                         </div>
                         <div className="modal-field-container w-1/2 sm:w-full">
                             <div>
@@ -390,7 +390,7 @@ const {userSelect} = props
                                 <option>Testing</option>
                                 <option>Training</option>
                                 <option>Deployment</option>
-                            </select>                                
+                            </select>
                         </div>
                         <div className="modal-field-container w-1/2 sm:w-full">
                             <label className="modal-label">Status</label>

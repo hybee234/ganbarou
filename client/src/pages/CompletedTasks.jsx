@@ -3,10 +3,9 @@ import { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client';
 import { USER_LIST, ALL_TASKS } from '../utils/queries'
 import Auth from '../utils/auth';
-import TasksSummary from '../components/TaskSummary';
 import TaskList from '../components/TaskList';
 import TaskDetailModal from '../components/TaskDetailModal';
-import AddNewTask from '../components/Task - AddNew';
+
 
 import { useGlobalContext } from '../utils/GlobalState';
 import {

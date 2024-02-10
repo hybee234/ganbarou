@@ -819,6 +819,11 @@ video {
   color: rgb(74 222 128 / var(--tw-text-opacity));
 }
 
+.text-green-600 {
+  --tw-text-opacity: 1;
+  color: rgb(22 163 74 / var(--tw-text-opacity));
+}
+
 .text-orange-400 {
   --tw-text-opacity: 1;
   color: rgb(251 146 60 / var(--tw-text-opacity));
@@ -901,7 +906,6 @@ modal-form: 150
   --inputborder: var(--black);
   --buttontext: var(--onyx);
   --buttonbackgroundhover: var(--darkgrey);
-  --tablereviewdue: var(--old-rose);
   --tableborders: var(--tablegrey);
   --tableheadingrow: var(--blackfilter);
   --modaltext: rgba(244, 244, 255, 1);
@@ -1401,7 +1405,7 @@ li {
 }
 
 .review-due {
-  background-color: var(--reviewdatebackground)
+  background-color: var(--reviewdatedue)
 }
 
 /*****************/
@@ -1623,6 +1627,14 @@ li {
 .task-detail-icon {
   font-size: 3rem;
   /* padding: 1px; */
+}
+
+.task-detail-icon-green {
+  color: green
+}
+
+.task-detail-icon-red {
+  color: red
 }
 
 #pipeline-number {

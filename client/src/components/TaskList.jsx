@@ -58,6 +58,7 @@ export default function TaskList (props) {
     //- PUSH TASKS TO STATE -//
     //-----------------------//
 
+    // Being used by task counters
     useEffect ( ()=> {
         //Push Tasks to Global State if it is zero
         if (state.tasks.length === 0) {
@@ -69,7 +70,7 @@ export default function TaskList (props) {
         } else{            
             console.log("🌏 state.tasks.length not zero", state.tasks.length)
         }
-    },[])
+    },[tasks])
 
 
     // useEffect ( ()=> {
@@ -486,45 +487,45 @@ export default function TaskList (props) {
                                             {
                                                 task.priority.urgent? (
                                                     <Icon                                                        
-                                                        icon="emojione-v1:fire"                                                        
+                                                        icon="game-icons:burning-forest"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-red"
                                                     />
                                                 ):(
                                                     <Icon                                                        
-                                                        icon="streamline-emojis:turtle"                                                        
+                                                        icon="game-icons:camping-tent"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-green"
                                                     />
                                                 )
                                             }
                                             {
                                                 task.priority.important? (
                                                     <Icon                                                        
-                                                        icon="noto:crown"                                                        
+                                                        icon="game-icons:heart-plus"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-red"
                                                     />
                                                 ):(
                                                     <Icon                                                        
-                                                        icon="noto-v1:down-arrow"                                                        
+                                                        icon="game-icons:plain-arrow"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-green"
                                                     />
                                                 )
                                             }
                                             {
                                                 task.priority.high_effort? (
                                                     <Icon                                                        
-                                                        icon="twemoji:snow-capped-mountain"                                                        
+                                                        icon="game-icons:mountain-road"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-red"
                                                     />
                                                 ):(
                                                     <Icon                                                        
-                                                        icon="streamline-emojis:shortcake-2"                                                        
+                                                        icon="game-icons:cake-slice"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-green"
                                                     />
                                                 )
                                             }
@@ -533,15 +534,15 @@ export default function TaskList (props) {
                                             {
                                                 task.priority.urgent? (
                                                     <Icon                                                        
-                                                        icon="emojione-v1:fire"                                                        
+                                                        icon="game-icons:burning-forest"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-red"
                                                     />
                                                 ):(
                                                     <Icon                                                        
-                                                        icon="streamline-emojis:turtle"                                                        
+                                                        icon="game-icons:camping-tent"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-green"
                                                     />
                                                 )
                                             }
@@ -550,15 +551,15 @@ export default function TaskList (props) {
                                             {
                                                 task.priority.important? (
                                                     <Icon                                                        
-                                                        icon="noto:crown"                                                        
+                                                        icon="game-icons:heart-plus"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-red"
                                                     />
                                                 ):(
                                                     <Icon                                                        
-                                                        icon="noto-v1:down-arrow"                                                        
+                                                        icon="game-icons:plain-arrow"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-green"
                                                     />
                                                 )
                                             }
@@ -567,15 +568,15 @@ export default function TaskList (props) {
                                             {
                                                 task.priority.high_effort? (
                                                     <Icon                                                        
-                                                        icon="twemoji:snow-capped-mountain"                                                        
+                                                        icon="game-icons:mountain-road"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-red"
                                                     />
                                                 ):(
                                                     <Icon                                                        
-                                                        icon="streamline-emojis:shortcake-2"                                                        
+                                                        icon="game-icons:cake-slice"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-green"
                                                     />
                                                 )
                                             }
@@ -733,84 +734,80 @@ export default function TaskList (props) {
                                         <td className="sm:hidden table-cell table-row-cell">
                                             {
                                                 task.priority.urgent? (
-                                                    <div>
-                                                        <Icon                                                        
-                                                            icon="emojione-v1:fire"                                                        
-                                                            width="25" height="25" 
-                                                            className="task-detail-icon m-auto"
-                                                        />
-                                                        <FaFireAlt />
-                                                    </div>
+                                                    <Icon                                                        
+                                                        icon="game-icons:burning-forest"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto task-detail-icon-red"
+                                                    />
                                                 ):(
                                                     <Icon                                                        
-                                                        icon="streamline-emojis:turtle"                                                        
+                                                        icon="game-icons:camping-tent"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-green"
                                                     />
                                                 )
                                             }
                                             {
                                                 task.priority.important? (
                                                     <Icon                                                        
-                                                        icon="noto:crown"                                                        
+                                                        icon="game-icons:heart-plus"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-red"
                                                     />
                                                 ):(
                                                     <Icon                                                        
-                                                        icon="noto-v1:down-arrow"                                                        
+                                                        icon="game-icons:plain-arrow"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-green"
                                                     />
                                                 )
                                             }
                                             {
                                                 task.priority.high_effort? (
                                                     <Icon                                                        
-                                                        icon="twemoji:snow-capped-mountain"                                                        
+                                                        icon="game-icons:mountain-road"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-red"
                                                     />
                                                 ):(
                                                     <Icon                                                        
-                                                        icon="streamline-emojis:shortcake-2"                                                        
+                                                        icon="game-icons:cake-slice"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-green"
                                                     />
                                                 )
                                             }
-                                        </td> 
+                                        </td>
                                         <td className="hidden sm:table-cell table-row-cell">
                                             {
                                                 task.priority.urgent? (
                                                     <Icon                                                        
-                                                        icon="emojione-v1:fire"                                                        
+                                                        icon="game-icons:burning-forest"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-red"
                                                     />
                                                 ):(
                                                     <Icon                                                        
-                                                        icon="streamline-emojis:turtle"                                                        
+                                                        icon="game-icons:camping-tent"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-green"
                                                     />
                                                 )
                                             }
                                         </td> 
-
                                         <td className="hidden sm:table-cell table-row-cell">
                                             {
                                                 task.priority.important? (
                                                     <Icon                                                        
-                                                        icon="noto:crown"                                                        
+                                                        icon="game-icons:heart-plus"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-red"
                                                     />
                                                 ):(
                                                     <Icon                                                        
-                                                        icon="noto-v1:down-arrow"                                                        
+                                                        icon="game-icons:plain-arrow"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-green"
                                                     />
                                                 )
                                             }
@@ -819,15 +816,15 @@ export default function TaskList (props) {
                                             {
                                                 task.priority.high_effort? (
                                                     <Icon                                                        
-                                                        icon="twemoji:snow-capped-mountain"                                                        
+                                                        icon="game-icons:mountain-road"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-red"
                                                     />
                                                 ):(
                                                     <Icon                                                        
-                                                        icon="streamline-emojis:shortcake-2"                                                        
+                                                        icon="game-icons:cake-slice"                                                        
                                                         width="25" height="25" 
-                                                        className="task-detail-icon m-auto"
+                                                        className="task-detail-icon m-auto task-detail-icon-green"
                                                     />
                                                 )
                                             }

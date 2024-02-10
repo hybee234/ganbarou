@@ -741,6 +741,14 @@ li {
     /* padding: 1px; */
 }
 
+.task-detail-icon-green {
+    color: green
+}
+
+.task-detail-icon-red {
+    color: red
+}
+
 #pipeline-number {    
     width: 150px;
     font-size: 3rem
