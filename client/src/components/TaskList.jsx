@@ -15,6 +15,7 @@ import {
     COMPLETE_STATE_TASK,
     TASK_DETAIL,
     TASK_DETAIL_REVIEW_DT,
+    USER_SELECT,
     // UPDATE_STATE_REVIEW_DT
 } from "./../utils/actions";
 
@@ -45,6 +46,21 @@ export default function TaskList (props) {
     // Index for Rows - feature that console.logs row numbers when clicked on
     const [rowIndex, setRowIndex] = useState('');
     
+
+    //     console.log("userSelect:", userSelect)
+    // useEffect( ()=> {    
+    //     console.log("📢Userlist useEffect engaged")
+    //     if(state.userlist.length > 0) {
+    //         console.log("🌏 state.userlist", state.userlist)
+    //     } else {
+    //         console.log("🌏 state.userlist null")
+    //         dispatch({
+    //             type: USER_SELECT,
+    //             payload: userSelect
+    //         })
+    //     }
+    // }, [])
+
     // useState to track task totals
     // const [taskCount, setTaskCount] = useState(
     //     {
@@ -315,7 +331,7 @@ export default function TaskList (props) {
                             }
                             <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
-                            <th className="sm:hidden table-cell table-heading-cell"></th>
+                            <th className="sm:hidden table-cell table-heading-cell">RV/Assign</th>
                             {/* Complete Column */}
                             {
                                 state.view === "completed" ? (
@@ -387,7 +403,7 @@ export default function TaskList (props) {
 
                                         {/* Review Combined Column Operational*/} 
                                         <td className="sm:hidden table-cell  table-row-cell">
-                                            <div className="flex justify-left items-center">
+                                            <div className="flex justify-center items-center">
                                                 <input
                                                     className="table-select text-center"
                                                     name="review-dt"
@@ -567,7 +583,7 @@ export default function TaskList (props) {
 
                                         {/* Review/Assign Combined Column Focus*/} 
                                         <td className="sm:hidden table-cell  table-row-cell">
-                                            <div className="flex justify-left items-center">
+                                            <div className="flex justify-center items-center">
                                                 <input
                                                     className="table-select text-center"
                                                     name="review-dt"
@@ -649,10 +665,14 @@ export default function TaskList (props) {
                                             }
                                             </div>
                                         </td>
+                                        
+                                        {/* Category Column Focus */}
                                         <td className="table-cell table-row-cell">
                                             {categoryColumn(task.priority.category)}
                                         </td>
-                                        <td className="table-row-cell cherry-font ">
+
+                                        {/* Pipeline Column FOcus */}
+                                        <td className="table-row-cell cherry-font px-1">
                                             {
                                                 !task.priority.pipeline_number || task.priority.pipeline_number === 999 ? (
                                                     <div> -- </div>
@@ -827,7 +847,7 @@ export default function TaskList (props) {
                                         
                                         {/* Review/Assign Combined Column Opportunistic */} 
                                         <td className="sm:hidden table-cell  table-row-cell">
-                                            <div className="flex justify-left items-center">
+                                            <div className="flex justify-center items-center">
                                                 <input
                                                     className="table-select text-center"
                                                     name="review-dt"
@@ -916,7 +936,7 @@ export default function TaskList (props) {
                                         </td>
 
                                         {/* Pipeline Column Opportunistic */}
-                                        <td className="table-row-cell cherry-font ">
+                                        <td className="table-row-cell cherry-font px-1">
                                             {
                                                 !task.priority.pipeline_number || task.priority.pipeline_number === 999 ? (
                                                     <div> -- </div>

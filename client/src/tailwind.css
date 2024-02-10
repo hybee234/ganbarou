@@ -668,10 +668,6 @@ video {
   width: 100%;
 }
 
-.min-w-20 {
-  min-width: 5rem;
-}
-
 .table-auto {
   table-layout: auto;
 }
@@ -731,6 +727,11 @@ video {
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 .px-6 {
@@ -1108,7 +1109,7 @@ li {
   position: fixed;
   left: -100%;
   top: 0px;
-  width: 200px;
+  width: 300px;
   height: 100vh;
   background-color: transparent;
   padding-top: 100px;

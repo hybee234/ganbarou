@@ -13,6 +13,7 @@ import Assigned from './pages/Assigned.jsx'
 import Unassigned from './pages/Unassigned'
 import BusinessDriven from './pages/BusinessDriven'
 import CompletedTasks from './pages/CompletedTasks'
+import OneUser from './pages/OneUser'
 
 
 const router = createBrowserRouter([
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
         {
             path: 'completed',
             element: <CompletedTasks />
+        },
+        {
+            path: 'oneuser',
+            element: <OneUser />
         },
         ]
     }
