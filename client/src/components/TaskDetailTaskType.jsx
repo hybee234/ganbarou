@@ -58,7 +58,7 @@ export default function TaskDetailTaskType() {
                                         <div className="flex">                                        
                                             <FaTools
                                                 color="grey"
-                                                className="task-detail-icon cursor-pointer"
+                                                className="task-detail-modal-icon cursor-pointer"
                                                 onClick={ () => {
                                                     dispatch({ type: TASK_DETAIL_BUSINESS_DRIVEN,
                                                         payload: {
@@ -76,18 +76,18 @@ export default function TaskDetailTaskType() {
                                                         dayjs(now).isAfter(dayjs(state.taskDetail.review_dt)) ?
                                                         (
                                                             <div>
-                                                                <SiTarget color="red" className="task-detail-icon cursor-pointer" />
+                                                                <SiTarget color="red" className="task-detail-modal-icon cursor-pointer" />
                                                             </div>
                                                         ):(
                                                             <div>
-                                                                <SiTarget color="green" className="task-detail-icon cursor-pointer" />
+                                                                <SiTarget color="green" className="task-detail-modal-icon cursor-pointer" />
                                                             </div>
                                                         )
                                                     }
 
                                                     <FaClock
                                                         color="grey"
-                                                        className="task-detail-icon cursor-pointer"
+                                                        className="task-detail-modal-icon cursor-pointer"
                                                         onClick={() => {
                                                             dispatch({ type: TASK_DETAIL_FOCUS,
                                                                 payload: {
@@ -102,7 +102,7 @@ export default function TaskDetailTaskType() {
                                                 <div className="flex">
                                                     <SiTarget
                                                         color="grey"
-                                                        className="task-detail-icon cursor-pointer"                                
+                                                        className="task-detail-modal-icon cursor-pointer"                                
                                                         onClick={ () => {
                                                             dispatch({ type: TASK_DETAIL_FOCUS,
                                                                 payload: {
@@ -116,11 +116,11 @@ export default function TaskDetailTaskType() {
                                                         dayjs(now).isAfter(dayjs(state.taskDetail.review_dt)) ?
                                                         (
                                                             <div>
-                                                                <FaClock color="red" className="task-detail-icon cursor-pointer" />
+                                                                <FaClock color="red" className="task-detail-modal-icon cursor-pointer" />
                                                             </div>
                                                         ):(
                                                             <div>
-                                                                <FaClock color="green" className="task-detail-icon cursor-pointer" />
+                                                                <FaClock color="green" className="task-detail-modal-icon cursor-pointer" />
                                                             </div>
                                                         )
                                                     }
@@ -138,18 +138,18 @@ export default function TaskDetailTaskType() {
                                                         dayjs(now).isAfter(dayjs(state.taskDetail.review_dt)) ?
                                                         (
                                                             <div>
-                                                                <FaTools color="red" className="task-detail-icon cursor-pointer" />
+                                                                <FaTools color="red" className="task-detail-modal-icon cursor-pointer" />
                                                             </div>
                                                         ):(
                                                             <div>
-                                                                <FaTools color="green" className="task-detail-icon cursor-pointer" />                                                            
+                                                                <FaTools color="green" className="task-detail-modal-icon cursor-pointer" />                                                            
                                                             </div>
                                                             
                                                         )
                                                     }
                                                     <SiTarget
                                                         color="grey"
-                                                        className="task-detail-icon cursor-pointer"                                
+                                                        className="task-detail-modal-icon cursor-pointer"                                
                                                         onClick={ () => {
                                                             dispatch({ type: TASK_DETAIL_FOCUS,
                                                                 payload: {
@@ -161,7 +161,7 @@ export default function TaskDetailTaskType() {
                                                     />
                                                     <FaClock
                                                     color="grey"
-                                                    className="task-detail-icon cursor-pointer"
+                                                    className="task-detail-modal-icon cursor-pointer"
                                                     onClick={() => {
                                                         dispatch({ type: TASK_DETAIL_FOCUS,
                                                             payload: {

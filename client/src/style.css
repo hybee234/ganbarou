@@ -736,9 +736,15 @@ li {
     transition: ease-in-out 0.2s;
 }
 
+/* Icons on tasklist */
 .task-detail-icon {
     font-size: 3rem;
     /* padding: 1px; */
+}
+
+/* Icons on Modal Form */
+.task-detail-modal-icon {
+    font-size: 3rem
 }
 
 .task-detail-icon-green {
@@ -748,6 +754,8 @@ li {
 .task-detail-icon-red {
     color: red
 }
+
+
 
 #pipeline-number {    
     width: 150px;
@@ -929,6 +937,7 @@ li {
     .task-summary-container {
         font-size: 1.0rem;
     }
+  
 }
 
 /******************************/
@@ -959,6 +968,10 @@ li {
     .task-summary-container {
         font-size: 1rem;
     }
+    .task-detail-icon {
+        width: 20px;
+        height: 20px;        
+    }  
 }
 
 /******************************/
@@ -998,7 +1011,10 @@ li {
         font-size: 0.8rem;
         margin-bottom: 0px
     } 
-
+    .task-detail-icon {
+        width: 20px;
+        height: 20px;        
+    }
 
 }
 

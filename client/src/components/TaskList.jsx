@@ -410,12 +410,10 @@ export default function TaskList (props) {
                             <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
                             <th className="sm:hidden table-cell table-heading-cell"></th>
-                            <th className="hidden sm:table-cell table-heading-cell ">Category</th>
                             <th className="sm:hidden table-cell table-heading-cell"></th>
-                            <th className="hidden sm:table-cell table-heading-cell ">Urgent</th>
-                            <th className="hidden sm:table-cell table-heading-cell ">Important</th>
-                            <th className="hidden sm:table-cell table-heading-cell ">Effort</th>
+                            <th className="hidden sm:table-cell table-heading-cell "></th>
                             <th className="hidden sm:table-cell table-heading-cell ">Pipeline</th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Category</th>
                             {/* Complete Column */}
                             {
                                 state.view === "completed" ? (
@@ -481,106 +479,69 @@ export default function TaskList (props) {
                                                 <FaUserTie/>
                                                 <span>&nbsp; {task.stakeholder}</span>
                                             </div>
+                                        </td>                                        
+                                        <td className="table-cell table-row-cell ">
+                                            <div className= "flex flex-wrap sm:flex-nowrap">
+                                            {
+                                                task.priority.urgent? (
+                                                    <div className="w-full sm:w-auto">
+                                                        <Icon                                                        
+                                                            icon="game-icons:burning-forest"                                                        
+                                                            width="25" height="25" 
+                                                            className="task-detail-icon m-auto task-detail-icon-red"
+                                                        />
+                                                    </div>
+                                                ):(
+                                                    <div className="w-full sm:w-auto">
+                                                        <Icon                                                        
+                                                            icon="game-icons:camping-tent"                                                        
+                                                            width="25" height="25" 
+                                                            className="task-detail-icon m-auto task-detail-icon-green"
+                                                        />
+                                                    </div>
+                                                )
+                                            }
+                                            {
+                                                task.priority.important? (
+                                                    <div className="w-full sm:w-auto">
+                                                    <Icon                                                        
+                                                        icon="game-icons:heart-plus"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto task-detail-icon-red"
+                                                    />
+                                                    </div>
+                                                ):(
+                                                    <div className="w-full sm:w-auto">
+                                                    <Icon                                                        
+                                                        icon="game-icons:plain-arrow"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto task-detail-icon-green"
+                                                    />
+                                                    </div>
+                                                )
+                                            }
+                                            {
+                                                task.priority.high_effort? (
+                                                    <div className="w-full sm:w-auto">
+                                                    <Icon                                                        
+                                                        icon="game-icons:mountain-road"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto task-detail-icon-red"
+                                                    />
+                                                    </div>
+                                                ):(
+                                                    <div className="w-full sm:w-auto">
+                                                    <Icon                                                        
+                                                        icon="game-icons:cake-slice"                                                        
+                                                        width="25" height="25" 
+                                                        className="task-detail-icon m-auto task-detail-icon-green"
+                                                    />
+                                                    </div>
+                                                )
+                                            }
+                                            </div>
                                         </td>
                                         <td className="hidden sm:table-cell table-row-cell">{task.priority.category}</td>
-                                        <td className="sm:hidden table-cell table-row-cell">
-                                            {
-                                                task.priority.urgent? (
-                                                    <Icon                                                        
-                                                        icon="game-icons:burning-forest"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-red"
-                                                    />
-                                                ):(
-                                                    <Icon                                                        
-                                                        icon="game-icons:camping-tent"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-green"
-                                                    />
-                                                )
-                                            }
-                                            {
-                                                task.priority.important? (
-                                                    <Icon                                                        
-                                                        icon="game-icons:heart-plus"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-red"
-                                                    />
-                                                ):(
-                                                    <Icon                                                        
-                                                        icon="game-icons:plain-arrow"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-green"
-                                                    />
-                                                )
-                                            }
-                                            {
-                                                task.priority.high_effort? (
-                                                    <Icon                                                        
-                                                        icon="game-icons:mountain-road"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-red"
-                                                    />
-                                                ):(
-                                                    <Icon                                                        
-                                                        icon="game-icons:cake-slice"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-green"
-                                                    />
-                                                )
-                                            }
-                                        </td>
-                                        <td className="hidden sm:table-cell table-row-cell">
-                                            {
-                                                task.priority.urgent? (
-                                                    <Icon                                                        
-                                                        icon="game-icons:burning-forest"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-red"
-                                                    />
-                                                ):(
-                                                    <Icon                                                        
-                                                        icon="game-icons:camping-tent"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-green"
-                                                    />
-                                                )
-                                            }
-                                        </td> 
-                                        <td className="hidden sm:table-cell table-row-cell">
-                                            {
-                                                task.priority.important? (
-                                                    <Icon                                                        
-                                                        icon="game-icons:heart-plus"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-red"
-                                                    />
-                                                ):(
-                                                    <Icon                                                        
-                                                        icon="game-icons:plain-arrow"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-green"
-                                                    />
-                                                )
-                                            }
-                                        </td> 
-                                        <td className="hidden sm:table-cell table-row-cell">
-                                            {
-                                                task.priority.high_effort? (
-                                                    <Icon                                                        
-                                                        icon="game-icons:mountain-road"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-red"
-                                                    />
-                                                ):(
-                                                    <Icon                                                        
-                                                        icon="game-icons:cake-slice"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-green"
-                                                    />
-                                                )
-                                            }
-                                        </td> 
                                         <td className="hidden sm:table-cell table-row-cell">{task.priority.pipeline_number}</td>
                                         {/* Complete Column */}
                                         {
@@ -658,11 +619,9 @@ export default function TaskList (props) {
                             <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
                             <th className="sm:hidden table-cell table-heading-cell"></th>
-                            <th className="hidden sm:table-cell table-heading-cell ">Category</th>
                             <th className="sm:hidden table-cell table-heading-cell"></th>
-                            <th className="hidden sm:table-cell table-heading-cell ">Urgent</th>
-                            <th className="hidden sm:table-cell table-heading-cell ">Important</th>
-                            <th className="hidden sm:table-cell table-heading-cell ">Effort</th>
+                            <th className="hidden sm:table-cell table-heading-cell "></th>
+                            <th className="hidden sm:table-cell table-heading-cell ">Category</th>
                             <th className="hidden sm:table-cell table-heading-cell ">Pipeline</th>
                             {/* Complete Column */}
                             {
@@ -730,105 +689,68 @@ export default function TaskList (props) {
                                                 <span>&nbsp; {task.stakeholder}</span>
                                             </div>
                                         </td>
-                                        <td className="hidden sm:table-cell table-row-cell">{task.priority.category}</td>
-                                        <td className="sm:hidden table-cell table-row-cell">
+                                        <td className="table-cell table-row-cell ">
+                                            <div className= "flex flex-wrap sm:flex-nowrap">
                                             {
                                                 task.priority.urgent? (
-                                                    <Icon                                                        
-                                                        icon="game-icons:burning-forest"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-red"
-                                                    />
+                                                    <div className="w-full sm:w-auto">
+                                                        <Icon                                                        
+                                                            icon="game-icons:burning-forest"                                                        
+                                                            width="25" height="25" 
+                                                            className="task-detail-icon m-auto task-detail-icon-red"
+                                                        />
+                                                    </div>
                                                 ):(
-                                                    <Icon                                                        
-                                                        icon="game-icons:camping-tent"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-green"
-                                                    />
+                                                    <div className="w-full sm:w-auto">
+                                                        <Icon                                                        
+                                                            icon="game-icons:camping-tent"                                                        
+                                                            width="25" height="25" 
+                                                            className="task-detail-icon m-auto task-detail-icon-green"
+                                                        />
+                                                    </div>
                                                 )
                                             }
                                             {
                                                 task.priority.important? (
+                                                    <div className="w-full sm:w-auto">
                                                     <Icon                                                        
                                                         icon="game-icons:heart-plus"                                                        
                                                         width="25" height="25" 
                                                         className="task-detail-icon m-auto task-detail-icon-red"
                                                     />
+                                                    </div>
                                                 ):(
+                                                    <div className="w-full sm:w-auto">
                                                     <Icon                                                        
                                                         icon="game-icons:plain-arrow"                                                        
                                                         width="25" height="25" 
                                                         className="task-detail-icon m-auto task-detail-icon-green"
                                                     />
+                                                    </div>
                                                 )
                                             }
                                             {
                                                 task.priority.high_effort? (
+                                                    <div className="w-full sm:w-auto">
                                                     <Icon                                                        
                                                         icon="game-icons:mountain-road"                                                        
                                                         width="25" height="25" 
                                                         className="task-detail-icon m-auto task-detail-icon-red"
                                                     />
+                                                    </div>
                                                 ):(
+                                                    <div className="w-full sm:w-auto">
                                                     <Icon                                                        
                                                         icon="game-icons:cake-slice"                                                        
                                                         width="25" height="25" 
                                                         className="task-detail-icon m-auto task-detail-icon-green"
                                                     />
+                                                    </div>
                                                 )
                                             }
+                                            </div>
                                         </td>
-                                        <td className="hidden sm:table-cell table-row-cell">
-                                            {
-                                                task.priority.urgent? (
-                                                    <Icon                                                        
-                                                        icon="game-icons:burning-forest"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-red"
-                                                    />
-                                                ):(
-                                                    <Icon                                                        
-                                                        icon="game-icons:camping-tent"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-green"
-                                                    />
-                                                )
-                                            }
-                                        </td> 
-                                        <td className="hidden sm:table-cell table-row-cell">
-                                            {
-                                                task.priority.important? (
-                                                    <Icon                                                        
-                                                        icon="game-icons:heart-plus"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-red"
-                                                    />
-                                                ):(
-                                                    <Icon                                                        
-                                                        icon="game-icons:plain-arrow"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-green"
-                                                    />
-                                                )
-                                            }
-                                        </td> 
-                                        <td className="hidden sm:table-cell table-row-cell">
-                                            {
-                                                task.priority.high_effort? (
-                                                    <Icon                                                        
-                                                        icon="game-icons:mountain-road"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-red"
-                                                    />
-                                                ):(
-                                                    <Icon                                                        
-                                                        icon="game-icons:cake-slice"                                                        
-                                                        width="25" height="25" 
-                                                        className="task-detail-icon m-auto task-detail-icon-green"
-                                                    />
-                                                )
-                                            }
-                                        </td> 
+                                        <td className="hidden sm:table-cell table-row-cell">{task.priority.category}</td>
                                         <td className="hidden sm:table-cell table-row-cell">{task.priority.pipeline_number}</td>
                                         {/* Complete Column */}
                                         {

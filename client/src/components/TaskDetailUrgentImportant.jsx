@@ -62,7 +62,7 @@ export default function TaskDetailUrgentImportant() {
                                         <Icon                                                        
                                             icon="game-icons:burning-forest"                                                        
                                             // width="25" height="25" 
-                                            className="task-detail-icon m-auto task-detail-icon-red"
+                                            className="task-detail-modal-icon m-auto task-detail-icon-red"
                                         />
                                         <p className = "text-center">Yes</p>
                                     </div>  
@@ -71,7 +71,7 @@ export default function TaskDetailUrgentImportant() {
                                         <Icon                                                        
                                             icon="game-icons:camping-tent"                                                        
                                             // width="25" height="25" 
-                                            className="task-detail-icon m-auto task-detail-icon-green"
+                                            className="task-detail-modal-icon m-auto task-detail-icon-green"
                                         />
                                         <p className = "text-center">No</p>
                                     </div>  
@@ -118,7 +118,7 @@ export default function TaskDetailUrgentImportant() {
                                         <Icon                                                        
                                             icon="game-icons:heart-plus"                                                        
                                             // width="25" height="25" 
-                                            className="task-detail-icon m-auto task-detail-icon-red"
+                                            className="task-detail-modal-icon m-auto task-detail-icon-red"
                                         />
                                         <p className = "text-center">Yes</p>
                                     </div>    
@@ -127,7 +127,7 @@ export default function TaskDetailUrgentImportant() {
                                         <Icon                                                        
                                             icon="game-icons:plain-arrow"                                                        
                                             // width="25" height="25" 
-                                            className="task-detail-icon m-auto task-detail-icon-green"
+                                            className="task-detail-modal-icon m-auto task-detail-icon-green"
                                         />
                                         <p className = "text-center">No</p>
                                     </div>  
@@ -174,7 +174,7 @@ export default function TaskDetailUrgentImportant() {
                                     <Icon                                                        
                                         icon="game-icons:mountain-road"                                                        
                                         // width="25" height="25" 
-                                        className="task-detail-icon m-auto task-detail-icon-red"
+                                        className="task-detail-modal-icon m-auto task-detail-icon-red"
                                     />
                                     <p className = "text-center">High</p>
                                 </div> 
@@ -183,7 +183,7 @@ export default function TaskDetailUrgentImportant() {
                                     <Icon                                                        
                                         icon="game-icons:cake-slice"                                                        
                                         // width="25" height="25" 
-                                        className="task-detail-icon m-auto task-detail-icon-green"
+                                        className="task-detail-modal-icon m-auto task-detail-icon-green"
                                     />
                                     <p className = "text-center">Low</p>
                                 </div>  
