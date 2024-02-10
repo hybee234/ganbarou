@@ -45,61 +45,6 @@ export default function TaskList (props) {
     const [rowIndex, setRowIndex] = useState('');
     
 
-    //     console.log("userSelect:", userSelect)
-    // useEffect( ()=> {    
-    //     console.log("📢Userlist useEffect engaged")
-    //     if(state.userlist.length > 0) {
-    //         console.log("🌏 state.userlist", state.userlist)
-    //     } else {
-    //         console.log("🌏 state.userlist null")
-    //         dispatch({
-    //             type: USER_SELECT,
-    //             payload: userSelect
-    //         })
-    //     }
-    // }, [])
-
-    // useState to track task totals
-    // const [taskCount, setTaskCount] = useState(
-    //     {
-    //         operationalTasks: tasks.filter(task => !task.priority.business_driven).length,
-    //         focusTasks: tasks.filter(task => task.priority.business_driven && task.priority.focus).length,
-    //         opportunisticTasks: tasks.filter(task => task.priority.business_driven && !task.priority.focus).length
-    //     }
-    // );
-
-    //-----------------------//
-    //- PUSH TASKS TO STATE -//
-    //-----------------------//
-
-    // Being used by task counters
-    // useEffect ( ()=> {
-    //     //Push Tasks to Global State if it is zero
-    //     if (state.tasks.length === 0) {
-    //         dispatch({
-    //             type: TASKS,
-    //             payload: tasks
-    //         })
-    //         console.log("🌏 state.tasks.length zero:", state.tasks.length)            
-    //     } else{            
-    //         console.log("🌏 state.tasks.length not zero", state.tasks.length)
-    //     }
-    // },[tasks])
-
-
-    // useEffect ( ()=> {
-    //     console.log ("Sort useEffect engaged")
-    //     let sortArray = state.tasks
-    //     let sorted = sortArray.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
-    //     console.log ("SORTED", sorted)
-    //     if (sorted) {
-    //         dispatch ({ type: TASKS, payload: sorted })
-    //     }
-    // },[state.tasks])
-
-    // console.log("sortArray", sortArray)
-
-    // console.log ("state.tasks (tasklist)", state.tasks)
     //----------------------------------------//
     //- Create and Store Date/Time constants -//
     //----------------------------------------//
@@ -161,20 +106,6 @@ export default function TaskList (props) {
             await dispatch ({ type: COMPLETE_STATE_TASK, payload: taskId})
             console.log("🌏 State.tasks after complete", state.tasks)
 
-            // Update Totals on Tables
-            // if (table === "operational") {
-            //     console.log("Operational Task Completed")
-            //     setTaskCount(...taskCount, {operationalTasks: tasks.filter(task => !task.priority.business_driven).length -1})
-            // }
-            // if (table === "focus") {
-            //     console.log("Focus Task Completed")
-            //     console.log (tasks.filter(task => task.priority.business_driven && task.priority.focus).length)
-            //     setTaskCount({...taskCount, focusTasks: tasks.filter(task => task.priority.business_driven && task.priority.focus).length -1})
-            // }
-            // if (table === "opportunistic") {
-            //     console.log("Opportunistic Task Completed")
-            //     setTaskCount({...taskCount, opportunisticTasks: tasks.filter(task => task.priority.business_driven && !task.priority.focus).length -1})
-            // }
             
             console.log("📦 Complete Task Returned Data:", data)
         } catch (error) {
@@ -233,6 +164,26 @@ export default function TaskList (props) {
             toast.error("Updated Unsuccessful - something went wrong")
         }
     }
+
+    //-------------------------//
+    //-- HandlePipelineUpdate -//
+    //-------------------------//
+    const handlePipelineUpdate = async(e, taskId) => {
+
+        console.log("🖥️ e.target.value", e.target.value)
+        console.log("🖥️ taskId", taskId)
+        // Grab task details (property)
+        // Submit update with all property data
+        let taskDetailArray = tasks.filter(task => task._id === taskId)
+        let taskDetail = taskDetailArray[0]        
+        await dispatch ({ type: TASK_DETAIL, payload: taskDetail})
+        
+        console.log ("🌏 state.taskDetail - HandlePipelineUpdate", state.taskDetail)
+
+        // task details are in state now .. need to grab a full set of properties and submit it to updateTask by Task ID
+    }
+
+
 
     //------------------//
     // View Task Modal -//
@@ -314,8 +265,7 @@ export default function TaskList (props) {
 
 }
 
-
-console.log ("🎁 userSelect", userSelect)
+// console.log ("🎁 userSelect", userSelect)
 
     // console.log("rowIndex", rowIndex)
 
@@ -426,14 +376,33 @@ console.log ("🎁 userSelect", userSelect)
                                                 </td>   
                                             )
                                         }                                                                                    
-                                        <td className="hidden sm:table-cell table-row-cell">{task.assigned.username}</td> 
+
+                                        {/* Assign column Operational */}
+                                        <td className="hidden sm:table-cell table-row-cell">
+                                            <select
+                                            className="table-select text-center"
+                                            name="assigned-user"
+                                            type="text"
+                                            value={task.assigned._id}
+                                            onChange= {(e) => handleAssignUpdate(e.target, task._id)}
+                                            required
+                                            >
+                                                {
+                                                    userSelect.map( (user)=> {                            
+                                                        return(
+                                                            <option value={user._id} key={user._id}>{user.username}</option>
+                                                        ) 
+                                                    })
+                                                }
+                                            </select>
+                                        </td> 
                                         <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
 
                                         {/* Review Combined Column Operational*/} 
                                         <td className="sm:hidden table-cell  table-row-cell">
                                             <div className="flex justify-center items-center">
                                                 <input
-                                                    className="table-select text-center"
+                                                    className="table-select text-center w-full"
                                                     name="review-dt"
                                                     type="date"
                                                     placeholder="MM/DD/YYYY"
@@ -445,10 +414,22 @@ console.log ("🎁 userSelect", userSelect)
                                                 >
                                                 </input>
                                             </div>
-                                            <div className="flex justify-center items-center ">
-                                                <FaUserNinja/>
-                                                <span>&nbsp; {task.assigned.username}</span>
-                                            </div>
+                                            <select
+                                                className="table-select text-center w-full"
+                                                name="assigned-user"
+                                                type="text"
+                                                value={task.assigned._id}
+                                                onChange= {(e) => handleAssignUpdate(e.target, task._id)}
+                                                required
+                                                >
+                                                    {
+                                                        userSelect.map( (user)=> {                            
+                                                            return(
+                                                                <option value={user._id} key={user._id}>{user.username}</option>
+                                                            ) 
+                                                        })
+                                                    }
+                                            </select>
                                         </td>
 
                                         {/* Complete Column */}
@@ -606,14 +587,32 @@ console.log ("🎁 userSelect", userSelect)
                                                 </td>   
                                             )
                                         } 
-                                        <td className="hidden sm:table-cell table-row-cell">{task.assigned.username}</td> 
+                                        {/* Assign column Focus */}
+                                        <td className="hidden sm:table-cell table-row-cell">
+                                            <select
+                                            className="table-select text-center"
+                                            name="assigned-user"
+                                            type="text"
+                                            value={task.assigned._id}
+                                            onChange= {(e) => handleAssignUpdate(e.target, task._id)}
+                                            required
+                                            >
+                                                {
+                                                    userSelect.map( (user)=> {                            
+                                                        return(
+                                                            <option value={user._id} key={user._id}>{user.username}</option>
+                                                        ) 
+                                                    })
+                                                }
+                                            </select>
+                                        </td> 
                                         <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td>
 
                                         {/* Review/Assign Combined Column Focus*/} 
                                         <td className="sm:hidden table-cell  table-row-cell">
                                             <div className="flex justify-center items-center">
                                                 <input
-                                                    className="table-select text-center"
+                                                    className="table-select text-center w-full"
                                                     name="review-dt"
                                                     type="date"
                                                     placeholder="MM/DD/YYYY"
@@ -625,10 +624,22 @@ console.log ("🎁 userSelect", userSelect)
                                                 >
                                                 </input>
                                             </div>
-                                            <div className="flex justify-center items-center ">
-                                                <FaUserNinja/>
-                                                <span>&nbsp; {task.assigned.username}</span>
-                                            </div>
+                                            <select
+                                                className="table-select text-center w-full"
+                                                name="assigned-user"
+                                                type="text"
+                                                value={task.assigned._id}
+                                                onChange= {(e) => handleAssignUpdate(e.target, task._id)}
+                                                required
+                                                >
+                                                    {
+                                                        userSelect.map( (user)=> {                            
+                                                            return(
+                                                                <option value={user._id} key={user._id}>{user.username}</option>
+                                                            ) 
+                                                        })
+                                                    }
+                                            </select>
                                         </td>
 
                                         {/* Urgent/Important/Effort Combined Focus*/}                                        
@@ -858,11 +869,8 @@ console.log ("🎁 userSelect", userSelect)
                                                         name="review-dt"
                                                         type="date"
                                                         placeholder="MM/DD/YYYY"
-                                                        //defaultValue = {dayjs(task.review_dt).format('YYYY-MM-DD')}
                                                         defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
-                                                        // value={dayjs(task.review_dt).format('YYYY-MM-DD')}
                                                         onChange= {(e) =>
-                                                            // dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value}),
                                                             handleReviewDtUpdate(e.target, task._id)
                                                         }
                                                         required
@@ -891,8 +899,6 @@ console.log ("🎁 userSelect", userSelect)
                                                 }
                                             </select>
                                         </td> 
-
-
 
 
                                         <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
@@ -1006,7 +1012,17 @@ console.log ("🎁 userSelect", userSelect)
                                                     <div> -- </div>
                                                 ):(
                                                     <div className="flex justify-center"> 
-                                                        <div className = "text-center text-xl pipeline-number">
+                                                        <div className = "text-center pipeline-number">
+                                                            <input
+                                                                className="table-input text-center"                                        
+                                                                type="number"
+                                                                inputMode="number"
+                                                                step="1"
+                                                                value={task.priority.pipeline_number}
+                                                                onChange= {(e) => handlePipelineUpdate (e, task._id)}
+                                                                //     dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
+                                                            >
+                                                            </input> 
                                                             {task.priority.pipeline_number}
                                                         </div>
                                                     </div>

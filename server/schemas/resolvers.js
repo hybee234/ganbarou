@@ -209,7 +209,7 @@ const resolvers = {
                     }}
                 },
                 { new: true, runValidators: true})
-                // .populate({ path: 'assigned' })
+                .populate({ path: 'assigned' })
                 .populate({ path: 'note.note_author' })
                 .populate({ path: 'priority'})                
                             
@@ -297,6 +297,29 @@ const resolvers = {
 
             // console.log("📦Add New task", addTask)
             return addTask.populate({ path: 'assigned' })
+        },
+
+
+        updatePipelineNumber: async (parent, args) => {        
+            console.log (`\x1b[33m ┌───────────────────────────────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Update PipeLine Number by Task ID │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └───────────────────────────────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+
+            console.log("🎁Task ID", args.taskId)
+
+            const updatePipelineNumber = await Task.findOneAndUpdate(
+                { _id: args.taskId },
+                { $set: {priority: {
+                    pipeline_number: args.pipelineNumber,
+                }}
+                },
+                { new: true, runValidators: true})
+                .populate({ path: 'assigned' })
+                .populate({ path: 'note.note_author' })
+                .populate({ path: 'priority'})                
+                            
+            console.log("📦 Update PipeLine Number by Task I", updatePipelineNumber)
+            return updatePipelineNumber
         },
 
     }

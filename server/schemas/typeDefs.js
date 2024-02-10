@@ -69,6 +69,7 @@ const typeDefs = `
 
 
     input priorityUserInput {
+        priority_id: ID
         business_driven: Boolean
         focus: Boolean        
         important: Boolean
@@ -94,6 +95,8 @@ const typeDefs = `
 
         assignUser (taskId: ID! assigned: userInput): Task
         
+        updatePipelineNumber (taskId: ID! pipeline_number: Int! priority: priorityUserInput ): Task
+
         updateTaskByTaskId (
             taskId: ID!
             created_dt: Date
