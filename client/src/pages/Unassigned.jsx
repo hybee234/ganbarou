@@ -66,8 +66,8 @@ export default function Unassigned() {
     // Filter for Active Tasks 
     const filterTasks = allTaskData.data.tasks.filter( (task) => !task.complete_flag && task.assigned._id ==="65c5681fada9c3ff849efeed") // Filter for Active Tasks excluding unnassignedfor Current logged in user
     // const filterTasks = allTaskData.data.tasks.filter( (task) => !task.complete_flag && task.assigned.username === "unassigned") // Filter for Active Tasks excluding unnassignedfor Current logged in user
-    // SOrt by Review Date
-    const sortTasks = filterTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
+    // Sort by Pipeline_number
+    const sortTasks = filterTasks.sort((a,b) => (a.priority.pipeline_number > b.priority.pipeline_number) ? 1 : (a.priority.pipeline_number < b.priority.pipeline_number) ?-1 :0)
     //Package into tasks to handover
     const tasks = sortTasks
 
@@ -75,7 +75,8 @@ export default function Unassigned() {
 
     return (
     <div>
-        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Unassigned Tasks</div>    
+        <div className="brand text-3xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl">Unassigned Tasks</div>
+        <div className="brand text-2xl sm:text-2xl md:text-2xl lg:text-2xl xl:text-3xl">(Sorted by Pipeline)</div>        
         <TasksSummary tasks={tasks}  />
         <TaskList tasks={tasks} userSelect={userSelect.data.users} />  
         <TaskDetailModal userSelect={userSelect.data.users} />
