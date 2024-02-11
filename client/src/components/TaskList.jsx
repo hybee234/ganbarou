@@ -10,23 +10,23 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
-    TASKS,
+    // TASKS,
     NEW_TASK,
     COMPLETE_STATE_TASK,
     TASK_DETAIL,
     TASK_DETAIL_REVIEW_DT,
-    TASK_DETAIL_ASSIGNED,
-    TASK_DETAIL_PIPELINE,
-    USER_SELECT,
+    // TASK_DETAIL_ASSIGNED,
+    // TASK_DETAIL_PIPELINE,
+    // USER_SELECT,
     // UPDATE_STATE_REVIEW_DT
 } from "./../utils/actions";
 
 
-import { FaUserTie } from "react-icons/fa6";
-import { FaUserNinja } from "react-icons/fa6";
-import { BsFillCalendar2WeekFill } from "react-icons/bs";
+// import { FaUserTie } from "react-icons/fa6";
+// import { FaUserNinja } from "react-icons/fa6";
+// import { BsFillCalendar2WeekFill } from "react-icons/bs";
 import { Icon } from '@iconify/react';
-import { FaFireAlt } from "react-icons/fa";
+// import { FaFireAlt } from "react-icons/fa";
 
 export default function TaskList (props) {
     // console.log ("TaskList Rendering")
@@ -378,19 +378,20 @@ export default function TaskList (props) {
                 <table className="table-auto table-container bg-filter">
                     <thead>
                         <tr className="table-heading-row text-xs sm:text-xs md:text-sm xl:text-base">
-                            <th className="table-heading-cell">Created</th>
-                            <th className="text-xs sm:text-xs md:text-sm xl:text-base table-heading-cell">Title</th>
+                            <th className="table-cell md:hidden table-heading-cell">Created/Title</th>
+                            <th className="hidden md:table-cell table-heading-cell">Created</th>
+                            <th className="hidden md:table-cell text-xs sm:text-xs md:text-sm xl:text-base table-heading-cell">Title</th>
                             {/* Review column */}
                             {
                                 state.view === "completed" ? (
                                     <th></th>
                                 ) : (
-                                <th className="hidden sm:table-cell table-heading-cell ">Review</th> 
+                                <th className="hidden lg:table-cell table-heading-cell ">Review</th> 
                                 )
                             }
-                            <th className="hidden sm:table-cell table-heading-cell ">Assigned</th>
-                            <th className="hidden sm:table-cell table-heading-cell ">Stakeholder</th>
-                            <th className="sm:hidden table-cell table-heading-cell">RV/Assign</th>
+                            <th className="hidden lg:table-cell table-heading-cell">Assigned</th>                            
+                            <th className="lg:hidden table-cell table-heading-cell">RV/Assign</th>
+                            <th className="hidden md:table-cell table-heading-cell">Stakeholder</th>
                             {/* Complete Column */}
                             {
                                 state.view === "completed" ? (
@@ -408,8 +409,40 @@ export default function TaskList (props) {
                                 // taskState.operational.map( (task, index) => {   
                                 return(                                    
                                     <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
-                                        <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
-                                        <td>
+                                        
+                                        {/* Created_dt/Title Combined Focus */}
+                                        <td className="table-cell md:hidden table-row-cell">
+                                            <div className = " table-row-cell text-left">
+                                                {dayjs(task.created_dt).format('DD/MM/YY')}
+                                            </div>
+                                            <div>
+                                                <Tooltip
+                                                    title={
+                                                        <div className="tooltip">                                            
+                                                            <div className="tooltip-heading">Task Summary</div>                                                                            
+                                                            <div className="tooltip-string">{task.summary}</div>                                                        
+                                                            <div className="tooltip-footer">Stakeholder: {task.stakeholder}</div>  
+                                                        </div>}
+                                                        arrow placement="bottom"
+                                                        enterDelay={500}
+                                                        enterNextDelay={500}
+                                                        TransitionComponent={Zoom}
+                                                        TransitionProps={{ timeout: 200 }}
+                                                        // followCursor
+                                                    >
+                                                    <p
+                                                        className=" table-row-cell link-color text-left "
+                                                        onClick={()=> {viewTask(task._id)}}>
+                                                            {task.title}
+                                                    </p>
+                                                </Tooltip>
+                                            </div>                                
+                                        </td> 
+
+                                        {/* Created_dt Focus */}
+                                        <td className="hidden md:table-cell table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
+                                        {/* Title column Focus */}
+                                        <td className="hidden md:table-cell table-row-cell">
                                             <Tooltip
                                                 title={
                                                     <div className="tooltip">                                            
@@ -417,20 +450,20 @@ export default function TaskList (props) {
                                                         <div className="tooltip-string">{task.summary}</div>                                                        
                                                         <div className="tooltip-footer">Stakeholder: {task.stakeholder}</div>  
                                                     </div>}
-                                                arrow placement="bottom"
-                                                enterDelay={500}
-                                                enterNextDelay={500}
-                                                TransitionComponent={Zoom}
-                                                TransitionProps={{ timeout: 200 }}
-                                                // followCursor
-                                            >
+                                                    arrow placement="bottom"
+                                                    enterDelay={500}
+                                                    enterNextDelay={500}
+                                                    TransitionComponent={Zoom}
+                                                    TransitionProps={{ timeout: 200 }}
+                                                    // followCursor
+                                                >
                                                 <p
                                                     className=" table-row-cell link-color "
                                                     onClick={()=> {viewTask(task._id)}}>
                                                         {task.title}
                                                 </p>
                                             </Tooltip>
-                                        </td> 
+                                        </td>
                                         {/* Review column */}
                                         {
                                             state.view === "completed" ? (
@@ -438,7 +471,7 @@ export default function TaskList (props) {
                                                 </td>
                                             ) : (
                                                 // Visible if not completed
-                                                <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
+                                                <td className="hidden lg:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
                                                     <input
                                                         className="table-select text-center"
                                                         name="review-dt"
@@ -456,7 +489,7 @@ export default function TaskList (props) {
                                         }                                                                                    
 
                                         {/* Assign column Operational */}
-                                        <td className="hidden sm:table-cell table-row-cell">
+                                        <td className="hidden lg:table-cell table-row-cell">
                                             <select
                                             className="table-select text-center"
                                             name="assigned-user"
@@ -474,10 +507,9 @@ export default function TaskList (props) {
                                                 }
                                             </select>
                                         </td> 
-                                        <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
 
-                                        {/* Review Combined Column Operational*/} 
-                                        <td className="sm:hidden table-cell  table-row-cell">
+                                        {/* Review/Assigned Combined Column Operational*/} 
+                                        <td className="lg:hidden table-cell  table-row-cell">
                                             <div className="flex justify-center items-center">
                                                 <input
                                                     className="table-select text-center w-full"
@@ -509,6 +541,9 @@ export default function TaskList (props) {
                                                     }
                                             </select>
                                         </td>
+
+                                        {/* Stakeholder Operational */}
+                                        <td className="hidden md:table-cell table-row-cell">{task.stakeholder}</td> 
 
                                         {/* Complete Column Operational Table*/}
                                         {
@@ -572,8 +607,9 @@ export default function TaskList (props) {
                 <table className="table-auto table-container bg-filter">
                     <thead>
                         <tr className="table-heading-row text-xs sm:text-xs md:text-sm xl:text-base">
-                            <th className="table-heading-cell">Created</th>
-                            <th className="text-xs sm:text-xs md:text-sm xl:text-base table-heading-cell">Title</th>
+                            <th className="table-cell md:hidden table-heading-cell">Created/Title</th>
+                            <th className="hidden md:table-cell table-heading-cell">Created</th>
+                            <th className="hidden md:table-cell text-xs sm:text-xs md:text-sm xl:text-base table-heading-cell">Title</th>
                             {/* Review column */}
                             {
                                 state.view === "completed" ? (
@@ -583,11 +619,11 @@ export default function TaskList (props) {
                                 )
                             }                        
                             <th className="hidden lg:table-cell table-heading-cell">Assigned</th>
-                            <th className="hidden md:table-cell table-heading-cell">Stakeholder</th>
                             <th className="lg:hidden table-cell table-heading-cell">RV/Assign</th>
+                            <th className="hidden md:table-cell table-heading-cell">Stakeholder</th>
                             <th className="lg:hidden table-cell table-heading-cell">U/I/E</th>
                             <th className="hidden lg:table-cell table-heading-cell">Urg/Imp/Eff</th> 
-                            <th className="hidden md:table-cell table-heading-cell">Category</th>
+                            <th className="hidden sm:table-cell table-heading-cell">Category</th>
                             <th className="table-cell sm:hidden table-heading-cell">
                                 <Icon                                                        
                                     icon="solar:cat-bold"                                                        
@@ -619,8 +655,40 @@ export default function TaskList (props) {
                             tasks.filter(task => task.priority.business_driven && task.priority.focus).map( (task, index) => {     
                                 return(                                    
                                     <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
-                                        <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
-                                        <td>
+                                        
+                                        {/* Created_dt/Title Combined Focus */}
+                                        <td className="table-cell md:hidden table-row-cell">
+                                            <div className = " table-row-cell text-left">
+                                                {dayjs(task.created_dt).format('DD/MM/YY')}
+                                            </div>
+                                            <div>
+                                                <Tooltip
+                                                    title={
+                                                        <div className="tooltip">                                            
+                                                            <div className="tooltip-heading">Task Summary</div>                                                                            
+                                                            <div className="tooltip-string">{task.summary}</div>                                                        
+                                                            <div className="tooltip-footer">Stakeholder: {task.stakeholder}</div>  
+                                                        </div>}
+                                                        arrow placement="bottom"
+                                                        enterDelay={500}
+                                                        enterNextDelay={500}
+                                                        TransitionComponent={Zoom}
+                                                        TransitionProps={{ timeout: 200 }}
+                                                        // followCursor
+                                                    >
+                                                    <p
+                                                        className=" table-row-cell link-color text-left "
+                                                        onClick={()=> {viewTask(task._id)}}>
+                                                            {task.title}
+                                                    </p>
+                                                </Tooltip>
+                                            </div>                                
+                                        </td> 
+                                        
+                                        {/* Created_dt Focus */}
+                                        <td className="hidden md:table-cell table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
+                                        {/* Title column Focus */}
+                                        <td className="hidden md:table-cell table-row-cell">
                                             <Tooltip
                                                 title={
                                                     <div className="tooltip">                                            
@@ -685,9 +753,6 @@ export default function TaskList (props) {
                                             </select>
                                         </td>
 
-                                        {/* Stakeholder column Focus */}
-                                        <td className="hidden md:table-cell table-row-cell">{task.stakeholder}</td>
-
                                         {/* Review/Assign Combined Column Focus*/} 
                                         <td className="lg:hidden table-cell  table-row-cell">
                                             <div className="flex justify-center items-center">
@@ -721,6 +786,9 @@ export default function TaskList (props) {
                                                     }
                                             </select>
                                         </td>
+
+                                        {/* Stakeholder column Focus */}
+                                        <td className="hidden md:table-cell table-row-cell">{task.stakeholder}</td>
 
                                         {/* Urgent/Important/Effort Combined Focus*/}                                        
                                         <td className="table-cell table-row-cell">
@@ -867,22 +935,23 @@ export default function TaskList (props) {
                 <table className="table-auto table-container bg-filter">
                     <thead>
                         <tr className="table-heading-row text-xs sm:text-xs md:text-sm xl:text-base">
-                            <th className="table-heading-cell">Created</th>
-                            <th className="text-xs sm:text-xs md:text-sm xl:text-base table-heading-cell">Title</th>
+                            <th className="table-cell md:hidden table-heading-cell">Created/Title</th>
+                            <th className="hidden md:table-cell table-heading-cell">Created</th>
+                            <th className="hidden md:table-cell text-xs sm:text-xs md:text-sm xl:text-base table-heading-cell">Title</th>
                             {/* Review column */}
                             {
                                 state.view === "completed" ? (
                                     <th></th>
                                 ) : (
-                                <th className="hidden sm:table-cell table-heading-cell ">Review</th> 
+                                <th className="hidden lg:table-cell table-heading-cell ">Review</th> 
                                 )
-                            }                           
+                            }                        
                             <th className="hidden lg:table-cell table-heading-cell">Assigned</th>
-                            <th className="hidden md:table-cell table-heading-cell">Stakeholder</th>
                             <th className="lg:hidden table-cell table-heading-cell">RV/Assign</th>
-                            <th className="lg:hidden table-cell table-heading-cell"></th>
+                            <th className="hidden md:table-cell table-heading-cell">Stakeholder</th>
+                            <th className="lg:hidden table-cell table-heading-cell">U/I/E</th>
                             <th className="hidden lg:table-cell table-heading-cell">Urg/Imp/Eff</th> 
-                            <th className="hidden md:table-cell table-heading-cell">Category</th>
+                            <th className="hidden sm:table-cell table-heading-cell">Category</th>
                             <th className="table-cell sm:hidden table-heading-cell">
                                 <Icon                                                        
                                     icon="solar:cat-bold"                                                        
@@ -914,9 +983,41 @@ export default function TaskList (props) {
                             tasks.filter(task => task.priority.business_driven && !task.priority.focus).map( (task, index) => { 
                                 return(                                    
                                     <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
-                                        <td className=" table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
-                                        <td>
-                                        <Tooltip
+                                        
+                                        {/* Created_dt/Title Combined Focus */}
+                                        <td className="table-cell md:hidden table-row-cell">
+                                            <div className = " table-row-cell text-left">
+                                                {dayjs(task.created_dt).format('DD/MM/YY')}
+                                            </div>
+                                            <div>
+                                                <Tooltip
+                                                    title={
+                                                        <div className="tooltip">                                            
+                                                            <div className="tooltip-heading">Task Summary</div>                                                                            
+                                                            <div className="tooltip-string">{task.summary}</div>                                                        
+                                                            <div className="tooltip-footer">Stakeholder: {task.stakeholder}</div>  
+                                                        </div>}
+                                                        arrow placement="bottom"
+                                                        enterDelay={500}
+                                                        enterNextDelay={500}
+                                                        TransitionComponent={Zoom}
+                                                        TransitionProps={{ timeout: 200 }}
+                                                        // followCursor
+                                                    >
+                                                    <p
+                                                        className=" table-row-cell link-color text-left "
+                                                        onClick={()=> {viewTask(task._id)}}>
+                                                            {task.title}
+                                                    </p>
+                                                </Tooltip>
+                                            </div>                                
+                                        </td> 
+                                        
+                                        {/* Created_dt Focus */}
+                                        <td className="hidden md:table-cell table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
+                                        {/* Title column Focus */}
+                                        <td className="hidden md:table-cell table-row-cell">
+                                            <Tooltip
                                                 title={
                                                     <div className="tooltip">                                            
                                                         <div className="tooltip-heading">Task Summary</div>                                                                            
@@ -937,7 +1038,6 @@ export default function TaskList (props) {
                                                 </p>
                                             </Tooltip>
                                         </td>
-                                        
                                         {/* Review column Opportunistic */}
                                         {
                                             state.view === "completed" ? (
@@ -981,9 +1081,6 @@ export default function TaskList (props) {
                                                 }
                                             </select>
                                         </td> 
-
-
-                                        <td className="hidden md:table-cell table-row-cell">{task.stakeholder}</td> 
                                         
                                         {/* Review/Assign Combined Column Opportunistic */} 
                                         <td className="lg:hidden table-cell table-row-cell">
@@ -1018,6 +1115,9 @@ export default function TaskList (props) {
                                                     }
                                             </select>
                                         </td>      
+
+                                        {/* Stakeholder Opportunistic */}
+                                        <td className="hidden md:table-cell table-row-cell">{task.stakeholder}</td> 
 
                                         {/* Urgent/Important/Effort Combined Opportunistic*/}
                                         <td className="table-cell table-row-cell">
