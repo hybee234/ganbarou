@@ -67,7 +67,7 @@ export default function BusinessDriven() {
     // Filter for Active Tasks for Current logged in user
     const filterTasks = allTaskData.data.tasks.filter( (task) => !task.complete_flag && task.priority.business_driven === true) 
     // Sort by Review Date
-    const sortTasks = filterTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
+    const sortTasks = filterTasks.sort((a,b) => (a.priority.pipeline_number > b.priority.pipeline_number) ? 1 : (a.priority.pipeline_number < b.priority.pipeline_number) ?-1 :0)
     // Package into tasks to handover
     const tasks = sortTasks
     console.log("🎁 Business Driven: tasks", tasks)

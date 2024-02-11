@@ -39,8 +39,8 @@ import {
 
 
 export default function TaskDetailModal( props ) {
-    
-const {userSelect} = props
+    console.log("🌳 TaskDetailModal Rendering")
+    const {userSelect} = props
 
     // console.log("TaskDetailModal Reloaded")
 

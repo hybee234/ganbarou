@@ -68,7 +68,7 @@ export default function MyTasks() {
     const sortTasks = filterTasks.sort((a,b) => (a.review_dt > b.review_dt) ? 1 : (a.review_dt < b.review_dt) ?-1 :0)
     // Package into tasks to handover
     const tasks = sortTasks
-    console.log("🎁 MyTasks:tasks", tasks)
+    console.log("🎁 MyTasks:taskArray", tasks)
 
     // Users
     // Sort users
