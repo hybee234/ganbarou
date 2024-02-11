@@ -1368,7 +1368,7 @@ li {
   background-color: rgba(150, 150, 150, 0.20);
   text-align: center;
   width: 60px;
-  height: 25px;
+  height: 30px;
 }
 
 .table-input::-moz-placeholder {
@@ -1396,7 +1396,7 @@ li {
   margin-top:2px;
   margin-bottom: 2px;
   background-color: rgba(150, 150, 150, 0.20);
-  height: 25px;
+  height: 30px;
 }
 
 .table-select option {
