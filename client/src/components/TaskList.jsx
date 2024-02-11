@@ -104,9 +104,7 @@ export default function TaskList (props) {
             toast.success("Task Completed! Awesome Work! 🎉🥳🪇")
 
             await dispatch ({ type: COMPLETE_STATE_TASK, payload: taskId})
-            console.log("🌏 State.tasks after complete", state.tasks)
-
-            
+            console.log("🌏 State.tasks after complete", state.tasks)            
             console.log("📦 Complete Task Returned Data:", data)
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
@@ -202,24 +200,25 @@ export default function TaskList (props) {
     const handlePipelineUpdate = async(e, taskId) => {
         console.log("📢 handlePipelineUpdate engaged")
         try {    
-            console.log("🖥️ e.target.value", e.target.value)
-            console.log("🖥️ taskId", taskId)
+            // console.log("🖥️ e.target.value", e.target.value)
+            // console.log("🖥️ taskId", taskId)
+
             // Grab task details (property)
             // Submit update with all property data
             let taskDetailArray = tasks.filter(task => task._id === taskId)
             
-            console.log("🖥️ taskDetailArray", taskDetailArray)
+            // console.log("🖥️ taskDetailArray", taskDetailArray)
 
             let taskDetail = taskDetailArray[0]
             
-            console.log("🖥️ taskDetail", taskDetail)
+            // console.log("🖥️ taskDetail", taskDetail)
             await dispatch ({ type: TASK_DETAIL, payload: taskDetail})
 
             // console.log("📢 handleFormSubmit engaged")
             // const taskDetail = state.taskDetail
-            console.log("🖥️ taskDetail:", taskDetail)
-            console.log("🐞🐞🐞 Debug point 1 🐞🐞🐞")
-            console.log ("🌏 state.taskDetail: Pipeline:", state.taskDetail)
+            // console.log("🖥️ taskDetail:", taskDetail)
+            // console.log("🐞🐞🐞 Debug point 1 🐞🐞🐞")
+            // console.log ("🌏 state.taskDetail: Pipeline:", state.taskDetail)
 
             const { data: updateTaskData } = await UpdateTaskByTaskId({
                 variables: {
@@ -791,48 +790,21 @@ export default function TaskList (props) {
                                             {categoryColumn(task.priority.category)}
                                         </td>
 
-                                        {/* Pipeline Column FOous */}
+                                        {/* Pipeline Column Focus */}
                                         <td className="table-row-cell px-1">
-                                            {/* {
-                                                !task.priority.pipeline_number || task.priority.pipeline_number === 999 ? (
-                                                    <div className="flex justify-center"> 
-                                                        <div className = "text-center pipeline-number">
-                                                            <input
-                                                                className="table-input text-center"                                        
-                                                                type="number"
-                                                                inputMode="number"
-                                                                step="1"
-                                                                defaultValue=''
-                                                                // value={task.priority.pipeline_number}
-                                                                // value={state.taskDetail.priority.pipeline_number}
-                                                                // onChange= {(e) => dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
-                                                                // onChange= {(e) => updatePipelineValue (e, task._id)}
-                                                                onBlur= {(e) => handlePipelineUpdate (e, task._id)}
-                                                            >
-                                                            </input> 
-                                                        </div>
-                                                    </div>
-                                                ):( */}
-                                                    <div className="flex justify-center"> 
-                                                        <div className = "text-center pipeline-number">
-                                                            <input
-                                                                className="table-input text-center"                                        
-                                                                type="number"
-                                                                inputMode="number"
-                                                                step="1"
-                                                                defaultValue={task.priority.pipeline_number}
-                                                                // value={task.priority.pipeline_number}
-                                                                // value={state.taskDetail.priority.pipeline_number}
-                                                                // onChange= {(e) => dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
-                                                                // onChange= {(e) => handlePipelineUpdate (e, task._id)}
-                                                                onBlur= {(e) => handlePipelineUpdate (e, task._id)}
-                                                                    
-                                                            >
-                                                            </input> 
-                                                        </div>
-                                                    </div>
-                                                {/* )
-                                            } */}
+                                            <div className="flex justify-center"> 
+                                                <div className = "text-center pipeline-number">
+                                                    <input
+                                                        className="table-input text-center"                                        
+                                                        type="number"
+                                                        inputMode="number"
+                                                        step="1"
+                                                        defaultValue={task.priority.pipeline_number}
+                                                        onBlur= {(e) => handlePipelineUpdate (e, task._id)}                                                            
+                                                    >
+                                                    </input> 
+                                                </div>
+                                            </div>
                                         </td>
                                         {/* Complete Column Focus*/}
                                         {
@@ -1117,46 +1089,19 @@ export default function TaskList (props) {
 
                                         {/* Pipeline Column Opportunistic */}
                                         <td className="table-row-cell px-1">
-                                            {
-                                                !task.priority.pipeline_number || task.priority.pipeline_number === 999 ? (
-                                                    <div className="flex justify-center"> 
-                                                        <div className = "text-center pipeline-number">
-                                                            <input
-                                                                className="table-input text-center"                                        
-                                                                type="number"
-                                                                inputMode="number"
-                                                                step="1"
-                                                                defaultValue=''
-                                                                // value={task.priority.pipeline_number}
-                                                                // value={state.taskDetail.priority.pipeline_number}
-                                                                // onChange= {(e) => dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
-                                                                // onChange= {(e) => updatePipelineValue (e, task._id)}
-                                                                onBlur= {(e) => handlePipelineUpdate (e, task._id)}
-                                                            >
-                                                            </input> 
-                                                        </div>
-                                                    </div>
-                                                ):(
-                                                    <div className="flex justify-center"> 
-                                                        <div className = "text-center pipeline-number">
-                                                            <input
-                                                                className="table-input text-center"                                        
-                                                                type="number"
-                                                                inputMode="number"
-                                                                step="1"
-                                                                defaultValue={task.priority.pipeline_number}
-                                                                // value={task.priority.pipeline_number}
-                                                                // value={state.taskDetail.priority.pipeline_number}
-                                                                // onChange= {(e) => dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
-                                                                // onChange= {(e) => handlePipelineUpdate (e, task._id)}
-                                                                onBlur= {(e) => handlePipelineUpdate (e, task._id)}
-                                                                    
-                                                            >
-                                                            </input> 
-                                                        </div>
-                                                    </div>
-                                                )
-                                            }
+                                            <div className="flex justify-center"> 
+                                                <div className = "text-center pipeline-number">
+                                                    <input
+                                                        className="table-input text-center"                                        
+                                                        type="number"
+                                                        inputMode="number"
+                                                        step="1"
+                                                        defaultValue={task.priority.pipeline_number}
+                                                        onBlur= {(e) => handlePipelineUpdate (e, task._id)}
+                                                    >
+                                                    </input> 
+                                                </div>
+                                            </div>
                                         </td>
                                         {/* Complete Column Opportunistic */}
                                         {
