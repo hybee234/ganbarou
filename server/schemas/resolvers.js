@@ -2,6 +2,8 @@
 const { User, Task } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+
 const resolvers = {
 
     Query: {
@@ -78,6 +80,47 @@ const resolvers = {
                 .exec()
 
             return task
+        },
+
+
+        checkout: async (parent, args, context) => {
+
+            console.log (`\x1b[33m ┌────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Stripe │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+
+            const url = new URL(context.headers.referer).origin;
+            // We map through the list of products sent by the client to extract the _id of each item and create a new Order.
+            await Order.create({ products: args.products.map(({ _id }) => _id) });
+            
+            // Create an array of line items that the user is buying
+            //Just coffee ..
+            const line_items = [];
+            
+            for (const product of args.products) {
+                line_items.push({
+                price_data: {
+                    currency: 'usd',
+                    product_data: {
+                        name: product.name,
+                        description: product.description,
+                        images: [`${url}/images/${product.image}`],
+                    },
+                    unit_amount: product.price * 100,
+                },
+                quantity: product.purchaseQuantity,
+                });
+            }
+            // Create payment session
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                line_items,
+                mode: 'payment',
+                success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+                cancel_url: `${url}/`,
+            });
+            
+            return { session: session.id };
         },
 
 
@@ -263,38 +306,6 @@ const resolvers = {
                     args
                     // { new: true, runValidators: true}
                 )
-                // .populate({ path: 'assigned' })
-                // .populate({ path: 'note.note_author' })
-                // .populate({ path: 'priority'}) 
-
-                // { _id: args.taskId },
-                // { 
-                //     created_dt: args.created_dt, 
-                //     review_dt: args.review_dt,
-                //     title: args.title,
-                //     summary: args.summary,
-                //     stakeholder: args.stakeholder,
-                //     status_macro: args.status_macro,
-                //     status_micro: args.status_micro,
-                //     // $set: {assigned: args.assigned._id},
-                //         // _id: "65b8ed239359f0fca323570c",
-                //         // _id: args.assigned._id,
-                //         // username: args.assigned.username,
-                //         // email: args.assigned.email,
-                //         // security: args.assigned.security                        
-                //     $set: {priority: {
-                //         business_driven: args.priority.business_driven,
-                //         focus: args.priority.focus,
-                //         important: args.priority.important,
-                //         urgent: args.priority.urgent,
-                //         high_effort: args.priority.high_effort,
-                //         pipeline_number: args.priority.pipeline_number,
-                //         category: args.priority.category,
-                //         comment: args.priority.comment
-                //     }}
-                // },
-                
-
             // console.log("📦Add New task", addTask)
             return addTask.populate({ path: 'assigned' })
         },
@@ -321,7 +332,6 @@ const resolvers = {
             console.log("📦 Update PipeLine Number by Task I", updatePipelineNumber)
             return updatePipelineNumber
         },
-
     }
 };
 

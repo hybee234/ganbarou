@@ -6,6 +6,8 @@ import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
+import BuyMeACoffee from '../components/BuyMeACoffee';
+
 function Footer() {
 
     //Hook to access state
@@ -68,10 +70,11 @@ function Footer() {
                 <button
                     className="px-3 py-2 font-bold duration-200 ease-in-out button-color"
                     onClick={() => clearToken()}
+                    
                 >
                     Log out / Clear JWT                    
                 </button>
-
+                <BuyMeACoffee />
                 <p>Hybee February 2024</p>
             </div>
         </div>
