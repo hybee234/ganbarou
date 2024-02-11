@@ -5,7 +5,7 @@ import Zoom from '@mui/material/Zoom';
 import { useGlobalContext } from '../utils/GlobalState';
 import { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client';
-import { COMPLETE_TASK, UPDATE_REVIEW_DATE_FROM_TASKLIST, ASSIGN_USER } from './../utils/mutations'
+import { COMPLETE_TASK, UPDATE_REVIEW_DATE_FROM_TASKLIST, ASSIGN_USER, UPDATE_TASK_BY_TASK_ID } from './../utils/mutations'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -16,6 +16,7 @@ import {
     TASK_DETAIL,
     TASK_DETAIL_REVIEW_DT,
     TASK_DETAIL_ASSIGNED,
+    TASK_DETAIL_PIPELINE,
     USER_SELECT,
     // UPDATE_STATE_REVIEW_DT
 } from "./../utils/actions";
@@ -43,7 +44,6 @@ export default function TaskList (props) {
     
     // Index for Rows - feature that console.logs row numbers when clicked on
     const [rowIndex, setRowIndex] = useState('');
-    
 
     //----------------------------------------//
     //- Create and Store Date/Time constants -//
@@ -166,21 +166,103 @@ export default function TaskList (props) {
     }
 
     //-------------------------//
+    //- Update Pipeline Value -//
+    //-------------------------//
+
+    // const updatePipelineValue = async (e, taskId) => {
+    //     console.log("📢 updatePipelineValue engaged")
+    //     // Find index of task of interest (by taskId)
+    //     const index = tasks.findIndex( (task) => task._id === taskId)
+    //     console.log("🖥️ index", index)
+    //     console.log("🖥️tasks[index]", tasks[index])
+
+    //     // // Make a copy of the task
+    //     const tempTask = tasks[index]
+    //     console.log("🖥️tempTask before", tempTask.priority.pipeline_number)
+
+    //     // // Update the copy with the new value
+    //     const updatedTask = {...tempTask, priority: { ...tempTask.priority, pipeline_number: e.target.value}}
+    //     console.log ("🖥️ Updated Task", updatedTask)
+
+    //     // Insert updatedTask back into the array in the same spot (replace)
+    //     tasks = {...tasks[index], tasks: updatedTask}
+    //     // console.log("🖥️tasks after insert:", tasks)
+    //     // console.log("🖥️tempTask after", tempTask)
+    //     // tasks[index].priority.pipeline_number = e.value
+    //     // console.log("🖥️tasks[index]", tasks[index])
+    // }
+
+    //-------------------------//
     //-- HandlePipelineUpdate -//
     //-------------------------//
+
+    //useMutation hook
+    const [UpdateTaskByTaskId, { error: pipelineUpdateError }] = useMutation(UPDATE_TASK_BY_TASK_ID);  
+
     const handlePipelineUpdate = async(e, taskId) => {
+        console.log("📢 handlePipelineUpdate engaged")
+        try {    
+            console.log("🖥️ e.target.value", e.target.value)
+            console.log("🖥️ taskId", taskId)
+            // Grab task details (property)
+            // Submit update with all property data
+            let taskDetailArray = tasks.filter(task => task._id === taskId)
+            
+            console.log("🖥️ taskDetailArray", taskDetailArray)
 
-        console.log("🖥️ e.target.value", e.target.value)
-        console.log("🖥️ taskId", taskId)
-        // Grab task details (property)
-        // Submit update with all property data
-        let taskDetailArray = tasks.filter(task => task._id === taskId)
-        let taskDetail = taskDetailArray[0]        
-        await dispatch ({ type: TASK_DETAIL, payload: taskDetail})
+            let taskDetail = taskDetailArray[0]
+            
+            console.log("🖥️ taskDetail", taskDetail)
+            await dispatch ({ type: TASK_DETAIL, payload: taskDetail})
+
+            // console.log("📢 handleFormSubmit engaged")
+            // const taskDetail = state.taskDetail
+            console.log("🖥️ taskDetail:", taskDetail)
+            console.log("🐞🐞🐞 Debug point 1 🐞🐞🐞")
+            console.log ("🌏 state.taskDetail: Pipeline:", state.taskDetail)
+
+            const { data: updateTaskData } = await UpdateTaskByTaskId({
+                variables: {
+                    taskId: taskDetail._id,
+                    // createdDt: state.taskDetail.created_dt,
+                    // reviewDt: state.taskDetail.review_dt,
+                    // title: state.taskDetail.title,
+                    // summary: state.taskDetail.summary,
+                    // stakeholder: state.taskDetail.stakeholder,
+                    // assigned: {
+                    //     _id: state.taskDetail.assigned._id,
+                    //     // username: state.taskDetail.assigned.username,
+                    // },
+                    // status_macro: state.taskDetail.status_macro,
+                    // status_micro: state.taskDetail.status_micro,
+                    priority: {
+                        business_driven: taskDetail.priority.business_driven,
+                        focus: taskDetail.priority.focus,
+                        urgent: taskDetail.priority.urgent,
+                        important: taskDetail.priority.important,
+                        high_effort: taskDetail.priority.high_effort,
+                        pipeline_number:  parseInt(e.target.value, 10),
+                        category: taskDetail.priority.category,
+                        comment: taskDetail.priority.comment,
+                        priority_id: taskDetail.priority_id,
+                    }                
+                },
+            });
+            
+            console.log("📦 updateTaskData", updateTaskData)
+            
+            toast.success("Pipeline Number updated Successfully")
+        } catch (pipelineUpdateError) {
+            console.log(JSON.stringify(pipelineUpdateError, null, 2)); //Much better error reporting for GraphQl issues
+            toast.error("Pipeline Updated Unsuccessful - something went wrong")
+        }
         
-        console.log ("🌏 state.taskDetail - HandlePipelineUpdate", state.taskDetail)
 
-        // task details are in state now .. need to grab a full set of properties and submit it to updateTask by Task ID
+
+
+
+
+
     }
 
 
@@ -363,11 +445,8 @@ export default function TaskList (props) {
                                                         name="review-dt"
                                                         type="date"
                                                         placeholder="MM/DD/YYYY"
-                                                        //defaultValue = {dayjs(task.review_dt).format('YYYY-MM-DD')}
                                                         value={dayjs(task.review_dt).format('YYYY-MM-DD')}
-                                                        // value={dayjs(task.review_dt).format('YYYY-MM-DD')}
                                                         onChange= {(e) =>
-                                                            // dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: e.target.value}),
                                                             handleReviewDtUpdate(e.target, task._id)
                                                         }
                                                         required
@@ -432,14 +511,14 @@ export default function TaskList (props) {
                                             </select>
                                         </td>
 
-                                        {/* Complete Column */}
+                                        {/* Complete Column Operational Table*/}
                                         {
                                             state.view === "completed" ? (
                                                 <td className="table-cell table-row-cell">{dayjs(task.complete_dt).format('DD/MM/YY')}</td>
                                             ) : (
                                                 <td>
                                                     <button                                                
-                                                        className=" table-row-cell link-color"
+                                                        className=" table-row-cell"
                                                         onClick={ ()=> completeHandler(task._id, "operational") }
                                                         >                                              
                                                             <Icon icon="subway:tick" width="15" height="15" color="green"/>  
@@ -501,15 +580,15 @@ export default function TaskList (props) {
                                 state.view === "completed" ? (
                                     <th></th>
                                 ) : (
-                                <th className="hidden sm:table-cell table-heading-cell ">Review</th> 
+                                <th className="hidden lg:table-cell table-heading-cell ">Review</th> 
                                 )
                             }                        
-                            <th className="hidden sm:table-cell table-heading-cell">Assigned</th>
-                            <th className="hidden sm:table-cell table-heading-cell">Stakeholder</th>
-                            <th className="sm:hidden table-cell table-heading-cell">RV/Assign</th>
-                            <th className="sm:hidden table-cell table-heading-cell"></th>
-                            <th className="hidden sm:table-cell table-heading-cell"></th> 
-                            <th className="hidden sm:table-cell table-heading-cell">Category</th>
+                            <th className="hidden lg:table-cell table-heading-cell">Assigned</th>
+                            <th className="hidden md:table-cell table-heading-cell">Stakeholder</th>
+                            <th className="lg:hidden table-cell table-heading-cell">RV/Assign</th>
+                            <th className="lg:hidden table-cell table-heading-cell">U/I/E</th>
+                            <th className="hidden lg:table-cell table-heading-cell">Urg/Imp/Eff</th> 
+                            <th className="hidden md:table-cell table-heading-cell">Category</th>
                             <th className="table-cell sm:hidden table-heading-cell">
                                 <Icon                                                        
                                     icon="solar:cat-bold"                                                        
@@ -571,7 +650,7 @@ export default function TaskList (props) {
                                                 </td>
                                             ) : (
                                                 // Visible if not completed
-                                                <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
+                                                <td className="hidden lg:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
                                                     <input
                                                         className="table-select text-center"
                                                         name="review-dt"
@@ -588,7 +667,7 @@ export default function TaskList (props) {
                                             )
                                         } 
                                         {/* Assign column Focus */}
-                                        <td className="hidden sm:table-cell table-row-cell">
+                                        <td className="hidden lg:table-cell table-row-cell">
                                             <select
                                             className="table-select text-center"
                                             name="assigned-user"
@@ -605,11 +684,13 @@ export default function TaskList (props) {
                                                     })
                                                 }
                                             </select>
-                                        </td> 
-                                        <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td>
+                                        </td>
+
+                                        {/* Stakeholder column Focus */}
+                                        <td className="hidden md:table-cell table-row-cell">{task.stakeholder}</td>
 
                                         {/* Review/Assign Combined Column Focus*/} 
-                                        <td className="sm:hidden table-cell  table-row-cell">
+                                        <td className="lg:hidden table-cell  table-row-cell">
                                             <div className="flex justify-center items-center">
                                                 <input
                                                     className="table-select text-center w-full"
@@ -644,10 +725,10 @@ export default function TaskList (props) {
 
                                         {/* Urgent/Important/Effort Combined Focus*/}                                        
                                         <td className="table-cell table-row-cell">
-                                            <div className= "flex flex-wrap sm:flex-nowrap">
+                                            <div className= "flex flex-wrap lg:flex-nowrap justify-center">
                                             {
                                                 task.priority.urgent? (
-                                                    <div className="w-full sm:w-auto">
+                                                    <div className="w-full lg:w-auto">
                                                         <Icon                                                        
                                                             icon="game-icons:burning-forest"                                                        
                                                             width="25" height="25" 
@@ -655,7 +736,7 @@ export default function TaskList (props) {
                                                         />
                                                     </div>
                                                 ):(
-                                                    <div className="w-full sm:w-auto">
+                                                    <div className="w-full lg:w-auto">
                                                         <Icon                                                        
                                                             icon="game-icons:camping-tent"                                                        
                                                             width="25" height="25" 
@@ -666,7 +747,7 @@ export default function TaskList (props) {
                                             }
                                             {
                                                 task.priority.important? (
-                                                    <div className="w-full sm:w-auto">
+                                                    <div className="w-full lg:w-auto">
                                                     <Icon                                                        
                                                         icon="game-icons:heart-plus"                                                        
                                                         width="25" height="25" 
@@ -674,7 +755,7 @@ export default function TaskList (props) {
                                                     />
                                                     </div>
                                                 ):(
-                                                    <div className="w-full sm:w-auto">
+                                                    <div className="w-full lg:w-auto">
                                                     <Icon                                                        
                                                         icon="game-icons:plain-arrow"                                                        
                                                         width="25" height="25" 
@@ -685,7 +766,7 @@ export default function TaskList (props) {
                                             }
                                             {
                                                 task.priority.high_effort? (
-                                                    <div className="w-full sm:w-auto">
+                                                    <div className="w-full lg:w-auto">
                                                     <Icon                                                        
                                                         icon="game-icons:mountain-road"                                                        
                                                         width="25" height="25" 
@@ -693,7 +774,7 @@ export default function TaskList (props) {
                                                     />
                                                     </div>
                                                 ):(
-                                                    <div className="w-full sm:w-auto">
+                                                    <div className="w-full lg:w-auto">
                                                     <Icon                                                        
                                                         icon="game-icons:cake-slice"                                                        
                                                         width="25" height="25" 
@@ -712,17 +793,46 @@ export default function TaskList (props) {
 
                                         {/* Pipeline Column FOous */}
                                         <td className="table-row-cell px-1">
-                                            {
+                                            {/* {
                                                 !task.priority.pipeline_number || task.priority.pipeline_number === 999 ? (
-                                                    <div> -- </div>
-                                                ):(
                                                     <div className="flex justify-center"> 
-                                                        <div className = "text-center text-xl pipeline-number">
-                                                            {task.priority.pipeline_number}
+                                                        <div className = "text-center pipeline-number">
+                                                            <input
+                                                                className="table-input text-center"                                        
+                                                                type="number"
+                                                                inputMode="number"
+                                                                step="1"
+                                                                defaultValue=''
+                                                                // value={task.priority.pipeline_number}
+                                                                // value={state.taskDetail.priority.pipeline_number}
+                                                                // onChange= {(e) => dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
+                                                                // onChange= {(e) => updatePipelineValue (e, task._id)}
+                                                                onBlur= {(e) => handlePipelineUpdate (e, task._id)}
+                                                            >
+                                                            </input> 
                                                         </div>
                                                     </div>
-                                                )
-                                            }
+                                                ):( */}
+                                                    <div className="flex justify-center"> 
+                                                        <div className = "text-center pipeline-number">
+                                                            <input
+                                                                className="table-input text-center"                                        
+                                                                type="number"
+                                                                inputMode="number"
+                                                                step="1"
+                                                                defaultValue={task.priority.pipeline_number}
+                                                                // value={task.priority.pipeline_number}
+                                                                // value={state.taskDetail.priority.pipeline_number}
+                                                                // onChange= {(e) => dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
+                                                                // onChange= {(e) => handlePipelineUpdate (e, task._id)}
+                                                                onBlur= {(e) => handlePipelineUpdate (e, task._id)}
+                                                                    
+                                                            >
+                                                            </input> 
+                                                        </div>
+                                                    </div>
+                                                {/* )
+                                            } */}
                                         </td>
                                         {/* Complete Column Focus*/}
                                         {
@@ -731,7 +841,7 @@ export default function TaskList (props) {
                                             ) : (
                                                 <td>
                                                     <button                                                
-                                                        className=" table-row-cell link-color"
+                                                        className=" table-row-cell"
                                                         onClick={ ()=> completeHandler(task._id, "focus") }
                                                         >                                              
                                                             <Icon icon="subway:tick" width="15" height="15" strokeWidth={3} color="green"/>  
@@ -795,12 +905,12 @@ export default function TaskList (props) {
                                 <th className="hidden sm:table-cell table-heading-cell ">Review</th> 
                                 )
                             }                           
-                            <th className="hidden sm:table-cell table-heading-cell">Assigned</th>
-                            <th className="hidden sm:table-cell table-heading-cell">Stakeholder</th>
-                            <th className="sm:hidden table-cell table-heading-cell">RV/Assign</th>
-                            <th className="sm:hidden table-cell table-heading-cell"></th>
-                            <th className="hidden sm:table-cell table-heading-cell"></th> 
-                            <th className="hidden sm:table-cell table-heading-cell">Category</th>
+                            <th className="hidden lg:table-cell table-heading-cell">Assigned</th>
+                            <th className="hidden md:table-cell table-heading-cell">Stakeholder</th>
+                            <th className="lg:hidden table-cell table-heading-cell">RV/Assign</th>
+                            <th className="lg:hidden table-cell table-heading-cell"></th>
+                            <th className="hidden lg:table-cell table-heading-cell">Urg/Imp/Eff</th> 
+                            <th className="hidden md:table-cell table-heading-cell">Category</th>
                             <th className="table-cell sm:hidden table-heading-cell">
                                 <Icon                                                        
                                     icon="solar:cat-bold"                                                        
@@ -863,7 +973,7 @@ export default function TaskList (props) {
                                                 </td>
                                             ) : (
                                                 // Visible if not completed
-                                                <td className="hidden sm:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
+                                                <td className="hidden lg:table-cell table-row-cell review-date-js" data-review-dt={task.review_dt}>
                                                     <input
                                                         className="table-select text-center"
                                                         name="review-dt"
@@ -881,7 +991,7 @@ export default function TaskList (props) {
                                         } 
 
                                         {/* Assign column Opportunistic */}
-                                        <td className="hidden sm:table-cell table-row-cell">
+                                        <td className="hidden lg:table-cell table-row-cell">
                                             <select
                                             className="table-select text-center"
                                             name="assigned-user"
@@ -901,10 +1011,10 @@ export default function TaskList (props) {
                                         </td> 
 
 
-                                        <td className="hidden sm:table-cell table-row-cell">{task.stakeholder}</td> 
+                                        <td className="hidden md:table-cell table-row-cell">{task.stakeholder}</td> 
                                         
                                         {/* Review/Assign Combined Column Opportunistic */} 
-                                        <td className="sm:hidden table-cell table-row-cell">
+                                        <td className="lg:hidden table-cell table-row-cell">
                                             <div className="flex justify-center items-center">
                                                 <input
                                                     className="table-select text-center w-full"
@@ -938,11 +1048,11 @@ export default function TaskList (props) {
                                         </td>      
 
                                         {/* Urgent/Important/Effort Combined Opportunistic*/}
-                                        <td className="table-cell table-row-cell ">
-                                            <div className= "flex flex-wrap sm:flex-nowrap">
+                                        <td className="table-cell table-row-cell">
+                                            <div className= "flex flex-wrap lg:flex-nowrap justify-center">
                                             {
                                                 task.priority.urgent? (
-                                                    <div className="w-full sm:w-auto">
+                                                    <div className="w-full lg:w-auto">
                                                         <Icon                                                        
                                                             icon="game-icons:burning-forest"                                                        
                                                             width="25" height="25" 
@@ -950,7 +1060,7 @@ export default function TaskList (props) {
                                                         />
                                                     </div>
                                                 ):(
-                                                    <div className="w-full sm:w-auto">
+                                                    <div className="w-full lg:w-auto">
                                                         <Icon                                                        
                                                             icon="game-icons:camping-tent"                                                        
                                                             width="25" height="25" 
@@ -961,7 +1071,7 @@ export default function TaskList (props) {
                                             }
                                             {
                                                 task.priority.important? (
-                                                    <div className="w-full sm:w-auto">
+                                                    <div className="w-full lg:w-auto">
                                                     <Icon                                                        
                                                         icon="game-icons:heart-plus"                                                        
                                                         width="25" height="25" 
@@ -969,7 +1079,7 @@ export default function TaskList (props) {
                                                     />
                                                     </div>
                                                 ):(
-                                                    <div className="w-full sm:w-auto">
+                                                    <div className="w-full lg:w-auto">
                                                     <Icon                                                        
                                                         icon="game-icons:plain-arrow"                                                        
                                                         width="25" height="25" 
@@ -980,7 +1090,7 @@ export default function TaskList (props) {
                                             }
                                             {
                                                 task.priority.high_effort? (
-                                                    <div className="w-full sm:w-auto">
+                                                    <div className="w-full lg:w-auto">
                                                     <Icon                                                        
                                                         icon="game-icons:mountain-road"                                                        
                                                         width="25" height="25" 
@@ -988,7 +1098,7 @@ export default function TaskList (props) {
                                                     />
                                                     </div>
                                                 ):(
-                                                    <div className="w-full sm:w-auto">
+                                                    <div className="w-full lg:w-auto">
                                                     <Icon                                                        
                                                         icon="game-icons:cake-slice"                                                        
                                                         width="25" height="25" 
@@ -1009,7 +1119,23 @@ export default function TaskList (props) {
                                         <td className="table-row-cell px-1">
                                             {
                                                 !task.priority.pipeline_number || task.priority.pipeline_number === 999 ? (
-                                                    <div> -- </div>
+                                                    <div className="flex justify-center"> 
+                                                        <div className = "text-center pipeline-number">
+                                                            <input
+                                                                className="table-input text-center"                                        
+                                                                type="number"
+                                                                inputMode="number"
+                                                                step="1"
+                                                                defaultValue=''
+                                                                // value={task.priority.pipeline_number}
+                                                                // value={state.taskDetail.priority.pipeline_number}
+                                                                // onChange= {(e) => dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
+                                                                // onChange= {(e) => updatePipelineValue (e, task._id)}
+                                                                onBlur= {(e) => handlePipelineUpdate (e, task._id)}
+                                                            >
+                                                            </input> 
+                                                        </div>
+                                                    </div>
                                                 ):(
                                                     <div className="flex justify-center"> 
                                                         <div className = "text-center pipeline-number">
@@ -1018,12 +1144,15 @@ export default function TaskList (props) {
                                                                 type="number"
                                                                 inputMode="number"
                                                                 step="1"
-                                                                value={task.priority.pipeline_number}
-                                                                onChange= {(e) => handlePipelineUpdate (e, task._id)}
-                                                                //     dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
+                                                                defaultValue={task.priority.pipeline_number}
+                                                                // value={task.priority.pipeline_number}
+                                                                // value={state.taskDetail.priority.pipeline_number}
+                                                                // onChange= {(e) => dispatch({ type: TASK_DETAIL_PIPELINE, payload: e.target.value})}
+                                                                // onChange= {(e) => handlePipelineUpdate (e, task._id)}
+                                                                onBlur= {(e) => handlePipelineUpdate (e, task._id)}
+                                                                    
                                                             >
                                                             </input> 
-                                                            {task.priority.pipeline_number}
                                                         </div>
                                                     </div>
                                                 )
@@ -1036,7 +1165,7 @@ export default function TaskList (props) {
                                             ) : (
                                                 <td>
                                                     <button                                                
-                                                        className=" table-row-cell link-color"
+                                                        className=" table-row-cell"
                                                         onClick={ ()=> completeHandler(task._id, "opportunistic") }
                                                         >                                              
                                                             <Icon icon="subway:tick" width="15" height="15" color="green"/>  

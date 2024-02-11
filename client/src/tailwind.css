@@ -1353,22 +1353,34 @@ li {
     color: red
 } */
 
-/* .table-input {
-    border: 2px inset var(--inputborder);
-    transition-duration: 200ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 1px;
-    border-radius: 5px;
-    text-align: justify;
+.table-input {
+  border: 1px solid var(--inputborder);
+  color: var(--text);
+  border-radius: 5px;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-top:2px;
+  margin-bottom: 2px;
+  background-color: rgba(150, 150, 150, 0.20);
+  text-align: center;
+  width: 60px;
+}
+
+.table-input::-moz-placeholder {
+  color: var(--admintext)
 }
 
 .table-input::placeholder {
-    color: var(--admintext)
+  color: var(--admintext)
 }
 
 .table-input:hover {
-    background-color: var(--inputbackgroundhover);
-} */
+  background-color: var(--inputbackgroundhover);
+}
 
 .table-select {
   border: 1px solid var(--inputborder);
@@ -2119,16 +2131,8 @@ li {
     width: 75%;
   }
 
-  .sm\:w-auto {
-    width: auto;
-  }
-
   .sm\:w-full {
     width: 100%;
-  }
-
-  .sm\:flex-nowrap {
-    flex-wrap: nowrap;
   }
 
   .sm\:text-2xl {
@@ -2157,6 +2161,10 @@ li {
     display: flex;
   }
 
+  .md\:table-cell {
+    display: table-cell;
+  }
+
   .md\:flex-wrap {
     flex-wrap: wrap;
   }
@@ -2178,6 +2186,22 @@ li {
 }
 
 @media (min-width: 1024px) {
+  .lg\:table-cell {
+    display: table-cell;
+  }
+
+  .lg\:hidden {
+    display: none;
+  }
+
+  .lg\:w-auto {
+    width: auto;
+  }
+
+  .lg\:flex-nowrap {
+    flex-wrap: nowrap;
+  }
+
   .lg\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
