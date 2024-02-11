@@ -573,7 +573,7 @@ const checkButton = (event) =>{
     {/* Footer */}
     {/**********/}
 
-                <button
+                {/* <button
                     className="px-6 py-2 my-5 font-bold duration-200 ease-in-out button-color"
                     type="button"
                     value="cancel"
@@ -587,9 +587,9 @@ const checkButton = (event) =>{
                             />
                             <div>&nbsp; console.log(state) </div>                                                  
                     </div> 
-                </button>
+                </button> */}
 
-                <p className="block modal-label w-1/3 mt-5"> Task ID: {state.taskDetail._id}</p> 
+                {/* <p className="block modal-label w-1/3 mt-5"> Task ID: {state.taskDetail._id}</p>  */}
             </form>
         </div>
     )
