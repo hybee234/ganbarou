@@ -83,6 +83,47 @@ const resolvers = {
         },
 
 
+        checkout: async (parent, args, context) => {
+
+            console.log (`\x1b[33m ┌────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
+            console.log (`\x1b[33m │ Stripe │ \x1b[0m\x1b[32m  \x1b[0m`); 
+            console.log (`\x1b[33m └────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
+
+            const url = new URL(context.headers.referer).origin;
+            // We map through the list of products sent by the client to extract the _id of each item and create a new Order.
+            await Order.create({ products: args.products.map(({ _id }) => _id) });
+            
+            // Create an array of line items that the user is buying
+            //Just coffee ..
+            const line_items = [];
+            
+            for (const product of args.products) {
+                line_items.push({
+                price_data: {
+                    currency: 'usd',
+                    product_data: {
+                        name: product.name,
+                        description: product.description,
+                        images: [`${url}/images/${product.image}`],
+                    },
+                    unit_amount: product.price * 100,
+                },
+                quantity: product.purchaseQuantity,
+                });
+            }
+            // Create payment session
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                line_items,
+                mode: 'payment',
+                success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+                cancel_url: `${url}/`,
+            });
+            
+            return { session: session.id };
+        },
+
+
     },
 
 
@@ -291,47 +332,6 @@ const resolvers = {
             console.log("📦 Update PipeLine Number by Task I", updatePipelineNumber)
             return updatePipelineNumber
         },
-
-
-        // checkout: async (parent, args, context) => {
-
-        //     console.log (`\x1b[33m ┌────────┐ \x1b[0m\x1b[32m  \x1b[0m`);
-        //     console.log (`\x1b[33m │ Stripe │ \x1b[0m\x1b[32m  \x1b[0m`); 
-        //     console.log (`\x1b[33m └────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
-
-        //     const url = new URL(context.headers.referer).origin;
-        //     // We map through the list of products sent by the client to extract the _id of each item and create a new Order.
-        //     await Order.create({ products: args.products.map(({ _id }) => _id) });
-            
-        //     // Create an array of line items that the user is buying
-        //     //Just coffee ..
-        //     const line_items = [];
-            
-        //     for (const product of args.products) {
-        //         line_items.push({
-        //         price_data: {
-        //             currency: 'usd',
-        //             product_data: {
-        //                 name: product.name,
-        //                 description: product.description,
-        //                 images: [`${url}/images/${product.image}`],
-        //             },
-        //             unit_amount: product.price * 100,
-        //         },
-        //         quantity: product.purchaseQuantity,
-        //         });
-        //     }
-        //     // Create payment session
-        //     const session = await stripe.checkout.sessions.create({
-        //         payment_method_types: ['card'],
-        //         line_items,
-        //         mode: 'payment',
-        //         success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-        //         cancel_url: `${url}/`,
-        //     });
-            
-        //     return { session: session.id };
-        // },
     }
 };
 

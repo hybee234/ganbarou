@@ -52,12 +52,30 @@ const typeDefs = `
         user: User
     } 
 
+    #Stripe
+    type Checkout {
+        session: ID
+    }
+
+    #Stripe
+    input ProductInput {
+        _id: ID
+        purchaseQuantity: Int
+        name: String
+        image: String
+        price: Float
+        quantity: Int
+    }
+
     type Query {
         users: [User]
         tasks: [Task]
         me: User
         tasksByAssignedId(assigned: ID!): [Task]
         taskByTaskId (_id: ID!): Task
+
+        #Stripe
+        checkout(products: [ProductInput]): Checkout
     }
 
     input userInput {
@@ -66,7 +84,6 @@ const typeDefs = `
         email: String
         security: String
     }
-
 
     input priorityUserInput {
         priority_id: ID
@@ -92,10 +109,10 @@ const typeDefs = `
         addUser(username: String! email: String! password: String!): Auth
         login(email: String password: String!): Auth
         completeTask( id: ID!): Task
-
         assignUser (taskId: ID! assigned: userInput): Task
-        
         updatePipelineNumber (taskId: ID! pipeline_number: Int! priority: priorityUserInput ): Task
+        updateReviewDtFromTaskList (taskId:ID!, review_dt: Date): Task
+        addNote(noteUserInput: noteUserInput, taskId:ID!): Task
 
         updateTaskByTaskId (
             taskId: ID!
@@ -109,10 +126,6 @@ const typeDefs = `
             priority: priorityUserInput
             note: noteUserInput
         ): Task
-
-        updateReviewDtFromTaskList (taskId:ID!, review_dt: Date): Task
-
-        addNote(noteUserInput: noteUserInput, taskId:ID!): Task
 
         addTask(
             created_dt: Date

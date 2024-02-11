@@ -488,7 +488,8 @@ li {
     margin-bottom: 2px;
     background-color: rgba(150, 150, 150, 0.20);
     text-align: center;
-    width: 60px; 
+    width: 60px;
+    height: 25px; 
 }
 
 .table-input::placeholder {
@@ -511,7 +512,8 @@ li {
     padding-right: 0px;
     margin-top:2px;
     margin-bottom: 2px;
-    background-color: rgba(150, 150, 150, 0.20); 
+    background-color: rgba(150, 150, 150, 0.20);
+    height: 25px; 
 }
 
 .table-select option {
@@ -1091,6 +1093,9 @@ li {
     .welcome-text-container {
         flex: 1 0 200px;
         font-size: 1rem;
+    }
+    .table-row-cell {
+        font-size: 0.6rem;
     }
 }
 
