@@ -410,7 +410,7 @@ export default function TaskList (props) {
                                 return(                                    
                                     <tr id={`table-row-${task._id}`} className="table-row p-4 text-xs sm:text-xs md:text-sm xl:text-base" key={task._id} onClick= { ()=> setRowIndex(index)}>
                                         
-                                        {/* Created_dt/Title Combined Focus */}
+                                        {/* Created_dt/Title Combined Operational */}
                                         <td className="table-cell md:hidden table-row-cell">
                                             <div className = " table-row-cell text-left">
                                                 {dayjs(task.created_dt).format('DD/MM/YY')}
@@ -421,6 +421,7 @@ export default function TaskList (props) {
                                                         <div className="tooltip">                                            
                                                             <div className="tooltip-heading">Task Summary</div>                                                                            
                                                             <div className="tooltip-string">{task.summary}</div>                                                        
+                                                            <div className="tooltip-string"><br></br></div>  
                                                             <div className="tooltip-footer">Stakeholder: {task.stakeholder}</div>  
                                                         </div>}
                                                         arrow placement="bottom"
@@ -439,15 +440,16 @@ export default function TaskList (props) {
                                             </div>                                
                                         </td> 
 
-                                        {/* Created_dt Focus */}
+                                        {/* Created_dt Operational */}
                                         <td className="hidden md:table-cell table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
-                                        {/* Title column Focus */}
+                                        {/* Title column Operational */}
                                         <td className="hidden md:table-cell table-row-cell">
                                             <Tooltip
                                                 title={
                                                     <div className="tooltip">                                            
                                                         <div className="tooltip-heading">Task Summary</div>                                                                            
                                                         <div className="tooltip-string">{task.summary}</div>                                                        
+                                                        <div className="tooltip-string"><br></br></div> 
                                                         <div className="tooltip-footer">Stakeholder: {task.stakeholder}</div>  
                                                     </div>}
                                                     arrow placement="bottom"
@@ -464,7 +466,7 @@ export default function TaskList (props) {
                                                 </p>
                                             </Tooltip>
                                         </td>
-                                        {/* Review column */}
+                                        {/* Review column Operational */}
                                         {
                                             state.view === "completed" ? (
                                                 <td>
@@ -666,7 +668,8 @@ export default function TaskList (props) {
                                                     title={
                                                         <div className="tooltip">                                            
                                                             <div className="tooltip-heading">Task Summary</div>                                                                            
-                                                            <div className="tooltip-string">{task.summary}</div>                                                        
+                                                            <div className="tooltip-string">{task.summary}</div>
+                                                            <div className="tooltip-string"><br></br></div>                                                         
                                                             <div className="tooltip-footer">Stakeholder: {task.stakeholder}</div>  
                                                         </div>}
                                                         arrow placement="bottom"
@@ -693,7 +696,8 @@ export default function TaskList (props) {
                                                 title={
                                                     <div className="tooltip">                                            
                                                         <div className="tooltip-heading">Task Summary</div>                                                                            
-                                                        <div className="tooltip-string">{task.summary}</div>                                                        
+                                                        <div className="tooltip-string">{task.summary}</div>
+                                                        <div className="tooltip-string"><br></br></div>                                                         
                                                         <div className="tooltip-footer">Stakeholder: {task.stakeholder}</div>  
                                                     </div>}
                                                     arrow placement="bottom"
@@ -994,7 +998,8 @@ export default function TaskList (props) {
                                                     title={
                                                         <div className="tooltip">                                            
                                                             <div className="tooltip-heading">Task Summary</div>                                                                            
-                                                            <div className="tooltip-string">{task.summary}</div>                                                        
+                                                            <div className="tooltip-string">{task.summary}</div>
+                                                            <div className="tooltip-string"><br></br></div>                                                         
                                                             <div className="tooltip-footer">Stakeholder: {task.stakeholder}</div>  
                                                         </div>}
                                                         arrow placement="bottom"
@@ -1013,15 +1018,16 @@ export default function TaskList (props) {
                                             </div>                                
                                         </td> 
                                         
-                                        {/* Created_dt Focus */}
+                                        {/* Created_dt Opportunistic */}
                                         <td className="hidden md:table-cell table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
-                                        {/* Title column Focus */}
+                                        {/* Title column Opportunistic */}
                                         <td className="hidden md:table-cell table-row-cell">
                                             <Tooltip
                                                 title={
                                                     <div className="tooltip">                                            
                                                         <div className="tooltip-heading">Task Summary</div>                                                                            
-                                                        <div className="tooltip-string">{task.summary}</div>                                                        
+                                                        <div className="tooltip-string">{task.summary}</div>
+                                                        <div className="tooltip-string"><br></br></div>                                                         
                                                         <div className="tooltip-footer">Stakeholder: {task.stakeholder}</div>  
                                                     </div>}
                                                     arrow placement="bottom"
