@@ -60,40 +60,43 @@ export default function BuyMeACoffee () {
 
     return (
 
-            <div className="m-auto">
+            <div className=" m-auto">
                 <div>
                     Enjoying <span className="cherry-font">Ganbarou</span>?
                     <div>Buy me coffee to show your appreciation! </div>
                 </div>
-                <input
-                    className="modal-field w-16 text-center "
-                    name="cofee-qty"
-                    type="number"
-                    defaultValue="1"
-                    value={state.coffeeQty}
-                    onChange= {(e) =>
-                        dispatch({ type: COFFEE_QTY, payload: e.target.value})}
-                    > 
-                </input> 
-                {
-                    state.coffeeQty <= 1 ?
-                    (
-                        <span>coffee</span>
-                    ):(
-                        <span>coffees 😍😍</span>
-                    )
-                }
-                <div className="w-full">
-                    <button
-                        className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
-                        onClick={buyCoffee}
-                        >
-                            <Icon
-                                icon="line-md:coffee-loop"
-                                width="30" height="30" 
-                                className="task-detail-icon m-auto"
-                            />                        
-                    </button>
+                <div className="">
+                    <input
+                        className="modal-field w-16 text-center my-1"
+                        name="cofee-qty"
+                        type="number"
+                        min="1"
+                        defaultValue="1"
+                        value={state.coffeeQty}
+                        onChange= {(e) =>
+                            dispatch({ type: COFFEE_QTY, payload: e.target.value})}
+                        > 
+                    </input> 
+                    {
+                        state.coffeeQty <= 1 ?
+                        (
+                            <span>coffee</span>
+                        ):(
+                            <span>coffees 😍😍</span>
+                        )
+                    }
+                    <div className="w-full">
+                        <button
+                            className="px-6 py-1 my-1 font-bold duration-200 ease-in-out button-color"
+                            onClick={buyCoffee}
+                            >
+                                <Icon
+                                    icon="line-md:coffee-loop"
+                                    width="20" height="20" 
+                                    className="task-detail-icon m-auto"
+                                />                        
+                        </button>   
+                    </div>
                 </div>
             </div>
 

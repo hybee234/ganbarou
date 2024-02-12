@@ -326,8 +326,8 @@ li {
 /**********/
 
 .footer {
-    max-width: 300px;
-    margin-top: 50px;
+    max-width: 175px;
+    margin-top: 100px;
     margin-bottom: 50px;
     margin-inline: auto;
     text-align: center;         
@@ -1123,6 +1123,11 @@ li {
     #connect-with-me {
         display: none;
     }
+    .side-menu-heading, .side-menu-item {
+        font-size: 0.7rem;
+        padding-top: 0.0rem;
+        padding-bottom: 0.0rem;
+    }
 }
 
 
@@ -1134,6 +1139,10 @@ li {
 @media (max-height: 375px) {
     .modal-form {
         height: 80vh;
+    }
+    #chiikawa-gif {
+        display: none;
+
     }
 }
 

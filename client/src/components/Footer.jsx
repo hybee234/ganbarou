@@ -41,7 +41,7 @@ function Footer() {
                 {/*********************/}
 
                 {/* Button to trigger console.log of state */}
-                <button
+                {/* <button
                     className="px-3 py-2 font-bold duration-200 ease-in-out button-color"
                     type="button"
                     value="cancel"
@@ -55,7 +55,7 @@ function Footer() {
                             />
                             <div>&nbsp; console.log(state)</div>                                                  
                     </div> 
-                </button>
+                </button> */}
 
                 {/* Logged in User details */}
                 {/* { 
@@ -80,8 +80,6 @@ function Footer() {
                 >
                     Log out / Clear JWT                    
                 </button> */}
-
-                <p>Hybee February 2024</p>
             </div>
         </div>
     );
