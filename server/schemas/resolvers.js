@@ -43,10 +43,10 @@ const resolvers = {
             }
 
             const myData = await User.findOne({ _id: context.user._id })
-                .populate({
+                // .populate({
                     // path: 'tasks',
                     // match: { complete_flag: false }
-                }).exec()
+                // }).exec()
 
             // console.log(myData)
             return myData;            
@@ -93,6 +93,8 @@ const resolvers = {
 
             // Grab your current URL to feed into the checkout session
             // URL = your domain
+            console.log("🎁 Stripe args", args)
+            console.log("🎁 Stripe args.products.quantity", args.products.quantity)
 
             const url = new URL(context.headers.referer).origin;
             // console.log("💬 url =", url)
@@ -104,12 +106,18 @@ const resolvers = {
                 payment_method_types: ['card'],
                 // line_items,   //Original code from Activity 23
                 
-                // From Stripe docs (Hard code the line_items value for now)
+                // From Stripe docs (Hard code the cofee)
                 line_items: [
                     {
                       // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+                        
                         price: 'price_1Oicj7KwMV8NBYYPSbfrYK5Z',
-                        quantity: 1,
+                        image: args.products.image,
+                        // name: args.products.name,
+                        // price: args.products.price,
+                        // purchaseQuantity: args.products.purchaseQuantity,
+                        // quantity: 3,
+                        quantity: args.products.quantity
                     },
                 ],
 

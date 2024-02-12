@@ -750,8 +750,6 @@ li {
 .modal-field::placeholder {
     color: rgba(130, 130, 130, 1)
 }
-
-
     
 .modal-field-container {
     /* border: 2px solid yellow; */
@@ -813,10 +811,6 @@ li {
 .task-detail-modal-icon {
     font-size: 3rem
 }
-
-
-
-
 
 #pipeline-number {    
     width: 150px;

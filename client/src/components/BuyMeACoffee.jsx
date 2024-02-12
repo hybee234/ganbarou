@@ -5,11 +5,12 @@ import { QUERY_CHECKOUT } from './../utils/queries';
 
 import Auth from './../utils/auth';
 import { useGlobalContext } from '../utils/GlobalState';
-// import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from './../utils/actions';
+import { Icon } from '@iconify/react';
 
-// import CartItem from '../CartItem';
-// import { idbPromise } from '../../utils/helpers';
 
+import {
+    COFFEE_QTY,
+} from '../utils/actions'
 
 // stripePromise returns a promise with the stripe object as soon as the Stripe package loads
 const stripePromise = loadStripe('pk_test_51OiYUVKwMV8NBYYPoY8w6BNyEYxag1WKaOF0L5GOybGfLHQdg4wjlkMjeU7pyZq2ZchslaqgTlkili6B7QYqJlL500MfCZruYu');
@@ -24,37 +25,28 @@ export default function BuyMeACoffee () {
     const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 
     const buyCoffee = async() => {
-        console.log("📢 buyCofee engaged")
+        console.log("📢 buyCoffee engaged")
+        console.log("💬 state.coffeeQty", state.coffeeQty)
 
         try {
-                const {data } = await getCheckout( {
+                const { data } = await getCheckout( {
                     variables: {
-                        product: {
-                            currency: 'aud',
-                            name: "Coffee",
-                            description: "Buy the developer a coffee",
-                            price: 5,
-                            purchasQuantity: 1,
-                        },                     
-                        
+                        products: {
+                            // image: "./assets/images/coffee.jpg",                        
+                            // price: 5,
+                            // name: "Coffee",
+                            // purchaseQuantity: 5, 
+                            // quantity: 1,                           
+                            quantity: parseInt(state.coffeeQty),   
+                        }
                     }
                 })
-
                 console.log ("📦 getCheckout data", data)
-
-                // console.log ("📦 getCheckout data.checkout.session", data.checkout.session)
-
-                // window.location.href = `${data.checkout.sesssion}`;
-
-
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
-            // toast.error("Updated Unsuccessful - something went wrong")
+            // toast.error("Checkout Unsuccessful - something went wrong")
         }
-
-
-
-}
+    }
     // // We check to see if there is a data object that exists, if so this means that a checkout session was returned from the backend
     // // Then we should redirect to the checkout with a reference to our session id
     useEffect(() => {
@@ -66,90 +58,45 @@ export default function BuyMeACoffee () {
         }
     }, [data]);
 
-    // console.log (data)
-    
-    // // If the cart's length or if the dispatch function is updated, check to see if the cart is empty.
-    // // If so, invoke the getCart method and populate the cart with the existing from the session
-    // useEffect(() => {
-    //     async function getCart() {
-
-    //         //[HL] look at what this is adding ... just need to add a coffee ....
-    //     const cart = await idbPromise('cart', 'get');
-    //     dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
-    //     }
-
-    //     if (!state.cart.length) {
-    //     getCart();
-    //     }
-    // }, [state.cart.length, dispatch]);
-
-    // function toggleCart() {
-    //     dispatch({ type: TOGGLE_CART });
-    // }
-
-    // function calculateTotal() {
-    //     let sum = 0;
-    //     state.cart.forEach((item) => {
-    //     sum += item.price * item.purchaseQuantity;
-    //     });
-    //     return sum.toFixed(2);
-    // }
-
-    // // When the submit checkout method is invoked, loop through each item in the cart
-    // // Add each item id to the productIds array and then invoke the getCheckout query passing an object containing the id for all our products
-    // function submitCheckout() {
-
-    //     getCheckout({
-    //     variables: { 
-    //         products: [...state.cart],
-    //     },
-    //     });
-    // }
-
-    // if (!state.cartOpen) {
-    //     return (
-    //     <div className="cart-closed" onClick={toggleCart}>
-    //         <span role="img" aria-label="trash">
-    //         🛒
-    //         </span>
-    //     </div>
-    //     );
-    // }
-
     return (
-    //     <div className="cart">
-    //     <div className="close" onClick={toggleCart}>
-    //         [close]
-    //     </div>
-    //     <h2>Shopping Cart</h2>
-    //     {state.cart.length ? (
-    //         <div>
-    //         {state.cart.map((item) => (
-    //             <CartItem key={item._id} item={item} />
-    //         ))}
 
-            <div className="flex-row space-between">
-    {/* //             <strong>Total: ${calculateTotal()}</strong> */}
-
-                 {/* Check to see if the user is logged in. If so render a button to check out */}
+            <div className="m-auto">
+                <div>
+                    Enjoying <span className="cherry-font">Ganbarou</span>?
+                    <div>Buy me coffee to show your appreciation! </div>
+                </div>
+                <input
+                    className="modal-field w-16 text-center "
+                    name="cofee-qty"
+                    type="number"
+                    defaultValue="1"
+                    value={state.coffeeQty}
+                    onChange= {(e) =>
+                        dispatch({ type: COFFEE_QTY, payload: e.target.value})}
+                    > 
+                </input> 
                 {
-                    Auth.loggedIn() ? (
-                        <button className="button-color" onClick={buyCoffee}>Checkout</button>
-                    ) : (
-                        <span>(log in to check out)</span>
+                    state.coffeeQty <= 1 ?
+                    (
+                        <span>coffee</span>
+                    ):(
+                        <span>coffees 😍😍</span>
                     )
                 }
+                <div className="w-full">
+                    <button
+                        className="px-6 py-2 m-2 font-bold duration-200 ease-in-out button-color"
+                        onClick={buyCoffee}
+                        >
+                            <Icon
+                                icon="line-md:coffee-loop"
+                                width="30" height="30" 
+                                className="task-detail-icon m-auto"
+                            />                        
+                    </button>
+                </div>
             </div>
-    //         </div>
-    //     ) : (
-    //         <h3>
-    //         <span role="img" aria-label="shocked">
-    //             😱
-    //         </span>
-    //         You haven't added anything to your cart yet!
-    //         </h3>
-    //     )}
-    //     </div>
+
     );
 
 

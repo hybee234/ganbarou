@@ -75,7 +75,7 @@ const typeDefs = `
         taskByTaskId (_id: ID!): Task
 
         #Stripe
-        checkout(products: [ProductInput]): Checkout
+        checkout(products: ProductInput): Checkout
     }
 
     input userInput {

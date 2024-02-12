@@ -148,7 +148,7 @@ export const ALL_TASKS = gql`
 
 
 export const QUERY_CHECKOUT = gql`
-    query getCheckout($products: [ProductInput]) {
+    query getCheckout($products: ProductInput) {
         checkout(products: $products) {
         session
         }
