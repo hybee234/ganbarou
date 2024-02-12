@@ -69,8 +69,6 @@ modal-form: 150
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
-    -webkit-appearance: none;
-
     
 }
 
@@ -392,8 +390,8 @@ li {
 }
 
 .page-header {
-    width: 50%;
     margin: auto;
+    max-width: 500px;
 }
 
 /*****************/
@@ -573,13 +571,13 @@ li {
 /*****************/
 
 .login-body {
-    max-width: 800px;
+    max-width: 500px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .sign-up-body {
-    max-width: 800px;
+    max-width: 500px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -1007,9 +1005,6 @@ li {
 @media (max-width: 768px) {
     .page {        
         width: 95%;
-    }
-    .page-header {
-        width: 70%;
     }
     h1 {
         font-size: 1.5rem;
