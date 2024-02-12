@@ -61,7 +61,12 @@ export default function SideMenu() {
     function randomInt123(min, max) { // min and max inclusive
         return Math.floor(Math.random() * (max - min + 1) + min)
     }
-    const rndInt = randomInt123(1, 6)
+    let rndInt = randomInt123(1, 6)
+
+    if (rndInt === 4) {
+        rndInt = 7
+    }
+
     let gif = `../assets/images/chiikawa loading ${rndInt}.gif`
 
 
