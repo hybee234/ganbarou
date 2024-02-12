@@ -49,3 +49,9 @@ export const VIEW = 'VIEW'
 
 // One user View
 export const VIEW_ONE_USER = 'VIEW_ONE_USER'
+
+
+// BuyMeACoffee
+
+// export const TOGGLE_CART = "TOGGLE_CART";
+// export const ADD_MULTIPLE_TO_CART = "ADD_MULTIPLE_TO_CART";
