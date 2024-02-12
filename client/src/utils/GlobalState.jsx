@@ -51,7 +51,9 @@ const GlobalProvider = ({ value = [], ...props }) => {
         tasks:[],
         userlist:'',
         view:'',
-        viewOneUser:'',        
+        viewOneUser:'',
+        cart: [],
+        cartOpen: false,       
     }
 
     const [state, dispatch] = useReducer(reducer, initialstate );

@@ -14,6 +14,10 @@ import Unassigned from './pages/Unassigned'
 import BusinessDriven from './pages/BusinessDriven'
 import CompletedTasks from './pages/CompletedTasks'
 import OneUser from './pages/OneUser'
+import PaymentSuccess from './pages/PaymentSuccess'
+import PaymentCancel from './pages/PaymentCancel'
+import PaymentCheckout from './pages/PaymentCheckout'
+
 
 
 const router = createBrowserRouter([
@@ -68,6 +72,18 @@ const router = createBrowserRouter([
         {
             path: 'oneuser',
             element: <OneUser />
+        },
+        {
+            path: 'success',
+            element: <PaymentSuccess />
+        },
+        {
+            path: 'cancel',
+            element: <PaymentCancel />
+        },
+        {
+            path: 'checkout',
+            element: <PaymentCheckout />
         },
         ]
     }

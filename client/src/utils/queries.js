@@ -11,7 +11,6 @@ export const GET_ME = gql`
     }
 `;
 
-
 export const TASKS_BY_ASSIGNED_ID = gql`
     query TasksByAssignedId($assigned: ID!) {
         tasksByAssignedId(assigned: $assigned) {
@@ -146,3 +145,12 @@ export const ALL_TASKS = gql`
         }
     }
 `
+
+
+export const QUERY_CHECKOUT = gql`
+    query getCheckout($products: [ProductInput]) {
+        checkout(products: $products) {
+        session
+        }
+    }
+`;

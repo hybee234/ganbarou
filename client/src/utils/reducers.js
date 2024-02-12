@@ -31,6 +31,9 @@ import {
     NEW_TASK,
     VIEW,
     VIEW_ONE_USER,
+    // TOGGLE_CART,
+    // ADD_MULTIPLE_TO_CART,
+
 } from './actions';
 
 import createId from './createId';
@@ -400,10 +403,31 @@ export const reducer = (state, action) => {
             }                    
         }
 
+        //----------//
+        //- STRIPE -//
+        //----------//
+
+        // case TOGGLE_CART:
+        //     return {
+        //         ...state,
+        //         cartOpen: !state.cartOpen
+        //     };
+
+        //     case ADD_MULTIPLE_TO_CART:
+        //         return {
+        //             ...state,
+        //             cart: [...state.cart, ...action.products],
+        //         };
+
+
+
 
         // Default to returning the state as is in our switch statement
         default:
             return state;
+
+
+
     }
 }
     

@@ -128,14 +128,15 @@ export default function TaskList (props) {
                 },
             });
             await dispatch({ type: TASK_DETAIL_REVIEW_DT, payload: {id: taskId, review_dt: e.value}})
+            toast.success("Review Date Updated 📅")
             console.log("📦 UpdateReviewDtFromTaskList", data)              
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
         }
     }
-    //---------------------------------------------//
-    //-- useMutation update on change Review date -//
-    //---------------------------------------------//
+    //-------------------------------------//
+    //-- useMutation update Assigned User -//
+    //-------------------------------------//
 
     const [AssignUser, { errorAssigned }] = useMutation(ASSIGN_USER);
 
@@ -156,7 +157,7 @@ export default function TaskList (props) {
                 },
             });
             console.log("📦 assignUserData", assignUserData)        
-            toast.success("Assigned User Updated Successfully@")
+            toast.success("Task handed over 🏈🏈")
         } catch (error) {
             console.log(JSON.stringify(error, null, 2)); //Much better error reporting for GraphQl issues
             toast.error("Updated Unsuccessful - something went wrong")
@@ -250,7 +251,7 @@ export default function TaskList (props) {
             
             console.log("📦 updateTaskData", updateTaskData)
             
-            toast.success("Pipeline Number updated Successfully")
+            toast.success("Pipeline updated 1️⃣2️⃣3️⃣")
         } catch (pipelineUpdateError) {
             console.log(JSON.stringify(pipelineUpdateError, null, 2)); //Much better error reporting for GraphQl issues
             toast.error("Pipeline Updated Unsuccessful - something went wrong")
@@ -518,7 +519,7 @@ export default function TaskList (props) {
                                                     name="review-dt"
                                                     type="date"
                                                     placeholder="MM/DD/YYYY"
-                                                    defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                    value={dayjs(task.review_dt).format('YYYY-MM-DD')}
                                                     onChange= {(e) =>
                                                         handleReviewDtUpdate(e.target, task._id)
                                                     }
@@ -727,7 +728,7 @@ export default function TaskList (props) {
                                                         name="review-dt"
                                                         type="date"
                                                         placeholder="MM/DD/YYYY"
-                                                        defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                        value={dayjs(task.review_dt).format('YYYY-MM-DD')}
                                                         onChange= {(e) =>
                                                             handleReviewDtUpdate(e.target, task._id)
                                                         }
@@ -765,7 +766,7 @@ export default function TaskList (props) {
                                                     name="review-dt"
                                                     type="date"
                                                     placeholder="MM/DD/YYYY"
-                                                    defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                    value={dayjs(task.review_dt).format('YYYY-MM-DD')}
                                                     onChange= {(e) =>
                                                         handleReviewDtUpdate(e.target, task._id)
                                                     }
@@ -1057,7 +1058,7 @@ export default function TaskList (props) {
                                                         name="review-dt"
                                                         type="date"
                                                         placeholder="MM/DD/YYYY"
-                                                        defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                        value={dayjs(task.review_dt).format('YYYY-MM-DD')}
                                                         onChange= {(e) =>
                                                             handleReviewDtUpdate(e.target, task._id)
                                                         }
@@ -1096,7 +1097,7 @@ export default function TaskList (props) {
                                                     name="review-dt"
                                                     type="date"
                                                     placeholder="MM/DD/YYYY"
-                                                    defaultValue={dayjs(task.review_dt).format('YYYY-MM-DD')}
+                                                    value={dayjs(task.review_dt).format('YYYY-MM-DD')}
                                                     onChange= {(e) =>
                                                         handleReviewDtUpdate(e.target, task._id)
                                                     }

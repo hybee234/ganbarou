@@ -1,8 +1,10 @@
 // Define the query and mutation functionality to work with the Mongoose models.
 const { User, Task } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
+require('dotenv').config();
 
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+// This is your test secret API key.
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 const resolvers = {
 
@@ -89,41 +91,44 @@ const resolvers = {
             console.log (`\x1b[33m │ Stripe │ \x1b[0m\x1b[32m  \x1b[0m`); 
             console.log (`\x1b[33m └────────┘ \x1b[0m\x1b[32m  \x1b[0m`); 
 
+            // Grab your current URL to feed into the checkout session
+            // URL = your domain
+
             const url = new URL(context.headers.referer).origin;
-            // We map through the list of products sent by the client to extract the _id of each item and create a new Order.
-            await Order.create({ products: args.products.map(({ _id }) => _id) });
+            // console.log("💬 url =", url)
             
-            // Create an array of line items that the user is buying
-            //Just coffee ..
-            const line_items = [];
-            
-            for (const product of args.products) {
-                line_items.push({
-                price_data: {
-                    currency: 'usd',
-                    product_data: {
-                        name: product.name,
-                        description: product.description,
-                        images: [`${url}/images/${product.image}`],
-                    },
-                    unit_amount: product.price * 100,
-                },
-                quantity: product.purchaseQuantity,
-                });
-            }
-            // Create payment session
+            // Create a checkout session
+            // A Checkout Session controls what your customer sees on the payment page such as line items,
+            // the order amount and currency, and acceptable payment methods. (Stripe website)
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
-                line_items,
+                // line_items,   //Original code from Activity 23
+                
+                // From Stripe docs (Hard code the line_items value for now)
+                line_items: [
+                    {
+                      // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+                        price: 'price_1Oicj7KwMV8NBYYPSbfrYK5Z',
+                        quantity: 1,
+                    },
+                ],
+
+
                 mode: 'payment',
-                success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-                cancel_url: `${url}/`,
+                success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`, // Original code Activity 23
+                // success_url: `${url}?success=true`,
+                // cancel_url: `${url}?canceled=true`,
+                // automatic_tax: {enabled: true},
             });
             
-            return { session: session.id };
+            console.log("📦 session =",session)
+            console.log("📦 session.id =",session.id)
+
+            return {
+                session: session.id
+                // session: session.url
+            };
         },
-
-
     },
 
 
