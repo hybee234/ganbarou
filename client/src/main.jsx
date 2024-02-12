@@ -15,7 +15,7 @@ import BusinessDriven from './pages/BusinessDriven'
 import CompletedTasks from './pages/CompletedTasks'
 import OneUser from './pages/OneUser'
 import PaymentSuccess from './pages/PaymentSuccess'
-// import PaymentCancel from './pages/PaymentCancel'
+import Unauthorised from './pages/Unauthorised'
 // import PaymentCheckout from './pages/PaymentCheckout'
 
 
@@ -24,13 +24,14 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <App />,
-        errorElement: ( 
-            <div className = "justify-center, text-center">
-                <h1 className='display-2'>We have encountered an error! (Main.jsx)</h1>
-                <div>Allow this Chiikawa character to keep you company while you solve the issue</div>
-                <div className = "text-center py-2"><img className = "m-auto py-2" width="200px" src="../assets/images/chiikawa loading 1.gif" /></div>        
-            </div>   
-        )
+        errorElement: <Unauthorised />
+            // ( 
+            // <div className = "justify-center, text-center">
+            //     <h1 className='display-2'>We have encountered an error! (Main.jsx)</h1>
+            //     <div>Allow this Chiikawa character to keep you company while you solve the issue</div>
+            //     <div className = "text-center py-2"><img className = "m-auto py-2" width="200px" src="../assets/images/chiikawa loading 1.gif" /></div>        
+            // </div>   
+            // )
         ,
         children: [
         {
@@ -77,10 +78,10 @@ const router = createBrowserRouter([
             path: 'success',
             element: <PaymentSuccess />
         },
-        // {
-        //     path: 'cancel',
-        //     element: <PaymentCancel />
-        // },
+        {
+            path: 'unauthorised',
+            element: <Unauthorised />
+        },
         // {
         //     path: 'checkout',
         //     element: <PaymentCheckout />
