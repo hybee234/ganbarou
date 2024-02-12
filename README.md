@@ -1,6 +1,3 @@
-# ganbarou
-Project 3 - MERN Stack
-
 <a ID="readme-top"></a>
 
 <div align="center">
@@ -21,6 +18,8 @@ Project 3 - MERN Stack
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+![Stripe](https://img.shields.io/badge/Stripe-626CD9?style=for-the-badge&logo=Stripe&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 Project 3 - MERN Stack
 
@@ -28,14 +27,20 @@ Project 3 - MERN Stack
 
 ## Description
 
-This application was provided as a fully functioning Google Books Search Engine built with with RESTful API integrations. The exercise was to refactor the application to make use of the latest technology - namely Apollo/GraphQl. This was the last change required to bring this application to the MERN stack.
+Ganbarou is a task management and prioritisation solution designed for a team of users with needing to balance demands from operational and business demands. 
+
+Ganbarou sets itself apart from other task management solutions by making use of a "review date" for each task and in the way tasks are classified and prioritised.
 
 High level features of the application are:
-* Search for books using Google Books API
-* Ability for user to Login or Sign in (application will conditionally render components depending on log in state)
-* Ability for users to save books to their profile for later viewing
-* Ability for users to delete books from their saved list
+* Task tracking across team members (add, complete, update tasks)
+* Assisting the user with focusing on tasks that require attention
+* Grouping tasks into task types (Operational and Business Driven) to organise and prioritise work
+* Processes to prioritise business driven initiatives into a pipeline of works.
+* Transparency of task status across the team for more efficient and effective management.
+* Responsive design that is mobile-friendly
+* Stripe integration enabling "buy me a coffee" donations
 
+Ganbarou is built on the MERN technology stack (Utilising React Context API) and is deployed on Heroku.
 
 ## Table of contents
 
@@ -53,10 +58,16 @@ High level features of the application are:
 ## User Story <a ID="user-story"></a>
 
 ```md
-AS AN avid reader
+AS a member of a team in high demand
 
-I WANT to search for new books to read
-SO THAT I can keep a list of books to purchase
+I WANT to be able to manage by tasks effectively and be clear on what my priorities are 
+SO THAT I can remain effective and efficient
+
+
+As manager of a team in high demand
+
+I WANT to have transparency of all team tasks 
+SO THAT I can effectively manage the team AND collaborate with the business stakeholders to organsie pipelines of work
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -66,49 +77,35 @@ SO THAT I can keep a list of books to purchase
 ### This application was developed with the below User acceptance criteria:
 
 ```
-GIVEN a book search engine
+GIVEN a task management solution
 
-WHEN I load the search engine
-THEN I am presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button
+WHEN I load task management solution
+THEN I am presented with a welcome screen with options to Login or Sign up to the application
 
-WHEN I click on the Search for Books menu option
-THEN I am presented with an input field to search for books and a submit button
+WHEN I log in or sign up
+THEN I am presented with my list of tasks assigned to me. Tasks are grouped into 3 categories - Operational, Focus, and Opportunistic. At the top of the screen is a summary of tasks and their status, followed by detailed lists of tasks for each type (Namely, operational, focus, opportunistic)
 
-WHEN I am not logged in and enter a search term in the input field and click the submit button
-THEN I am presented with several search results, each featuring a book’s title, author, description, image, and a link to that book on the Google Books site
+WHEN reviewing operational tasks on my tasklist
+THEN I am presented with columns relevant to Operational tasks (Prioritisation columns are hidden)
 
-WHEN I click on the Login/Signup menu option
-THEN a modal appears on the screen with a toggle between the option to log in or sign up
+WHEN reviewing business driven tasks on my tasklist (Focus and Oppostunistic)
+THEN I am presented with columns relevant to Business Driven request which includes prioritisation columns (Urgent/Important/Effort, Category and Pipieline)
 
-WHEN the toggle is set to Signup
-THEN I am presented with three inputs for a username, an email address, and a password, and a signup button
+WHEN review the my tasklist
+THEN tasks with an elapsed review date are shaded red to highlight their need for attention, tasklists are generally sorted by review date to keep the most pressing tasks on top of the list (The business driven task list is sorted by Pipeline number)
 
-WHEN the toggle is set to Login
-THEN I am presented with two inputs for an email address and a password and login button
+WHEN changing the review date
+THEN tasks on the tasklist will sort itself by review date, the application will determine if a red shaded background is required and the task summary icon at the top of the page will also update to reflect status
 
-WHEN I enter a valid email address and create a password and click on the signup button
-THEN my user account is created and I am logged in to the site
+WHEN interacting with tasklists
+THEN I am able to change review date, assigned team member and pipeline number directly on the table. Clicking on the Title will open to the detail screen of the task. 
 
-WHEN I enter my account’s email address and password and click on the login button
-THEN I the modal closes and I am logged in to the site
+WHEN I hover my mouse over the title (or long-tap on a phone/tablet)
+THEN Hovering my mouse over the title will show a tooltip of the task summary and stakeholder.
 
-WHEN I am logged in to the site
-THEN the menu options change to Search for Books, an option to see my saved books, and Logout
 
-WHEN I am logged in and enter a search term in the input field and click the submit button
-THEN I am presented with several search results, each featuring a book’s title, author, description, image, and a link to that book on the Google Books site and a button to save a book to my account
 
-WHEN I click on the Save button on a book
-THEN that book’s information is saved to my account
 
-WHEN I click on the option to see my saved books
-THEN I am presented with all of the books I have saved to my account, each featuring the book’s title, author, description, image, and a link to that book on the Google Books site and a button to remove a book from my account
-
-WHEN I click on the Remove button on a book
-THEN that book is deleted from my saved books list
-
-WHEN I click on the Logout button
-THEN I am logged out of the site and presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button  
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
