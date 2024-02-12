@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-
+import Auth from '../utils/auth';
 import Tooltip from '@mui/material/Tooltip';
 import Zoom from '@mui/material/Zoom';
 import { useGlobalContext } from '../utils/GlobalState';
@@ -9,27 +9,22 @@ import { COMPLETE_TASK, UPDATE_REVIEW_DATE_FROM_TASKLIST, ASSIGN_USER, UPDATE_TA
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import {useNavigate} from 'react-router-dom';
+
 import {
     // TASKS,
     NEW_TASK,
     COMPLETE_STATE_TASK,
     TASK_DETAIL,
     TASK_DETAIL_REVIEW_DT,
-    // TASK_DETAIL_ASSIGNED,
-    // TASK_DETAIL_PIPELINE,
-    // USER_SELECT,
-    // UPDATE_STATE_REVIEW_DT
+
 } from "./../utils/actions";
-
-
-// import { FaUserTie } from "react-icons/fa6";
-// import { FaUserNinja } from "react-icons/fa6";
-// import { BsFillCalendar2WeekFill } from "react-icons/bs";
 import { Icon } from '@iconify/react';
 // import { FaFireAlt } from "react-icons/fa";
 
 export default function TaskList (props) {
     // console.log ("TaskList Rendering")
+    
     //--------------------//
     //- Props Validation -//
     //--------------------//
@@ -44,6 +39,21 @@ export default function TaskList (props) {
     
     // Index for Rows - feature that console.logs row numbers when clicked on
     const [rowIndex, setRowIndex] = useState('');
+
+    // Hook to useNavigate
+    const navigate = useNavigate('unauthorised');
+
+    //-------------------//
+    //- check JWT Token -//
+    //-------------------//
+
+    if (Auth.loggedIn) {
+        console.log("📢 JWT is OK")
+    } else {
+        console.log("📢 JWT expired")
+
+    }
+
 
     //----------------------------------------//
     //- Create and Store Date/Time constants -//
@@ -423,7 +433,7 @@ export default function TaskList (props) {
                                                         // followCursor
                                                     >
                                                     <p
-                                                        className=" table-row-cell link-color text-left "
+                                                        className=" table-row-cell link-color text-left"
                                                         onClick={()=> {viewTask(task._id)}}>
                                                             {task.title}
                                                     </p>
@@ -434,7 +444,7 @@ export default function TaskList (props) {
                                         {/* Created_dt Operational */}
                                         <td className="hidden md:table-cell table-row-cell" data-created-dt={task.created_dt}> {dayjs(task.created_dt).format('DD/MM/YY')}</td>                                
                                         {/* Title column Operational */}
-                                        <td className="hidden md:table-cell table-row-cell">
+                                        <td className="hidden md:table-cell table-row-cell text-left">
                                             <Tooltip
                                                 title={
                                                     <div className="tooltip">                                            
@@ -451,7 +461,7 @@ export default function TaskList (props) {
                                                     // followCursor
                                                 >
                                                 <p
-                                                    className=" table-row-cell link-color "
+                                                    className=" table-row-cell link-color"
                                                     onClick={()=> {viewTask(task._id)}}>
                                                         {task.title}
                                                 </p>
@@ -671,7 +681,7 @@ export default function TaskList (props) {
                                                         // followCursor
                                                     >
                                                     <p
-                                                        className=" table-row-cell link-color text-left "
+                                                        className=" table-row-cell link-color text-left"
                                                         onClick={()=> {viewTask(task._id)}}>
                                                             {task.title}
                                                     </p>
@@ -699,7 +709,7 @@ export default function TaskList (props) {
                                                     // followCursor
                                                 >
                                                 <p
-                                                    className=" table-row-cell link-color "
+                                                    className=" table-row-cell link-color text-left"
                                                     onClick={()=> {viewTask(task._id)}}>
                                                         {task.title}
                                                 </p>
@@ -1001,7 +1011,7 @@ export default function TaskList (props) {
                                                         // followCursor
                                                     >
                                                     <p
-                                                        className=" table-row-cell link-color text-left "
+                                                        className=" table-row-cell link-color text-left"
                                                         onClick={()=> {viewTask(task._id)}}>
                                                             {task.title}
                                                     </p>
@@ -1029,7 +1039,7 @@ export default function TaskList (props) {
                                                     // followCursor
                                                 >
                                                 <p
-                                                    className=" table-row-cell link-color "
+                                                    className=" table-row-cell link-color text-left"
                                                     onClick={()=> {viewTask(task._id)}}>
                                                         {task.title}
                                                 </p>

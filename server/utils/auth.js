@@ -59,6 +59,7 @@ module.exports = {
                 console.log (`\x1b[33m ┌────────────────┐ \x1b[0m\x1b[31m┌───────────────┐ \x1b[0m`);
                 console.log (`\x1b[33m │ authMiddleware │ \x1b[0m\x1b[31m│ Token Invalid │ \x1b[0m`); 
                 console.log (`\x1b[33m └────────────────┘ \x1b[0m\x1b[31m└───────────────┘ \x1b[0m`); 
+                res.redirect('/unauthorised')
             }
         }
         // return the request object so it can be passed to the resolver as `context`

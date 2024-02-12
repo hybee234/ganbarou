@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { PiSignInBold } from "react-icons/pi";
 
 export default function Login () {
-    // // Hook to useNavigate
+    // Hook to useNavigate
     const navigate = useNavigate();
 
     //Hooks for useState
