@@ -71,7 +71,6 @@ export default function BuyMeACoffee () {
                         name="cofee-qty"
                         type="number"
                         min="1"
-                        defaultValue="1"
                         value={state.coffeeQty}
                         onChange= {(e) =>
                             dispatch({ type: COFFEE_QTY, payload: e.target.value})}
