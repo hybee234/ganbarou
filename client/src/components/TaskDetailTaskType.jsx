@@ -185,18 +185,18 @@ export default function TaskDetailTaskType() {
                                     state.taskDetail.priority.focus ? 
                                     (
                                         <div>
-                                            <p className = "modal-label"> Focus </p>
+                                            <p className = "text-xl"> Focus </p>
                                             <p className = "modal-label"> Business Driven/High Priority </p>
                                         </div>
                                     ):(
                                         <div>
-                                            <p className = "modal-label"> Opportunistic </p>
+                                            <p className = "text-xl"> Opportunistic </p>
                                             <p className = "modal-label"> (Business Driven/Low Priority) </p>                                            
                                         </div>
                                     )                                    
                                 ):(
                                     <div>
-                                        <p className = "modal-label"> Operational </p>
+                                        <p className = "text-xl"> Operational </p>
                                         <p className = "modal-label"> (Maintenance/Incidents) </p>
                                         <p className = "modal-label text-red-400"> Operational Tasks are Exempt from Prioritisation </p>
                                     </div>

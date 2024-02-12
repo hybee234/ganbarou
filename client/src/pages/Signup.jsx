@@ -172,7 +172,7 @@ export default function SignUp () {
                 <div className="justify-center w-full text-center">
                     <form
                         id="sign-up-form"
-                        className="m-auto my-5 bg-filter rounded-xl text-center border"
+                        className="m-auto my-5 bg-filter rounded-xl text-center border w-1/2"
                         onSubmit= {handleFormSubmit}
                         >
                         {/* <h2 className="w-11/12 mx-auto block uppercase text-lg font-semibold md:text-2xl modal-heading"> Sign Up </h2> */}

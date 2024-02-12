@@ -9,7 +9,7 @@ export default function ContactMe () {
 
     return (
         <div id="connect-with-me">
-            <p className="text-xs">Connect with me :</p>
+            <p className="text-xs py-1">Connect with me :</p>
             <div className="flex">                
                 <span>
                     <div className="link-icon py-1">
@@ -40,7 +40,7 @@ export default function ContactMe () {
                     </div>
                 </span>
             </div>
-            <p className="text-xs">Hy, Feb 2024</p>
+            <p className="text-xs py-1">Hy, Feb 2024</p>
         </div>
     )
 }
