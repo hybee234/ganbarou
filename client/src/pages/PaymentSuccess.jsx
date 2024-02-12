@@ -2,10 +2,15 @@ export default function PaymentSuccess () {
 
     return (
         <p>
-            Thank you for the coffee! It is greatly appreicated!
+            <h2>Thank you for your kind donation, it is greatly appreciated!</h2>
             
-            We appreciate your business! If you have any questions, please email
-            <a href="mailto:orders@example.com">orders@example.com</a>.
+            If you have any questions and suggestions, please email me at 
+            <a className="link-color" href="mailto:huber@email.com"> huber@email.com</a>.
+
+            <div className = "flex p-2 m-2 justify-start">
+                <img src="./assets/images/coffee success.jpg" width="500px" className="welcome-picture m-auto"></img>                                 
+            </div>
+
         </p>
     )
 }

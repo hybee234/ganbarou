@@ -15,8 +15,8 @@ import BusinessDriven from './pages/BusinessDriven'
 import CompletedTasks from './pages/CompletedTasks'
 import OneUser from './pages/OneUser'
 import PaymentSuccess from './pages/PaymentSuccess'
-import PaymentCancel from './pages/PaymentCancel'
-import PaymentCheckout from './pages/PaymentCheckout'
+// import PaymentCancel from './pages/PaymentCancel'
+// import PaymentCheckout from './pages/PaymentCheckout'
 
 
 
@@ -77,14 +77,14 @@ const router = createBrowserRouter([
             path: 'success',
             element: <PaymentSuccess />
         },
-        {
-            path: 'cancel',
-            element: <PaymentCancel />
-        },
-        {
-            path: 'checkout',
-            element: <PaymentCheckout />
-        },
+        // {
+        //     path: 'cancel',
+        //     element: <PaymentCancel />
+        // },
+        // {
+        //     path: 'checkout',
+        //     element: <PaymentCheckout />
+        // },
         ]
     }
 ])

@@ -31,9 +31,7 @@ import {
     NEW_TASK,
     VIEW,
     VIEW_ONE_USER,
-    // TOGGLE_CART,
-    // ADD_MULTIPLE_TO_CART,
-
+    COFFEE_QTY,
 } from './actions';
 
 import createId from './createId';
@@ -407,17 +405,14 @@ export const reducer = (state, action) => {
         //- STRIPE -//
         //----------//
 
-        // case TOGGLE_CART:
-        //     return {
-        //         ...state,
-        //         cartOpen: !state.cartOpen
-        //     };
-
-        //     case ADD_MULTIPLE_TO_CART:
-        //         return {
-        //             ...state,
-        //             cart: [...state.cart, ...action.products],
-        //         };
+        case COFFEE_QTY:{
+            console.log("⬇️ COFFEE_QTY reducer engaged")
+            return { 
+                ...state,
+                coffeeQty: action.payload,
+            }                    
+        }
+        
 
 
 

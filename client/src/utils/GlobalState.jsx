@@ -52,8 +52,7 @@ const GlobalProvider = ({ value = [], ...props }) => {
         userlist:'',
         view:'',
         viewOneUser:'',
-        cart: [],
-        cartOpen: false,       
+        coffeeQty: 1,      
     }
 
     const [state, dispatch] = useReducer(reducer, initialstate );

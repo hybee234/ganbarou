@@ -69,6 +69,7 @@ modal-form: 150
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
+    -webkit-appearance: none;
 
     
 }
@@ -326,8 +327,8 @@ li {
 /**********/
 
 .footer {
-    max-width: 300px;
-    margin-top: 50px;
+    max-width: 175px;
+    margin-top: 100px;
     margin-bottom: 50px;
     margin-inline: auto;
     text-align: center;         
@@ -750,8 +751,6 @@ li {
 .modal-field::placeholder {
     color: rgba(130, 130, 130, 1)
 }
-
-
     
 .modal-field-container {
     /* border: 2px solid yellow; */
@@ -813,10 +812,6 @@ li {
 .task-detail-modal-icon {
     font-size: 3rem
 }
-
-
-
-
 
 #pipeline-number {    
     width: 150px;
@@ -1129,6 +1124,11 @@ li {
     #connect-with-me {
         display: none;
     }
+    .side-menu-heading, .side-menu-item {
+        font-size: 0.7rem;
+        padding-top: 0.0rem;
+        padding-bottom: 0.0rem;
+    }
 }
 
 
@@ -1140,6 +1140,10 @@ li {
 @media (max-height: 375px) {
     .modal-form {
         height: 80vh;
+    }
+    #chiikawa-gif {
+        display: none;
+
     }
 }
 

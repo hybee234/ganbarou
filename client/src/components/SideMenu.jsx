@@ -109,7 +109,7 @@ export default function SideMenu() {
                                     <Link to="/business" className="side-menu-item"> Business Driven Requests </Link> 
                                     <Link to="/completed" className="side-menu-item">Completed Tasks </Link>
                                     <SideMenuViewOneUserSelector />   
-                                    <button id="logout-button" className="side-menu-item"
+                                    <button id="logout-button" className="side-menu-item mt-10"
                                         onClick={handleLogout}
                                         >
                                         Logout
@@ -122,7 +122,7 @@ export default function SideMenu() {
                                         <Link to="/signup" className="side-menu-item"> Sign Up</Link>                                    
                                     </div>
                                     <div className="mt-20 side-menu-heading">
-                                        Log in for more
+                                        Log in for more features
                                     </div>
                                 </div>
                             )

@@ -32,8 +32,16 @@ function Footer() {
     return (
         <div className = "footer">
 
-            <div className = "bg-filter" >       
-                <button
+            <div className = "bg-filter" >     
+
+                    <BuyMeACoffee />
+
+                {/*********************/}
+                {/* Development tools */}
+                {/*********************/}
+
+                {/* Button to trigger console.log of state */}
+                {/* <button
                     className="px-3 py-2 font-bold duration-200 ease-in-out button-color"
                     type="button"
                     value="cancel"
@@ -47,12 +55,10 @@ function Footer() {
                             />
                             <div>&nbsp; console.log(state)</div>                                                  
                     </div> 
-                </button>
+                </button> */}
 
-
-
-                {/* Flag used for developing */}
-                { 
+                {/* Logged in User details */}
+                {/* { 
                     Auth.loggedIn() ? (
                         <div className="text-green-400">
                             <div>Username: {Auth.getProfile().data.username}</div>
@@ -65,17 +71,15 @@ function Footer() {
                             
                         </div>
                     )
-                }      
+                }*/}
                 
-                <button
+                {/* Log out button */}
+                {/* <button
                     className="px-3 py-2 font-bold duration-200 ease-in-out button-color"
-                    onClick={() => clearToken()}
-                    
+                    onClick={() => clearToken()}                    
                 >
                     Log out / Clear JWT                    
-                </button>
-                <BuyMeACoffee />
-                <p>Hybee February 2024</p>
+                </button> */}
             </div>
         </div>
     );

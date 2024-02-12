@@ -592,6 +592,10 @@ video {
   margin-bottom: 1.25rem;
 }
 
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
 .mt-20 {
   margin-top: 5rem;
 }
@@ -646,6 +650,10 @@ video {
 
 .w-11\/12 {
   width: 91.666667%;
+}
+
+.w-16 {
+  width: 4rem;
 }
 
 .w-2\/3 {
@@ -733,6 +741,11 @@ video {
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .py-2 {
@@ -922,6 +935,7 @@ modal-form: 150
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  -webkit-appearance: none;
 }
 
 /* Removes browser implemented padding/margins*/
@@ -1197,8 +1211,8 @@ li {
 /**********/
 
 .footer {
-  max-width: 300px;
-  margin-top: 50px;
+  max-width: 175px;
+  margin-top: 100px;
   margin-bottom: 50px;
   margin-inline: auto;
   text-align: center;
@@ -2085,6 +2099,12 @@ li {
   #connect-with-me {
     display: none;
   }
+
+  .side-menu-heading, .side-menu-item {
+    font-size: 0.7rem;
+    padding-top: 0.0rem;
+    padding-bottom: 0.0rem;
+  }
 }
 
 /*************************************/
@@ -2095,6 +2115,10 @@ li {
 @media (max-height: 375px) {
   .modal-form {
     height: 80vh;
+  }
+
+  #chiikawa-gif {
+    display: none;
   }
 }
 

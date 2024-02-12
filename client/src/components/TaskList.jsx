@@ -256,16 +256,7 @@ export default function TaskList (props) {
             console.log(JSON.stringify(pipelineUpdateError, null, 2)); //Much better error reporting for GraphQl issues
             toast.error("Pipeline Updated Unsuccessful - something went wrong")
         }
-        
-
-
-
-
-
-
     }
-
-
 
     //------------------//
     // View Task Modal -//
@@ -347,8 +338,7 @@ export default function TaskList (props) {
 
 }
 
-// console.log ("🎁 userSelect", userSelect)
-
+    // console.log ("🎁 userSelect", userSelect)
     // console.log("rowIndex", rowIndex)
 
     return (
