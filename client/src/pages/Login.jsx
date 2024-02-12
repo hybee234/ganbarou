@@ -73,7 +73,7 @@ export default function Login () {
             </div>
             <div className="login-body">        
                 <div className="justify-center text-center">
-                    <form id="login-form" className="m-auto my-5 bg-filter rounded-xl text-center border w-1/2"
+                    <form id="login-form" className="m-auto my-5 bg-filter rounded-xl text-center border"
                         onSubmit={handleFormSubmit}>                        
                         <div className="w-full px-1 mx-auto my-5 justify-center">
                             <label className="w-5/6 mx-auto text-left block mb-2 text-xs font-bold tracking-wide text-color uppercase"> Email: </label>
