@@ -2,7 +2,7 @@
 
 <div align="center">
 
-# Ganabrou! 
+# Ganbarou! 
 ## Let's do our best!
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logo=mit)](https://opensource.org/licenses/MIT)
@@ -16,7 +16,6 @@
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 ![Nodemon](https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD)
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
 ![Stripe](https://img.shields.io/badge/Stripe-626CD9?style=for-the-badge&logo=Stripe&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
@@ -40,7 +39,7 @@ High level features of the application are:
 * Responsive design that is mobile-friendly
 * Stripe integration enabling "buy me a coffee" donations
 
-Ganbarou is built on the MERN technology stack (Utilising React Context API) and is deployed on Heroku.
+Ganbarou is built on the MERN technology stack (Utilising React Context API) and is deployed on Heroku. Concepts of gamification and 
 
 ## Table of contents
 
@@ -88,11 +87,11 @@ THEN I am presented with my list of tasks assigned to me. Tasks are grouped into
 WHEN reviewing operational tasks on my tasklist
 THEN I am presented with columns relevant to Operational tasks (Prioritisation columns are hidden)
 
-WHEN reviewing business driven tasks on my tasklist (Focus and Oppostunistic)
+WHEN reviewing business driven tasks on my tasklist (Focus and Opportunistic)
 THEN I am presented with columns relevant to Business Driven request which includes prioritisation columns (Urgent/Important/Effort, Category and Pipieline)
 
-WHEN review the my tasklist
-THEN tasks with an elapsed review date are shaded red to highlight their need for attention, tasklists are generally sorted by review date to keep the most pressing tasks on top of the list (The business driven task list is sorted by Pipeline number)
+WHEN the review date on tasklists
+THEN tasks are shaded red if the date has elapsed to highlight their need for attention, tasklists (except business driven) are sorted in ascending order of review date to keep oldest review date on top. 
 
 WHEN changing the review date
 THEN tasks on the tasklist will sort itself by review date, the application will determine if a red shaded background is required and the task summary icon at the top of the page will also update to reflect status
@@ -100,9 +99,17 @@ THEN tasks on the tasklist will sort itself by review date, the application will
 WHEN interacting with tasklists
 THEN I am able to change review date, assigned team member and pipeline number directly on the table. Clicking on the Title will open to the detail screen of the task. 
 
-WHEN I hover my mouse over the title (or long-tap on a phone/tablet)
-THEN Hovering my mouse over the title will show a tooltip of the task summary and stakeholder.
+WHEN reassigning tasks
+THEN the task will move to the relevant user's tasklist
 
+WHEN I hover my mouse over various parts of the tasklist and task detail form (or long-tap on a phone/tablet)
+THEN tooltips will display where relevant
+
+WHEN I adjust the size of my screen or move onto table/phone devices
+THEN Ganbarou will dynamically respond to suit use on different sized screens
+
+WHEN a user donates a cup of coffee
+THEN Ganbarou will direc the user to a payment screen to complete the transaction
 
 
 
@@ -113,23 +120,23 @@ THEN Hovering my mouse over the title will show a tooltip of the task summary an
 ## Screenshots
 
 
-Screeshot of search results for Javascript
+Screeshot of "My Tasks" screen featuring the Task Summary banner and the task lists for Operational and Focus tasks
 <div align="center">
 
-![Screeshot of search results for Javascript](./client/public/assets/images/screenshot1.png)
+![Screeshot of "My Tasks" screen featuring the Task Summary banner and the task lists for Operational and Focus tasks](./client/public/assets/images/screenshot1.png)
 </div>
 
-Screenshot of books saved by a User
+Screenshot of the Task Details form
 <div align="center">
 
-![Screenshot of books saved by a User](./client/public/assets/images/screenshot2.png)
+![Screenshot of the Task Details form](./client/public/assets/images/screenshot2.png)
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Installation
 
-My portfolio is a deployed application available via this link: [Hybee's Google Book Search Engine (MERN)](https://hybee-book-search-engine-e306e54d030c.herokuapp.com/)
+Ganbarou is a deployed application available via this link: [Ganbarou](https://ganbarou-1225f2f4e197.herokuapp.com/)
 
 The below installations steps are only required if you want to run a local copy or contribute to its design (Skip to usage if you just want to make use of the application)
 
@@ -139,7 +146,7 @@ The below installations steps are only required if you want to run a local copy 
 ```
 npm i
 ```
-3. Once installed you can start the client server services with the below command in the CLI:
+3. Once installed you can start the client and server services with the below command in the CLI:
 ```
 npm run dev
 ```
@@ -148,9 +155,34 @@ npm run dev
 
 ## Usage
 
-My portfolio is a deployed application available via this link: [Hybee's Google Book Search Engine (MERN)](https://hybee-book-search-engine-e306e54d030c.herokuapp.com/)
+Ganbarou is a deployed application available via this link: [Ganbarou](https://ganbarou-1225f2f4e197.herokuapp.com/)
 
-When launched, this application will present with a search field. You can search for books (utilising Google) without logging in, however it is recommended to sign up so that you can save books of interest against your accoun. You can view and delete saved books in the "See Your Books" screen.
+When launched, you'll first be presented with a welcome screen which allows you the option to login or sign up. Step through this process and you'll be brought into the main tasklist screen to start adding tasks and managing them!
+
+### To make the most of Ganbarou:
+
+### Prioritisation:
+
+Ganbarou encourages you to firstly think of your work as either Operational or Business Driven.
+* Operational work is required to keep the lights on - typically work originating within the team itself. These are tasks which must be done to ensure ongoing function of the team
+* Business driven request originate from outside of the team,
+
+Next, Ganbaroubreaks business requests down to "Focus" and "Opportunistic" requests. In the context of Business driven requests:
+* Focus initiatives take priority over Opportunistic (Focies initiatives are typically larger, strategic pieces (high value/high effort) that require dedication to move forward).
+* Focus initiatives are agreed upon tasks that require regular feedback and update
+* Opportunistic initiatives are smaller initiatives that can be picked up/dropped as needed - typically quick wins, nice to haves
+* Opportunistic initiatives do not have a delivery date, they can only be worked on when actions against operational and focus items are not sitting with the team.
+
+Once tasks have been organised into their relevant types, then prioritisation of business driven requests can also take place in their relevant bundle - one pipeline for focus and one for opportunistic (Note that operational tasks are exempt from prioritisation - they always come first)
+* The team is encouraged to screen requests and categorise first before bringing it to a committee to agree and authorise the pipeline of works (Focus and Opportunistic )
+
+### Review Date:
+* Ganbarou makes use of a Review Date on each task for users to determine when the task requires attention.
+* An elapsed review date will turn the background of the task red (as well as a few other areas - the task summary banner, and the task type and review date on the task detail screen)
+* All tasklists (except for the business driven tasklist) are sorted by review date with the oldest date on top, this creates a to-do list for the user to work from top to bottom.
+* The user should continue to update the review date as each action is complete to determine when they want to next work on the task (e.g. if the action is sitting outside the team then the review date should reflect when they want to follow up on the action)
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
     
